@@ -3,6 +3,7 @@ using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,13 +13,13 @@ namespace CourtJustice.Web.Controllers
     public class AssetLandsController : BaseController<AssetLandsController>
     {
         private readonly IAssetLandRepository _assetLandRepository;
-        private readonly ILandOfficeRepository _officeRepository;
+        private readonly ILandOfficeRepository _landOfficeRepository;
 
         public AssetLandsController(IAssetLandRepository assetLandRepository,
-            ILandOfficeRepository officeRepository)
+            ILandOfficeRepository landOfficeRepository)
         {
             _assetLandRepository = assetLandRepository;
-            _officeRepository = officeRepository;
+            _landOfficeRepository = landOfficeRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -34,8 +35,19 @@ namespace CourtJustice.Web.Controllers
             return results.ToList();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var landOffices = await _landOfficeRepository.GetAll();
+            List<SelectListItem> SelectLandOffice = new();
+            foreach (var item in landOffices)
+            {
+                SelectLandOffice.Add(new SelectListItem
+                {
+                    Text = item.LandOfficeCode.ToString(),
+                    Value = item.LandOfficeName.ToString(),
+                });
+            }
+            ViewBag.LandOffices = SelectLandOffice;
             return View(new AssetLand());
         }
 

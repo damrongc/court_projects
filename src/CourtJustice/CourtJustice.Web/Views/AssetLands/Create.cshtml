@@ -44,16 +44,18 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label asp-for="LandOfficeCode" class="control-label"></label>
-                                    <input asp-for="LandOfficeCode" class="form-control" />
-                                    <span asp-validation-for="LandOfficeCode" class="text-danger"></span>
+                                    <select class="form-control dropdown" id="ddlLandOffices" asp-for="LandOfficeCode" asp-items="@ViewBag.LandOffices">
+                                    </select>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label asp-for="EstimatePrice" class="control-label"></label>
                                     <input asp-for="EstimatePrice" class="form-control" />
                                 </div>
                             </div>
+                         
                             <div class="row">
                                 <div class="form-group col-md-4">
                                     <label asp-for="Address" class="control-label"></label>
@@ -68,7 +70,7 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
-                                    <input id="txtProvince" class="form-control" readonly/>
+                                    <input id="txtProvince" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label asp-for="AddressSet.DistrictName" class="control-label"></label>

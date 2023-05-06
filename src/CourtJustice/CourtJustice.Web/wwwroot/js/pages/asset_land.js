@@ -1,9 +1,11 @@
 ﻿
+var table;
 
 $(function () {
     getWithPaging();
 });
-var table;
+
+
 getWithPaging = () => {
     var url = $("#hdGetWithPaging").val();
     table = $('#tbl_assetland').DataTable({
@@ -28,11 +30,11 @@ getWithPaging = () => {
             searchPlaceholder: "Search..."
         },
         "columns": [
-            { data: "AssetLandId", name: "AssetLandId" },
+            { data: "assetLandId", name: "assetLandId" },
             {
                 data: "name", name: "name",
                 render: function (data, type, row) {
-                    return "<a href='#' id='btnSelected'  data-id='" + row.AssetLandId + "'>" + data + "</a>";
+                    return "<a href='#' id='btnSelected'  data-id='" + row.assetLandId + "'>" + data + "</a>";
                 }
             },
             { data: "address", name: "address", },
@@ -42,8 +44,9 @@ getWithPaging = () => {
 
     });
 
+}
 
-    $(table).each(function () {
+$(table).each(function () {
         var datatable = $(this);
         // SEARCH - Add the placeholder for Search and Turn this into in-line form control
         var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');

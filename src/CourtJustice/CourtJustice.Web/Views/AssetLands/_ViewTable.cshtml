@@ -28,33 +28,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AssetLandId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Position)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Gps)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LandOffice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                    <td class="w100">
-                        <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.AssetLandId"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.AssetLandId');"><i class='fa fa-trash'></i></a>
-                        </div>
-                    </td>
-                </tr>
-            }
+           
         </tbody>
     </table>
 </div>
