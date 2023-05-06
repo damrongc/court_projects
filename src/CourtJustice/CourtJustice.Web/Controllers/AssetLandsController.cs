@@ -14,7 +14,8 @@ namespace CourtJustice.Web.Controllers
         private readonly IAssetLandRepository _assetLandRepository;
         private readonly ILandOfficeRepository _officeRepository;
 
-        public AssetLandsController(IAssetLandRepository assetLandRepository, ILandOfficeRepository officeRepository)
+        public AssetLandsController(IAssetLandRepository assetLandRepository,
+            ILandOfficeRepository officeRepository)
         {
             _assetLandRepository = assetLandRepository;
             _officeRepository = officeRepository;
