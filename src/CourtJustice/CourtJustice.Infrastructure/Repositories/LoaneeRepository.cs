@@ -41,8 +41,16 @@ namespace CourtJustice.Infrastructure.Repositories
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
+                var sql = @"SELECT cus_id,name,phone_number,
+address,b.district_name,b.sub_district_name,b.province_name,b.postal_code,
+address1,c.district_name,c.sub_district_name,c.province_name,c.postal_code,
+address2,d.district_name,d.sub_district_name,d.province_name,d.postal_code
+FROM loanee a
+LEFT join address_set b ON a.address_id =b.address_id
+LEFT JOIN address_set c ON a.address1id =c.address_id
+LEFT JOIN address_set d ON a.address2id =d.address_id";
                 var sb = new StringBuilder();
-                sb.Append("select * from loanee");
+                sb.Append(sql);
                 if (!string.IsNullOrEmpty(filter))
                 {
                     sb.Append(" where (cust_id LIKE @filter");
