@@ -2,16 +2,20 @@
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CourtJustice.Web.Controllers
 {
-    public class LoaneesController : BaseController<AddressSetsController>
+    public class LoaneesController : BaseController<LoaneesController>
     {
         private readonly ILoaneeRepository _loaneeRepository;
+        private readonly IOccupationRepository _occupationRepository;
 
-        public LoaneesController(ILoaneeRepository loaneeRepository)
+        public LoaneesController(ILoaneeRepository loaneeRepository, 
+            IOccupationRepository occupationRepository = null)
         {
             _loaneeRepository = loaneeRepository;
+            _occupationRepository = occupationRepository;
         }
 
         public IActionResult Index()
@@ -19,8 +23,19 @@ namespace CourtJustice.Web.Controllers
             return View();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var occupations = await _occupationRepository.GetAll();
+            List<SelectListItem> SelectOccupations = new();
+            foreach (var item in occupations)
+            {
+                SelectOccupations.Add(new SelectListItem
+                {
+                    Text = item.OccupationName.ToString(),
+                    Value = item.OccupationId.ToString(),
+                });
+            }
+            ViewBag.Occupations = SelectOccupations;
             return View(new Loanee());
         }
         [HttpPost]

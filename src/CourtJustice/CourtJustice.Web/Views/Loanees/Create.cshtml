@@ -123,6 +123,14 @@
                                     <input id="txtPostalCode2" class="form-control" readonly />
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">อาชีพ</label>
+                                    <select class="form-control dropdown" id="ddlOccupations" asp-for="OccupationId" asp-items="@ViewBag.Occupations">
+                                    </select>
+                                </div>
+                            </div>
+               
 
                             <div class="form-group form-check">
                                 <label class="form-check-label">

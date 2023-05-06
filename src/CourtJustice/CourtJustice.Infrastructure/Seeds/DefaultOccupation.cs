@@ -1,26 +1,34 @@
-﻿namespace CourtJustice.Infrastructure.Seeds
+﻿using CourtJustice.Domain.Models;
+
+namespace CourtJustice.Infrastructure.Seeds
 {
     public static class DefaultOccupation
     {
         public static void Seed(ApplicationDbContext context)
         {
-            //var users = context.AppUsers.ToList();
-            //if (users.Count == 0)
-            //{
-            //    context.AppUsers.Add(new AppUser
-            //    {
-            //        UserId= "admin",
-            //        UserName= "Administrator",
-            //        Password= "fORRNGKa8yYj1WaiuGE079GcOFcTadWiDkwa7Hzd0yg=",
-            //        Email= "admin@inventor.com",
-            //        GroupId=1,
-            //        IsActive=true,
-            //        UserCreated = "admin",
-            //        CreatedDateTime = DateTime.UtcNow
+            var occupations = context.Occupations.ToList();
+            if (occupations.Count == 0)
+            {
+                context.Occupations.Add(new Occupation
+                {
+                    OccupationId = 1,
+                    OccupationName = "ไม่ระบุ",
 
-            //    });
-            //   context.SaveChanges();
-            //}
+                });
+                context.Occupations.Add(new Occupation
+                {
+                    OccupationId = 2,
+                    OccupationName = "แม่บ้าน",
+
+                });
+                context.Occupations.Add(new Occupation
+                {
+                    OccupationId = 3,
+                    OccupationName = "พนักงานบริษัท",
+
+                });
+                context.SaveChanges();
+            }
 
         }
     }

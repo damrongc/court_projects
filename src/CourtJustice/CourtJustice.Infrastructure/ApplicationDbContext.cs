@@ -41,8 +41,8 @@ namespace CourtJustice.Infrastructure
         public DbSet<CardType> CardTypes { get; set; }
         public DbSet<Employer> Employers { get; set; }
         public DbSet<LandOffice> LandOffices { get; set; }
-        public DbSet<LawCase> lawCases { get; set; }
-        public DbSet<Occupation> occupations { get; set; }
+        public DbSet<LawCase> LawCases { get; set; }
+        public DbSet<Occupation> Occupations { get; set; }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             //var auditEntries = HandleAuditingBeforeSaveChanges("System");

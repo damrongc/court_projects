@@ -14,31 +14,31 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public async Task Create(Occupation model)
         {
-            await Context.occupations.AddAsync(model);
+            await Context.Occupations.AddAsync(model);
             await Context.SaveChangesAsync();
         }
 
         public async Task Delete(int id)
         {
-            var model = await Context.occupations.FindAsync(id);
-            Context.occupations.Remove(model);
+            var model = await Context.Occupations.FindAsync(id);
+            Context.Occupations.Remove(model);
             await Context.SaveChangesAsync();
         }
 
         public async Task<List<Occupation>> GetAll()
         {
-            return await Context.occupations.ToListAsync();
+            return await Context.Occupations.ToListAsync();
         }
 
         public async Task<Occupation> GetByKey(int id)
         {
-            var model = await Context.occupations.FindAsync(id);
+            var model = await Context.Occupations.FindAsync(id);
             return model;
         }
 
         public async Task Update(int id, Occupation model)
         {
-            var result = await Context.occupations.FindAsync(model.OccupationId);
+            var result = await Context.Occupations.FindAsync(model.OccupationId);
             result.OccupationName = model.OccupationName;
 
             await Context.SaveChangesAsync();
