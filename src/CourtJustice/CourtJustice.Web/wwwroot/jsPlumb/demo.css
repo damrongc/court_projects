@@ -1,0 +1,280 @@
+.demo {
+    /* for IE10+ touch devices */
+    touch-action: none;
+}
+
+.flowchart-demo .window {
+    border: 1px solid #346789;
+    box-shadow: 2px 2px 19px #aaa;
+    -o-box-shadow: 2px 2px 19px #aaa;
+    -webkit-box-shadow: 2px 2px 19px #aaa;
+    -moz-box-shadow: 2px 2px 19px #aaa;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    /*opacity: 0.8;*/
+    width: 85px;
+    height: 85px;
+    line-height: 80px;
+    cursor: pointer;
+    text-align: center;
+    z-index: 20;
+    position: absolute;
+    background-color: #eeeeef;
+    color: black;
+    font-family: helvetica, sans-serif;
+    padding: 0.0em;
+    font-size: 0.9em;
+    -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+    -moz-transition: -moz-box-shadow 0.15s ease-in;
+    -o-transition: -o-box-shadow 0.15s ease-in;
+    transition: box-shadow 0.15s ease-in;
+}
+
+.flowchart-demo .window:hover {
+    box-shadow: 2px 2px 19px #444;
+    -o-box-shadow: 2px 2px 19px #444;
+    -webkit-box-shadow: 2px 2px 19px #444;
+    -moz-box-shadow: 2px 2px 19px #444;
+    opacity: 0.6;
+}
+
+.flowchart-demo .active {
+    border: 1px dotted green;
+}
+
+.flowchart-demo .hover {
+    border: 1px dotted red;
+}
+
+#flowchartWindow1 {
+    top: 34em;
+    left: 5em;
+}
+
+#flowchartWindow2 {
+    top: 7em;
+    left: 36em;
+}
+
+#flowchartWindow3 {
+    top: 27em;
+    left: 48em;
+}
+
+#flowchartWindow4 {
+    top: 23em;
+    left: 22em;
+}
+
+#flowchartWindow5 {
+    top: 14em;
+    left: 15em;
+}
+
+.flowchart-demo .jsplumb-connector {
+    z-index: 4;
+}
+
+.flowchart-demo .jsplumb-endpoint,
+.endpointTargetLabel,
+.endpointSourceLabel {
+    z-index: 21;
+    cursor: pointer;
+}
+
+.flowchart-demo .aLabel {
+    background-color: white;
+    padding: 0.4em;
+    font: 12px sans-serif;
+    color: #444;
+    z-index: 21;
+    border: 1px dotted gray;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.flowchart-demo .aLabel.jsplumb-hover {
+    background-color: #5C96BC;
+    color: white;
+    border: 1px solid white;
+}
+
+.window.jsplumb-connected {
+    border: 2px solid green;
+}
+
+.jsplumb-drag {
+    outline: 4px solid pink !important;
+}
+
+path,
+.jsplumb-endpoint {
+    cursor: pointer;
+}
+
+.jsplumb-overlay {
+    background-color: transparent;
+}
+
+#formpop,
+#formchangenamepop {
+    z-index: 50;
+    background-color: white;
+    border-radius: 25px;
+    padding: 10px;
+    box-shadow: 1px 1px 30px 1px #999999;
+    width: 460px;
+}
+
+.nameInput,
+#nameChangeInput {
+    height: 35px;
+    font-size: 18px;
+    padding: 4px 8px;
+    /*border-radius: 12px;*/
+    width: 370px;
+}
+
+.nameInput:focus,
+#nameChangeInput:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(77, 209, 105)
+}
+
+.jtk-demo-main {
+    background-color: transparent;
+    font-family: Arial, sans-serif;
+    /*margin-right: auto;*/
+    /* width: 85%; */
+    /* margin-left: 12.5%; */
+    height: 75vh;
+    /* height: 90vh; */
+    /* position: absolute; */
+    /*right: 0px;*/
+    border: 3px solid #434343;
+    /*padding: 10px;*/
+    /*margin-top: 98px;*/
+}
+
+.jtk-demo-main-left {
+    background-color: transparent;
+    font-family: Arial, sans-serif;
+    width: 10%;
+    /* height: 100%; */
+    /* height: 90vh; */
+    /*max-width: 1500px;*/
+    position: absolute;
+    border: 3px solid #434343;
+    /*padding: 10px;*/
+    /*margin-top: 98px;*/
+}
+
+.contentFolder,
+.contentFile {
+    margin-top: 5px;
+    margin-left: 15px;
+    width: 220px;
+    height: 60px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    float: left;
+    z-index: 1000;
+}
+
+.contentFolder:hover,
+.contentFile:hover,
+.contentFolder.active {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #C8C8C8;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    border-radius: 2x;
+    background-color: #F0F0F0;
+    cursor: pointer;
+}
+
+.folderName,
+.fileName {
+    height: 15px;
+    width: 200px;
+}
+
+.folderName span,
+.fileName span {
+    color: Black;
+    height: 15px;
+}
+
+.folderType {
+    color: Gray;
+    font-size: x-small;
+    height: 15px;
+}
+
+.fileType {
+    color: Gray;
+    font-size: x-small;
+    height: 15px;
+}
+
+.fileIcon {
+    vertical-align: middle;
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    float: left;
+    margin-top: 4px;
+    padding-left: 15px;
+}
+
+.folderProperties {
+    margin-top: 10px;
+    height: 60px;
+}
+
+.fileProperties {
+    margin-top: 5px;
+    height: 60px;
+}
+
+.fileVersion {
+    color: Gray;
+    height: 15px;
+}
+
+
+.folderContextMenu {
+    -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.contextMenuRow {
+    position: relative;
+    width: 200px;
+    height: 60px;
+    cursor: pointer;
+    background: #efefef repeat-x 0 0;
+    border: 1px solid #d5d5d5;
+    vertical-align: middle;
+}
+
+.contextMenuRow:hover {
+    background-color: #fff;
+    background-image: none;
+}
+
+.contextMenuRow span {
+    position: absolute;
+    color: #494949;
+    margin-left: 10px;
+    margin-top: 6px;
+    zoom: 1.5;
+}

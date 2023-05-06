@@ -1,0 +1,65 @@
+﻿@using CourtJustice.Domain.Models
+@model IEnumerable<AssetLand>
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover data-table" id="tbl_assetland">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+                <th>
+                    @Html.DisplayNameFor(model => model.AssetLandId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Position)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gps)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LandOfficeCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LandOffice)
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetLandId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Position)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gps)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LandOfficeCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LandOffice)
+                    </td>
+
+                    <td class="w100">
+                        <div class="d-inline">
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.AssetLandId"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.AssetLandId');"><i class='fa fa-trash'></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,76 @@
+﻿@using CourtJustice.Domain.Models;
+@model IEnumerable<AssetCar>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover data-table">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+                <th>
+                    @Html.DisplayNameFor(model => model.ChassisNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EngineNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Brand)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Model)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductionYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstimatePrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LicensePlate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Owner)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChassisNumber)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EngineNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductionYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstimatePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LicensePlate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Owner)
+                    </td>
+                    <td class="w100">
+                        <div class="d-inline">
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.ChassisNumber"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.ChassisNumber');"><i class='fa fa-trash'></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,337 @@
+﻿@*@inject Microsoft.Extensions.Options.IOptions<EnergyPlus.Configs.AppSettings> AppSettingsOptions*@
+
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration _configuration;
+
+@{
+    var appName = _configuration.GetValue<string>("AppSettings:AppName");
+    var appBackground = _configuration.GetValue<string>("AppSettings:AppBackground");
+    var appLogo = _configuration.GetValue<string>("AppSettings:AppLogo");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] -@appName</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="~/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/vendors/base/vendor.bundle.base.css">
+    <!-- endinject -->
+    <link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />*@
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="~/vendors/select2/select2.min.css">
+    <link rel="stylesheet" href="~/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="~/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    @*<link href='https://fonts.googleapis.com/css?family=Kanit:400,300&subset=thai,latin' rel='stylesheet' type='text/css'>*@
+
+    @*<link rel="stylesheet" href="~/vendors/font-awesome/css/font-awesome.min.css" />*@
+    <link rel="stylesheet" href="~/css/vertical-layout-light/style.css">
+    <link rel="stylesheet" href="~/vendors/datetimepicker-master/jquery.datetimepicker.css" />
+    <link rel="stylesheet" href="~/vendors/jquery-contextmenu/jquery.contextMenu.min.css" />
+    <link rel="stylesheet" href="~/vendors/jquery-multiselect/jquery.multiselect.css" />
+    <link rel="stylesheet" href="~/vendors/waitMe/waitMe.css" />
+
+    <link rel="stylesheet" href="~/vendors/jstree/themes/default/style.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/mychart.css" />
+    @*<link href="~/css/model-full-screen.css" rel="stylesheet" />*@
+    <link rel="shortcut icon" href="~/images/favicon.png" />
+
+
+    <style>
+        .home-bg {
+            /*height: 80vh;*/
+            background-image: url('@Url.Content("~/images/" + @appBackground)');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: block !important;
+        }
+    </style>
+
+</head>
+<body>
+    @*<body class="sidebar-icon-only">*@
+    <div class="container-scroller">
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-left navbar-brand-wrapper d-flex align-items-center justify-content-between">
+                <a class="navbar-brand" href="#" style="color: #fff;">
+                    C+
+                    @*<img src="~/images/@appLogo" style="height: auto;" />*@
+                </a>
+                <a class="navbar-brand brand-logo-mini" style="color:#fff;"><span>E+</span></a>
+                <button class="navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
+                <label class="text-success pull-left"><strong>Welcome to @appName</strong></label>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-user-icon">
+                        <span>@DateTimeOffset.Now.ToString("dd MMM yyyy")</span>
+                    </li>
+                    <li class="nav-item nav-settings d-none d-lg-flex">
+                        <a class="btn btn-outline-info" onclick="showInPopup('@Url.Action("ChangePasswordPopup","AppUsers",Context.Request.Scheme)','Change Password')">Change Password</a>
+                        <a class="nav-info btn btn-outline-danger btn-fw" asp-controller="Home" asp-action="Logout">Logout</a>
+                        @* @if (User.Identity.IsAuthenticated)
+                        {
+                        <a class="nav-info btn btn-outline btn-fw" asp-controller="Home" asp-action="Logout">Logout</a>
+                        }
+                        else
+                        {
+                        <a class="nav-info btn btn-outline-info btn-fw" asp-controller="Home" asp-action="Logout">Login</a>
+                        }*@
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid page-body-wrapper">
+            @await Component.InvokeAsync("Navigate")
+            @{
+                var route = @Url.ActionContext.RouteData.Values["controller"].ToString();
+            }
+            <div class="main-panel">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h1>Login</h1>
+                }
+                else
+                {
+                    @if (route == "Home")
+                    {
+                        @if (string.IsNullOrEmpty(appBackground))
+                        {
+                            <div class="content-wrapper">
+                                <div class="col-12">
+                                    @RenderBody()
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="content-wrapper home-bg">
+                                <div class="col-12">
+                                    @RenderBody()
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="content-wrapper">
+                            <div class="col-12">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+
+        <!-- md-model -->
+        <div class="modal" tabindex="-1" role="dialog" id="form-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /md-model -->
+        <!-- xl-model -->
+        <div class="modal" tabindex="-1" role="dialog" id="form-modal-xl">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /xl-model -->
+        <!-- fullscreen-model -->
+        <div class="modal" tabindex="-1" role="dialog" id="form-modal-table">
+            <div class="fullscreen" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-fullscreen" tabindex="-1" role="dialog" id="form-modal-chart">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /fullscreen-model -->
+
+
+                <!-- xl-model -->
+        <div class="modal" tabindex="-1" role="dialog" id="form-modal-lookup">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /xl-model -->
+
+
+
+        <div class="loaderbody" id="loaderbody">
+            <div class="loader"></div>
+        </div>
+
+    </div>
+    <!-- container-scroller -->
+    <!-- base:js -->
+    <script src="~/vendors/base/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>*@
+
+
+    <!-- Plugin js for this page-->
+    <script src="~/vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="~/vendors/flot/jquery.flot.js"></script>
+    <script src="~/vendors/flot/jquery.flot.resize.js"></script>
+    <script src="~/vendors/flot/curvedLines.js"></script>
+    <script src="~/vendors/chart.js/Chart.min.js"></script>
+    <script src="~/vendors/datetimepicker-master/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="~/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    @*<script src="~/vendors/datatables.net/datatables.fixedcolumns.min.js"></script>*@
+
+
+    <script src="~/vendors/select2/select2.min.js"></script>
+    <script src="~/vendors/sweetalert/sweetalert.min.js"></script>
+    <script src="~/vendors/moment/moment.min.js"></script>
+
+    <script src="~/vendors/jquery-contextmenu/jquery.contextMenu.min.js"></script>
+    <script src="~/vendors/jquery-multiselect/jquery.multiselect.js"></script>
+    <script src="~/vendors/waitMe/waitMe.js"></script>
+    <script src="~/vendors/jstree/jstree.min.js"></script>
+
+
+
+    <!-- support lib for bezier stuff -->
+    <!--<script src="~/vendors/jsPlumb/lib/jsBezier-0.6-min.js"></script>-->
+    <!-- event adapter -->
+    <!--<script src="~/vendors/jsPlumb/lib/mottle-0.7.2.js"></script>-->
+    <!-- geometry functions -->
+    <!--<script src="~/vendors/jsPlumb/lib/biltong-0.3.js"></script>-->
+    <!-- drag -->
+    <!--<script src="~/vendors/jsPlumb/lib/katavorio-0.17.0.js"></script>-->
+    <!-- jsplumb util -->
+    <!--<script src="~/vendors/jsPlumb/src/util.js"></script>
+    <script src="~/vendors/jsPlumb/src/browser-util.js"></script>-->
+    <!-- main jsplumb engine -->
+    <!--<script src="~/vendors/jsPlumb/src/jsPlumb.js"></script>-->
+    <!-- base DOM adapter -->
+    <!--<script src="~/vendors/jsPlumb/src/dom-adapter.js"></script>
+    <script src="~/vendors/jsPlumb/src/overlay-component.js"></script>-->
+    <!-- endpoint -->
+    <!--<script src="~/vendors/jsPlumb/src/endpoint.js"></script>-->
+    <!-- connection -->
+    <!--<script src="~/vendors/jsPlumb/src/connection.js"></script>-->
+    <!-- anchors -->
+    <!--<script src="~/vendors/jsPlumb/src/anchors.js"></script>-->
+    <!-- connectors, endpoint and overlays  -->
+    <!--<script src="~/vendors/jsPlumb/src/defaults.js"></script>-->
+    <!-- bezier connectors -->
+    <!--<script src="~/vendors/jsPlumb/src/connectors-bezier.js"></script>
+
+    <script src="~/vendors/jsPlumb/src/connectors-statemachine.js"></script>
+
+    <script src="~/vendors/jsPlumb/src/connectors-flowchart.js"></script>
+
+    <script src="~/vendors/jsPlumb/src/renderers-svg.js"></script>
+
+
+    <script src="~/vendors/jsPlumb/src/base-library-adapter.js"></script>
+    <script src="~/vendors/jsPlumb/src/dom.jsPlumb.js"></script>
+
+    <script src="~/vendors/jsPlumb/demo.js"></script>-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="~/js/off-canvas.js"></script>
+    <script src="~/js/hoverable-collapse.js"></script>
+    <script src="~/js/template.js"></script>
+    <script src="~/js/settings.js"></script>
+
+
+    @*<script src="~/js/tooltips.js"></script>
+    <script src="~/js/popover.js"></script>*@
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    @*<script src="~/js/dashboard.js"></script>*@
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @*<script src="~/js/context-menu.js"></script>*@
+    @*<script src="~/js/pages/alarm_log.js"></script>*@
+    @*<script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
+
+
+    @*<script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>*@
+
+
+    <script src="~/lib/highcharts/highstock.min.js"></script>
+    @*<script src="~/lib/highcharts/modules/highcharts-3d.js"></script>*@
+    <script src="~/lib/highcharts/modules/exporting.min.js"></script>
+    <script src="~/lib/highcharts/modules/drilldown.js"></script>
+    <script src="~/lib/highcharts/modules/accessibility.js"></script>
+
+    @*<script src="~/js/themes/dark-unica.js"></script>*@
+    @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+﻿@using CourtJustice.Domain.Models;
+@model Loanee
+
+@{
+    ViewData["Title"] = "ข้อมูลลูกหนี้";
+    var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
+    var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <input asp-for="AddressId" class="form-control col-md-2" type="hidden" />
+                            <input asp-for="Address1Id" class="form-control col-md-2" type="hidden" />
+                            <input asp-for="Address2Id" class="form-control col-md-2" type="hidden" />
+
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label asp-for="CusId" class="control-label"></label>
+                                    <input asp-for="CusId" class="form-control" />
+                                    <span asp-validation-for="CusId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Name" class="control-label"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label asp-for="PhoneNumber" class="control-label"></label>
+                                    <input asp-for="PhoneNumber" class="form-control" />
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">ที่อยู่ตาม ทร.</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" asp-for="Address" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+
+                                        <span class="input-group-append">
+                                            <a href="#" onclick="showLookup('0','@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
+                                    <input id="txtProvince" class="form-control"  readonly/>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.DistrictName" class="control-label"></label>
+                                    <input id="txtDistrict" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
+                                    <input id="txtSubdistrict" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.PostalCode" class="control-label"></label>
+                                    <input id="txtPostalCode" class="form-control" readonly />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">ที่อยู่(1)</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" asp-for="Address1" />
+                                        <span class="input-group-append">
+                                            <a href="#" onclick="showLookup('1','@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
+                                    <input id="txtProvince1" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.DistrictName" class="control-label"></label>
+                                    <input id="txtDistrict1" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
+                                    <input id="txtSubdistrict1" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.PostalCode" class="control-label"></label>
+                                    <input id="txtPostalCode1" class="form-control" readonly />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">ที่อยู่(2)</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" asp-for="Address2" />
+                                        <span class="input-group-append">
+                                            <a href="#" onclick="showLookup('2','@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
+                                    <input id="txtProvince2" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.DistrictName" class="control-label"></label>
+                                    <input id="txtDistrict2" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
+                                    <input id="txtSubdistrict2" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.PostalCode" class="control-label"></label>
+                                    <input id="txtPostalCode2" class="form-control" readonly />
+                                </div>
+                            </div>
+
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                                </label>
+                            </div>
+                        @*    <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label class="control-label">ที่อยู่</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="txtAddressSetLookup" readonly />
+                                        <span class="input-group-append">
+                                            <a href="#" onclick="showLookup('@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                            <div class="form-group">
+                                <a asp-action="Index" class="btn btn-light">Back</a>
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Hidden("hdGetAddressSetById",Url.Action("GetAddressById","AddressSets"))
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
+        <script src="~/js/pages/loanee.js" asp-append-version="true"></script>
+    }
+}

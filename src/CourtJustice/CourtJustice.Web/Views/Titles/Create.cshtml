@@ -1,0 +1,85 @@
+﻿@using CourtJustice.Domain.Models;
+@model Title
+
+@{
+    ViewData["Title"] = "คำนำหน้าชื่อ";
+    var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
+    var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
+}
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="TitleCode" class="control-label"></label>
+                                    <input asp-for="TitleCode" class="form-control" />
+                                    <span asp-validation-for="TitleCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="TitleName" class="control-label"></label>
+                                    <input asp-for="TitleName" class="form-control" />
+                                    <span asp-validation-for="TitleName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label class="control-label">รหัส</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="txtAddressSetLookup" readonly />
+                                        <span class="input-group-append">
+                                            <a href="#" onclick="showLookup('@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
+                                        </span>
+                                    </div>
+                                </div>
+               @*                 <div class="form-group col-md-4">
+                                    <label class="control-label">ชื่อ</label>
+                                    <input class="form-control" id="txtProductNameLookup" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="control-label">จำนวน</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" value="1" id="txtIssueQty" />
+                                        <span class="input-group-append">
+                                            <a href="#" id="btn_add_product" class="btn btn-primary text-white">Add</a>
+                                        </span>
+                                    </div>
+                                </div>*@
+                            </div>
+
+                            <div class="form-group">
+                                <a asp-action="Index" class="btn btn-light">Back</a>
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Hidden("hdGetAddressSetById",Url.Action("GetAddressById","AddressSets"))
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
+    }
+}

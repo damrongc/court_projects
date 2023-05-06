@@ -1,0 +1,70 @@
+﻿@using CourtJustice.Domain.Models;
+@using CourtJustice.Domain.ViewModels;
+@using CourtJustice.Infrastructure.Helpers;
+
+@model Tuple<AppUserViewModel, IEnumerable<AppProgram>>;
+@*@model IEnumerable<Inventor.Domain.Models.app_program>*@
+@{
+
+}
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        @*        <li class="nav-item nav-profile">
+        <div class="nav-link d-flex">
+
+        <div class="profile-name">
+        <p class="name">
+        @Model.Item1.id
+        </p>
+        </div>
+        </div>
+        </li>*@
+
+        <li class="nav-item nav-profile">
+            <div class="nav-link d-flex">
+                <div class="profile-image">
+                    <img src="/images/user.png" alt="image">
+                </div>
+                <div class="profile-name">
+                    <p class="name">
+                        @Model.Item1.UserName
+                    </p>
+                    <p class="designation">
+                        @Model.Item1.GroupName
+                    </p>
+                </div>
+            </div>
+        </li>
+
+        @foreach (var item in Model.Item2)
+        {
+            @if (item.ParentProgramId == 0)
+            {
+                var parentProgramId = $"P{item.ProgramId}";
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#@parentProgramId" aria-expanded="false" aria-controls="@parentProgramId">
+                        <i class="@item.MenuIcon"></i>
+                        <span class="menu-title">@item.ProgramName</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="@parentProgramId">
+                        <ul class="nav flex-column sub-menu">
+                            @foreach (var child in Model.Item2)
+                            {
+                                @if (child.ParentProgramId == item.ProgramId)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="@child.ControllerName" asp-action="@child.ActionName">
+                                            @child.ProgramName
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</nav>
+

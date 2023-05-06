@@ -1,0 +1,58 @@
+﻿@using CourtJustice.Domain.Models;
+@model GroupUser
+
+@{
+    ViewData["Title"] = "กลุ่มผู้ใช้งาน";
+
+}
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="GroupId" class="control-label"></label>
+                                    <input asp-for="GroupId" class="form-control" readonly />
+                                    <span asp-validation-for="GroupId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="GroupName" class="control-label"></label>
+                                    <input asp-for="GroupName" class="form-control" />
+                                    <span asp-validation-for="GroupName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <a asp-action="Index" class="btn btn-light">Back</a>
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,74 @@
+﻿@using CourtJustice.Domain.Models;
+@model IEnumerable<Title>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover data-table">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+                <th>
+                    @Html.DisplayNameFor(model => model.TitleCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TitleName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserCreated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserUpdated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdatedDateTime)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="w100">
+                        <div class="badge badge-success badge-pill">@item.TitleCode</div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TitleName)
+                    </td>
+                    <td>
+                        @if (item.IsActive)
+                        {
+                            <div class="badge badge-outline-success badge-pill">ใช้งาน</div>
+                        }
+                        else
+                        {
+                            <div class="badge badge-outline-light badge-pill">ไม่ใช้งาน</div>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserUpdated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdatedDateTime)
+                    </td>
+                    <td class="w100">
+                        <div class="d-inline">
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.TitleCode"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.TitleCode');"><i class='fa fa-trash'></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

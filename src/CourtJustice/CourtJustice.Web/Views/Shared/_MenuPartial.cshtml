@@ -1,0 +1,52 @@
+﻿@using CourtJustice.Domain.Models;
+@model IEnumerable<AppProgram>
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <li class="nav-item nav-profile">
+            <div class="nav-link d-flex">
+
+                <div class="profile-name">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <p class="name">
+                            @User.Identity.Name
+                        </p>
+                    }
+                    @*<p class="designation">
+                        Manager
+                        </p>*@
+                </div>
+            </div>
+        </li>
+
+        @foreach (var item in Model)
+        {
+            @if (item.ParentProgramId == 0)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#@item.ProgramName" aria-expanded="false" aria-controls="@item.ProgramName">
+                        <i class="mdi mdi-view-array menu-icon"></i>
+                        <span class="menu-title">@item.ProgramName</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="@item.ProgramName">
+                        <ul class="nav flex-column sub-menu">
+                            @foreach (var child in Model)
+                            {
+                                @if (child.ParentProgramId == item.ProgramId)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="@child.ControllerName" asp-action="@child.ActionName">
+                                            @child.ProgramName
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</nav>
+

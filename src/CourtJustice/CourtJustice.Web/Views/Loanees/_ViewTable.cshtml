@@ -1,0 +1,39 @@
+﻿@using CourtJustice.Domain.Models;
+@model IEnumerable<Loanee>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" id="tbl_loanee">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+                <th>
+                    @Html.DisplayNameFor(model => model.CusId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+@*                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserCreated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserUpdated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdatedDateTime)
+                </th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        </tbody>
+    </table>
+</div>

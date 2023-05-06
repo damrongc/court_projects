@@ -1,0 +1,48 @@
+﻿@using CourtJustice.Domain.Models
+@model IEnumerable<AssetImage>
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover data-table">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AssetId)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImageId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssetId)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImagePath)
+                    </td>
+                    <td class="w100">
+                        <div class="d-inline">
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.ImageId"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.ImageId');"><i class='fa fa-trash'></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

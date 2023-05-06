@@ -1,0 +1,27 @@
+﻿@using CourtJustice.Domain.Models;
+@model IEnumerable<Title>
+@{
+    ViewData["Title"] = "คำนำหน้าชื่อ";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">@ViewData["Title"]</h3>
+                    <a asp-action="Create" class="btn btn-success text-white"><i class="fa fa-plus"></i> Create New</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div id="view-table">
+                    @await Html.PartialAsync("_ViewTable", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Hidden("hdDeleteRoute",Url.Action("Delete","Titles"))
+
