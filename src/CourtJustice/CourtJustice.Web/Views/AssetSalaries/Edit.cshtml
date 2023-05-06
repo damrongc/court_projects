@@ -2,13 +2,13 @@
 @model AssetSalary
 
 @{
-    ViewData["Title"] = "Asset Land";
+    ViewData["Title"] = "เงินเดือน";
     var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
     var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
 }
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-3">
@@ -18,6 +18,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <form asp-action="Create">
+                            <input asp-for="AddressId" class="form-control col-md-2" type="hidden" />
+
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
                                 <div class="form-group col-md-6">
@@ -48,16 +50,32 @@
                             </div>
 
                             <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label asp-for="AddressId" class="control-label"></label>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Address" class="control-label"></label>
                                     @*<input asp-for="AddressId" class="form-control" />*@
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="txtAddressSetLookup" readonly />
+                                        <input type="text" class="form-control" id="txtAddressSetLookup" />
                                         <span class="input-group-append">
-                                            <a href="#" onclick="showLookup('@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
+                                            <a href="#" onclick="showLookup('0','@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
                                         </span>
                                     </div>
 
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
+                                    <input id="txtProvince" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.DistrictName" class="control-label"></label>
+                                    <input id="txtDistrict" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
+                                    <input id="txtSubdistrict" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AddressSet.PostalCode" class="control-label"></label>
+                                    <input id="txtPostalCode" class="form-control" readonly />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -79,6 +97,8 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
+        <script src="~/js/pages/asset_salary.js" asp-append-version="true"></script>
+
     }
 }
 

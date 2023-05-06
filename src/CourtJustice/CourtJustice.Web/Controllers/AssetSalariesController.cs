@@ -1,6 +1,7 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
+using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -91,6 +92,32 @@ namespace CourtJustice.Web.Controllers
 
             }
 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetWithPaging()
+        {
+            try
+            {
+                //var productGroupCode = Request.Form["productGroupCode"].FirstOrDefault();
+                var draw = Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault();
+                var length = Request.Form["length"].FirstOrDefault();
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = await _assetSalaryRepository.GetRecordCount(searchValue);
+
+                var data = await _assetSalaryRepository.GetPaging(skip, pageSize, searchValue);
+                var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
+                return Ok(jsonData);
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using CourtJustice.Domain.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
@@ -8,11 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CourtJustice.Web.Controllers
 {
- 
-    public class CaseResultController : BaseController<CaseResultController>
+
+    public class CaseResultsController : BaseController<CaseResultsController>
     {
         private readonly ICaseResultRepository _caseResultRepository;
-        public CaseResultController(ICaseResultRepository caseResultRepository)
+        public CaseResultsController(ICaseResultRepository caseResultRepository)
         {
             _caseResultRepository = caseResultRepository;
         }
