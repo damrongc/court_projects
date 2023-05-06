@@ -1,6 +1,7 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
+using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,10 +12,12 @@ namespace CourtJustice.Web.Controllers
     public class AssetLandsController : BaseController<AssetLandsController>
     {
         private readonly IAssetLandRepository _assetLandRepository;
+        private readonly ILandOfficeRepository _officeRepository;
 
-        public AssetLandsController(IAssetLandRepository assetLandRepository)
+        public AssetLandsController(IAssetLandRepository assetLandRepository, ILandOfficeRepository officeRepository)
         {
             _assetLandRepository = assetLandRepository;
+            _officeRepository = officeRepository;
         }
 
         public async Task<IActionResult> Index()

@@ -10,6 +10,9 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Update(int id, AssetSalary model);
         Task Delete(int id);
         Task<AssetSalary> GetByKey(int id);
+
+        Task<IEnumerable<AssetSalary>> GetPaging(int skip, int take, string filter);
+        Task<int> GetRecordCount(string filter);
     }
 }
 

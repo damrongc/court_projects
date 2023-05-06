@@ -25,7 +25,7 @@
         </div>
     </div>
 </div>
-
+@Html.Hidden("hdGetWithPaging", Url.Action("GetWithPaging", "AssetSalaries"))
 @Html.Hidden("hdDeleteRoute", Url.Action("Delete", "AssetSalaries"))
 @section scripts{
     <script src="~/js/pages/asset_salary.js" asp-append-version="true"></script>

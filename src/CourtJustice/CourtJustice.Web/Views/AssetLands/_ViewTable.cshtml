@@ -12,17 +12,15 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Position)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.Gps)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.LandOfficeCode)
+                    @Html.DisplayNameFor(model => model.LandOffice)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.LandOffice)
+                    @Html.DisplayNameFor(model => model.Address)
                 </th>
                 <th>
 
@@ -39,19 +37,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Position)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
+
                     <td>
                         @Html.DisplayFor(modelItem => item.Gps)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.LandOfficeCode)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.LandOffice)
                     </td>
-
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
                     <td class="w100">
                         <div class="d-inline">
                             <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.AssetLandId"><i class='fa fa-edit'></i></a>
