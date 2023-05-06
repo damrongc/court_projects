@@ -12,7 +12,7 @@ namespace CourtJustice.Web.Controllers
         private readonly IOccupationRepository _occupationRepository;
 
         public LoaneesController(ILoaneeRepository loaneeRepository, 
-            IOccupationRepository occupationRepository = null)
+            IOccupationRepository occupationRepository)
         {
             _loaneeRepository = loaneeRepository;
             _occupationRepository = occupationRepository;
