@@ -24,11 +24,16 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
                                 <div class="form-group col-md-2">
+                                    <label asp-for="LoanNumber" class="control-label"></label>
+                                    <input asp-for="LoanNumber" class="form-control" />
+                                    <span asp-validation-for="LoanNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
                                     <label asp-for="CusId" class="control-label"></label>
                                     <input asp-for="CusId" class="form-control" />
                                     <span asp-validation-for="CusId" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <label asp-for="Name" class="control-label"></label>
                                     <input asp-for="Name" class="form-control" />
                                     <span asp-validation-for="Name" class="text-danger"></span>
@@ -38,6 +43,11 @@
                                     <label asp-for="PhoneNumber" class="control-label"></label>
                                     <input asp-for="PhoneNumber" class="form-control" />
                                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="control-label" asp-for="LoanTypeCode"></label>
+                                    <select class="form-control dropdown" id="ddlLoanTypes" asp-for="LoanTypeCode" asp-items="@ViewBag.LoanTypes">
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
@@ -53,16 +63,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
-                                    <input id="txtProvince" class="form-control"  readonly/>
+                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
+                                    <input id="txtSubdistrict" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label asp-for="AddressSet.DistrictName" class="control-label"></label>
                                     <input id="txtDistrict" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
-                                    <input id="txtSubdistrict" class="form-control" readonly />
+                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
+                                    <input id="txtProvince" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label asp-for="AddressSet.PostalCode" class="control-label"></label>
@@ -80,16 +90,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
-                                    <input id="txtProvince1" class="form-control" readonly />
+                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
+                                    <input id="txtSubdistrict1" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label asp-for="AddressSet.DistrictName" class="control-label"></label>
                                     <input id="txtDistrict1" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
-                                    <input id="txtSubdistrict1" class="form-control" readonly />
+                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
+                                    <input id="txtProvince1" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label asp-for="AddressSet.PostalCode" class="control-label"></label>
@@ -107,16 +117,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
-                                    <input id="txtProvince2" class="form-control" readonly />
+                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
+                                    <input id="txtSubdistrict2" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label asp-for="AddressSet.DistrictName" class="control-label"></label>
                                     <input id="txtDistrict2" class="form-control" readonly />
                                 </div>
+
                                 <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
-                                    <input id="txtSubdistrict2" class="form-control" readonly />
+                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
+                                    <input id="txtProvince2" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label asp-for="AddressSet.PostalCode" class="control-label"></label>
@@ -124,29 +135,29 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <label class="control-label">อาชีพ</label>
                                     <select class="form-control dropdown" id="ddlOccupations" asp-for="OccupationId" asp-items="@ViewBag.Occupations">
                                     </select>
                                 </div>
                             </div>
-               
+
 
                             <div class="form-group form-check">
                                 <label class="form-check-label">
                                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
                                 </label>
                             </div>
-                        @*    <div class="row">
-                                <div class="form-group col-md-2">
-                                    <label class="control-label">ที่อยู่</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="txtAddressSetLookup" readonly />
-                                        <span class="input-group-append">
-                                            <a href="#" onclick="showLookup('@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
-                                        </span>
-                                    </div>
-                                </div>
+                            @*    <div class="row">
+                            <div class="form-group col-md-2">
+                            <label class="control-label">ที่อยู่</label>
+                            <div class="input-group">
+                            <input type="text" class="form-control" id="txtAddressSetLookup" readonly />
+                            <span class="input-group-append">
+                            <a href="#" onclick="showLookup('@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
+                            </span>
+                            </div>
+                            </div>
                             </div>*@
 
                             <div class="form-group">

@@ -1,11 +1,12 @@
 ﻿using System;
 using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
 	public interface ILoaneeRepository
 	{
-        Task<IEnumerable<Loanee>> GetPaging(int skip, int take, string filter);
+        Task<IEnumerable<LoaneeViewModel>> GetPaging(int skip, int take, string filter);
         Task<int> GetRecordCount(string filter);
 
         Task<List<Loanee>> GetAll();

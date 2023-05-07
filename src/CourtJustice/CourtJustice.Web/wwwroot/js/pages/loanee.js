@@ -36,6 +36,9 @@ getWithPaging =()=> {
                 }
             },
             { data: "address", name: "address", },
+            { data: "address1", name: "address1", },
+            { data: "address2", name: "address2", },
+            { data: "occupationName", name: "occupationName", },
             { data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: "<a id='btnEdit' class='btn btn-sm btn-primary text-white js-action'><i class='fa fa-edit'></i></a><a id='btnDelete' class='btn btn-sm btn-danger text-white js-action'><i class='fa fa-trash'></i></a>" }
 
         ]

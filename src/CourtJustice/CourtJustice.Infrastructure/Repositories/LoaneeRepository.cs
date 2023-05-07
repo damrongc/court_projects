@@ -1,4 +1,5 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
 using Microsoft.Extensions.Configuration;
@@ -35,20 +36,22 @@ namespace CourtJustice.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Loanee>> GetPaging(int skip, int take, string filter)
+        public async Task<IEnumerable<LoaneeViewModel>> GetPaging(int skip, int take, string filter)
         {
             try
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
                 var sql = @"SELECT cus_id,name,phone_number,
-address,b.district_name,b.sub_district_name,b.province_name,b.postal_code,
-address1,c.district_name,c.sub_district_name,c.province_name,c.postal_code,
-address2,d.district_name,d.sub_district_name,d.province_name,d.postal_code
+concat(address,' ',b.sub_district_name,' ',b.district_name,' ',b.province_name,' ',b.postal_code) AS address,
+concat(address1,' ',c.sub_district_name,' ',c.district_name,' ',c.province_name,' ',c.postal_code) AS address1,
+concat(address2,' ',d.sub_district_name,' ',d.district_name,' ',d.province_name,' ',d.postal_code) AS address2,
+occupation_name
 FROM loanee a
 LEFT join address_set b ON a.address_id =b.address_id
 LEFT JOIN address_set c ON a.address1id =c.address_id
-LEFT JOIN address_set d ON a.address2id =d.address_id";
+LEFT JOIN address_set d ON a.address2id =d.address_id
+LEFT JOIN occupation e ON a.occupation_id =e.occupation_id";
                 var sb = new StringBuilder();
                 sb.Append(sql);
                 if (!string.IsNullOrEmpty(filter))
@@ -68,7 +71,7 @@ LEFT JOIN address_set d ON a.address2id =d.address_id";
                     dictionary.Add("@filter", string.Format("%{0}%", filter));
                 }
                 var parameters = new DynamicParameters(dictionary);
-                var result = await conn.QueryAsync<Loanee>(sb.ToString(), parameters);
+                var result = await conn.QueryAsync<LoaneeViewModel>(sb.ToString(), parameters);
                 return result;
 
             }

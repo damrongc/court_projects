@@ -1,47 +1,29 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CourtJustice.Domain.Models
+namespace CourtJustice.Domain.ViewModels
 {
-    [Table("loanee")]
-    public class Loanee : BaseEntity
+    public class LoaneeViewModel
     {
-        [Key]
         [Display(Name = "ID-CUST")]
         public string CusId { get; set; } = string.Empty;
-        [Required]
         [Display(Name = "ชื่อ-สกุล")]
         public string Name { get; set; } = string.Empty;
-        [Required]
         [Display(Name = "เบอร์ติดต่อ")]
         public string PhoneNumber { get; set; } = string.Empty;
-        [Required]
         [Display(Name = "ที่อยู่ตาม ทร.")]
         public string Address { get; set; } = string.Empty;
-        public int AddressId { get; set; }
-        [ForeignKey(nameof(AddressId))]
-        public virtual AddressSet? AddressSet { set; get; }
-
         [Display(Name = "ที่อยู่ที่ติดต่อได้(1)")]
-        public string? Address1 { get; set; } = string.Empty;
-        public int Address1Id { get; set; } = 0;
-        [ForeignKey(nameof(Address1Id))]
-        public virtual AddressSet? AddressSet1 { set; get; }
-
+        public string Address1 { get; set; } = string.Empty;
         [Display(Name = "ที่อยู่ที่ติดต่อได้(2)")]
-        public string? Address2 { get; set; } = string.Empty;
-        public int Address2Id { get; set; } = 0;
-        [ForeignKey(nameof(Address2Id))]
-        public virtual AddressSet? AddressSet2 { set; get; }
+        public string Address2 { get; set; } = string.Empty;
+        [Display(Name = "อาชีพ")]
+        public string OccupationName { get; set; } = string.Empty;
 
-        public int OccupationId { get; set; } = 0;
-        [ForeignKey(nameof(OccupationId))]
-        public virtual Occupation Occupation { set; get; } = new Occupation();
         [Display(Name = "เลขที่สัญญา")]
         public string LoanNumber { get; set; } = string.Empty;
 
         [Display(Name = "ประเภทสินเชื่อ")]
-        public string LoanTypeCode { get; set; } = string.Empty;
+        public string LoanTypeName { get; set; } = string.Empty;
 
         [Display(Name = "ค่างวดตามสัญญา")]
         public decimal InstallmentsByContract { get; set; } = 0;
@@ -53,7 +35,7 @@ namespace CourtJustice.Domain.Models
         public DateOnly LastPaidDate { get; set; }
 
         [Display(Name = "สถานะบัญชี")]
-        public int BucketId { get; set; }
+        public string BucketName { get; set; } = string.Empty;
 
         [Display(Name = "วันที่กำหนดชำระงวดแรก")]
         public DateOnly FirstPaidDate { get; set; }
@@ -93,6 +75,5 @@ namespace CourtJustice.Domain.Models
 
         [Display(Name = "OD")]
         public int OverdueDayAmount { get; set; } = 0;
-
     }
 }

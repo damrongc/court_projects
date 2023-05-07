@@ -1,5 +1,5 @@
-﻿@using CourtJustice.Domain.Models;
-@model IEnumerable<Loanee>
+﻿@using CourtJustice.Domain.ViewModels;
+@model IEnumerable<LoaneeViewModel>
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover" id="tbl_loanee">
@@ -14,26 +14,20 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Address)
                 </th>
-@*                <th>
-                    @Html.DisplayNameFor(model => model.IsActive)
+                <th>
+                    @Html.DisplayNameFor(model => model.Address1)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserCreated)
+                    @Html.DisplayNameFor(model => model.Address2)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CreatedDateTime)
+                    @Html.DisplayNameFor(model => model.OccupationName)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserUpdated)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UpdatedDateTime)
-                </th>*@
+ 
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        
         </tbody>
     </table>
 </div>
