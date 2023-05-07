@@ -3,15 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourtJustice.Domain.Models
 {
-    [Table("sub_task_status")]
-    public class SubTaskStatus : BaseEntity
+    [Table("loan_sub_task_status")]
+    public class LoanSubTaskStatus 
     {
         [Key]
         [Display(Name = "รหัสกลุ่มงานย่อย")]
-        public int SubTaskStatusId { get; set; }
+        public int LoanSubTaskStatusId { get; set; }
         [Display(Name = "กลุ่มงานย่อย")]
-        public string SubTaskStatusName { get; set; } = string.Empty;
+        public string LoanSubTaskStatusName { get; set; } = string.Empty;
 
-        public int TaskStatusId { get; set; }
+        public int LoanTaskStatusId { get; set; }
     }
 }

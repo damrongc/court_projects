@@ -1,5 +1,6 @@
 ﻿using System;
 using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
@@ -11,7 +12,7 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Delete(int id);
         Task<AssetLand> GetByKey(int id);
 
-        Task<IEnumerable<AssetLand>> GetPaging(int skip, int take, string filter);
+        Task<IEnumerable<AssetLandViewModel>> GetPaging(int skip, int take, string filter);
         Task<int> GetRecordCount(string filter);
     }
 }

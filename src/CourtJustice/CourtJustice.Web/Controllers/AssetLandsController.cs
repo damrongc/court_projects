@@ -22,9 +22,9 @@ namespace CourtJustice.Web.Controllers
             _landOfficeRepository = landOfficeRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await GetAll());
+            return View();
         }
 
 
@@ -43,8 +43,8 @@ namespace CourtJustice.Web.Controllers
             {
                 SelectLandOffice.Add(new SelectListItem
                 {
-                    Text = item.LandOfficeCode.ToString(),
-                    Value = item.LandOfficeName.ToString(),
+                    Text = item.LandOfficeName.ToString(),
+                    Value = item.LandOfficeCode.ToString(),
                 });
             }
             ViewBag.LandOffices = SelectLandOffice;

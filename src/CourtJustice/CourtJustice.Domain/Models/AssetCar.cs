@@ -29,5 +29,11 @@ namespace CourtJustice.Domain.Models
 
         [Display(Name = "เจ้าของกรรมสิทธิ")]
         public string Owner { get; set; } = string.Empty;
+
+        [Display(Name = "ประเภทรถ")]
+        public string CarTypeCode { get; set; } = string.Empty;
+
+        [ForeignKey(nameof(CarTypeCode))]
+        public virtual CardType? CardType { set; get; }
     }
 }
