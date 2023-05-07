@@ -25,6 +25,7 @@ namespace CourtJustice.Infrastructure
         public DbSet<AssetType> AssetTypes { get; set; }
 
         public DbSet<GroupUser> GroupUsers { get; set; }
+        public DbSet<Guarantor> Guarantors { get; set; }
         public DbSet<UserPermission> UserPermissions { get; set; }
 
 
@@ -56,6 +57,7 @@ namespace CourtJustice.Infrastructure
         public DbSet<Referencer> Referencers { get; set; }
         public DbSet<LoanSubTaskStatus> LoanSubTaskStatuses { get; set; }
         public DbSet<LoanTaskStatus> LoanTaskStatuses { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
