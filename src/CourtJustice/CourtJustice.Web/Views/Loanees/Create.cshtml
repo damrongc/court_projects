@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label class="control-label">ที่อยู่ตาม ทร.</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" asp-for="Address" />
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label class="control-label">ที่อยู่(1)</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" asp-for="Address1" />
@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3">
                                     <label class="control-label">ที่อยู่(2)</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" asp-for="Address2" />
@@ -140,26 +140,98 @@
                                 </div>
                             </div>
                             <div class="row">
-                     
+                                <div class="form-group col-md-2">
+                                    <label class="control-label" asp-for="EmployerCode"></label>
+                                    <select class="form-control dropdown" id="ddlEmployer" asp-for="EmployerCode" asp-items="@ViewBag.Employers">
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="control-label" asp-for="EmployeeCode"></label>
+                                    <select class="form-control dropdown" id="ddlEmployees" asp-for="EmployeeCode" asp-items="@ViewBag.Employees">
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="control-label" asp-for="BucketId"></label>
+                                    <select class="form-control dropdown" id="ddlBuckets" asp-for="BucketId" asp-items="@ViewBag.Buckets">
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="InstallmentsByContract" class="control-label"></label>
+                                    <input asp-for="InstallmentsByContract" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="InstallmentsByAgree" class="control-label"></label>
+                                    <input asp-for="InstallmentsByAgree" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-md-2">
+                                    <label asp-for="LastPaidDate" class="control-label"></label>
+                                    <input type="text" class="form-control" asp-for="LastPaidDate" id="txtLastPaidDate" asp-format="{0:dd-MM-yyyy}" />
+
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="FirstPaidDate" class="control-label"></label>
+                                    <input type="text" class="form-control" asp-for="FirstPaidDate" id="txtFirstPaidDate" asp-format="{0:dd-MM-yyyy}" />
+
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="DueDate" class="control-label"></label>
+                                    <input type="text" class="form-control" asp-for="DueDate" id="txtDueDate" asp-format="{0:dd-MM-yyyy}" />
+
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="FollowUpDate" class="control-label"></label>
+                                    <input type="text" class="form-control" asp-for="FollowUpDate" id="txtFollowUpDate" asp-format="{0:dd-MM-yyyy}" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label asp-for="IntereteRate" class="control-label"></label>
+                                    <input asp-for="IntereteRate" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="IntereteRateAmount" class="control-label"></label>
+                                    <input asp-for="IntereteRateAmount" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="OverdueAmount" class="control-label"></label>
+                                    <input asp-for="OverdueAmount" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label asp-for="PaidAmount" class="control-label"></label>
+                                    <input asp-for="PaidAmount" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="PaidInMonthAmount" class="control-label"></label>
+                                    <input asp-for="PaidInMonthAmount" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="TotalAmount" class="control-label"></label>
+                                    <input asp-for="TotalAmount" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+                            </div>
+                            <div class="row">
+                      
+                                <div class="form-group col-md-2">
+                                    <label asp-for="RemainingAmount" class="control-label"></label>
+                                    <input asp-for="RemainingAmount" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="OverdueDayAmount" class="control-label"></label>
+                                    <input asp-for="OverdueDayAmount" class="form-control" type="number" />
+                                </div>
                             </div>
 
-
-                            <div class="form-group form-check">
+                    @*        <div class="form-group form-check">
                                 <label class="form-check-label">
                                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
                                 </label>
-                            </div>
-                            @*    <div class="row">
-                            <div class="form-group col-md-2">
-                            <label class="control-label">ที่อยู่</label>
-                            <div class="input-group">
-                            <input type="text" class="form-control" id="txtAddressSetLookup" readonly />
-                            <span class="input-group-append">
-                            <a href="#" onclick="showLookup('@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
-                            </span>
-                            </div>
-                            </div>
                             </div>*@
+
 
                             <div class="form-group">
                                 <a asp-action="Index" class="btn btn-light">Back</a>
@@ -172,6 +244,67 @@
 
             </div>
         </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Basic Tab</h4>
+                <p class="card-description">Horizontal bootstrap tab</p>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home-1" role="tab" aria-controls="home-1" aria-selected="true">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile-1" role="tab" aria-controls="profile-1" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact-1" role="tab" aria-controls="contact-1" aria-selected="false">Contact</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="home-1" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="media">
+                            <img class="mr-3 w-25 rounded" src="https://via.placeholder.com/115x115" alt="sample image">
+                            <div class="media-body">
+                                <h4 class="mt-0">Why choose us?</h4>
+                                <p>
+                                    Far curiosity incommode now led smallness allowance. Favour bed assure son things yet. She consisted
+                                    consulted elsewhere happiness disposing household any old the. Widow downs you new shade drift hopes
+                                    small. So otherwise commanded sweetness we improving. Instantly by daughters resembled unwilling principle
+                                    so middleton.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile-1" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="media">
+                            <img class="mr-3 w-25 rounded" src="https://via.placeholder.com/115x115" alt="sample image">
+                            <div class="media-body">
+                                <h4 class="mt-0">John Doe</h4>
+                                <p>
+                                    Fail most room even gone her end like. Comparison dissimilar unpleasant six compliment two unpleasing
+                                    any add. Ashamed my company thought wishing colonel it prevent he in. Pretended residence are something
+                                    far engrossed old off.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact-1" role="tabpanel" aria-labelledby="contact-tab">
+                        <h4>Contact us </h4>
+                        <p>
+                            Feel free to contact us if you have any questions!
+                        </p>
+                        <p>
+                            <i class="mdi mdi-phone text-info"></i>
+                            +123456789
+                        </p>
+                        <p>
+                            <i class="mdi mdi-email-outline text-success"></i>
+                            contactus@example.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 @Html.Hidden("hdGetAddressSetById",Url.Action("GetAddressById","AddressSets"))

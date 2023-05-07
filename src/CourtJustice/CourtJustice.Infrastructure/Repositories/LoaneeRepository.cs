@@ -56,7 +56,7 @@ LEFT JOIN occupation e ON a.occupation_id =e.occupation_id";
                 sb.Append(sql);
                 if (!string.IsNullOrEmpty(filter))
                 {
-                    sb.Append(" where (cust_id LIKE @filter");
+                    sb.Append(" where (cus_id LIKE @filter");
                     sb.Append(" or name LIKE @filter");
                     sb.Append(" )");
                 }
@@ -93,7 +93,7 @@ LEFT JOIN occupation e ON a.occupation_id =e.occupation_id";
                 sb.Append("select count(1) from loanee");
                 if (!string.IsNullOrEmpty(filter))
                 {
-                    sb.Append(" where (cust_id LIKE @filter");
+                    sb.Append(" where (cus_id LIKE @filter");
                     sb.Append(" or name LIKE @filter");
                     sb.Append(" )");
                 }

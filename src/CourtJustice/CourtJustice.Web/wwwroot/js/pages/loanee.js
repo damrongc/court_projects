@@ -1,6 +1,28 @@
 ﻿var table;
 
+
 $(function () {
+
+    $('#txtLastPaidDate').datetimepicker({
+        timepicker: false,
+        format: 'd-m-Y',
+        closeOnDateSelect: true
+    });
+    $('#txtFirstPaidDate').datetimepicker({
+        timepicker: false,
+        format: 'd-m-Y',
+        closeOnDateSelect: true
+    });
+    $('#txtDueDate').datetimepicker({
+        timepicker: false,
+        format: 'd-m-Y',
+        closeOnDateSelect: true
+    });
+    $('#txtFollowUpDate').datetimepicker({
+        timepicker: false,
+        format: 'd-m-Y',
+        closeOnDateSelect: true
+    });
     getWithPaging();
 });
 

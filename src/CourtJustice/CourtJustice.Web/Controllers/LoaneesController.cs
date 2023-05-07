@@ -11,14 +11,23 @@ namespace CourtJustice.Web.Controllers
         private readonly ILoaneeRepository _loaneeRepository;
         private readonly IOccupationRepository _occupationRepository;
         private readonly ILoanTypeRepository _loanTypeRepository;
+        private readonly IBucketRepository _bucketRepository;
+        private readonly IEmployerRepository _employerRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
         public LoaneesController(ILoaneeRepository loaneeRepository,
             IOccupationRepository occupationRepository,
-            ILoanTypeRepository loanTypeRepository)
+            ILoanTypeRepository loanTypeRepository,
+            IBucketRepository bucketRepository,
+            IEmployerRepository employerRepository,
+            IEmployeeRepository employeeRepository)
         {
             _loaneeRepository = loaneeRepository;
             _occupationRepository = occupationRepository;
             _loanTypeRepository = loanTypeRepository;
+            _bucketRepository = bucketRepository;
+            _employerRepository = employerRepository;
+            _employeeRepository = employeeRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -73,8 +82,52 @@ namespace CourtJustice.Web.Controllers
             }
             ViewBag.LoanTypes = SelectLoanTypes;
 
+            //Bucket
+            var buckets = await _bucketRepository.GetAll();
+            List<SelectListItem> SelectBuckets = new();
+            foreach (var item in buckets)
+            {
+                SelectBuckets.Add(new SelectListItem
+                {
+                    Text = item.BucketName.ToString(),
+                    Value = item.BucketId.ToString(),
+                });
+            }
+            ViewBag.Buckets = SelectBuckets;
 
-            return View(new Loanee());
+            //Employer
+            var employers = await _employerRepository.GetAll();
+            List<SelectListItem> SelectEmployers = new();
+            foreach (var item in employers)
+            {
+                SelectEmployers.Add(new SelectListItem
+                {
+                    Text = item.EmployerName.ToString(),
+                    Value = item.EmployerCode.ToString(),
+                });
+            }
+            ViewBag.Employers = SelectEmployers;
+            //Employee
+            var employees = await _employeeRepository.GetAll();
+            List<SelectListItem> SelectEmployees = new();
+            foreach (var item in employees)
+            {
+                SelectEmployees.Add(new SelectListItem
+                {
+                    Text = item.EmployeeName.ToString(),
+                    Value = item.EmployeeCode.ToString(),
+                });
+            }
+            ViewBag.Employees = SelectEmployees;
+
+            return View(new Loanee
+            {
+                IsActive = true,
+                LastPaidDate = DateOnly.FromDateTime(DateTime.Today),
+                FirstPaidDate = DateOnly.FromDateTime(DateTime.Today),
+                DueDate = DateOnly.FromDateTime(DateTime.Today),
+                FollowUpDate = DateOnly.FromDateTime(DateTime.Today)
+            });
         }
         [HttpPost]
         public async Task<IActionResult> Create(Loanee model)

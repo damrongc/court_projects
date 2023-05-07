@@ -125,7 +125,12 @@ div.dataTables_wrapper div.dataTables_length select {
 .form-control {
     border: 1px solid #edeef2 !important;
 }
-
+.form-control-sm {
+    border: 1px solid #edeef2 !important;
+}
+.form-group label {
+    margin-bottom: 0rem !important;
+}
 .dropdown {
     height: 50px;
     outline: 0px !important;
@@ -148,7 +153,7 @@ div.dataTables_wrapper div.dataTables_length select {
     font-size: 0.75rem !important;
 }
 .form-group {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem !important;
 }
 
 .modal .modal-dialog .modal-content .modal-header {

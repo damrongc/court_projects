@@ -12,7 +12,7 @@ namespace CourtJustice.Domain.Models
         [Required]
         [Display(Name = "พนักงาน")]
         public string EmployeeName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public string? Email { get; set; } = string.Empty;
         [Display(Name = "เบอร์ติดต่อ")]
         public string PhoneNumber { get; set; } = string.Empty;
         [Display(Name = "วันที่จ้าง")]
