@@ -7,9 +7,9 @@ namespace CourtJustice.Infrastructure.Interfaces
 	{
         Task<List<CarType>> GetAll();
         Task Create(CarType model);
-        Task Update(string id, CarType model);
-        Task Delete(string id);
-        Task<CarType> GetByKey(string id);
+        Task Update(int id, CarType model);
+        Task Delete(int id);
+        Task<CarType> GetByKey(int id);
     }
 }
 
