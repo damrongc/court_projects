@@ -10,5 +10,11 @@ namespace CourtJustice.Domain.Models
         public int ImageId { get; set; }
         public string AssetId { get; set; } = string.Empty;
         public string ImagePath { get; set; } = string.Empty;
+
+
+        [Display(Name = "ลูกหนี้")]
+        public string CusId { get; set; }
+        [ForeignKey(nameof(CusId))]
+        public virtual Loanee? Loanee { set; get; }
     }
 }

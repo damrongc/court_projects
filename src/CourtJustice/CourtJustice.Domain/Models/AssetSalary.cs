@@ -16,5 +16,11 @@ namespace CourtJustice.Domain.Models
         public int AddressId { get; set; }
         [ForeignKey(nameof(AddressId))]
         public virtual AddressSet? AddressSet { set; get; }
+
+
+        [Display(Name = "ลูกหนี้")]
+        public string CusId { get; set; }
+        [ForeignKey(nameof(CusId))]
+        public virtual Loanee? Loanee { set; get; }
     }
 }

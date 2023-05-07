@@ -52,6 +52,7 @@ namespace CourtJustice.Web
             builder.Services.AddTransient<IEmployerRepository, EmployerRepository>();
             builder.Services.AddTransient<ICourtRepository, CourtRepository>();
             builder.Services.AddTransient<ILoanTypeRepository, LoanTypeRepository>();
+            builder.Services.AddTransient<ICarTypeRepository, CarTypeRepository >();
 
 
             builder.Services.AddScoped<RequestAuthenticationFilter>();

@@ -32,6 +32,13 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
+                                    <label asp-for="CarTypeCode" class="control-label"></label>
+                                    <select class="form-control dropdown" id="ddlCarTypes" asp-for="CarTypeCode" asp-items="@ViewBag.CarTypes">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
                                     <label asp-for="Brand" class="control-label"></label>
                                     <input asp-for="Brand" class="form-control" />
                                 </div>
@@ -52,19 +59,19 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label asp-for="EstimatePrice" class="control-label"></label>
-                                    <input asp-for="EstimatePrice" class="form-control" /> 
+                                    <input asp-for="EstimatePrice" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label asp-for="LicensePlate" class="control-label"></label>
-                                    <input asp-for="LicensePlate" class="form-control" />    
+                                    <input asp-for="LicensePlate" class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label asp-for="Owner" class="control-label"></label>
-                                    <input asp-for="Owner" class="form-control" />  
+                                    <input asp-for="Owner" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group">

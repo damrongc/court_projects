@@ -3,83 +3,63 @@ using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CourtJustice.Web.Controllers
 {
-
-    public class AssetCarsController : BaseController<AssetCarsController>
+   
+    public class CarTypesController : BaseController<CarTypesController>
     {
-        private readonly IAssetCarRepository _assetCarRepository;
         private readonly ICarTypeRepository _carTypeRepository;
 
-        public AssetCarsController(IAssetCarRepository assetCarRepository,ICarTypeRepository carTypeRepository)
+        public CarTypesController(ICarTypeRepository carTypeRepository)
         {
-            _assetCarRepository = assetCarRepository;
             _carTypeRepository = carTypeRepository;
         }
-
 
         public async Task<IActionResult> Index()
         {
             return View(await GetAll());
         }
 
-        private async Task<List<AssetCar>> GetAll()
+
+
+        private async Task<List<CarType>> GetAll()
         {
-            var results = await _assetCarRepository.GetAll();
+            var results = await _carTypeRepository.GetAll();
             return results.ToList();
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            var cartype = await _carTypeRepository.GetAll();
-            List<SelectListItem> SelectCarType = new();
-            foreach (var item in cartype)
-            {
-                SelectCarType.Add(new SelectListItem
-                {
-                    Text = item.CarTypeName.ToString(),
-                    Value = item.CarTypeCode.ToString(),
-                });
-            }
-            ViewBag.CarTypes = SelectCarType;
-
-            return View(new AssetCar());
+            return View(new CarType());
         }
-
-
-
-
-    
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AssetCar model)
+        public async Task<IActionResult> Create(CarType model)
         {
             if (ModelState.IsValid)
             {
-                await _assetCarRepository.Create(model);
-                _notify.Success($"{model.ChassisNumber} is Created.");
+                await _carTypeRepository.Create(model);
+                _notify.Success($"{model.CarTypeName} is Created.");
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
         }
 
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var model = await _assetCarRepository.GetByKey(id);
+            var model = await _carTypeRepository.GetByKey(id);
             return View(model);
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, AssetCar model)
+        public async Task<IActionResult> Edit(int id, CarType model)
         {
-            var oldEntity = await _assetCarRepository.GetByKey(model.ChassisNumber);
+            var oldEntity = await _carTypeRepository.GetByKey(id);
 
             if (oldEntity == null)
             {
@@ -88,22 +68,22 @@ namespace CourtJustice.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                await _assetCarRepository.Update(id, model);
-                _notify.Success($"{model.ChassisNumber} is Updated");
+                await _carTypeRepository.Update(id, model);
+                _notify.Success($"{model.CarTypeName} is Updated");
 
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
         }
 
-
         [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
             {
 
-                await _assetCarRepository.Delete(id);
+
+                await _carTypeRepository.Delete(id);
                 //_notify.Success($"Delete is Success.");
                 var results = await GetAll();
                 var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);

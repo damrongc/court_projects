@@ -32,8 +32,12 @@ namespace CourtJustice.Domain.Models
 
         [Display(Name = "ประเภทรถ")]
         public int CarTypeCode { get; set; }
-
         [ForeignKey(nameof(CarTypeCode))]
         public virtual CarType? CarType { set; get; }
+
+        [Display(Name = "ลูกหนี้")]
+        public string CusId { get; set; }
+        [ForeignKey(nameof(CusId))]
+        public virtual Loanee? Loanee { set; get; } 
     }
 }
