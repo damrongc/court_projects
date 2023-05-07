@@ -94,11 +94,11 @@ namespace CourtJustice.Domain.Models
         [Display(Name = "ผู้ว่าจ้าง")]
         public string EmployerCode { get; set; } = string.Empty;
 
-        [Display(Name = "รหัสกลุ่มงาน")]
-        public int TaskStatusId { get; set; }
+        [Display(Name = "กลุ่มงาน")]
+        public int LoanTaskStatusId { get; set; }
 
-        [Display(Name = "รหัสกลุ่มงานย่อย")]
-        public int SubTaskStatusId { get; set; }
+        //[Display(Name = "รหัสกลุ่มงานย่อย")]
+        //public int SubTaskStatusId { get; set; }
 
     }
 }

@@ -106,6 +106,7 @@ namespace CourtJustice.Web
                     DefaultProgram.Seed(context);
                     DefaultGroupUser.Seed(context);
                     DefaultUser.Seed(context);
+                    DefaultTaskStatus.Seed(context);
                     logger.LogInformation("Application Starting");
                 }
                 catch (Exception ex)

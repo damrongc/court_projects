@@ -37,6 +37,12 @@ namespace CourtJustice.Web.Controllers
             SelectEmployers.Add(new SelectListItem { Text = "Easy buy", Value = "1" });
             SelectEmployers.Add(new SelectListItem { Text = "กรุงเทพ", Value = "2" });
             ViewBag.Employers = SelectEmployers;
+
+            List<SelectListItem> SelectLoanTaks = new();
+            SelectLoanTaks.Add(new SelectListItem { Text = "ติดต่อได้-นัดชำระ", Value = "1" });
+            SelectLoanTaks.Add(new SelectListItem { Text = "ติดต่อได้-ไม่นัดชำระ", Value = "2" });
+            ViewBag.LoanTaskStatus = SelectLoanTaks;
+
             return View();
         }
 
