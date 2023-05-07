@@ -21,8 +21,22 @@ namespace CourtJustice.Web.Controllers
             _loanTypeRepository = loanTypeRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            //var occupations = await _occupationRepository.GetAll();
+            List<SelectListItem> SelectEmployers = new();
+            //foreach (var item in occupations)
+            //{
+            //    SelectOccupations.Add(new SelectListItem
+            //    {
+            //        Text = item.OccupationName.ToString(),
+            //        Value = item.OccupationId.ToString(),
+            //    });
+            //}
+
+            SelectEmployers.Add(new SelectListItem { Text = "Easy buy", Value = "1" });
+            SelectEmployers.Add(new SelectListItem { Text = "กรุงเทพ", Value = "2" });
+            ViewBag.Employers = SelectEmployers;
             return View();
         }
 
@@ -52,6 +66,7 @@ namespace CourtJustice.Web.Controllers
                 });
             }
             ViewBag.LoanTypes = SelectLoanTypes;
+
 
             return View(new Loanee());
         }

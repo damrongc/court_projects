@@ -88,11 +88,17 @@ namespace CourtJustice.Domain.Models
         [Display(Name = "ยอดหนี้คงเหลือ")]
         public decimal RemainingAmount { get; set; } = 0;
 
+        [Display(Name = "OD")]
+        public int OverdueDayAmount { get; set; } = 0;
+
         [Display(Name = "ผู้ว่าจ้าง")]
         public string EmployerCode { get; set; } = string.Empty;
 
-        [Display(Name = "OD")]
-        public int OverdueDayAmount { get; set; } = 0;
+        [Display(Name = "รหัสกลุ่มงาน")]
+        public int TaskStatusId { get; set; }
+
+        [Display(Name = "รหัสกลุ่มงานย่อย")]
+        public int SubTaskStatusId { get; set; }
 
     }
 }
