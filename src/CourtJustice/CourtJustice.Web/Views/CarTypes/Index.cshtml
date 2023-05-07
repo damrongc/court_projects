@@ -1,10 +1,11 @@
-﻿@using CourtJustice.Domain.Models;
-@model IEnumerable<AssetCar>
+﻿@using CourtJustice.Domain.Models
+@model IEnumerable<CarType>
+
 @{
-    ViewData["Title"] = "ข้อมูลรถยนต์";
+    ViewData["Title"] = "ประเภทรถ";
 }
 
-<div class="row">
+<div>
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -14,6 +15,7 @@
                 </div>
             </div>
         </div>
+
         <div class="card">
             <div class="card-body">
                 <div id="view-table">
@@ -24,7 +26,7 @@
     </div>
 </div>
 
-@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "AssetCars"))
+@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "CarTypes"))
 @section scripts{
-    <script src="~/js/pages/asset_cat.js" asp-append-version="true"></script>
+    <script src="~/js/pages/car_type.js" asp-append-version="true"></script>
 }

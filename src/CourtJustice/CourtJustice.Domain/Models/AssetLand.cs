@@ -29,5 +29,11 @@ namespace CourtJustice.Domain.Models
         [ForeignKey(nameof(LandOfficeCode))]
         public virtual LandOffice? LandOffice { set; get; }
 
+
+        [Display(Name = "ลูกหนี้")]
+        public string CusId { get; set; }
+        [ForeignKey(nameof(CusId))]
+        public virtual Loanee? Loanee { set; get; }
+
     }
 }

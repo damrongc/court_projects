@@ -26,4 +26,10 @@
     <ProjectReference Include="..\CourtJustice.Infrastructure\CourtJustice.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Views\CarTypes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\CarTypes\" />
+  </ItemGroup>
 </Project>
