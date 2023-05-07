@@ -54,18 +54,20 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AssetLand>> GetPaging(int skip, int take, string filter)
+        public async Task<IEnumerable<AssetLandViewModel>> GetPaging(int skip, int take, string filter)
         {
             try
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
                 var sb = new StringBuilder();
-                sb.Append("select * from asset_land");
+                sb.Append("select asset_land_id, position, gps,land_office_name" +
+                    " from asset_land a,land_office b" +
+                    " where a.land_office_code = b.land_office_code");
                 if (!string.IsNullOrEmpty(filter))
                 {
-                    sb.Append(" where (chassis_number LIKE @filter");
-                    sb.Append(" or name engine_number @filter");
+                    sb.Append(" and (asset_land_id LIKE @filter");
+                    sb.Append(" or position  @filter");
                     sb.Append(" )");
                 }
                 sb.Append(" Limit @skip,@take");
@@ -79,7 +81,7 @@ namespace CourtJustice.Infrastructure.Repositories
                     dictionary.Add("@filter", string.Format("%{0}%", filter));
                 }
                 var parameters = new DynamicParameters(dictionary);
-                var result = await conn.QueryAsync<AssetLand>(sb.ToString(), parameters);
+                var result = await conn.QueryAsync<AssetLandViewModel>(sb.ToString(), parameters);
                 return result;
 
             }
@@ -101,8 +103,8 @@ namespace CourtJustice.Infrastructure.Repositories
                 sb.Append("select count(1) from asset_land");
                 if (!string.IsNullOrEmpty(filter))
                 {
-                    sb.Append(" where (chassis_number LIKE @filter");
-                    sb.Append(" or engine_number LIKE @filter");
+                    sb.Append(" where (asset_land_id LIKE @filter");
+                    sb.Append(" or position LIKE @filter");
                     sb.Append(" )");
                 }
                 var dictionary = new Dictionary<string, object>();
