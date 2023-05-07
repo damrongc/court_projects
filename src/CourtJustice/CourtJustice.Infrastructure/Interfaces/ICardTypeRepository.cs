@@ -7,7 +7,7 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Create(CardType model);
         Task Update(string id, CardType model);
         Task Delete(string id);
-        Task<CardType> GetByKey(string id);
+        Task<CardType> GetByKey(int id);
     }
 }
 
