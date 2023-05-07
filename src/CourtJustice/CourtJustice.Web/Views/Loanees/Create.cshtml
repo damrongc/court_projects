@@ -49,9 +49,14 @@
                                     <select class="form-control dropdown" id="ddlLoanTypes" asp-for="LoanTypeCode" asp-items="@ViewBag.LoanTypes">
                                     </select>
                                 </div>
+                                <div class="form-group col-md-2">
+                                    <label class="control-label">อาชีพ</label>
+                                    <select class="form-control dropdown" id="ddlOccupations" asp-for="OccupationId" asp-items="@ViewBag.Occupations">
+                                    </select>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <label class="control-label">ที่อยู่ตาม ทร.</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" asp-for="Address" />
@@ -74,13 +79,13 @@
                                     <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
                                     <input id="txtProvince" class="form-control" readonly />
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-1">
                                     <label asp-for="AddressSet.PostalCode" class="control-label"></label>
                                     <input id="txtPostalCode" class="form-control" readonly />
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <label class="control-label">ที่อยู่(1)</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" asp-for="Address1" />
@@ -101,13 +106,13 @@
                                     <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
                                     <input id="txtProvince1" class="form-control" readonly />
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-1">
                                     <label asp-for="AddressSet.PostalCode" class="control-label"></label>
                                     <input id="txtPostalCode1" class="form-control" readonly />
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <label class="control-label">ที่อยู่(2)</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" asp-for="Address2" />
@@ -129,17 +134,13 @@
                                     <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
                                     <input id="txtProvince2" class="form-control" readonly />
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-1">
                                     <label asp-for="AddressSet.PostalCode" class="control-label"></label>
                                     <input id="txtPostalCode2" class="form-control" readonly />
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-2">
-                                    <label class="control-label">อาชีพ</label>
-                                    <select class="form-control dropdown" id="ddlOccupations" asp-for="OccupationId" asp-items="@ViewBag.Occupations">
-                                    </select>
-                                </div>
+                     
                             </div>
 
 
