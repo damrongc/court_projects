@@ -1,29 +1,76 @@
 ﻿@using CourtJustice.Domain.ViewModels;
-@model IEnumerable<LoaneeViewModel>
+@model LoaneeViewModel
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover" id="tbl_loanee">
         <thead>
             <tr class="bg-primary text-white" role="row">
-                <th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.LoanNumber)
+                </th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.CusId)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
-                <th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.Address)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.Address1)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.Address2)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.OccupationName)
                 </th>
- 
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.InstallmentsByContract)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.InstallmentsByAgree)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.LastPaidDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.FirstPaidDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.IntereteRate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.IntereteRateAmount)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.OverdueAmount)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.DueDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.FollowUpDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.PaidAmount)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.PaidInMonthAmount)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.TotalAmount)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.RemainingAmount)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.OverdueDayAmount)
+                </th>
                 <th></th>
             </tr>
         </thead>

@@ -1,10 +1,13 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Domain.ViewModels;
+using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using ExcelDataReader;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Dynamic;
 using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CourtJustice.Web.Controllers
 {
@@ -54,7 +57,15 @@ namespace CourtJustice.Web.Controllers
             SelectLoanTaks.Add(new SelectListItem { Text = "ติดต่อได้-ไม่นัดชำระ", Value = "2" });
             ViewBag.LoanTaskStatus = SelectLoanTaks;
 
-            return View();
+
+            //dynamic mymodel = new ExpandoObject();
+            //mymodel.Lonees = new List<LoaneeViewModel>();
+            //mymodel.AssetLands = new List<AssetLandViewModel>();
+
+          
+            var tupleModel = new Tuple<LoaneeViewModel, IEnumerable<AssetLandViewModel>>(new LoaneeViewModel(), Enumerable.Empty<AssetLandViewModel>());
+
+            return View(tupleModel);
         }
 
         private async  Task ListOfViewBag()
@@ -156,6 +167,53 @@ namespace CourtJustice.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetLoaneeByKey(string id)
+        {
+            var loanee =await  _loaneeRepository.GetByKey(id);
+
+            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_LoaneeCard", loanee);
+            return new JsonResult(new { isValid = true, message = "", html });
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetAssetLandByCusId(string id)
+        {
+            //var assetLands = await _assetLandRepository.GetByKey(id);
+            var assetLands = new List<AssetLandViewModel>
+            {
+                new AssetLandViewModel
+                {
+                    AssetLandId = "01",
+                    Position = "asas",
+                    EstimatePrice = 200000
+
+                }
+            };
+            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
+            return new JsonResult(new { isValid = true, message = "", html });
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetAssetCarByCusId(string id)
+        {
+            //var assetLands = await _assetLandRepository.GetByKey(id);
+            var assetLands = new List<AssetLandViewModel>
+            {
+                new AssetLandViewModel
+                {
+                    AssetLandId = "01",
+                    Position = "asas",
+                    EstimatePrice = 200000
+
+                }
+            };
+            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetCarCard", assetLands);
+            return new JsonResult(new { isValid = true, message = "", html });
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> ConfirmImport(IList<IFormFile> files)
         {
@@ -242,8 +300,6 @@ namespace CourtJustice.Web.Controllers
 
 
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> GetWithPaging()

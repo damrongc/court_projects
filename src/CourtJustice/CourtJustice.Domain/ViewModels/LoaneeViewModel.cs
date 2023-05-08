@@ -32,13 +32,13 @@ namespace CourtJustice.Domain.ViewModels
         public decimal InstallmentsByAgree { get; set; } = 0;
 
         [Display(Name = "วันที่ชำระครั้งสุดท้าย")]
-        public DateOnly LastPaidDate { get; set; }
+        public DateTime LastPaidDate { get; set; }
 
         [Display(Name = "สถานะบัญชี")]
         public string BucketName { get; set; } = string.Empty;
 
         [Display(Name = "วันที่กำหนดชำระงวดแรก")]
-        public DateOnly FirstPaidDate { get; set; }
+        public DateTime FirstPaidDate { get; set; }
 
         [Display(Name = "อัตราดอกเบี้ยตามสัญญา")]
         public decimal IntereteRate { get; set; } = 0;
@@ -50,10 +50,10 @@ namespace CourtJustice.Domain.ViewModels
         public decimal OverdueAmount { get; set; } = 0;
 
         [Display(Name = "วันนัดชำระ")]
-        public DateOnly DueDate { get; set; }
+        public DateTime DueDate { get; set; }
 
         [Display(Name = "วัน FollowUp")]
-        public DateOnly FollowUpDate { get; set; }
+        public DateTime FollowUpDate { get; set; }
 
         [Display(Name = "จำนวนเงินที่นัดชำระ")]
         public decimal PaidAmount { get; set; } = 0;

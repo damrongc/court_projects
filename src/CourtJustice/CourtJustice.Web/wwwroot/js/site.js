@@ -137,6 +137,17 @@ showInPopupXL = (url, title) => {
         }
     })
 }
+showInPopupFullScreen = (url, title) => {
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function (res) {
+            $('#form-modal-table .modal-body').html(res);
+            $('#form-modal-table .modal-title').html(title);
+            $('#form-modal-table').modal('show');
+        }
+    })
+}
 
 showInPopupFullScreenTable = (url, title) => {
     $.ajax({

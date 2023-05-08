@@ -9,11 +9,11 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task<IEnumerable<LoaneeViewModel>> GetPaging(int skip, int take, string filter);
         Task<int> GetRecordCount(string filter);
 
-        Task<List<Loanee>> GetAll();
+        //Task<List<Loanee>> GetAll();
         Task Create(Loanee model);
         Task Update(int id, Loanee model);
         Task Delete(string id);
-        Task<Loanee> GetByKey(string id);
+        Task<LoaneeViewModel> GetByKey(string id);
     }
 }
 

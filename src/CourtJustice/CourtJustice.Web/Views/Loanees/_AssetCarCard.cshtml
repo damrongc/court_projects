@@ -1,0 +1,21 @@
+﻿@using CourtJustice.Domain.ViewModels;
+@model IEnumerable<AssetLandViewModel>;
+@{
+    Layout = null;
+
+}
+
+<div class="media">
+    <img class="mr-3 w-25 rounded" src="https://via.placeholder.com/115x115" alt="sample image">
+    <div class="media-body">
+        @foreach (var item in Model)
+        {
+            <p>@item.AssetLandId</p>
+        }
+        <p>
+            Fail most room even gone her end like. Comparison dissimilar unpleasant six compliment two unpleasing
+            any add. Ashamed my company thought wishing colonel it prevent he in. Pretended residence are something
+            far engrossed old off.
+        </p>
+    </div>
+</div>
