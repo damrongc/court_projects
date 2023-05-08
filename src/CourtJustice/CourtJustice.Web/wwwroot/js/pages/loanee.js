@@ -26,6 +26,18 @@ $(function () {
     getWithPaging();
 });
 
+var actionSection =`<ul class="navbar-nav">
+            <li class="nav-item  dropdown d-none align-items-center d-lg-flex d-none">
+              <a class="dropdown-toggle btn btn-outline-secondary btn-fw"  href="#" data-toggle="dropdown" id="pagesDropdown">
+              <span class="nav-profile-name">Action</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="pagesDropdown">
+                <a class="dropdown-item">ออก Notice</a>
+                <a class="dropdown-item">ขออนุมัติฟ้อง-เอกสาร</a>
+                <a class="dropdown-item">ขออนุมัติส่วนลด-เอกสาร</a>
+              </div>
+            </li>
+          </ul>`
 getWithPaging =()=> {
     var url = $("#hdGetWithPaging").val();
     table = $('#tbl_loanee').DataTable({
@@ -61,7 +73,8 @@ getWithPaging =()=> {
             { data: "address1", name: "address1", },
             { data: "address2", name: "address2", },
             { data: "occupationName", name: "occupationName", },
-            { data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: "<a id='btnEdit' class='btn btn-sm btn-primary text-white js-action'><i class='fa fa-edit'></i></a><a id='btnDelete' class='btn btn-sm btn-danger text-white js-action'><i class='fa fa-trash'></i></a>" }
+            { data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: actionSection }
+            //{ data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: "<a id='btnEdit' class='btn btn-sm btn-primary text-white js-action'><i class='fa fa-edit'></i></a><a id='btnDelete' class='btn btn-sm btn-danger text-white js-action'><i class='fa fa-trash'></i></a>" }
 
         ]
 

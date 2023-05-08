@@ -11,6 +11,7 @@ namespace CourtJustice.Web
 {
     public class Program
     {
+        public static int Progress { get; set; }
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

@@ -24,19 +24,20 @@ namespace CourtJustice.Domain.Models
 
         [Display(Name = "ที่อยู่ที่ติดต่อได้(1)")]
         public string? Address1 { get; set; } = string.Empty;
-        public int Address1Id { get; set; } = 0;
-        [ForeignKey(nameof(Address1Id))]
-        public virtual AddressSet? AddressSet1 { set; get; }
+        public int Address1Id { get; set; }
+        //[ForeignKey(nameof(Address1Id))]
+        //public virtual AddressSet? AddressSet1 { set; get; }
 
         [Display(Name = "ที่อยู่ที่ติดต่อได้(2)")]
         public string? Address2 { get; set; } = string.Empty;
-        public int Address2Id { get; set; } = 0;
-        [ForeignKey(nameof(Address2Id))]
-        public virtual AddressSet? AddressSet2 { set; get; }
+        public int Address2Id { get; set; }
+        //[ForeignKey(nameof(Address2Id))]
+        //public virtual AddressSet? AddressSet2 { set; get; }
 
-        public int OccupationId { get; set; } = 0;
+        public int OccupationId { get; set; }
         [ForeignKey(nameof(OccupationId))]
-        public virtual Occupation Occupation { set; get; } = new Occupation();
+        public virtual Occupation? Occupation { set; get; }
+
         [Display(Name = "เลขที่สัญญา")]
         public string LoanNumber { get; set; } = string.Empty;
 

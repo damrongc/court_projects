@@ -132,7 +132,7 @@ div.dataTables_wrapper div.dataTables_length select {
     margin-bottom: 0rem !important;
 }
 .dropdown {
-    height: 50px;
+    /*height: 50px;*/
     outline: 0px !important;
 }
 
@@ -168,6 +168,17 @@ div.dataTables_wrapper div.dataTables_length select {
     vertical-align: middle;
 }
 
+.dropdown .dropdown-menu .dropdown-item {
+    font-size: small !important;
+    padding: 0rem 0.5rem !important;
+}
+.form-control, .asColorPicker-input, .dataTables_wrapper select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number], .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-search__field, .typeahead, .tt-query, .tt-hint {
+/*    border: 1px solid #f6f2f2;
+    font-weight: 400;
+    font-size: 0.875rem;*/
+    height: 35px;
+/*    padding: 0.875rem 0.875rem;*/
+}
 /*.fullscreen {
     position: relative;
     left: 50%;
