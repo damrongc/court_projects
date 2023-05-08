@@ -6,6 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <Content Remove="Views\Loanees\_AssetCarCard.cshtml" />
+    <Content Remove="Views\Loanees\_AssetLandCard.cshtml" />
+  </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
 		<PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />

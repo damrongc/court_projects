@@ -41,10 +41,10 @@ function showAssetLandTab(url) {
     console.log(id);
     $.ajax({
         type: "GET",
-        url: url,
+        url: url + "/" + id,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
-            $("#view-asset-land").html(res.html);
+            $("#view-asset-land").html(res);
             //console.log(res.html);
         }
     })
@@ -56,7 +56,7 @@ function showAssetCarTab(url) {
     console.log(id);
     $.ajax({
         type: "GET",
-        url: url,
+        url: url + "/" + id,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             $("#view-asset-land").html(res.html);

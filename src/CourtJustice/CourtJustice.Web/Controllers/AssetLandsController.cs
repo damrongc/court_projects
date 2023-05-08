@@ -1,4 +1,5 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
@@ -112,7 +113,24 @@ namespace CourtJustice.Web.Controllers
             }
 
         }
+        [HttpGet]
+        public IActionResult GetAssetLandByCusId(string id)
+        {
+            //var assetLands = await _assetLandRepository.GetByKey(id);
+            var assetLands = new List<AssetLandViewModel>
+            {
+                new AssetLandViewModel
+                {
+                    AssetLandId = "01",
+                    Position = "asas",
+                    EstimatePrice = 200000
 
+                }
+            };
+            return PartialView("~/Views/AssetLands/_AssetLandCard.cshtml", assetLands);
+            //var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
+            //return new JsonResult(new { isValid = true, message = "", html });
+        }
 
 
 

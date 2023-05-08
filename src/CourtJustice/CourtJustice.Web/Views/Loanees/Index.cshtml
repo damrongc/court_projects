@@ -54,10 +54,10 @@
                         <a class="nav-link active" id="loanee-tab" data-toggle="tab" href="#loanee-1" role="tab" aria-controls="loanee-1" aria-selected="true">รายละเอียดลูกหนี้</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="asset-land-tab" data-toggle="tab" role="tab" href="#asset-land-1" aria-controls="asset-land-1" aria-selected="false" onclick="showAssetLandTab('@Url.Action("GetAssetLandByCusId","Loanees")');">หลักทรัพย์(ที่ดิน)</a>
+                        <a class="nav-link" id="asset-land-tab" data-toggle="tab" role="tab" href="#asset-land-1" aria-controls="asset-land-1" aria-selected="false" onclick="showAssetLandTab('@Url.Action("GetAssetLandByCusId","AssetLands")');">หลักทรัพย์(ที่ดิน)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="asset-car-tab" data-toggle="tab" role="tab" href="#asset-car-1" aria-controls="asset-car-1" aria-selected="false" onclick="showAssetCarTab('@Url.Action("GetAssetCarByCusId","Loanees")');">หลักทรัพย์(รถ)</a>
+                        <a class="nav-link" id="asset-car-tab" data-toggle="tab" role="tab" href="#asset-car-1" aria-controls="asset-car-1" aria-selected="false" onclick="showAssetCarTab('@Url.Action("GetAssetCarByCusId","AssetCars")');">หลักทรัพย์(รถ)</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="payment-tab" data-toggle="tab" role="tab" href="#payment-1" aria-controls="payment-1" aria-selected="false">การชำระ</a>
@@ -71,7 +71,12 @@
                     </div>
                     <div class="tab-pane fade" id="asset-land-1" role="tabpanel" aria-labelledby="asset-land-tab">
                         <div id="view-asset-land">
-                            @await Html.PartialAsync("_AssetLandCard", Model.Item2)
+                            @*@await Html.PartialAsync("_AssetLandCard", Model.Item2)*@
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="asset-car-1" role="tabpanel" aria-labelledby="asset-car-tab">
+                        <div id="view-asset-car">
+                            @*@await Html.PartialAsync("_AssetLandCard", Model.Item2)*@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="payment-1" role="tabpanel" aria-labelledby="payment-tab">
@@ -93,6 +98,9 @@
         </div>
     </div>
 </div>
+
+
+@Html.Hidden("txtCusId")
 @Html.Hidden("hdDeleteRoute",Url.Action("Delete","Loanees"))
 @Html.Hidden("hdGetWithPaging",Url.Action("GetWithPaging","Loanees"))
 
