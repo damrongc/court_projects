@@ -37,6 +37,11 @@ namespace CourtJustice.Infrastructure.Repositories
             return model;
         }
 
+        public  bool IsExisting(string id)
+        {
+            return Context.LandOffices.Any(p=>p.LandOfficeCode== id);
+        }
+
         public async Task Update(string id, LandOffice model)
         {
             var result = await Context.LandOffices.FindAsync(model.LandOfficeCode);

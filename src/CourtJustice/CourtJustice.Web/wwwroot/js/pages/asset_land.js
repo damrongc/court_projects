@@ -44,7 +44,7 @@ AddOrEdit = (form) => {
         var txtGps = $("#Gps");
         var ddlLandOffices = $("#ddlLandOffices");
         var txtEstimatePrice = $("#EstimatePrice");
-        var txtAddressId = $("#AddressId");
+        var txtAddressDetail = $("#AddressDetail");
         var txtCusId = $("#txtCusId");
 
         var errorMessage = "";
@@ -74,9 +74,9 @@ AddOrEdit = (form) => {
                 errorMessage += "ราคาประเมินต้องมากกว่า 0" + '\n\r';
             }
         }
-        if (txtAddressId.val() == '' || txtAddressId.val() == undefined) {
+        if (txtAddressDetail.val() == '' || txtAddressDetail.val() == undefined) {
             isValid = false;
-            errorMessage += txtAddressId.attr('data-val-required') + '\n\r';
+            errorMessage += txtAddressDetail.attr('data-val-required') + '\n\r';
         }
         if (!isValid) {
             swal({
@@ -94,7 +94,7 @@ AddOrEdit = (form) => {
         assetLand.Gps = txtGps.val();
         assetLand.LandOfficeCode = ddlLandOffices.val();
         assetLand.EstimatePrice = txtEstimatePrice.val();
-        assetLand.AddressId = txtAddressId.val();
+        assetLand.AddressDetail = txtAddressDetail.val();
         assetLand.CusId = txtCusId.val();
         //console.log(assetLand);
 

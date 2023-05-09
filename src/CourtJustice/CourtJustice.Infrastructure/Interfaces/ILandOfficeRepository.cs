@@ -10,6 +10,7 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Update(string id, LandOffice model);
         Task Delete(string id);
         Task<LandOffice> GetByKey(string id);
+        bool IsExisting(string id);
     }
 }
 

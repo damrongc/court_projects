@@ -11,30 +11,42 @@
             url: url + "/" + addressId,
             contentType: "application/json; charset=utf-8",
             success: function (res) {
-                console.log(res);
-                console.log(idx);
-
+                //console.log(res);
+                //console.log(idx);
+                var addressDetail = `${res.subDistrictName} ${res.districtName} ${res.provinceName} ${res.postalCode}`
                 switch (idx) {
                     case 0:
-                        $('#AddressId').val(addressId);
-                        $('#txtProvince').val(res.provinceName);
-                        $('#txtDistrict').val(res.districtName);
-                        $('#txtSubdistrict').val(res.subDistrictName);
-                        $('#txtPostalCode').val(res.postalCode);
+                        $('#AddressDetail').val(addressDetail);
+
+                        //$('#AddressId').val(addressId);
+                        //$('#txtProvince').val(res.provinceName);
+                        //$('#txtDistrict').val(res.districtName);
+                        //$('#txtSubdistrict').val(res.subDistrictName);
+                        //$('#txtPostalCode').val(res.postalCode);
                         break;
                     case 1:
-                        $('#Address1Id').val(addressId);
-                        $('#txtProvince1').val(res.provinceName);
-                        $('#txtDistrict1').val(res.districtName);
-                        $('#txtSubdistrict1').val(res.subDistrictName);
-                        $('#txtPostalCode1').val(res.postalCode);
+                        $('#AddressDetail1').val(addressDetail);
+                        //$('#Address1Id').val(addressId);
+                        //$('#txtProvince1').val(res.provinceName);
+                        //$('#txtDistrict1').val(res.districtName);
+                        //$('#txtSubdistrict1').val(res.subDistrictName);
+                        //$('#txtPostalCode1').val(res.postalCode);
                         break;
                     case 2:
-                        $('#Address2Id').val(addressId);
-                        $('#txtProvince2').val(res.provinceName);
-                        $('#txtDistrict2').val(res.districtName);
-                        $('#txtSubdistrict2').val(res.subDistrictName);
-                        $('#txtPostalCode2').val(res.postalCode);
+                        $('#AddressDetail2').val(addressDetail);
+                        //$('#Address2Id').val(addressId);
+                        //$('#txtProvince2').val(res.provinceName);
+                        //$('#txtDistrict2').val(res.districtName);
+                        //$('#txtSubdistrict2').val(res.subDistrictName);
+                        //$('#txtPostalCode2').val(res.postalCode);
+                        break;
+                    case 3:
+                        $('#AddressDetail3').val(addressDetail);
+                        //$('#Address2Id').val(addressId);
+                        //$('#txtProvince2').val(res.provinceName);
+                        //$('#txtDistrict2').val(res.districtName);
+                        //$('#txtSubdistrict2').val(res.subDistrictName);
+                        //$('#txtPostalCode2').val(res.postalCode);
                         break;
                 }
             }

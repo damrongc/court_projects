@@ -1,6 +1,5 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,7 @@ using System.Text;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class AssetLandRepository : BaseRepository, IAssetLandRepository
+    public class AssetLandRepository : BaseRepository, IAssetLandRepository
 	{
 		public AssetLandRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
@@ -22,7 +21,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(string id)
         {
             var model = await Context.AssetLands.FindAsync(id);
             Context.AssetLands.Remove(model);
@@ -34,22 +33,23 @@ namespace CourtJustice.Infrastructure.Repositories
             return await Context.AssetLands.ToListAsync();
         }
 
-        public async Task<AssetLand> GetByKey(int id)
+        public async Task<AssetLand> GetByKey(string id)
         {
             var model = await Context.AssetLands.FindAsync(id);
             return model;
         }
 
-        public async Task Update(int id, AssetLand model)
+        public async Task Update(string id, AssetLand model)
         {
             var result = await Context.AssetLands.FindAsync(model.AssetLandId);
             result.Address = model.Address;
+            result.AddressDetail = model.AddressDetail;
             result.Position = model.Position;
             result.Gps = model.Gps;
             result.LandOfficeCode = model.LandOfficeCode;
             result.EstimatePrice = model.EstimatePrice;
-            result.AddressSet = model.AddressSet;
-            result.LandOffice = model.LandOffice;
+            //result.AddressSet = model.AddressSet;
+            //result.LandOffice = model.LandOffice;
 
             await Context.SaveChangesAsync();
         }
@@ -123,6 +123,34 @@ namespace CourtJustice.Infrastructure.Repositories
 
                 throw;
             }
+        }
+
+        public async Task<List<AssetLandViewModel>> GetByCusId(string id)
+        {
+            try
+            {
+                using IDbConnection conn = Connection;
+                conn.Open();
+                var sb = new StringBuilder();
+                sb.Append("select asset_land_id, position, gps,address,address_detail,cus_id,estimate_price, a.land_office_code, land_office_name" +
+                    " from asset_land a,land_office b" +
+                    " where a.land_office_code = b.land_office_code"+
+                    " and cus_id=@cus_id");
+                
+                var result = await conn.QueryAsync<AssetLandViewModel>(sb.ToString(), new { cus_id =id});
+                return result.ToList();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public bool IsExisting(string id)
+        {
+            return Context.AssetLands.Any(p => p.AssetLandId == id);
         }
     }
 }

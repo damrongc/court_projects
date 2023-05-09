@@ -7,6 +7,9 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
+    <Content Remove="Views\AssetLands\Create.cshtml" />
+    <Content Remove="Views\AssetLands\Edit.cshtml" />
+    <Content Remove="Views\AssetLands\_ViewTable.cshtml" />
     <Content Remove="Views\Loanees\_AssetCarCard.cshtml" />
     <Content Remove="Views\Loanees\_AssetLandCard.cshtml" />
   </ItemGroup>

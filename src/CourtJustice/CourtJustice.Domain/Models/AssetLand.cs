@@ -15,6 +15,7 @@ namespace CourtJustice.Domain.Models
         [Required]
         [Display(Name = "ที่ตั้ง")]
         public string Address { get; set; } = string.Empty;
+        public string AddressDetail { get; set; } = string.Empty;
         public string Gps { get; set; } = string.Empty;
         [Required]
         [Display(Name = "สำนักงานที่ดิน")]
@@ -22,15 +23,13 @@ namespace CourtJustice.Domain.Models
         [Display(Name = "ราคาประเมิน")]
         public decimal EstimatePrice { get; set; } = 0;
 
-        public int AddressId { get; set; }
-        [ForeignKey(nameof(AddressId))]
-        public virtual AddressSet? AddressSet { set; get; }
+        //public int AddressId { get; set; }
+        //[ForeignKey(nameof(AddressId))]
+        //public virtual AddressSet? AddressSet { set; get; }
 
         [ForeignKey(nameof(LandOfficeCode))]
         public virtual LandOffice? LandOffice { set; get; }
 
-
-        [Display(Name = "ลูกหนี้")]
         public string CusId { get; set; }
         [ForeignKey(nameof(CusId))]
         public virtual Loanee? Loanee { set; get; }

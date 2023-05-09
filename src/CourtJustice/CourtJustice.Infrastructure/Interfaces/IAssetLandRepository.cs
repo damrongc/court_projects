@@ -8,12 +8,15 @@ namespace CourtJustice.Infrastructure.Interfaces
 	{
         Task<List<AssetLand>> GetAll();
         Task Create(AssetLand model);
-        Task Update(int id, AssetLand model);
-        Task Delete(int id);
-        Task<AssetLand> GetByKey(int id);
+        Task Update(string id, AssetLand model);
+        Task Delete(string id);
+        Task<AssetLand> GetByKey(string id);
+        Task<List<AssetLandViewModel>> GetByCusId(string id);
 
         Task<IEnumerable<AssetLandViewModel>> GetPaging(int skip, int take, string filter);
         Task<int> GetRecordCount(string filter);
+
+        bool IsExisting(string id);
     }
 }
 
