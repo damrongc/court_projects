@@ -60,38 +60,53 @@
                         <a class="nav-link" id="asset-car-tab" data-toggle="tab" role="tab" href="#asset-car-1" aria-controls="asset-car-1" aria-selected="false" onclick="showAssetCarTab('@Url.Action("GetByCusId","AssetCars")');">หลักทรัพย์(รถ)</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" id="asset-salary-tab" data-toggle="tab" role="tab" href="#salary-car-1" aria-controls="salary-car-1" aria-selected="false" onclick="showAssetCarTab('@Url.Action("GetByCusId","AssetCars")');">หลักทรัพย์(เงืนเดือน)</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" id="payment-tab" data-toggle="tab" role="tab" href="#payment-1" aria-controls="payment-1" aria-selected="false">การชำระ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="guarantor-tab" data-toggle="tab" role="tab" href="#guarantor-1" aria-controls="guarantor-1" aria-selected="false">ผู้ค้ำประกัน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="referencer-tab" data-toggle="tab" role="tab" href="#referencer-1" aria-controls="referencer-1" aria-selected="false">บุคคลอ้างอิง</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="remark-tab" data-toggle="tab" role="tab" href="#remark-1" aria-controls="remark-1" aria-selected="false">หมายเหตุ</a>
                     </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="loanee-1" role="tabpanel" aria-labelledby="loanee-tab">
                         <div id="view-loanee">
-                            @*@await Html.PartialAsync("_LoaneeCard", Model.Item1)*@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="asset-land-1" role="tabpanel" aria-labelledby="asset-land-tab">
                         <div id="view-asset-land">
-                            @*@await Html.PartialAsync("_AssetLandCard", Model.Item2)*@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="asset-car-1" role="tabpanel" aria-labelledby="asset-car-tab">
                         <div id="view-asset-car">
-                            @*@await Html.PartialAsync("_AssetLandCard", Model.Item2)*@
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="asset-salary-1" role="tabpanel" aria-labelledby="asset-salary-tab">
+                        <div id="view-asset-salary">
                         </div>
                     </div>
                     <div class="tab-pane fade" id="payment-1" role="tabpanel" aria-labelledby="payment-tab">
-                        <h4>Contact us </h4>
-                        <p>
-                            Feel free to contact us if you have any questions!
-                        </p>
-                        <p>
-                            <i class="mdi mdi-phone text-info"></i>
-                            +123456789
-                        </p>
-                        <p>
-                            <i class="mdi mdi-email-outline text-success"></i>
-                            contactus@example.com
-                        </p>
+                        <div id="view-payment">
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="guarantor-1" role="tabpanel" aria-labelledby="guarantor-tab">
+                        <div id="view-guarantor">
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="referencer-1" role="tabpanel" aria-labelledby="referencer-tab">
+                        <div id="view-referencer">
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="remark-1" role="tabpanel" aria-labelledby="remark-tab">
+                        <div id="view-remark">
+                        </div>
                     </div>
                 </div>
             </div>
