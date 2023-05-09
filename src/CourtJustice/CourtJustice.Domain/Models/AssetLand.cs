@@ -15,6 +15,7 @@ namespace CourtJustice.Domain.Models
         [Required]
         [Display(Name = "ที่ตั้ง")]
         public string Address { get; set; } = string.Empty;
+        [Display(Name = "รายละเอียด(ตำบล,อำเภอ,จังหวัด,รหัสไปรษณีย์)")]
         public string AddressDetail { get; set; } = string.Empty;
         public string Gps { get; set; } = string.Empty;
         [Required]
