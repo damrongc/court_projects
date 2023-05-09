@@ -40,10 +40,12 @@
     <None Remove="Views\CarTypes\" />
     <None Remove="Views\LoanTypes\" />
     <None Remove="Views\Occupations\" />
+    <None Remove="Views\Referencers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CarTypes\" />
     <Folder Include="Views\LoanTypes\" />
     <Folder Include="Views\Occupations\" />
+    <Folder Include="Views\Referencers\" />
   </ItemGroup>
 </Project>

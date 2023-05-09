@@ -1,0 +1,53 @@
+﻿@using CourtJustice.Domain.Models
+@model IEnumerable<Referencer>
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover data-table">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+                <th>
+                    @Html.DisplayNameFor(model => model.ReferencerCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReferencerCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td class="w100">
+                        <div class="d-inline">
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.ReferencerCode"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.ReferencerCode');"><i class='fa fa-trash'></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
