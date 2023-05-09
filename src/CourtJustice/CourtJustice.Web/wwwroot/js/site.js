@@ -118,7 +118,7 @@ showInPopup = (url, title) => {
         success: function (res) {
             $('#form-modal .modal-body').html(res);
             $('#form-modal .modal-title').html(title);
-            $('#form-modal').modal('show');
+            $('#form-modal').modal({ backdrop: 'static', keyboard: false }, 'show');
 
         }
     })
@@ -131,7 +131,7 @@ showInPopupXL = (url, title) => {
         success: function (res) {
             $('#form-modal-xl .modal-body').html(res);
             $('#form-modal-xl .modal-title').html(title);
-            $('#form-modal-xl').modal('show');
+            $('#form-modal-xl').modal({ backdrop: 'static', keyboard: false }, 'show');
 
 
         }
@@ -144,7 +144,7 @@ showInPopupFullScreen = (url, title) => {
         success: function (res) {
             $('#form-modal-table .modal-body').html(res);
             $('#form-modal-table .modal-title').html(title);
-            $('#form-modal-table').modal('show');
+            $('#form-modal-table').modal({ backdrop: 'static', keyboard: false }, 'show');
         }
     })
 }
@@ -156,9 +156,15 @@ showInPopupFullScreenTable = (url, title) => {
         success: function (res) {
             $('#form-modal-table .modal-body').html(res);
             $('#form-modal-table .modal-title').html(title);
-            $('#form-modal-table').modal('show');
+            $('#form-modal-table').modal({ backdrop: 'static', keyboard: false }, 'show');
         }
     })
+}
+
+closePopupXL = () => {
+    $('#form-modal-xl .modal-body').html('');
+    $('#form-modal-xl .modal-title').html('');
+    $('#form-modal-xl').modal('hide');
 }
 
 

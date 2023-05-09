@@ -3,7 +3,7 @@
 
         var url = $('#hdGetAddressSetById').val();
         var addressId = $(this).attr("data-id");
-        var idx =parseInt( $(this).attr("data-idx"));
+        var idx = parseInt($(this).attr("data-idx"));
         $('#form-modal-lookup').modal('hide');
 
         $.ajax({
@@ -14,7 +14,7 @@
                 console.log(res);
                 console.log(idx);
 
-                switch(idx) {
+                switch (idx) {
                     case 0:
                         $('#AddressId').val(addressId);
                         $('#txtProvince').val(res.provinceName);
@@ -45,7 +45,7 @@
         //$('#txtProductNameLookup').val(name);
     });
 });
-showLookup = (idx,url, getUrl) => {
+showLookup = (idx, url, getUrl) => {
     console.log(url);
     $.ajax({
         type: 'GET',
@@ -54,12 +54,12 @@ showLookup = (idx,url, getUrl) => {
             $('#form-modal-lookup .modal-body').html(res);
             $('#form-modal-lookup .modal-title').html('ข้อมูลที่อยู่');
             $('#form-modal-lookup').modal('show');
-            getAddressSetLookup(idx,getUrl);
+            getAddressSetLookup(idx, getUrl);
         }
     })
 
 }
-function getAddressSetLookup(idx,url) {
+function getAddressSetLookup(idx, url) {
     //var url = $("#hdGetWithPaging").val();
     var table = $('#tbl_address_set_lookup').DataTable({
         "processing": true,
@@ -95,17 +95,14 @@ function getAddressSetLookup(idx,url) {
             //    }
             //},
             { data: "addressId", name: "addressId" },
-            //{ data: "province_id", name: "province_id" },
             {
-                data: "provinceName", name: "provinceName",
+                data: "subDistrictName", name: "subDistrictName",
                 render: function (data, type, row) {
                     return "<a href='#' id='btnSelected'  data-id='" + row.addressId + "' data-idx='" + idx + "' >" + data + "</a>";
                 }
             },
-            //{ data: "district_id", name: "district_id" },
             { data: "districtName", name: "districtName", },
-            //{ data: "sub_district_id", name: "sub_district_id", },
-            { data: "subDistrictName", name: "subDistrictName", },
+            {data: "provinceName", name: "provinceName",},
             { data: "postalCode", name: "postalCode", },
         ]
 

@@ -35,23 +35,14 @@ $(function () {
     //});
 });
 
-function showAssetLandTab(url) {
-    console.log(url);
-    var id = $('#txtCusId').val();
-    console.log(id);
-    $.ajax({
-        type: "GET",
-        url: url + "/" + id,
-        contentType: "application/json; charset=utf-8",
-        success: function (res) {
-            $("#view-asset-land").html(res);
-            //console.log(res.html);
-        }
-    })
-}
+
 
 function showAssetCarTab(url) {
     console.log(url);
+    if (url == '' || url == undefined) {
+        alert('something wrong at showAssetCarTab!');
+        return false;
+    }
     var id = $('#txtCusId').val();
     console.log(id);
     $.ajax({
@@ -66,15 +57,19 @@ function showAssetCarTab(url) {
 }
 
 function onSelectCusId() {
-    $(document).on('click', '#btnSelected', function () {
+    $(document).on('click', '#btnLoaneeSelected', function () {
 
         var url = $('#hdGetLoaneeByKey').val();
         var id = $(this).attr("data-id");
+
+        if (url == '' || url == undefined) {
+            alert('something wrong!');
+        }
         //alert(cusId);
 
         //var idx = parseInt($(this).attr("data-idx"));
         //$('#form-modal-lookup').modal('hide');
-
+        console.log("onSelectCusId");
         $('#txtCusId').val(id);
         $.ajax({
             type: "GET",
@@ -83,7 +78,6 @@ function onSelectCusId() {
             success: function (res) {
                 $("#view-loanee").html(res.html);
                 activaTab('loanee-1');
-
             }
         });
 
@@ -136,7 +130,7 @@ getWithPaging = () => {
             {
                 data: "name", name: "name", class: "text-nowrap",
                 render: function (data, type, row) {
-                    return "<a href='#' id='btnSelected'  data-id='" + row.cusId + "'>" + data + "</a>";
+                    return "<a href='#' id='btnLoaneeSelected'  data-id='" + row.cusId + "'>" + data + "</a>";
                 }
             },
             { data: "phoneNumber", name: "phoneNumber", class: "text-nowrap", },

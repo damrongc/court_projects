@@ -52,6 +52,56 @@ namespace CourtJustice.Web.Controllers
             return View(new AssetLand());
         }
 
+        public async Task<IActionResult> AddOrEdit(string id="")
+        {
+            var landOffices = await _landOfficeRepository.GetAll();
+            List<SelectListItem> SelectLandOffice = new();
+            foreach (var item in landOffices)
+            {
+                SelectLandOffice.Add(new SelectListItem
+                {
+                    Text = item.LandOfficeName.ToString(),
+                    Value = item.LandOfficeCode.ToString(),
+                });
+            }
+            ViewBag.LandOffices = SelectLandOffice;
+            return View(new AssetLand());
+        }
+
+        [HttpPost]
+        public JsonResult AddOrEdit([FromBody] AssetLand request)
+        {
+            //var landOffices = await _landOfficeRepository.GetAll();
+            //List<SelectListItem> SelectLandOffice = new();
+            //foreach (var item in landOffices)
+            //{
+            //    SelectLandOffice.Add(new SelectListItem
+            //    {
+            //        Text = item.LandOfficeName.ToString(),
+            //        Value = item.LandOfficeCode.ToString(),
+            //    });
+            //}
+            //ViewBag.LandOffices = SelectLandOffice;
+            //return View(new AssetLand());
+
+            var assetLands = new List<AssetLandViewModel>
+            {
+                new AssetLandViewModel
+                {
+                    AssetLandId = "02",
+                    Position = "123456",
+                    EstimatePrice = 300000
+
+                }
+            };
+
+            //return PartialView("~/Views/AssetLands/_AssetLandCard.cshtml", assetLands);
+
+            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
+            return new JsonResult(new { isValid = true, html });
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AssetLand model)
@@ -113,8 +163,11 @@ namespace CourtJustice.Web.Controllers
             }
 
         }
+
+
+
         [HttpGet]
-        public IActionResult GetAssetLandByCusId(string id)
+        public JsonResult GetAssetLandByCusId(string id="")
         {
             //var assetLands = await _assetLandRepository.GetByKey(id);
             var assetLands = new List<AssetLandViewModel>
@@ -127,9 +180,9 @@ namespace CourtJustice.Web.Controllers
 
                 }
             };
-            return PartialView("~/Views/AssetLands/_AssetLandCard.cshtml", assetLands);
-            //var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
-            //return new JsonResult(new { isValid = true, message = "", html });
+            //return PartialView("~/Views/AssetLands/_AssetLandCard.cshtml", assetLands);
+            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
+            return new JsonResult(new { isValid = true, message = "", html });
         }
 
 

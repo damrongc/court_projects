@@ -113,6 +113,7 @@ namespace CourtJustice.Web
                     DefaultBucket.Seed(context);
                     DefaultEmployer.Seed(context);
                     DefaultEmployee.Seed(context);
+                    DefaultLandOffice.Seed(context);
                     logger.LogInformation("Application Starting");
                 }
                 catch (Exception ex)

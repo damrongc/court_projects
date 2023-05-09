@@ -12,13 +12,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-          @*      <div class="d-flex justify-content-between mb-3">
-                    <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
+                @*      <div class="d-flex justify-content-between mb-3">
+                <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
                 </div>*@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <form asp-action="Create">
+                        <form asp-action="AddOrEdit" onsubmit="return AddOrEdit(this);">
                             <input asp-for="AddressId" class="form-control col-md-2" type="hidden" />
 
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -38,14 +38,14 @@
                                     <input asp-for="Gps" class="form-control" />
                                     <span asp-validation-for="Gps" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-4">
                                     <label asp-for="LandOfficeCode" class="control-label"></label>
                                     <select class="form-control dropdown" id="ddlLandOffices" asp-for="LandOfficeCode" asp-items="@ViewBag.LandOffices">
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label asp-for="EstimatePrice" class="control-label"></label>
-                                    <input asp-for="EstimatePrice" class="form-control" />
+                                    <input asp-for="EstimatePrice" class="form-control" type="number" />
                                     <span asp-validation-for="EstimatePrice" class="text-danger"></span>
                                 </div>
                             </div>
@@ -61,28 +61,26 @@
                                     <span asp-validation-for="EstimatePrice" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet.SubDistrictName" class="control-label"></label>
+                                    <label asp-for="AddressSet!.SubDistrictName" class="control-label"></label>
                                     <input id="txtSubdistrict" class="form-control" readonly />
                                 </div>
-                       
                                 <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet.DistrictName" class="control-label"></label>
+                                    <label asp-for="AddressSet!.DistrictName" class="control-label"></label>
                                     <input id="txtDistrict" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet.ProvinceName" class="control-label"></label>
+                                    <label asp-for="AddressSet!.ProvinceName" class="control-label"></label>
                                     <input id="txtProvince" class="form-control" readonly />
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet.PostalCode" class="control-label"></label>
+                                    <label asp-for="AddressSet!.PostalCode" class="control-label"></label>
                                     <input id="txtPostalCode" class="form-control" readonly />
                                 </div>
                             </div>
                             <div class="form-group">
-                           @*     <a asp-action="Index" class="btn btn-light">Back</a>
-                                <input type="submit" value="Create" class="btn btn-primary" />*@
+                           
+                                <input type="submit" value="Create" class="btn btn-primary" />
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -93,12 +91,12 @@
 </div>
 
 @Html.Hidden("hdGetAddressSetById", Url.Action("GetAddressById", "AddressSets"))
-@section Scripts {
+@*@section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
         <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
         <script src="~/js/pages/asset_land.js" asp-append-version="true"></script>
     }
-}
+}*@
 
 
