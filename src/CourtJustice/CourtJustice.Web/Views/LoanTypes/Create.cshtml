@@ -1,15 +1,15 @@
 ﻿@using CourtJustice.Domain.Models;
-@model AssetType
+@model LoanType
 
 @{
-    ViewData["Title"] = "ประเภทสินทรัพย์";
+    ViewData["Title"] = "ประเภทสินเชื่อ";
 }
 <div class="row">
     <div class="col-6">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-3">
-                    <h3 class="mb-3">แก้ไข @ViewData["Title"]</h3>
+                    <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
                 </div>
 
                 <div class="row">
@@ -18,17 +18,17 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label asp-for="AssetTypeId" class="control-label"></label>
-                                    <input asp-for="AssetTypeId" class="form-control" />
-                                    <span asp-validation-for="AssetTypeId" class="text-danger"></span>
+                                    <label asp-for="LoanTypeCode" class="control-label"></label>
+                                    <input asp-for="LoanTypeCode" class="form-control" />
+                                    <span asp-validation-for="LoanTypeCode" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row">
 
                                 <div class="form-group col-md-6">
-                                    <label asp-for="AssetTypeName" class="control-label"></label>
-                                    <input asp-for="AssetTypeName" class="form-control" />
-                                    <span asp-validation-for="AssetTypeName" class="text-danger"></span>
+                                    <label asp-for="LoanTypeName" class="control-label"></label>
+                                    <input asp-for="LoanTypeName" class="form-control" />
+                                    <span asp-validation-for="LoanTypeName" class="text-danger"></span>
                                 </div>
                             </div>
 

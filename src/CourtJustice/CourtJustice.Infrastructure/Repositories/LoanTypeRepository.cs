@@ -16,32 +16,37 @@ namespace CourtJustice.Infrastructure.Repositories
         {
         }
 
-        public Task Create(LoanType model)
+        public async Task Create(LoanType model)
         {
-            throw new NotImplementedException();
+            await Context.LoanTypes.AddAsync(model);
+            await Context.SaveChangesAsync();
         }
 
-        public Task Delete(string id)
+        public async Task Delete(string id)
         {
-            throw new NotImplementedException();
+            var model = await Context.LoanTypes.FindAsync(id);
+            Context.LoanTypes.Remove(model);
+            await Context.SaveChangesAsync();
         }
 
         public async Task<List<LoanType>> GetAll()
         {
-            var loadTypes = new List<LoanType>();
-            loadTypes.Add(new LoanType { LoanTypeCode = "01",LoanTypeName="สินเชื่อส่วนบุคคล" });
-            loadTypes.Add(new LoanType { LoanTypeCode = "02",LoanTypeName= "สินเชื่อรถ" });
-            return loadTypes;
+           
+            return await Context.LoanTypes.ToListAsync();
         }
 
-        public Task<LoanType> GetByKey(string id)
+        public async Task<LoanType> GetByKey(string id)
         {
-            throw new NotImplementedException();
+            var model = await Context.LoanTypes.FindAsync(id);
+            return model;
         }
 
-        public Task Update(string id, LoanType model)
+        public async Task Update(string id, LoanType model)
         {
-            throw new NotImplementedException();
+            var result = await Context.LoanTypes.FindAsync(model.LoanTypeCode);
+            result.LoanTypeName = model.LoanTypeName;
+
+            await Context.SaveChangesAsync();
         }
     }
 }

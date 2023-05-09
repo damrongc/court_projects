@@ -38,8 +38,10 @@
 
   <ItemGroup>
     <None Remove="Views\CarTypes\" />
+    <None Remove="Views\LoanTypes\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CarTypes\" />
+    <Folder Include="Views\LoanTypes\" />
   </ItemGroup>
 </Project>
