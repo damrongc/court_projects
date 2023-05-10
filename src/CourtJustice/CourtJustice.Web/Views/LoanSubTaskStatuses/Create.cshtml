@@ -1,0 +1,61 @@
+﻿@using CourtJustice.Domain.Models;
+@model LoanSubTaskStatus
+
+@{
+    ViewData["Title"] = "กลุ่มงานย่อย";
+}
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="LoanSubTaskStatusId" class="control-label"></label>
+                                    <input asp-for="LoanSubTaskStatusId" class="form-control" readonly />
+                                    <span asp-validation-for="LoanSubTaskStatusId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="LoanSubTaskStatusName" class="control-label"></label>
+                                    <input asp-for="LoanSubTaskStatusName" class="form-control" />
+                                    <span asp-validation-for="LoanSubTaskStatusName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="LoanTaskStatusId" class="control-label"></label>
+                                    <select class="form-control dropdown" id="ddlLandOffices" asp-for="LoanTaskStatusId" asp-items="@ViewBag.loanTaskStatus">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <a asp-action="Index" class="btn btn-light">Back</a>
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

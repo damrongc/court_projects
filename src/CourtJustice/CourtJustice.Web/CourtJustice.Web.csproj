@@ -41,11 +41,19 @@
     <None Remove="Views\LoanTypes\" />
     <None Remove="Views\Occupations\" />
     <None Remove="Views\Referencers\" />
+    <None Remove="Views\Employers\" />
+    <None Remove="Views\Employees\" />
+    <None Remove="Views\LoanTaskStatuses\" />
+    <None Remove="Views\Payments\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CarTypes\" />
     <Folder Include="Views\LoanTypes\" />
     <Folder Include="Views\Occupations\" />
     <Folder Include="Views\Referencers\" />
+    <Folder Include="Views\Employers\" />
+    <Folder Include="Views\Employees\" />
+    <Folder Include="Views\LoanTaskStatuses\" />
+    <Folder Include="Views\Payments\" />
   </ItemGroup>
 </Project>

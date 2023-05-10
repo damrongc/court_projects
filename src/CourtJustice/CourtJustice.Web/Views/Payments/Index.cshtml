@@ -1,8 +1,8 @@
 ﻿@using CourtJustice.Domain.Models
-@model IEnumerable<Referencer>
+@model IEnumerable<Payment>
 
 @{
-    ViewData["Title"] = "บุคคลอ้างอิง";
+    ViewData["Title"] = "การชำระ";
 }
 
 <div>
@@ -26,7 +26,9 @@
     </div>
 </div>
 
-@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "Referencers"))
+@Html.Hidden("hdGetWithPaging", Url.Action("GetWithPaging", "Payments"))
+@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "Payments"))
+
 @section scripts{
-    <script src="~/js/pages/referencer.js" asp-append-version="true"></script>
+    <script src="~/js/pages/payment.js" asp-append-version="true"></script>
 }

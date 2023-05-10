@@ -1,6 +1,5 @@
 ﻿
 
-
 $(function () {
 
 
@@ -47,6 +46,7 @@ confirmDelete = (id) => {
         });
     return false;
 }
+
 
 
 

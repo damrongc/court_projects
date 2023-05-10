@@ -1,8 +1,8 @@
 ﻿@using CourtJustice.Domain.Models
-@model IEnumerable<Referencer>
+@model IEnumerable<Employer>
 
 @{
-    ViewData["Title"] = "บุคคลอ้างอิง";
+    ViewData["Title"] = "ผู้ว่าจ้าง";
 }
 
 <div>
@@ -26,7 +26,7 @@
     </div>
 </div>
 
-@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "Referencers"))
+@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "Employers"))
 @section scripts{
-    <script src="~/js/pages/referencer.js" asp-append-version="true"></script>
+    <script src="~/js/pages/employer.js" asp-append-version="true"></script>
 }
