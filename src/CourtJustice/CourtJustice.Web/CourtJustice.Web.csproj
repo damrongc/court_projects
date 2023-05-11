@@ -18,6 +18,12 @@
 		<PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
 		<PackageReference Include="ExcelDataReader" Version="3.6.0" />
 		<PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+		<PackageReference Include="FastReport.OpenSource" Version="2023.2.12" />
+		<PackageReference Include="FastReport.OpenSource.Data.MySql" Version="2021.4.0" />
+		<PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2023.2.12" />
+		<PackageReference Include="FastReport.OpenSource.Web" Version="2023.2.12" />
+		<PackageReference Include="itext7" Version="8.0.0" />
+		<PackageReference Include="itext7.pdfhtml" Version="5.0.0" />
 		<PackageReference Include="Mapster" Version="7.3.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
 			<PrivateAssets>all</PrivateAssets>
@@ -34,6 +40,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CourtJustice.Domain\CourtJustice.Domain.csproj" />
     <ProjectReference Include="..\CourtJustice.Infrastructure\CourtJustice.Infrastructure.csproj" />
+    <ProjectReference Include="..\FastReport.OpenSource.HtmlExporter.Core\FastReport.OpenSource.HtmlExporter.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,5 +62,6 @@
     <Folder Include="Views\Employees\" />
     <Folder Include="Views\LoanTaskStatuses\" />
     <Folder Include="Views\Payments\" />
+    <Folder Include="wwwroot\notices\" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@ using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
 using CourtJustice.Infrastructure.Seeds;
 using CourtJustice.Web.ActionFilters;
+using FastReport.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace CourtJustice.Web
@@ -17,6 +18,10 @@ namespace CourtJustice.Web
             var builder = WebApplication.CreateBuilder(args);
 
             string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+            FastReport.Utils.RegisteredObjects.AddConnection(typeof(MySqlDataConnection));
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 //options.UseNpgsql(connectionString);
@@ -88,8 +93,8 @@ namespace CourtJustice.Web
             }
             app.UseNotyf();
             app.UseHttpsRedirection();
+            app.UseFastReport();
             app.UseStaticFiles();
-
             app.UseRouting();
             app.UseSession();
 

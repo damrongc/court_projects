@@ -5,9 +5,13 @@ using CourtJustice.Infrastructure.Interfaces;
 using ExcelDataReader;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Dynamic;
 using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using FastReport.Data;
+using FastReport.Web;
+using FastReport.Export;
+using FastReport.OpenSource.HtmlExporter.Core;
+using iText.Kernel.Geom;
+using FastReport.Export.PdfSimple;
 
 namespace CourtJustice.Web.Controllers
 {
@@ -19,13 +23,17 @@ namespace CourtJustice.Web.Controllers
         private readonly IBucketRepository _bucketRepository;
         private readonly IEmployerRepository _employerRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IWebHostEnvironment _webHost;
+        private readonly IConfiguration _configuration;
 
         public LoaneesController(ILoaneeRepository loaneeRepository,
             IOccupationRepository occupationRepository,
             ILoanTypeRepository loanTypeRepository,
             IBucketRepository bucketRepository,
             IEmployerRepository employerRepository,
-            IEmployeeRepository employeeRepository)
+            IEmployeeRepository employeeRepository,
+            IWebHostEnvironment webHost,
+            IConfiguration configuration)
         {
             _loaneeRepository = loaneeRepository;
             _occupationRepository = occupationRepository;
@@ -33,6 +41,8 @@ namespace CourtJustice.Web.Controllers
             _bucketRepository = bucketRepository;
             _employerRepository = employerRepository;
             _employeeRepository = employeeRepository;
+            _webHost = webHost;
+            _configuration = configuration;
         }
 
         public async Task<IActionResult> Index()
@@ -176,42 +186,83 @@ namespace CourtJustice.Web.Controllers
             return new JsonResult(new { isValid = true, message = "", html });
         }
 
-        [HttpGet]
-        public async Task<JsonResult> GetAssetLandByCusId(string id)
-        {
-            //var assetLands = await _assetLandRepository.GetByKey(id);
-            var assetLands = new List<AssetLandViewModel>
-            {
-                new AssetLandViewModel
-                {
-                    AssetLandId = "01",
-                    Position = "asas",
-                    EstimatePrice = 200000
+        //[HttpGet]
+        //public async Task<JsonResult> GetAssetLandByCusId(string id)
+        //{
+        //    //var assetLands = await _assetLandRepository.GetByKey(id);
+        //    var assetLands = new List<AssetLandViewModel>
+        //    {
+        //        new AssetLandViewModel
+        //        {
+        //            AssetLandId = "01",
+        //            Position = "asas",
+        //            EstimatePrice = 200000
 
-                }
-            };
-            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
-            return new JsonResult(new { isValid = true, message = "", html });
+        //        }
+        //    };
+        //    var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
+        //    return new JsonResult(new { isValid = true, message = "", html });
+        //}
+
+        //[HttpGet]
+        //public async Task<JsonResult> GetAssetCarByCusId(string id)
+        //{
+        //    //var assetLands = await _assetLandRepository.GetByKey(id);
+        //    var assetLands = new List<AssetLandViewModel>
+        //    {
+        //        new AssetLandViewModel
+        //        {
+        //            AssetLandId = "01",
+        //            Position = "asas",
+        //            EstimatePrice = 200000
+
+        //        }
+        //    };
+        //    var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetCarCard", assetLands);
+        //    return new JsonResult(new { isValid = true, message = "", html });
+        //}
+        [HttpGet]
+        public IActionResult ShowNotice(string id) 
+        {
+            var webReport = new WebReport();
+            var conn = new MySqlDataConnection();
+            conn.ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            webReport.Report.Dictionary.Connections.Add(conn);
+
+            var path = System.IO.Path.Combine(_webHost.WebRootPath, "reports", "notice.frx");
+            webReport.Report.Load(path);
+            //webReport.Report.RegisterData(categories, "Categories");
+
+            //var fastReportGenerator = new FastReportGenerator<LoaneeNoticeViewModel>(path, "test.frx");
+
+            //var report = fastReportGenerator.GeneratePdfFromHtml(data, PageSize.A4);
+            var exportPath = System.IO.Path.Combine(_webHost.WebRootPath, "notices");
+            //ExportToFile(report, exportPath, "testWithoutPdfSimple");
+
+            var pdfExport = new PDFSimpleExport();
+            var stream = new MemoryStream();
+            webReport.Report.Export(pdfExport, stream);
+            pdfExport.Dispose();
+            stream.Position = 0;
+            stream.ToArray();
+
+
+            ExportToFile(stream.ToArray(), exportPath, $"notices_{id}");
+
+            return View(webReport);
         }
 
-        [HttpGet]
-        public async Task<JsonResult> GetAssetCarByCusId(string id)
+
+        static void ExportToFile(byte[] report,string exportPath, string fileName)
         {
-            //var assetLands = await _assetLandRepository.GetByKey(id);
-            var assetLands = new List<AssetLandViewModel>
+         
+            fileName = System.IO.Path.Combine(exportPath, string.Format("{0}.pdf", fileName));
+            if (System.IO.File.Exists(fileName))
             {
-                new AssetLandViewModel
-                {
-                    AssetLandId = "01",
-                    Position = "asas",
-                    EstimatePrice = 200000
-
-                }
-            };
-            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetCarCard", assetLands);
-            return new JsonResult(new { isValid = true, message = "", html });
+                System.IO.File.Delete(fileName);
+            }
+            System.IO.File.WriteAllBytes(fileName, report);
         }
-
 
 
         [HttpPost]

@@ -4,7 +4,9 @@
     Layout = null;
     ViewData["Title"] = "รายละเอียดลูกหนี้";
 }
-
+<div class="row">
+    <a href="#" class="btn btn-info" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">Notice</a>
+</div>
 <div class="row">
     <div class="col-md-3">
         <dl class="row">
@@ -72,82 +74,3 @@
     </div>
 </div>
 
-@*<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="mb-3">@ViewData["Title"]: @Model?.Name</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <dl class="row">
-                            <dt class="col-sm-3">
-                                @Html.DisplayNameFor(model => model.LoanNumber)
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.LoanNumber)
-                            </dd>
-                            <dt class="col-sm-3">
-                                @Html.DisplayNameFor(model => model.CusId)
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.CusId)
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="col-md-3">
-                        <dl class="row">
-                            <dt class="col-sm-3">
-                                @Html.DisplayNameFor(model => model.LoanNumber)
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.LoanNumber)
-                            </dd>
-                            <dt class="col-sm-3">
-                                @Html.DisplayNameFor(model => model.CusId)
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.CusId)
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="col-md-3">
-                        <dl class="row">
-                            <dt class="col-sm-3">
-                                @Html.DisplayNameFor(model => model.LoanNumber)
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.LoanNumber)
-                            </dd>
-                            <dt class="col-sm-3">
-                                @Html.DisplayNameFor(model => model.CusId)
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.CusId)
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="col-md-3">
-                        <dl class="row">
-                            <dt class="col-sm-3">
-                                @Html.DisplayNameFor(model => model.LoanNumber)
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.LoanNumber)
-                            </dd>
-                            <dt class="col-sm-3">
-                                @Html.DisplayNameFor(model => model.CusId)
-                            </dt>
-                            <dd class="col-sm-9">
-                                @Html.DisplayFor(model => model.CusId)
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-</div>*@

@@ -36,25 +36,35 @@ $(function () {
 });
 
 
-
-function showAssetCarTab(url) {
-    console.log(url);
-    if (url == '' || url == undefined) {
-        alert('something wrong at showAssetCarTab!');
-        return false;
-    }
-    var id = $('#txtCusId').val();
-    console.log(id);
-    $.ajax({
-        type: "GET",
-        url: url + "/" + id,
-        contentType: "application/json; charset=utf-8",
-        success: function (res) {
-            $("#view-asset-land").html(res.html);
-            //console.log(res.html);
-        }
-    })
+function showNotice(url) {
+    //$.ajax({
+    //    type: "GET",
+    //    url: url,
+    //    contentType: "application/json; charset=utf-8",
+    //    success: function (res) {
+    //    }
+    //})
+    window.open(url, '_blank');
+    return false;
 }
+//function showAssetCarTab(url) {
+//    console.log(url);
+//    if (url == '' || url == undefined) {
+//        alert('something wrong at showAssetCarTab!');
+//        return false;
+//    }
+//    var id = $('#txtCusId').val();
+//    console.log(id);
+//    $.ajax({
+//        type: "GET",
+//        url: url + "/" + id,
+//        contentType: "application/json; charset=utf-8",
+//        success: function (res) {
+//            $("#view-asset-land").html(res.html);
+//            //console.log(res.html);
+//        }
+//    })
+//}
 
 function onSelectCusId() {
     $(document).on('click', '#btnLoaneeSelected', function () {
