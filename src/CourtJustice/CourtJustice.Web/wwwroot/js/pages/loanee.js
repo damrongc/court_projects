@@ -66,6 +66,26 @@ function showNotice(url) {
 //    })
 //}
 
+function showPaymentTab(url) {
+    console.log(url);
+    if (url == '' || url == undefined) {
+        alert('something wrong at showPaymentTab!');
+        return false;
+    }
+    var id = $("txtLoanNumber").val();
+    console.log(id);
+    $.ajax({
+        type: "GET",
+        url: url + "/" + id,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+            $("#view-payment").html(res.html);
+            //console.log(res.html);
+        }
+    })
+
+}
+
 function onSelectCusId() {
     $(document).on('click', '#btnLoaneeSelected', function () {
 

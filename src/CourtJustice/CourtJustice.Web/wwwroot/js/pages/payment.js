@@ -8,7 +8,7 @@ function showPaymentTab(url) {
         alert('something wrong at showAssetLandTab!');
         return false;
     }
-    var id = $('#txtCusId').val();
+    var id = $('#txtLoanNumber').val();
     if (id == '' || id == undefined) {
         swal({
             title: "Error",
@@ -24,7 +24,7 @@ function showPaymentTab(url) {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             if (res.isValid) {
-                $("#view-asset-land").html(res.html);
+                $("#view-payment").html(res.html);
             }
 
             //$("#view-asset-land").html(res);

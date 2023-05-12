@@ -1,5 +1,5 @@
 ﻿@using CourtJustice.Domain.ViewModels;
-@model Tuple<LoaneeViewModel,IEnumerable<AssetLandViewModel>>
+@model Tuple<LoaneeViewModel, IEnumerable<AssetLandViewModel>>
 @{
     ViewData["Title"] = "ข้อมูลลูกหนี้";
 }
@@ -48,7 +48,7 @@
         <div class="card">
             <div class="card-body">
                 @*        <h4 class="card-title">@Model?.Name</h4>
-                <p class="card-description">@Model?.CusId</p>*@
+                    <p class="card-description">@Model?.CusId</p>*@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="loanee-tab" data-toggle="tab" href="#loanee-1" role="tab" aria-controls="loanee-1" aria-selected="true">รายละเอียดลูกหนี้</a>
@@ -116,13 +116,14 @@
 
 
 @Html.Hidden("txtCusId")
-@Html.Hidden("hdDeleteRoute",Url.Action("Delete","Loanees"))
-@Html.Hidden("hdGetWithPaging",Url.Action("GetWithPaging","Loanees"))
+@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "Loanees"))
+@Html.Hidden("hdGetWithPaging", Url.Action("GetWithPaging", "Loanees"))
 
-@Html.Hidden("hdGetLoaneeByKey",Url.Action("GetLoaneeByKey","Loanees"))
+@Html.Hidden("hdGetLoaneeByKey", Url.Action("GetLoaneeByKey", "Loanees"))
 
 @section scripts{
     <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
     <script src="~/js/pages/loanee.js" asp-append-version="true"></script>
     <script src="~/js/pages/asset_land.js" asp-append-version="true"></script>
+    <script src="~/js/pages/payment.js" asp-append-version="true"></script>
 }
