@@ -1,0 +1,43 @@
+<?xml version="1.0" standalone="yes"?>
+<notice>
+  <xs:schema id="notice" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="notice" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="notice">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CompanyName" type="xs:string" minOccurs="0" />
+                <xs:element name="Address" type="xs:string" minOccurs="0" />
+                <xs:element name="BankName" type="xs:string" minOccurs="0" />
+                <xs:element name="NoticeDate" type="xs:string" minOccurs="0" />
+                <xs:element name="LoaneeName" type="xs:string" minOccurs="0" />
+                <xs:element name="LoaneeNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="ContractDate" type="xs:string" minOccurs="0" />
+                <xs:element name="Amount" type="xs:double" minOccurs="0" />
+                <xs:element name="Rate" type="xs:double" minOccurs="0" />
+                <xs:element name="DebtAmount" type="xs:double" minOccurs="0" />
+                <xs:element name="Fee" type="xs:double" minOccurs="0" />
+                <xs:element name="TotalAmount" type="xs:double" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <notice>
+    <CompanyName>Company</CompanyName>
+    <Address>Address</Address>
+    <BankName>Bank Name</BankName>
+    <NoticeDate>12/05/2023</NoticeDate>
+    <LoaneeName>นิภาพร ทรัพย์เกิด</LoaneeName>
+    <LoaneeNumber>630227</LoaneeNumber>
+    <ContractDate>12/05/2023</ContractDate>
+    <Amount>1000</Amount>
+    <Rate>25.25</Rate>
+    <DebtAmount>1000</DebtAmount>
+    <Fee>20</Fee>
+    <TotalAmount>100000</TotalAmount>
+  </notice>
+</notice>

@@ -7,13 +7,13 @@
         public string BankName { get; set; }
         public string NoticeDate { get; set; }
         public string LoaneeName { get; set; }
-        public string LoaneeNumber { get;}
+        public string LoaneeNumber { get; set; }
         public string ContractDate { get; set; }
-        public decimal Amount { get; set; }
-        public decimal Rate { get; set; }
-        public decimal DebtAmount { get; set; }
-        public decimal Fee { get; set; }
-        public decimal TotalAmount { get; set; }
+        public double Amount { get; set; }
+        public double Rate { get; set; }
+        public double DebtAmount { get; set; }
+        public double Fee { get; set; }
+        public double TotalAmount { get; set; }
 
     }
 }
