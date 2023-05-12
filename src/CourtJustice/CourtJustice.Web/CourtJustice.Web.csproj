@@ -40,7 +40,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CourtJustice.Domain\CourtJustice.Domain.csproj" />
     <ProjectReference Include="..\CourtJustice.Infrastructure\CourtJustice.Infrastructure.csproj" />
-    <ProjectReference Include="..\FastReport.OpenSource.HtmlExporter.Core\FastReport.OpenSource.HtmlExporter.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

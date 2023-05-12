@@ -6,13 +6,8 @@ using ExcelDataReader;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Globalization;
-using FastReport.Data;
 using FastReport.Web;
-using FastReport.Export;
-using FastReport.OpenSource.HtmlExporter.Core;
-using iText.Kernel.Geom;
 using FastReport.Export.PdfSimple;
-using System.Data;
 using CourtJustice.Web.Utils;
 
 namespace CourtJustice.Web.Controllers
