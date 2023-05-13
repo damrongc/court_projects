@@ -7,6 +7,7 @@ using CourtJustice.Infrastructure.Seeds;
 using CourtJustice.Web.ActionFilters;
 using FastReport.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace CourtJustice.Web
 {
@@ -15,6 +16,7 @@ namespace CourtJustice.Web
         public static int Progress { get; set; }
         public static void Main(string[] args)
         {
+            
             var builder = WebApplication.CreateBuilder(args);
 
             string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -122,6 +124,7 @@ namespace CourtJustice.Web
                     DefaultEmployer.Seed(context);
                     DefaultEmployee.Seed(context);
                     DefaultLandOffice.Seed(context);
+                    DefaultLoanee.Seed(context);
                     logger.LogInformation("Application Starting");
                 }
                 catch (Exception ex)

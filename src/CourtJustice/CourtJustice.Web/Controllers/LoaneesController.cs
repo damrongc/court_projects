@@ -177,6 +177,7 @@ namespace CourtJustice.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> GetLoaneeByKey(string id)
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("th-TH");
             var loanee =await  _loaneeRepository.GetByKey(id);
 
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_LoaneeCard", loanee);
@@ -348,8 +349,8 @@ namespace CourtJustice.Web.Controllers
                         {
                             loanee.Name = dt.Rows[i][2].ToString().Trim();
                             loanee.CusId = dt.Rows[i][3].ToString().Trim();
-                            loanee.LoanNumber = dt.Rows[i][4].ToString().Trim();
-                            loanee.Address = dt.Rows[i][5].ToString().Trim();
+                            //loanee.LoanNumber = dt.Rows[i][4].ToString().Trim();
+                            //loanee.Address = dt.Rows[i][5].ToString().Trim();
                
                             //var meterId = dt.Rows[i][0].ToString().Trim();
                             //var address = dt.Rows[i][2].ToString().Trim();
@@ -407,6 +408,8 @@ namespace CourtJustice.Web.Controllers
             try
             {
                 //var productGroupCode = Request.Form["productGroupCode"].FirstOrDefault();
+
+                
                 var draw = Request.Form["draw"].FirstOrDefault();
                 var start = Request.Form["start"].FirstOrDefault();
                 var length = Request.Form["length"].FirstOrDefault();
@@ -415,8 +418,9 @@ namespace CourtJustice.Web.Controllers
                 var searchValue = Request.Form["search[value]"].FirstOrDefault();
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = await _loaneeRepository.GetRecordCount(searchValue);
+                int recordsTotal = await _loaneeRepository.GetRecordCount(searchValue!);
 
+                
                 var data = await _loaneeRepository.GetPaging(skip, pageSize, searchValue);
                 var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
                 return Ok(jsonData);

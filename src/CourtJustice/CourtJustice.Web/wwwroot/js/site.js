@@ -169,9 +169,16 @@ closePopupXL = () => {
 
 
 function formatNumber(num) {
-    return (num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    //return (num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
 
+function formatDate(data) {
+    return moment(data).add(543, 'year').format("DD-MM-YYYY");
+}
+function formatDatetime(data) {
+    return moment(data).add(543, 'year').format("DD-MM-YYYY h:mm");
+}
 
 InputToUpper = (obj) => {
     if (obj.value != "") {

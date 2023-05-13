@@ -21,9 +21,9 @@ namespace CourtJustice.Domain.Models
         public decimal Target { get; set; } = 0;
         [Display(Name = "ที่อยู่")]
         public string Address { get; set; } = string.Empty;
-        public int AddressId { get; set; }
-        [ForeignKey(nameof(AddressId))]
-        public virtual AddressSet? AddressSet { set; get; }
+        //public int AddressId { get; set; }
+        //[ForeignKey(nameof(AddressId))]
+        //public virtual AddressSet? AddressSet { set; get; }
 
     }
 }

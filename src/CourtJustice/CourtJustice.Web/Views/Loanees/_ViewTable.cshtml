@@ -6,30 +6,36 @@
         <thead>
             <tr class="bg-primary text-white" role="row">
                 <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.LoanNumber)
+                    @Html.DisplayNameFor(model => model.ContractNo)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.ContractDate)
                 </th>
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.CusId)
                 </th>
                 <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.NationalityId)
+                </th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                    @Html.DisplayNameFor(model => model.InstallmentsByContract)
                 </th>
                 <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.Address)
+                    @Html.DisplayNameFor(model => model.Term)
                 </th>
                 <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.Address1)
+                    @Html.DisplayNameFor(model => model.LoanAmount)
                 </th>
                 <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.Address2)
+                    @Html.DisplayNameFor(model => model.WOBalance)
                 </th>
-                <th class="text-nowrap">
+         @*       <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.OccupationName)
-                </th>
-                <th class="text-nowrap">
+                </th>*@
+              @*  <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.InstallmentsByContract)
                 </th>
                 <th class="text-nowrap">
@@ -70,8 +76,8 @@
                 </th>
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.OverdueDayAmount)
-                </th>
-                <th></th>
+                </th>*@
+                @*<th></th>*@
             </tr>
         </thead>
         <tbody>
