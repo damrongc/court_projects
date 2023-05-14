@@ -13,11 +13,11 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task<Payment> GetByKey(int id);
 
         Task<List<PaymentViewModel>> GetByCusId(string id);
-
-        Task<IEnumerable<AssetLandViewModel>> GetPaging(int skip, int take, string filter);
-        Task<int> GetRecordCount(string filter);
-
+        //Task<IEnumerable<AssetLandViewModel>> GetPaging(int skip, int take, string filter);
+        //Task<int> GetRecordCount(string filter);
         bool IsExisting(int id);
+
+        Task<int> GetPaymentSeq(string cusId);
     }
 }
 

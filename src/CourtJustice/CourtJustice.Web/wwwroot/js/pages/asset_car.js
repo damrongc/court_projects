@@ -12,7 +12,7 @@ function showAssetCarTab(url) {
         alert('something wrong at showAssetCarTab!');
         return false;
     }
-    var id = = $('#txtCusId').val();
+    var id = $('#txtCusId').val();
     if (id == '' || id == undefined) {
         swal({
             title: "Error",
@@ -63,7 +63,7 @@ confirmDelete = (id) => {
                     type: "DELETE",
                     url: `${url}/${id}`,
                     contentType: "application/json; charset=utf-8",
-                    sauccess: function (res) {
+                    success: function (res) {
                         console.log(res);
                         if (res.isValid) {
                             swal({

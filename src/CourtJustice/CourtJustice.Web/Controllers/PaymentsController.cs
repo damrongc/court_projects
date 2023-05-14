@@ -88,7 +88,7 @@ namespace CourtJustice.Web.Controllers
 
             if (id == 0)
             {            
-                return View(new Payment());
+                return View(new Payment { PaymentDate=DateOnly.FromDateTime(DateTime.Today)});
 
             }
             else
@@ -103,12 +103,15 @@ namespace CourtJustice.Web.Controllers
         public async Task<JsonResult> AddOrEdit([FromBody] Payment model)
         {
             var isExisting = _paymentRepository.IsExisting(model.PaymentId);
+           
             if (isExisting)
             {
                 await _paymentRepository.Update(model.PaymentId, model);
             }
             else
             {
+                var seq = await _paymentRepository.GetPaymentSeq(model.CusId);
+                model.PaymentSeq = seq;
                 await _paymentRepository.Create(model);
             }
             var payments = await _paymentRepository.GetByCusId(model.CusId);
@@ -117,18 +120,14 @@ namespace CourtJustice.Web.Controllers
             return new JsonResult(new { isValid = true, html });
         }
 
-
         [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<JsonResult> DeleteConfirmed(int id,string cusId)
         {
             try
             {
-
-
                 await _paymentRepository.Delete(id);
-                //_notify.Success($"Delete is Success.");
-                var results = await GetAll();
-                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
+                var payments = await _paymentRepository.GetByCusId(cusId);
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_PaymentCard", payments);
                 return new JsonResult(new { isValid = true, message = "", html });
             }
             catch (Exception ex)
@@ -139,8 +138,6 @@ namespace CourtJustice.Web.Controllers
 
         }
 
-      
-
         [HttpGet]
         public async Task<JsonResult> GetByCusId(string id = "")
         {
@@ -150,34 +147,31 @@ namespace CourtJustice.Web.Controllers
             return new JsonResult(new { isValid = true, message = "", html });
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> GetWithPaging()
+        //{
+        //    try
+        //    {
+        //        //var productGroupCode = Request.Form["productGroupCode"].FirstOrDefault();
+        //        var draw = Request.Form["draw"].FirstOrDefault();
+        //        var start = Request.Form["start"].FirstOrDefault();
+        //        var length = Request.Form["length"].FirstOrDefault();
+        //        var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+        //        var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+        //        var searchValue = Request.Form["search[value]"].FirstOrDefault();
+        //        int pageSize = length != null ? Convert.ToInt32(length) : 0;
+        //        int skip = start != null ? Convert.ToInt32(start) : 0;
+        //        int recordsTotal = await _paymentRepository.GetRecordCount(searchValue);
 
-
-
-        [HttpPost]
-        public async Task<IActionResult> GetWithPaging()
-        {
-            try
-            {
-                //var productGroupCode = Request.Form["productGroupCode"].FirstOrDefault();
-                var draw = Request.Form["draw"].FirstOrDefault();
-                var start = Request.Form["start"].FirstOrDefault();
-                var length = Request.Form["length"].FirstOrDefault();
-                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
-                var searchValue = Request.Form["search[value]"].FirstOrDefault();
-                int pageSize = length != null ? Convert.ToInt32(length) : 0;
-                int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = await _paymentRepository.GetRecordCount(searchValue);
-
-                var data = await _paymentRepository.GetPaging(skip, pageSize, searchValue);
-                var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
-                return Ok(jsonData);
-            }
-            catch
-            {
-                throw;
-            }
-        }
+        //        var data = await _paymentRepository.GetPaging(skip, pageSize, searchValue);
+        //        var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
+        //        return Ok(jsonData);
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
     }
 }
 

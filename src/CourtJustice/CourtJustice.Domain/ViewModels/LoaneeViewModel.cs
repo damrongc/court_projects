@@ -35,7 +35,7 @@ namespace CourtJustice.Domain.ViewModels
         [Display(Name = "จำนวนงวดที่ทำสัญญา")]
         public int Term { get; set; }
         [Display(Name = "เงินต้น")]
-        [DisplayFormat(DataFormatString = "{0:###,###.##}")]
+        [DisplayFormat(DataFormatString = "{0:###,###.00}")]
         public decimal LoanAmount { get; set; }
         [Display(Name = "ยอดมูลหนี้ ณ.ปัจจุบัน")]
         public decimal WOBalance { get; set; }
