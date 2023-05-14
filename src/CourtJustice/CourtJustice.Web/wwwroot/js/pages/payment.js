@@ -34,7 +34,7 @@ function showPaymentTab(url) {
 
 AddOrEdit = (form) => {
     try {
-        var payments = {};
+        var payment = {};
 
         var txtPayMentId = $("#PaymentId");
         var txtPaymentSeq = $("#PaymentSeq");
