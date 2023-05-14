@@ -10,9 +10,6 @@ namespace CourtJustice.Domain.ViewModels
 	{
         [Display(Name = "เลขที่การชำระ")]
         public int PaymentId { get; set; }
-      
-        [Display(Name = "เลขที่สัญญา")]
-        public string LoanNumber { get; set; } = string.Empty;
         [Display(Name = "ครั้งที่ชำระ")]
         public int PaymentSeq { get; set; }
         [Display(Name = "วันที่ชำระ")]
@@ -21,6 +18,8 @@ namespace CourtJustice.Domain.ViewModels
         public decimal Amount { get; set; }
         [Display(Name = "ค่าปรับ")]
         public decimal Fee { get; set; }
+        [Display(Name = "ID-CUST")]
+        public string CusId { get; set; }
     }
 }
 

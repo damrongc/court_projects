@@ -12,6 +12,7 @@
     <Content Remove="Views\AssetLands\_ViewTable.cshtml" />
     <Content Remove="Views\Loanees\_AssetCarCard.cshtml" />
     <Content Remove="Views\Loanees\_AssetLandCard.cshtml" />
+    <Content Remove="Views\AssetCars\_AssetCarsCard.cshtml" />
   </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
@@ -64,5 +65,11 @@
     <Folder Include="Views\LoanTaskStatuses\" />
     <Folder Include="Views\Payments\" />
     <Folder Include="wwwroot\notices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Views\AssetCars\_AssetCarsCardcshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 </Project>

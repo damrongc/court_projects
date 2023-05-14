@@ -23,7 +23,7 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public async Task Create(Lawyer model)
         {
-         
+
             await Context.Lawyers.AddAsync(model);
             await Context.SaveChangesAsync();
         }
@@ -52,16 +52,9 @@ namespace CourtJustice.Infrastructure.Repositories
             result.LawyerName = model.LawyerName;
             result.PhoneNumber = model.PhoneNumber;
             result.Address = model.Address;
-            result.AddressNo = model.AddressNo;
-            result.Building = model.Building;
+
             result.Email = model.Email;
-            result.Floor = model.Floor;
-            result.Village = model.Village;
-            result.Substreet = model.Substreet;
-            result.Street = model.Street;
-            result.ProvinceId = model.ProvinceId;
-            result.DistrictId = model.DistrictId;
-            result.SubDistrictId = model.SubDistrictId;
+            result.AddressDetail = model.AddressDetail;
             await Context.SaveChangesAsync();
         }
     }

@@ -1,9 +1,11 @@
-﻿using CourtJustice.Domain.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using CourtJustice.Domain.Models;
 
 namespace CourtJustice.Domain
 {
-    public class LoaneeRemark :BaseEntity
+    [Table("loanee_remark")]
+    public class LoaneeRemark : BaseEntity
     {
         [Key]
         public int LoaneeRemarkId { get; set; }

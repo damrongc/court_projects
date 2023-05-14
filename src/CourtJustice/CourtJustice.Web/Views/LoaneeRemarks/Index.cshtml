@@ -1,8 +1,8 @@
 ﻿@using CourtJustice.Domain.Models
-@model IEnumerable<Payment>
+@model IEnumerable<LoaneeRemark>
 
 @{
-    ViewData["Title"] = "การชำระ";
+    ViewData["Title"] = "หมายเหตุ";
 }
 
 <div>
@@ -25,10 +25,8 @@
         </div>
     </div>
 </div>
-
-@Html.Hidden("hdGetWithPaging", Url.Action("GetWithPaging", "Payments"))
-@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "Payments"))
-
+@Html.Hidden("hdGetWithPaging", Url.Action("GetWithPaging", "AssetLands"))
+@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "AssetLands"))
 @section scripts{
-    <script src="~/js/pages/payment.js" asp-append-version="true"></script>
+    <script src="~/js/pages/asset_land.js" asp-append-version="true"></script>
 }

@@ -47,7 +47,7 @@ AddOrEdit = (form) => {
         var txtAddressDetail = $("#AddressDetail");
         var txtCusId = $("#txtCusId");
 
-        var errorMessage = "";
+       /* var errorMessage = "";
         var isValid = true;
         if (txtAssetLandId.val() == '' || txtAssetLandId.val() == undefined) {
             isValid = false;
@@ -86,7 +86,7 @@ AddOrEdit = (form) => {
             });
             return false;
         }
-
+        */
 
         assetLand.AssetLandId = txtAssetLandId.val();
         assetLand.Position = txtPosition.val();
@@ -108,7 +108,7 @@ AddOrEdit = (form) => {
                 if (res.isValid) {
                     swal({
                         title: "สำเร็จ",
-                        text:"ข้อมูล หลักทรัพย์ที่ดิน บันทึกเรียบร้อยแล้ว.",
+                        text: "ข้อมูล หลักทรัพย์ที่ดิน บันทึกเรียบร้อยแล้ว.",
                         icon: "success",
                     })
                         .then(() => {
@@ -193,7 +193,6 @@ AddOrEdit = (form) => {
 //    var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
 //    length_sel.removeClass('form-control-sm');
 //});
-
 
 
 

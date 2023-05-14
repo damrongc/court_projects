@@ -1,5 +1,10 @@
-﻿@using CourtJustice.Domain.Models;
-@model IEnumerable<AssetCar>
+﻿@using CourtJustice.Domain.ViewModels;
+@model IEnumerable<AssetLandViewModel>;
+@{
+    Layout = null;
+
+}
+<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetLands",null,Context.Request.Scheme)','เพิ่มข้อมูลที่ดิน')"><i class="fa fa-plus"></i> Create New</a>
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover data-table">
@@ -63,10 +68,10 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Owner)
                     </td>
-                    <td class="w100">
+                    <td class="w150">
                         <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.ChassisNumber"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.ChassisNumber');"><i class='fa fa-trash'></i></a>
+                            <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetLands",new {id=item.AssetLandId},Context.Request.Scheme)','แก้ไขข้อมูลที่ดิน')"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.AssetLandId');"><i class='fa fa-trash'></i></a>
                         </div>
                     </td>
                 </tr>

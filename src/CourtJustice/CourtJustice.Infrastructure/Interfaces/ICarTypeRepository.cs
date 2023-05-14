@@ -10,6 +10,8 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Update(int id, CarType model);
         Task Delete(int id);
         Task<CarType> GetByKey(int id);
+
+        bool IsExisting(int id);
     }
 }
 

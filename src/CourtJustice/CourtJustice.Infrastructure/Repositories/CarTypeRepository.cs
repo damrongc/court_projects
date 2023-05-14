@@ -51,6 +51,11 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             return await Context.CarTypes.ToListAsync();
         }
+
+        public bool IsExisting(int id)
+        {
+            return Context.CarTypes.Any(c => c.CarTypeCode == id);
+        }
     }
 }
 

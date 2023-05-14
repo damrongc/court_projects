@@ -1,5 +1,10 @@
-﻿@using CourtJustice.Domain.Models
-@model IEnumerable<Payment>
+﻿@using CourtJustice.Domain.ViewModels;
+@model IEnumerable<PaymentViewModel>;
+@{
+    Layout = null;
+
+}
+<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","Payments",null,Context.Request.Scheme)','เพิ่มข้อมูลการชำระ')"><i class="fa fa-plus"></i> Create New</a>
 
 
 <div class="table-responsive">
@@ -10,9 +15,17 @@
                     @Html.DisplayNameFor(model => model.PaymentId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.LoanNumber)
+                    @Html.DisplayNameFor(model => model.PaymentSeq)
                 </th>
-
+                <th>
+                    @Html.DisplayNameFor(model => model.PaymentDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fee)
+                </th>
                 <th>
 
                 </th>
@@ -26,10 +39,17 @@
                         @Html.DisplayFor(modelItem => item.PaymentId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.LoanNumber)
+                        @Html.DisplayFor(modelItem => item.PaymentSeq)
                     </td>
-
-
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaymentDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fee)
+                    </td>
                     <td class="w100">
                         <div class="d-inline">
                             <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.PaymentId"><i class='fa fa-edit'></i></a>
