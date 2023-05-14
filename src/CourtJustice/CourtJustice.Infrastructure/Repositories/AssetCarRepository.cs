@@ -44,8 +44,8 @@ namespace CourtJustice.Infrastructure.Repositories
                 using IDbConnection conn = Connection;
                 conn.Open();
                 var sb = new StringBuilder();
-                sb.Append("select chassis_number, engine_number, brand, model, production_year, estimate_price, license_plate_owner, " +
-                     " car_type_code, b.car_type_name, cus_id" +
+                sb.Append("select chassis_number, engine_number, brand, model, production_year, estimate_price, " +
+                     " a.car_type_code, b.car_type_name, cus_id" +
                      " from asset_car a,car_type b" +
                      " where a.car_type_code = b.car_type_code" +
                       " and cus_id=@cus_id");

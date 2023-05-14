@@ -1,4 +1,4 @@
-﻿var cusId;
+﻿
 
 $(function () {
 
@@ -7,24 +7,24 @@ $(function () {
 });
 
 
-function showAssetLandTab(url) {
+function showAssetCarTab(url) {
     if (url == '' || url == undefined) {
-        alert('something wrong at showAssetLandTab!');
+        alert('something wrong at showAssetCarTab!');
         return false;
     }
-    var cusId = $('#txtCusId').val();
-    if (cusId == '' || cusId == undefined) {
+    var id = = $('#txtCusId').val();
+    if (id == '' || id == undefined) {
         swal({
             title: "Error",
             text: "กรุณาเลือกลูกหนี้!",
             icon: "error"
         });
-        activaTab('asset-car-1');
+        activaTab('loanee-1');
         return false;
     }
     $.ajax({
         type: "GET",
-        url: url + "/" + cusId,
+        url: url + "/" + id,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             if (res.isValid) {

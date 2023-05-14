@@ -146,19 +146,6 @@ namespace CourtJustice.Web.Controllers
         {
             var payment = await _paymentRepository.GetByCusId(id);
 
-            //Mock Up
-            //var assetLands = new List<AssetLandViewModel>
-            //{
-            //    new AssetLandViewModel
-            //    {
-            //        AssetLandId = "01",
-            //        Position = "asas",
-            //        EstimatePrice = 200000,
-            //        LandOfficeCode ="01"
-
-            //    }
-            //};
-            //return PartialView("~/Views/AssetLands/_AssetLandCard.cshtml", assetLands);
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_PaymentCard", payment);
             return new JsonResult(new { isValid = true, message = "", html });
         }
