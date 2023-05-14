@@ -155,92 +155,108 @@ getWithPaging = () => {
             searchPlaceholder: "Search..."
         },
         "columns": [
-            { data: "loanNumber", name: "loanNumber" },
+            { data: "contractNo", name: "contractNo" },
+            {
+                data: "contractDate", name: "contractDate", class: "text-nowrap", render: function (data, type, row) {
+                    return formatDate(data);
+                    //return moment(data).add(543,'year').format("DD-MM-YYYY");
+                }
+            },
             { data: "cusId", name: "cusId", class: "text-nowrap" },
+            { data: "nationalityId", name: "nationalityId", class: "text-nowrap" },
             {
                 data: "name", name: "name", class: "text-nowrap",
                 render: function (data, type, row) {
                     return "<a href='#' id='btnLoaneeSelected'  data-id='" + row.cusId + "'>" + data + "</a>";
                 }
             },
-            { data: "phoneNumber", name: "phoneNumber", class: "text-nowrap", },
-            { data: "address", name: "address", class: "text-nowrap", },
-            { data: "address1", name: "address1", class: "text-nowrap", },
-            { data: "address2", name: "address2", class: "text-nowrap", },
-            { data: "occupationName", name: "occupationName", class: "text-nowrap", },
+            //{ data: "phoneNumber", name: "phoneNumber", class: "text-nowrap", },
+            //{ data: "address", name: "address", class: "text-nowrap", },
+            //{ data: "address1", name: "address1", class: "text-nowrap", },
+            //{ data: "address2", name: "address2", class: "text-nowrap", },
+            //{ data: "occupationName", name: "occupationName", class: "text-nowrap", },
             //{ data: "loanTypeName", name: "loanTypeName", },
             {
                 data: "installmentsByContract", name: "installmentsByContract", render: function (data, type, row) {
                     return formatNumber(data);
                 }
             },
-            {
-                data: "installmentsByAgree", name: "installmentsByAgree", render: function (data, type, row) {
-                    return formatNumber(data);
-                }
-            },
-            {
-                data: "lastPaidDate", name: "lastPaidDate", render: function (data, type, row) {
-                    return moment(data).format("DD-MM-YYYY");
-                }
-            },
-            {
-                data: "firstPaidDate", name: "firstPaidDate", render: function (data, type, row) {
-                    return moment(data).format("DD-MM-YYYY");
-                }
-            },
-            {
-                data: "intereteRate", name: "intereteRate", render: function (data, type, row) {
-                    return formatNumber(data);
-                }
-            },
-            {
-                data: "intereteRateAmount", name: "intereteRateAmount", render: function (data, type, row) {
-                    return formatNumber(data);
-                }
-            },
-            {
-                data: "overdueAmount", name: "overdueAmount", render: function (data, type, row) {
-                    return formatNumber(data);
-                }
-            },
-            {
-                data: "dueDate", name: "dueDate", class: "text-nowrap", render: function (data, type, row) {
-                    return moment(data).format("DD-MM-YYYY");
-                }
-            },
-            {
-                data: "followUpDate", name: "followUpDate", class: "text-nowrap", render: function (data, type, row) {
-                    return moment(data).format("DD-MM-YYYY");
-                }
-            },
-            {
-                data: "paidAmount", name: "paidAmount", render: function (data, type, row) {
-                    return formatNumber(data);
-                }
-            },
-            {
-                data: "paidInMonthAmount", name: "paidInMonthAmount", render: function (data, type, row) {
-                    return formatNumber(data);
-                }
-            },
-            {
-                data: "totalAmount", name: "totalAmount", render: function (data, type, row) {
-                    return formatNumber(data);
-                }
-            },
-            {
-                data: "remainingAmount", name: "remainingAmount", render: function (data, type, row) {
-                    return formatNumber(data);
-                }
-            },
-            {
-                data: "overdueDayAmount", name: "overdueDayAmount", render: function (data, type, row) {
-                    return formatNumber(data);
-                }
-            },
+            { data: "term", name: "term", },
+            { data: "loanAmount", name: "loanAmount", render: function (data, type, row) {
+                return formatNumber(data);
+            }
+},
+            { data: "woBalance", name: "woBalance", render: function (data, type, row) {
+                return formatNumber(data);
+            } },
+            //{ data: "occupationName", name: "occupationName", },
+            //{
+            //    data: "installmentsByAgree", name: "installmentsByAgree", render: function (data, type, row) {
+            //        return formatNumber(data);
+            //    }
+            //},
+            //{
+            //    data: "lastPaidDate", name: "lastPaidDate", render: function (data, type, row) {
+            //        return moment(data).format("DD-MM-YYYY");
+            //    }
+            //},
+            //{
+            //    data: "firstPaidDate", name: "firstPaidDate", render: function (data, type, row) {
+            //        return moment(data).format("DD-MM-YYYY");
+            //    }
+            //},
+            //{
+            //    data: "intereteRate", name: "intereteRate", render: function (data, type, row) {
+            //        return formatNumber(data);
+            //    }
+            //},
+            //{
+            //    data: "intereteRateAmount", name: "intereteRateAmount", render: function (data, type, row) {
+            //        return formatNumber(data);
+            //    }
+            //},
+            //{
+            //    data: "overdueAmount", name: "overdueAmount", render: function (data, type, row) {
+            //        return formatNumber(data);
+            //    }
+            //},
+            //{
+            //    data: "dueDate", name: "dueDate", class: "text-nowrap", render: function (data, type, row) {
+            //        return moment(data).format("DD-MM-YYYY");
+            //    }
+            //},
+            //{
+            //    data: "followUpDate", name: "followUpDate", class: "text-nowrap", render: function (data, type, row) {
+            //        return moment(data).format("DD-MM-YYYY");
+            //    }
+            //},
+            //{
+            //    data: "paidAmount", name: "paidAmount", render: function (data, type, row) {
+            //        return formatNumber(data);
+            //    }
+            //},
+            //{
+            //    data: "paidInMonthAmount", name: "paidInMonthAmount", render: function (data, type, row) {
+            //        return formatNumber(data);
+            //    }
+            //},
+            //{
+            //    data: "totalAmount", name: "totalAmount", render: function (data, type, row) {
+            //        return formatNumber(data);
+            //    }
+            //},
+            //{
+            //    data: "remainingAmount", name: "remainingAmount", render: function (data, type, row) {
+            //        return formatNumber(data);
+            //    }
+            //},
+            //{
+            //    data: "overdueDayAmount", name: "overdueDayAmount", render: function (data, type, row) {
+            //        return formatNumber(data);
+            //    }
+            //},
 
-            { data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: actionSection }
+            //{ data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: actionSection }
             //{ data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: "<a id='btnEdit' class='btn btn-sm btn-primary text-white js-action'><i class='fa fa-edit'></i></a><a id='btnDelete' class='btn btn-sm btn-danger text-white js-action'><i class='fa fa-trash'></i></a>" }
 
         ]

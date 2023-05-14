@@ -6,12 +6,9 @@ using ExcelDataReader;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Globalization;
-using FastReport.Data;
 using FastReport.Web;
-using FastReport.Export;
-using FastReport.OpenSource.HtmlExporter.Core;
-using iText.Kernel.Geom;
 using FastReport.Export.PdfSimple;
+using CourtJustice.Web.Utils;
 
 namespace CourtJustice.Web.Controllers
 {
@@ -180,6 +177,7 @@ namespace CourtJustice.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> GetLoaneeByKey(string id)
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("th-TH");
             var loanee =await  _loaneeRepository.GetByKey(id);
 
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_LoaneeCard", loanee);
@@ -225,33 +223,85 @@ namespace CourtJustice.Web.Controllers
         public IActionResult ShowNotice(string id) 
         {
             var webReport = new WebReport();
-            var conn = new MySqlDataConnection();
-            conn.ConnectionString = _configuration.GetConnectionString("DefaultConnection");
-            webReport.Report.Dictionary.Connections.Add(conn);
+            //var conn = new MySqlDataConnection();
+            //conn.ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            //webReport.Report.Dictionary.Connections.Add(conn);
 
-            var path = System.IO.Path.Combine(_webHost.WebRootPath, "reports", "notice.frx");
+            var path = System.IO.Path.Combine(ReportUtils.DesignerPath(_webHost), "notice.frx");
+            var xmlPath = System.IO.Path.Combine(ReportUtils.DesignerPath(_webHost), "notice.xml");
             webReport.Report.Load(path);
-            //webReport.Report.RegisterData(categories, "Categories");
+            //var dataSet = new DataSet();
 
-            //var fastReportGenerator = new FastReportGenerator<LoaneeNoticeViewModel>(path, "test.frx");
+            CultureInfo cultureInfo= new CultureInfo("th-TH");
+            var notices = new List<LoaneeNoticeViewModel>();
+            var notice = new LoaneeNoticeViewModel
+            {
+                NoticeDate = DateTime.Today.ToString("dd MMMM yyyy", cultureInfo),
+                CompanyName = "Company",
+                BankName = "Bank Name",
+                Address = "Address",
+                LoaneeName = "ขวัญเรือน บุญมา",
+                ContractDate = DateTime.Now.ToString("dd MMMM yyyy", cultureInfo),
+                LoaneeNumber = "630227",
+                Amount = 1000,
+                DebtAmount = 1000,
+                Fee = 20,
+                Rate = 25.25,
+                TotalAmount = 100000
+            };
 
-            //var report = fastReportGenerator.GeneratePdfFromHtml(data, PageSize.A4);
-            var exportPath = System.IO.Path.Combine(_webHost.WebRootPath, "notices");
-            //ExportToFile(report, exportPath, "testWithoutPdfSimple");
+            
+            notices.Add(notice);
+            var ds = notices.ConvertToDataSet("Notice");
+            //dataSet.ReadXml(cc);
+            //cc.WriteXml(xmlPath, XmlWriteMode.WriteSchema);
 
-            var pdfExport = new PDFSimpleExport();
-            var stream = new MemoryStream();
-            webReport.Report.Export(pdfExport, stream);
-            pdfExport.Dispose();
-            stream.Position = 0;
-            stream.ToArray();
+            //dataSet.ReadXml(webRootPath + "/reports/nwind.xml"); // Open the xml database
+
+            webReport.Report.RegisterData(ds, "Notice");
+
+            ////var fastReportGenerator = new FastReportGenerator<LoaneeNoticeViewModel>(path, "test.frx");
+
+            ////var report = fastReportGenerator.GeneratePdfFromHtml(data, PageSize.A4);
+            //var exportPath = System.IO.Path.Combine(_webHost.WebRootPath, "notices");
+            ////ExportToFile(report, exportPath, "testWithoutPdfSimple");
+
+            //var pdfExport = new PDFSimpleExport();
+            //var stream = new MemoryStream();
+            //webReport.Report.Export(pdfExport, stream);
+            //pdfExport.Dispose();
+            //stream.Position = 0;
+            //stream.ToArray();
 
 
-            ExportToFile(stream.ToArray(), exportPath, $"notices_{id}");
+            //ExportToFile(stream.ToArray(), exportPath, $"notices_{id}");
+
+            webReport.Report.Prepare();
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                PDFSimpleExport pdfExport = new PDFSimpleExport();
+                pdfExport.Export(webReport.Report, ms);
+                ms.Flush();
+                return File(ms.ToArray(), "application/pdf", "notices.pdf");
+            }
 
             return View(webReport);
         }
 
+        //public IActionResult Pdf()
+        //{
+        //    var webReport = GetReport();
+        //    webReport.Report.Prepare();
+
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        PDFSimpleExport pdfExport = new PDFSimpleExport();
+        //        pdfExport.Export(webReport.Report, ms);
+        //        ms.Flush();
+        //        return File(ms.ToArray(), "application/pdf", Path.GetFileNameWithoutExtension("Master-Detail") + ".pdf");
+        //    }
+        //}
 
         static void ExportToFile(byte[] report,string exportPath, string fileName)
         {
@@ -299,8 +349,8 @@ namespace CourtJustice.Web.Controllers
                         {
                             loanee.Name = dt.Rows[i][2].ToString().Trim();
                             loanee.CusId = dt.Rows[i][3].ToString().Trim();
-                            loanee.LoanNumber = dt.Rows[i][4].ToString().Trim();
-                            loanee.Address = dt.Rows[i][5].ToString().Trim();
+                            //loanee.LoanNumber = dt.Rows[i][4].ToString().Trim();
+                            //loanee.Address = dt.Rows[i][5].ToString().Trim();
                
                             //var meterId = dt.Rows[i][0].ToString().Trim();
                             //var address = dt.Rows[i][2].ToString().Trim();
@@ -358,6 +408,8 @@ namespace CourtJustice.Web.Controllers
             try
             {
                 //var productGroupCode = Request.Form["productGroupCode"].FirstOrDefault();
+
+                
                 var draw = Request.Form["draw"].FirstOrDefault();
                 var start = Request.Form["start"].FirstOrDefault();
                 var length = Request.Form["length"].FirstOrDefault();
@@ -366,8 +418,9 @@ namespace CourtJustice.Web.Controllers
                 var searchValue = Request.Form["search[value]"].FirstOrDefault();
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = await _loaneeRepository.GetRecordCount(searchValue);
+                int recordsTotal = await _loaneeRepository.GetRecordCount(searchValue!);
 
+                
                 var data = await _loaneeRepository.GetPaging(skip, pageSize, searchValue);
                 var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
                 return Ok(jsonData);

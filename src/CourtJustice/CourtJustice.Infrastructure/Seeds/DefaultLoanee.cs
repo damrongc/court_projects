@@ -2,22 +2,33 @@
 
 namespace CourtJustice.Infrastructure.Seeds
 {
-    public static class DefaultEmployee
+    public static class DefaultLoanee
     {
         public static void Seed(ApplicationDbContext context)
         {
-            var models = context.Employees.ToList();
+            var models = context.Loanees.ToList();
             if (models.Count == 0)
             {
-                context.Employees.Add(new Employee {EmployeeCode="E01",
-                    EmployeeName="Emplyee1",
-                    Email="em@test.com",
-                    PhoneNumber="-",
-                    HireDate=DateOnly.FromDateTime(DateTime.Today),
-                    Target=200000,
-                    Address="-",
-                    IsActive=true,UserCreated="admin",CreatedDateTime=DateTime.Now});
+                context.Loanees.Add(new Loanee
+                {
+                    CusId = "05512-94337-2",
+                    AssignDate = DateOnly.FromDateTime(DateTime.Today),
+                    ExpireDate = DateOnly.FromDateTime(DateTime.Today),
+                    BirthDate = DateOnly.FromDateTime(DateTime.Today),
+                    NationalityId = "32121124654551",
+                    Name = "ขวัญเรือน บุญมา",
+                    TelephoneHome = "0832XXXX",
+                    OccupationId = 1,
+                    ContractNo = "630807",
+                    ContractDate = DateOnly.FromDateTime(DateTime.Today),
+                    Term = 20,
+                    LoanTypeCode="IR",
+                    IsActive = true,
+                    CreatedDateTime = DateTime.Now,
+                    UserCreated = "system"
 
+                }) ;
+     
                 context.SaveChanges();
             }
 

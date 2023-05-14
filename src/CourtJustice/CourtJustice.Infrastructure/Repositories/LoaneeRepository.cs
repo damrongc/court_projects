@@ -5,6 +5,7 @@ using Dapper;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data;
+using System.Globalization;
 using System.Text;
 
 namespace CourtJustice.Infrastructure.Repositories
@@ -37,21 +38,7 @@ namespace CourtJustice.Infrastructure.Repositories
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
-                var sql = @"SELECT loan_number,cus_id,name,phone_number,
-concat(address,' ',b.sub_district_name,' ',b.district_name,' ',b.province_name,' ',b.postal_code) AS address,
-concat(address1,' ',c.sub_district_name,' ',c.district_name,' ',c.province_name,' ',c.postal_code) AS address1,
-concat(address2,' ',d.sub_district_name,' ',d.district_name,' ',d.province_name,' ',d.postal_code) AS address2,
-occupation_name,installments_by_contract,installments_by_agree,
-last_paid_date,first_paid_date,interete_rate,interete_rate_amount,overdue_amount,
-due_date,follow_up_date,paid_amount,paid_in_month_amount,total_amount,
-remaining_amount,overdue_day_amount
-
-FROM loanee a
-LEFT join address_set b ON a.address_id =b.address_id
-LEFT JOIN address_set c ON a.address1id =c.address_id
-LEFT JOIN address_set d ON a.address2id =d.address_id
-LEFT JOIN occupation e ON a.occupation_id =e.occupation_id
-WHERE cus_id=@cus_id";
+                var sql = @"select * from loanee where cus_id=@cus_id";
                
                 var result = await conn.QueryAsync<LoaneeViewModel>(sql, new { cus_id =id});
                 return result.SingleOrDefault();
@@ -68,22 +55,10 @@ WHERE cus_id=@cus_id";
         {
             try
             {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("th-TH");
                 using IDbConnection conn = Connection;
                 conn.Open();
-                var sql = @"SELECT loan_number,cus_id,name,phone_number,
-concat(address,' ',b.sub_district_name,' ',b.district_name,' ',b.province_name,' ',b.postal_code) AS address,
-concat(address1,' ',c.sub_district_name,' ',c.district_name,' ',c.province_name,' ',c.postal_code) AS address1,
-concat(address2,' ',d.sub_district_name,' ',d.district_name,' ',d.province_name,' ',d.postal_code) AS address2,
-occupation_name,installments_by_contract,installments_by_agree,
-last_paid_date,first_paid_date,interete_rate,interete_rate_amount,overdue_amount,
-due_date,follow_up_date,paid_amount,paid_in_month_amount,total_amount,
-remaining_amount,overdue_day_amount
-
-FROM loanee a
-LEFT join address_set b ON a.address_id =b.address_id
-LEFT JOIN address_set c ON a.address1id =c.address_id
-LEFT JOIN address_set d ON a.address2id =d.address_id
-LEFT JOIN occupation e ON a.occupation_id =e.occupation_id";
+                var sql = @"select * from loanee";
                 var sb = new StringBuilder();
                 sb.Append(sql);
                 if (!string.IsNullOrEmpty(filter))

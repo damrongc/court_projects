@@ -10,67 +10,340 @@
 <div class="row">
     <div class="col-md-3">
         <dl class="row">
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.LoanNumber)
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.ContractNo)
             </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.LoanNumber)
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.ContractNo)
             </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.CusId)
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.ContractDate)
             </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.CusId)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.LoanNumber)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.LoanNumber)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.CusId)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.CusId)
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.ContractDate)
             </dd>
         </dl>
     </div>
     <div class="col-md-3">
         <dl class="row">
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.LoanNumber)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.LoanNumber)
-            </dd>
-            <dt class="col-sm-3">
+            <dt class="col-sm-6">
                 @Html.DisplayNameFor(model => model.CusId)
             </dt>
-            <dd class="col-sm-9">
+            <dd class="col-sm-6">
                 @Html.DisplayFor(model => model.CusId)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Name)
             </dd>
         </dl>
     </div>
     <div class="col-md-3">
         <dl class="row">
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.LoanNumber)
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.NationalityId)
             </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.LoanNumber)
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.NationalityId)
             </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.CusId)
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.InstallmentsByContract)
             </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.CusId)
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.InstallmentsByContract)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.LoanAmount)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.LoanAmount)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Term)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Term)
             </dd>
         </dl>
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.WOBalance)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.WOBalance)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.OverdueAmount)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.OverdueAmount)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.RcvAmtBeforeWO)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.RcvAmtBeforeWO)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.RcvAmtBeforeWO)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.RcvAmtBeforeWO)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.LastPaidDate)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.LastPaidDate)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.LastPaidAmount)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.LastPaidAmount)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.NoOfAssignment)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.NoOfAssignment)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.IntereteRate)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.IntereteRate)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.IntereteRateAmount)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.IntereteRateAmount)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.DueDate)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.DueDate)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.FollowUpDate)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.FollowUpDate)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.PaidAmount)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.PaidAmount)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.PaidInMonthAmount)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.PaidInMonthAmount)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.TotalAmount)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.RemainingAmount)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.RemainingAmount)
+            </dd>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.HomeAddress1)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.HomeAddress1)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.HomeAddress2)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.HomeAddress2)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.HomeAddress3)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.HomeAddress3)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.HomeAddress4)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.HomeAddress4)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.TelephoneHome)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.TelephoneHome)
+            </dd>
+
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.OfficeAddress1)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.OfficeAddress1)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.OfficeAddress2)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.OfficeAddress2)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.OfficeAddress3)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.OfficeAddress3)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.OfficeAddress4)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.OfficeAddress4)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.TelephoneOffice)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.TelephoneHome)
+            </dd>
+
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.IdenAddress1)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.IdenAddress1)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.IdenAddress2)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.IdenAddress2)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.IdenAddress3)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.IdenAddress3)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.IdenAddress4)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.IdenAddress4)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.MobileHome)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.MobileHome)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.MobileOffice)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.MobileOffice)
+            </dd>
+        </dl>
+    </div>
+</div>
