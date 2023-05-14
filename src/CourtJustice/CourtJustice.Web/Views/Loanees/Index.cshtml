@@ -16,17 +16,17 @@
                         <div class="d-flex flex-wrap justify-content-between">
                             <div class="form-inline">
                                 <div class="form-group">
-                                    <div class="form-group ml-2">
-                                        <label class="control-label">ผู้ว่าจ้าง</label>
-                                        <select id="ddlEmployer" class="form-control dropdown ml-2" asp-items="ViewBag.Employers"></select>
-                                    </div>
-                                    <div class="form-group ml-2">
-                                        <label class="control-label">กลุ่มงาน</label>
-                                        <select id="ddlLoanTaskStatus" class="form-control dropdown ml-2" asp-items="ViewBag.LoanTaskStatus"></select>
-                                    </div>
-
-                                    <a onclick="getLoanee();" class="btn btn-primary btn-sm text-white ml-2"><i class="fa fa-refresh"></i> Show Data</a>
+                                    <label class="control-label">ผู้ว่าจ้าง</label>
+                                    <select id="ddlEmployer" class="form-control" asp-items="ViewBag.Employers"></select>
                                 </div>
+                                <div class="form-group ml-4">
+                                    <label class="control-label">กลุ่มงาน</label>
+                                    <select id="ddlLoanTaskStatus" class="form-control" asp-items="ViewBag.LoanTaskStatus"></select>
+                                </div>
+                                <div class="form-group ml-4">
+                                    <a onclick="getLoanee();" class="btn btn-primary btn-sm text-white"><i class="fa fa-refresh"></i> Show Data</a>
+                                </div>
+                            
                             </div>
                             <div class="form-inline">
                                 <a asp-action="IndexImport" class="btn btn-info btn-sm text-white ml-2"><i class="fa fa-file-excel-o"></i> Import</a>

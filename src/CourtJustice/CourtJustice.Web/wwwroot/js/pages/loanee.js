@@ -2,7 +2,8 @@
 
 
 $(function () {
-
+    $('#ddlEmployer').select2();
+    $('#ddlLoanTaskStatus').select2();
     $('#txtLastPaidDate').datetimepicker({
         timepicker: false,
         format: 'd-m-Y',
