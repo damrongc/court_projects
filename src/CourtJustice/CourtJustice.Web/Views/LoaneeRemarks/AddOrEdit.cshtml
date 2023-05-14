@@ -1,5 +1,5 @@
 ﻿@using CourtJustice.Domain.Models;
-@model AssetLand
+@model LoaneeRemark
 
 @{
     Layout = null;
@@ -12,12 +12,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                @*      <div class="d-flex justify-content-between mb-3">
-                <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
-                </div>*@
-             @*   @{
-                    var cssReadOnly = Model.AssetLandId == "" ? "no" : "readonly";
-                }*@
+            
                 <div class="row">
                     <div class="col-md-12">
                         <form asp-action="AddOrEdit" onsubmit="return AddOrEdit(this);">
@@ -28,7 +23,7 @@
                                     @{
                                         if (string.IsNullOrEmpty(Model.AssetLandId))
                                         {
-                                            <input asp-for="AssetLandId" class="form-control"  />
+                                            <input asp-for="AssetLandId" class="form-control" />
                                         }
                                         else
                                         {
@@ -71,27 +66,28 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label asp-for="AddressDetail" class="control-label"></label>
-                                    <input asp-for="AddressDetail" class="form-control"  />
+                                    <input asp-for="AddressDetail" class="form-control" />
                                     <span asp-validation-for="AddressDetail" class="text-danger"></span>
                                 </div>
                                 @*<div class="form-group col-md-2">
-                                    <label asp-for="AddressSet!.SubDistrictName" class="control-label"></label>
-                                    <input id="txtSubdistrict" class="form-control" readonly />
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet!.DistrictName" class="control-label"></label>
-                                    <input id="txtDistrict" class="form-control" readonly />
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet!.ProvinceName" class="control-label"></label>
-                                    <input id="txtProvince" class="form-control" readonly />
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="AddressSet!.PostalCode" class="control-label"></label>
-                                    <input id="txtPostalCode" class="form-control" readonly />
-                                </div>*@
+                                        <label asp-for="AddressSet!.SubDistrictName" class="control-label"></label>
+                                        <input id="txtSubdistrict" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label asp-for="AddressSet!.DistrictName" class="control-label"></label>
+                                        <input id="txtDistrict" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label asp-for="AddressSet!.ProvinceName" class="control-label"></label>
+                                        <input id="txtProvince" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label asp-for="AddressSet!.PostalCode" class="control-label"></label>
+                                        <input id="txtPostalCode" class="form-control" readonly />
+                                    </div>*@
                             </div>
-                            <div class="form-group"> 
+                            <div class="form-group">
+
                                 <input type="submit" value="Create" class="btn btn-primary" />
                             </div>
                         </form>
@@ -104,11 +100,11 @@
 </div>
 @Html.Hidden("hdGetAddressSetById", Url.Action("GetAddressById", "AddressSets"))
 @*@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
-        <script src="~/js/pages/asset_land.js" asp-append-version="true"></script>
-    }
-}*@
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
+            <script src="~/js/pages/asset_land.js" asp-append-version="true"></script>
+        }
+    }*@
 
 

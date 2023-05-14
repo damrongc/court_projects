@@ -3,6 +3,7 @@ using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
+using CourtJustice.Domain;
 
 namespace CourtJustice.Infrastructure
 {
@@ -58,6 +59,8 @@ namespace CourtJustice.Infrastructure
         public DbSet<LoanSubTaskStatus> LoanSubTaskStatuses { get; set; }
         public DbSet<LoanTaskStatus> LoanTaskStatuses { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<LoaneeRemark> LoaneeRemarks { get; set; }
+        public DbSet<Company> Companys { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

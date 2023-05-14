@@ -12,7 +12,10 @@ namespace CourtJustice.Domain.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        public string? AddressNo { get; set; }
+        [Display(Name = "รายละเอียด(ตำบล,อำเภอ,จังหวัด,รหัสไปรษณีย์)")]
+        public string AddressDetail { get; set; } = string.Empty;
+
+       /* public string? AddressNo { get; set; }
         public string? Village { get; set; }
         public string? Building { get; set; }
         public string? Floor { get; set; }
@@ -20,7 +23,7 @@ namespace CourtJustice.Domain.Models
         public string? Street { get; set; }
         public int ProvinceId { get; set; }
         public int DistrictId { get; set; }
-        public int SubDistrictId { get; set; }
+        public int SubDistrictId { get; set; }*/
 
     }
 }

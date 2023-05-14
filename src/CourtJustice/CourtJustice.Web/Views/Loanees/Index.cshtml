@@ -1,5 +1,5 @@
 ﻿@using CourtJustice.Domain.ViewModels;
-@model Tuple<LoaneeViewModel,IEnumerable<AssetLandViewModel>>
+@model Tuple<LoaneeViewModel, IEnumerable<AssetLandViewModel>>
 @{
     ViewData["Title"] = "ข้อมูลลูกหนี้";
 }
@@ -48,7 +48,7 @@
         <div class="card">
             <div class="card-body">
                 @*        <h4 class="card-title">@Model?.Name</h4>
-                <p class="card-description">@Model?.CusId</p>*@
+                    <p class="card-description">@Model?.CusId</p>*@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="loanee-tab" data-toggle="tab" href="#loanee-1" role="tab" aria-controls="loanee-1" aria-selected="true">รายละเอียดลูกหนี้</a>
@@ -60,19 +60,19 @@
                         <a class="nav-link" id="asset-car-tab" data-toggle="tab" role="tab" href="#asset-car-1" aria-controls="asset-car-1" aria-selected="false" onclick="showAssetCarTab('@Url.Action("GetByCusId","AssetCars")');">หลักทรัพย์(รถ)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="asset-salary-tab" data-toggle="tab" role="tab" href="#salary-car-1" aria-controls="salary-car-1" aria-selected="false" onclick="showAssetCarTab('@Url.Action("GetByCusId","AssetCars")');">หลักทรัพย์(เงืนเดือน)</a>
+                        <a class="nav-link" id="asset-salary-tab" data-toggle="tab" role="tab" href="#salary-car-1" aria-controls="salary-car-1" aria-selected="false" onclick="showAssetCarTab('@Url.Action("GetByCusId","AssetSalaries")');">หลักทรัพย์(เงืนเดือน)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="payment-tab" data-toggle="tab" role="tab" href="#payment-1" aria-controls="payment-1" aria-selected="false">การชำระ</a>
+                        <a class="nav-link" id="payment-tab" data-toggle="tab" role="tab" href="#payment-1" aria-controls="payment-1" aria-selected="false" onclick="showPaymentTab('@Url.Action("GetByCusId","Payments")')">การชำระ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="guarantor-tab" data-toggle="tab" role="tab" href="#guarantor-1" aria-controls="guarantor-1" aria-selected="false">ผู้ค้ำประกัน</a>
+                        <a class="nav-link" id="guarantor-tab" data-toggle="tab" role="tab" href="#guarantor-1" aria-controls="guarantor-1" aria-selected="false" onclick="showGurators('@Url.Action("GetByCusId","Gurators")')">ผู้ค้ำประกัน</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="referencer-tab" data-toggle="tab" role="tab" href="#referencer-1" aria-controls="referencer-1" aria-selected="false">บุคคลอ้างอิง</a>
+                        <a class="nav-link" id="referencer-tab" data-toggle="tab" role="tab" href="#referencer-1" aria-controls="referencer-1" aria-selected="false" onclick="showReferencers('@Url.Action("GetByCusId","Referencers")')">บุคคลอ้างอิง</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="remark-tab" data-toggle="tab" role="tab" href="#remark-1" aria-controls="remark-1" aria-selected="false">หมายเหตุ</a>
+                        <a class="nav-link" id="remark-tab" data-toggle="tab" role="tab" href="#remark-1" aria-controls="remark-1" aria-selected="false" onclick="showReferencers('@Url.Action("GetByCusId","Referencers")')">หมายเหตุ</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -116,13 +116,15 @@
 
 
 @Html.Hidden("txtCusId")
-@Html.Hidden("hdDeleteRoute",Url.Action("Delete","Loanees"))
-@Html.Hidden("hdGetWithPaging",Url.Action("GetWithPaging","Loanees"))
+@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "Loanees"))
+@Html.Hidden("hdGetWithPaging", Url.Action("GetWithPaging", "Loanees"))
 
-@Html.Hidden("hdGetLoaneeByKey",Url.Action("GetLoaneeByKey","Loanees"))
+@Html.Hidden("hdGetLoaneeByKey", Url.Action("GetLoaneeByKey", "Loanees"))
 
 @section scripts{
     <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
     <script src="~/js/pages/loanee.js" asp-append-version="true"></script>
     <script src="~/js/pages/asset_land.js" asp-append-version="true"></script>
+    <script src="~/js/pages/payment.js" asp-append-version="true"></script>
+    <script src="~/js/pages/asset_car.js" asp-append-version="true"></script>
 }

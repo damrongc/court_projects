@@ -1,5 +1,6 @@
 ﻿using System;
 using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
@@ -10,6 +11,13 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Update(int id, Payment model);
         Task Delete(int id);
         Task<Payment> GetByKey(int id);
+
+        Task<List<PaymentViewModel>> GetByCusId(string id);
+
+        Task<IEnumerable<AssetLandViewModel>> GetPaging(int skip, int take, string filter);
+        Task<int> GetRecordCount(string filter);
+
+        bool IsExisting(int id);
     }
 }
 

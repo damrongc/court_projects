@@ -1,6 +1,81 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using CourtJustice.Domain.Models;
+@model Payment
+
 @{
+    Layout = null;
+    ViewData["Title"] = "ข้อมูลการชำระ";
+   
 }
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+             
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="AddOrEdit" onsubmit="return AddOrEdit(this);">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label asp-for="PaymentId" class="control-label"></label>
+                                    @{
+                                        if (Model.PaymentId == 0)
+                                        {
+                                            <input asp-for="PaymentId" class="form-control" readonly/>
+                                        }
+                                        else
+                                        {
+                                            <input asp-for="PaymentId" class="form-control" readonly />
+                                        }
+                                    }
+                                    <span asp-validation-for="PaymentId" class="text-danger"></span>
+                                </div>
+                              
+                                <div class="form-group col-md-2">
+                                    <label asp-for="PaymentSeq" class="control-label"></label>
+                                    <input asp-for="PaymentSeq" class="form-control" type="number"  />
+                                    <span asp-validation-for="PaymentSeq" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label asp-for="PaymentDate" class="control-label"></label>
+                                    <input asp-for="PaymentDate" class="form-control" type="date" />
+                                    <span asp-validation-for="PaymentDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="Amount" class="control-label"></label>
+                                    <input asp-for="Amount" class="form-control" type="number"  />
+                                    <span asp-validation-for="Amount" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="Fee" class="control-label"></label>
+                                    <input asp-for="Fee" class="form-control"  type="number"  />
+                                    <span asp-validation-for="Fee" class="text-danger"></span>
+                                </div>
+
+
+                            </div>
+                          
+                            <div class="form-group">
+
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
+            <script src="~/js/pages/asset_land.js" asp-append-version="true"></script>
+        }
+    }*@
+
 

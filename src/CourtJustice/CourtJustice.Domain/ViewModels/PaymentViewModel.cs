@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using CourtJustice.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Linq;
 
-namespace CourtJustice.Domain.Models
+namespace CourtJustice.Domain.ViewModels
 {
-    [Table("payment")]
-    public class Payment
-    {
-        [Key]
+	public class PaymentViewModel
+	{
+        [Display(Name = "เลขที่การชำระ")]
         public int PaymentId { get; set; }
         [Display(Name = "ครั้งที่ชำระ")]
         public int PaymentSeq { get; set; }
@@ -21,7 +18,8 @@ namespace CourtJustice.Domain.Models
         public decimal Amount { get; set; }
         [Display(Name = "ค่าปรับ")]
         public decimal Fee { get; set; }
-        [Required]
+        [Display(Name = "ID-CUST")]
         public string CusId { get; set; }
     }
 }
+

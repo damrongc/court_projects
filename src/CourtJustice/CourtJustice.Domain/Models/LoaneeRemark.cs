@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CourtJustice.Domain.Models;
 
-namespace CourtJustice.Domain.Models
+namespace CourtJustice.Domain
 {
     [Table("loanee_remark")]
     public class LoaneeRemark : BaseEntity

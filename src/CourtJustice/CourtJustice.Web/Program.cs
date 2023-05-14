@@ -95,7 +95,7 @@ namespace CourtJustice.Web
             }
             app.UseNotyf();
             app.UseHttpsRedirection();
-            app.UseFastReport();
+           // app.UseFastReport();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();

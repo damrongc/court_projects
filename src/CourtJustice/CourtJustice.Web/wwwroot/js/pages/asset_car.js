@@ -1,9 +1,52 @@
-﻿
+﻿var cusId;
+
 $(function () {
 
 
 
 });
+
+
+function showAssetLandTab(url) {
+    if (url == '' || url == undefined) {
+        alert('something wrong at showAssetLandTab!');
+        return false;
+    }
+    var cusId = $('#txtCusId').val();
+    if (cusId == '' || cusId == undefined) {
+        swal({
+            title: "Error",
+            text: "กรุณาเลือกลูกหนี้!",
+            icon: "error"
+        });
+        activaTab('asset-car-1');
+        return false;
+    }
+    $.ajax({
+        type: "GET",
+        url: url + "/" + cusId,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+            if (res.isValid) {
+                $("#view-asset-car").html(res.html);
+            }
+
+
+        }
+    })
+}
+
+AddOrEdit = (form) => {
+    try {
+        var txt = $("#")
+
+
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
+
 
 confirmDelete = (id) => {
     var url = $('#hdDeleteRoute').val();

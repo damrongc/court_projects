@@ -33,67 +33,62 @@ namespace CourtJustice.Web.Controllers
             return results.ToList();
         }
 
-        public async Task<IActionResult> Create()
+
+        public async Task<IActionResult> AddOrEdit(string id = "")
         {
             var cartype = await _carTypeRepository.GetAll();
             List<SelectListItem> SelectCarType = new();
-            foreach (var item in cartype)
-            {
-                SelectCarType.Add(new SelectListItem
-                {
-                    Text = item.CarTypeName.ToString(),
-                    Value = item.CarTypeCode.ToString(),
-                });
-            }
-            ViewBag.CarTypes = SelectCarType;
 
-            return View(new AssetCar());
+
+            if (string.IsNullOrEmpty(id))
+            {
+                foreach (var item in cartype)
+                {
+                    SelectCarType.Add(new SelectListItem
+                    {
+                        Text = item.CarTypeName.ToString(),
+                        Value = item.CarTypeCode.ToString(),
+                    });
+                }
+                ViewBag.CarTypes = SelectCarType;
+                return View(new AssetCar());
+
+            }
+            else
+            {
+                var assetCar = await _assetCarRepository.GetByKey(id);
+
+                foreach (var item in cartype)
+                {
+                    SelectCarType.Add(new SelectListItem
+                    {
+                        Selected = _carTypeRepository.IsExisting(item.CarTypeCode),
+                        Text = item.CarTypeName.ToString(),
+                        Value = item.CarTypeCode.ToString(),
+                    });
+                }
+
+                ViewBag.CarTypes = SelectCarType;
+                return View(assetCar);
+            }
         }
 
-
-
-
-    
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AssetCar model)
+        public async Task<JsonResult> AddOrEdit([FromBody] AssetCar model)
         {
-            if (ModelState.IsValid)
+            var isExisting = _assetCarRepository.IsExisting(model.ChassisNumber);
+            if (isExisting)
+            {
+                await _assetCarRepository.Update(model.ChassisNumber, model);
+            }
+            else
             {
                 await _assetCarRepository.Create(model);
-                _notify.Success($"{model.ChassisNumber} is Created.");
-                return RedirectToAction(nameof(Index));
             }
-            return View(model);
-        }
-
-        public async Task<IActionResult> Edit(string id)
-        {
-            var model = await _assetCarRepository.GetByKey(id);
-            return View(model);
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, AssetCar model)
-        {
-            var oldEntity = await _assetCarRepository.GetByKey(model.ChassisNumber);
-
-            if (oldEntity == null)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                await _assetCarRepository.Update(id, model);
-                _notify.Success($"{model.ChassisNumber} is Updated");
-
-                return RedirectToAction(nameof(Index));
-            }
-            return View(model);
+            var assetCars = await _assetCarRepository.GetByCusId(model.CusId);
+       
+            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetCarCard", assetCars);
+            return new JsonResult(new { isValid = true, html });
         }
 
 
@@ -106,7 +101,7 @@ namespace CourtJustice.Web.Controllers
                 await _assetCarRepository.Delete(id);
                 //_notify.Success($"Delete is Success.");
                 var results = await GetAll();
-                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetCarCard", results);
                 return new JsonResult(new { isValid = true, message = "", html });
             }
             catch (Exception ex)
