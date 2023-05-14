@@ -13,6 +13,9 @@
     <Content Remove="Views\Loanees\_AssetCarCard.cshtml" />
     <Content Remove="Views\Loanees\_AssetLandCard.cshtml" />
     <Content Remove="Views\AssetCars\_AssetCarsCard.cshtml" />
+    <Content Remove="Views\LoaneeRemarks\_LoaneeRemarkCard.cshtml" />
+    <Content Remove="Views\LoaneeRemarks\AddOrEdit.cshtml" />
+    <Content Remove="Views\LoaneeRemarks\Index.cshtml" />
   </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
@@ -54,6 +57,7 @@
     <None Remove="Views\Employees\" />
     <None Remove="Views\LoanTaskStatuses\" />
     <None Remove="Views\Payments\" />
+    <None Remove="Views\LoaneeRemarks\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CarTypes\" />
@@ -65,6 +69,7 @@
     <Folder Include="Views\LoanTaskStatuses\" />
     <Folder Include="Views\Payments\" />
     <Folder Include="wwwroot\notices\" />
+    <Folder Include="Views\LoaneeRemarks\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Views\AssetCars\_AssetCarsCardcshtml">
