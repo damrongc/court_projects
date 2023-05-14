@@ -1,4 +1,4 @@
-﻿var cusId;
+﻿
 $(function () {
     //getWithPaging();
 });
@@ -7,19 +7,19 @@ function showPaymentTab(url) {
         alert('something wrong at showAssetLandTab!');
         return false;
     }
-    cusId = $('#txtCusId').val();
-    if (cusId == '' || cusId == undefined) {
+    var id = $('#txtCusId').val();
+    if (id == '' || id == undefined) {
         swal({
             title: "Error",
             text: "กรุณาเลือกลูกหนี้!",
             icon: "error"
         });
-        activaTab('payment-1');
+        activaTab('loanee-1');
         return false;
     }
     $.ajax({
         type: "GET",
-        url: url + "/" + cusId,
+        url: url + "/" + id,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             if (res.isValid) {
@@ -34,7 +34,7 @@ function showPaymentTab(url) {
 
 AddOrEdit = (form) => {
     try {
-        var payments = {};
+        var payment = {};
 
         var txtPayMentId = $("#PaymentId");
         var txtPaymentSeq = $("#PaymentSeq");
