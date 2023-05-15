@@ -1,24 +1,21 @@
-﻿using System;
-using CourtJustice.Domain.Models;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CourtJustice.Domain.ViewModels
 {
-	public class PaymentViewModel
+    public class PaymentViewModel
 	{
         [Display(Name = "เลขที่การชำระ")]
         public int PaymentId { get; set; }
         [Display(Name = "ครั้งที่ชำระ")]
         public int PaymentSeq { get; set; }
         [Display(Name = "วันที่ชำระ")]
-        public DateOnly PaymentDate { get; set; }
+        public DateTime PaymentDate { get; set; }
         [Display(Name = "ค่างวด")]
+        [DisplayFormat(DataFormatString = "{0:###,###.00}")]
         public decimal Amount { get; set; }
         [Display(Name = "ค่าปรับ")]
+        [DisplayFormat(DataFormatString = "{0:###,###.00}")]
         public decimal Fee { get; set; }
-        [Display(Name = "ID-CUST")]
         public string CusId { get; set; }
     }
 }

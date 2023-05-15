@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CourtJustice.Web.Controllers
 {
-  
     public class PaymentsController : BaseController<PaymentsController>
     {
         private readonly IPaymentRepository _paymentRepository;
-
         public PaymentsController(IPaymentRepository paymentRepository)
         {
             _paymentRepository = paymentRepository;
@@ -144,6 +134,7 @@ namespace CourtJustice.Web.Controllers
 
       
 
+
         [HttpGet]
         public async Task<JsonResult> GetByCusId(string id = "")
         {
@@ -152,35 +143,26 @@ namespace CourtJustice.Web.Controllers
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_PaymentCard", payment);
             return new JsonResult(new { isValid = true, message = "", html });
         }
+     
 
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> GetWithPaging()
+        [HttpDelete, ActionName("Delete")]
+        public async Task<JsonResult> DeleteConfirmed(int id,string cusId)
         {
             try
             {
-                //var productGroupCode = Request.Form["productGroupCode"].FirstOrDefault();
-                var draw = Request.Form["draw"].FirstOrDefault();
-                var start = Request.Form["start"].FirstOrDefault();
-                var length = Request.Form["length"].FirstOrDefault();
-                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
-                var searchValue = Request.Form["search[value]"].FirstOrDefault();
-                int pageSize = length != null ? Convert.ToInt32(length) : 0;
-                int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = await _paymentRepository.GetRecordCount(searchValue);
-
-                var data = await _paymentRepository.GetPaging(skip, pageSize, searchValue);
-                var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
-                return Ok(jsonData);
+                await _paymentRepository.Delete(id);
+                var payments = await _paymentRepository.GetByCusId(cusId);
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_PaymentCard", payments);
+                return new JsonResult(new { isValid = true, message = "", html });
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                return new JsonResult(new { isValid = false, message = ex.Message });
+
             }
         }
+
+
     }
 }
 

@@ -5,8 +5,22 @@
     ViewData["Title"] = "รายละเอียดลูกหนี้";
 }
 <div class="row">
-    <a href="#" class="btn btn-info" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">Notice</a>
+    <div class="col-md-12 mb-5">
+        <a href="#" class="btn btn-warning btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ออก Notice</a>
+        <a href="#" class="btn btn-info btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ขออนุมัติฟ้อง-เอกสาร</a>
+        <a href="#" class="btn btn-info btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ขออนุมัติส่วนลด-เอกสาร</a>
+        <a href="#" class="btn btn-danger btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ฟ้องคดี</a>
+    </div>
 </div>
+@*<div class="row col-md-12">
+
+    <div class="col-md-4">
+        <p>@Html.DisplayNameFor(model => model.ContractNo): <b>@Html.DisplayFor(model => model.ContractNo)</b></p>
+    </div>
+    <div class="col-md-4">
+        <lable class="label">@Html.DisplayNameFor(model => model.ContractDate): <b>@Html.DisplayFor(model => model.ContractDate)</b></lable>
+    </div>
+</div>*@
 <div class="row">
     <div class="col-md-3">
         <dl class="row">
@@ -322,6 +336,7 @@
             <dd class="col-sm-6">
                 @Html.DisplayFor(model => model.IdenAddress3)
             </dd>
+
             <dt class="col-sm-6">
                 @Html.DisplayNameFor(model => model.IdenAddress4)
             </dt>
