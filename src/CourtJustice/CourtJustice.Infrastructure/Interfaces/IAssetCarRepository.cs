@@ -14,8 +14,8 @@ namespace CourtJustice.Infrastructure.Interfaces
 
         Task<List<AssetCarViewModel>> GetByCusId(string id);
 
-        Task<IEnumerable<AssetCarViewModel>> GetPaging(int skip, int take, string filter);
-        Task<int> GetRecordCount(string filter);
+       /* Task<IEnumerable<AssetCarViewModel>> GetPaging(int skip, int take, string filter);
+        Task<int> GetRecordCount(string filter);*/
 
         bool IsExisting(string id);
     }

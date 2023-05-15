@@ -4,7 +4,7 @@ $(function () {
 });
 function showPaymentTab(url) {
     if (url == '' || url == undefined) {
-        alert('something wrong at showAssetLandTab!');
+        alert('something wrong at showAssetCarTab!');
         return false;
     }
     var id = $('#txtCusId').val();
@@ -23,11 +23,9 @@ function showPaymentTab(url) {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             if (res.isValid) {
-                $("#view-payment").html(res.html);
+                $("#view-asset-car").html(res.html);
             }
 
-            //$("#view-asset-land").html(res);
-            //console.log(res.html);
         }
     })
 }

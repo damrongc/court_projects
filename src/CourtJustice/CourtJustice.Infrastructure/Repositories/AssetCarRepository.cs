@@ -26,8 +26,8 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public async Task Delete(string id)
         {
-            var model = await Context.AssetImages.FindAsync(id);
-            Context.AssetImages.Remove(model);
+            var model = await Context.AssetCars.FindAsync(id);
+            Context.AssetCars.Remove(model);
             await Context.SaveChangesAsync();
         }
     
@@ -44,7 +44,7 @@ namespace CourtJustice.Infrastructure.Repositories
                 using IDbConnection conn = Connection;
                 conn.Open();
                 var sb = new StringBuilder();
-                sb.Append("select chassis_number, engine_number, brand, model, production_year, estimate_price, " +
+                sb.Append("select chassis_number, engine_number, brand, model, production_year, estimate_price, license_plate, owner," +
                      " a.car_type_code, b.car_type_name, cus_id" +
                      " from asset_car a,car_type b" +
                      " where a.car_type_code = b.car_type_code" +
@@ -67,7 +67,7 @@ namespace CourtJustice.Infrastructure.Repositories
             return model;
         }
 
-        public async Task<IEnumerable<AssetCarViewModel>> GetPaging(int skip, int take, string filter)
+      /*  public async Task<IEnumerable<AssetCarViewModel>> GetPaging(int skip, int take, string filter)
         {
             try
             {
@@ -139,7 +139,7 @@ namespace CourtJustice.Infrastructure.Repositories
 
                 throw;
             }
-        }
+        }*/
 
         public bool IsExisting(string id)
         {
@@ -156,7 +156,7 @@ namespace CourtJustice.Infrastructure.Repositories
             result.EstimatePrice = model.EstimatePrice;
             result.LicensePlate = model.LicensePlate;
             result.Owner = model.Owner;
-            result.CarType = model.CarType;
+            result.CarTypeCode = model.CarTypeCode;
 
             await Context.SaveChangesAsync();
         }

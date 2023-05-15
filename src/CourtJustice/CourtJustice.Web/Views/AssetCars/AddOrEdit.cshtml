@@ -4,8 +4,7 @@
 @{
     Layout = null;
     ViewData["Title"] = "ข้อมูลรถ";
-    var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
-    var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
+  
 }
 
 <div class="row">
@@ -15,7 +14,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <form asp-action="AddOrEdit" onsubmit="return AddOrEdit(this);">
+                        <form asp-action="AddOrEdit" onsubmit="return AddOrEditAsserCar(this);">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
                                 <div class="form-group col-md-4">
