@@ -61,6 +61,8 @@ namespace CourtJustice.Web.Controllers
             }
             else
             {
+                var seq = await _paymentRepository.GetPaymentSeq(model.CusId);
+                model.PaymentSeq = seq;
                 await _paymentRepository.Create(model);
             }
             var payments = await _paymentRepository.GetByCusId(model.CusId);
