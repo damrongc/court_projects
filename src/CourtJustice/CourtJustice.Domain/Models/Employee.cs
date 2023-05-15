@@ -25,9 +25,7 @@ namespace CourtJustice.Domain.Models
         [Display(Name = "รายละเอียด(ตำบล,อำเภอ,จังหวัด,รหัสไปรษณีย์)")]
         public string AddressDetail { get; set; } = string.Empty;
 
-        public int AddressId { get; set; }
-        [ForeignKey(nameof(AddressId))]
-        public virtual AddressSet? AddressSet { set; get; }
+      
 
     }
 }

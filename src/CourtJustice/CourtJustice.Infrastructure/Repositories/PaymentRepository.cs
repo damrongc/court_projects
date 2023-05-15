@@ -162,10 +162,7 @@ namespace CourtJustice.Infrastructure.Repositories
             result.PaymentDate = model.PaymentDate;
             result.Amount = model.Amount;
             result.Fee = model.Fee;
-<<<<<<< HEAD
 
-=======
->>>>>>> aa319349adebca31d2e00035840f5b30b1a9134a
             await Context.SaveChangesAsync();
         }
     }
