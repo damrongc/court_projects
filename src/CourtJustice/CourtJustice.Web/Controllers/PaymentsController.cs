@@ -33,47 +33,6 @@ namespace CourtJustice.Web.Controllers
         }
 
 
-        /*     [HttpPost]
-             [ValidateAntiForgeryToken]
-             public async Task<IActionResult> Create(Payment model)
-             {
-                 if (ModelState.IsValid)
-                 {
-                     await _paymentRepository.Create(model);
-                     _notify.Success($"{model.PaymentId} is Created.");
-                     return RedirectToAction(nameof(Index));
-                 }
-                 return View(model);
-             }
-
-
-             public async Task<IActionResult> Edit(int id)
-             {
-                 var model = await _paymentRepository.GetByKey(id);
-                 return View(model);
-             }
-
-
-             [HttpPost]
-             [ValidateAntiForgeryToken]
-             public async Task<IActionResult> Edit(int id, Payment model)
-             {
-                 var oldEntity = await _paymentRepository.GetByKey(id);
-
-                 if (oldEntity == null)
-                 {
-                     return NotFound();
-                 }
-
-                 if (ModelState.IsValid)
-                 {
-                     await _paymentRepository.Update(id, model);
-                     _notify.Success($"{model.PaymentId} is Updated");
-
-                     return RedirectToAction(nameof(Index));
-                 }
-                 return View(model);
-             }*/
 
         public async Task<IActionResult> AddOrEdit(int id)
         {

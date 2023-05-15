@@ -158,7 +158,6 @@ namespace CourtJustice.Infrastructure.Repositories
         public async Task Update(int id, Payment model)
         {
             var result = await Context.Payments.FindAsync(model.PaymentId);
-            result.PaymentSeq = model.PaymentSeq;
             result.PaymentDate = model.PaymentDate;
             result.Amount = model.Amount;
             result.Fee = model.Fee;

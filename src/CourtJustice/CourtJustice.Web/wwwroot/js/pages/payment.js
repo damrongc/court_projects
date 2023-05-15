@@ -84,17 +84,11 @@ AddOrEditPayment = (form) => {
             });
             return false;
         }
-<<<<<<< HEAD
 
 
-        payment.PaymentId = txtPayMentId.val();
-        payment.PaymentSeq = txtPaymentSeq.val();
-        payment.PaymentDate = txtPatmentDate.val();
-=======
         payment.PaymentId = txtPaymentId.val();
         payment.PaymentSeq = txtPaymentSeq.val();
         payment.PaymentDate = txtPaymentDate.val();
->>>>>>> aa319349adebca31d2e00035840f5b30b1a9134a
         payment.Amount = txtAmoung.val();
         payment.Fee = txtFee.val();
         payment.CusId = txtCusId.val();
