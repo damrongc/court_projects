@@ -13,44 +13,20 @@ namespace CourtJustice.Web.Controllers
             _paymentRepository = paymentRepository;
         }
 
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-
-
-        private async Task<List<Payment>> GetAll()
-        {
-            var results = await _paymentRepository.GetAll();
-            return results.ToList();
-        }
-
-        public IActionResult Create()
-        {
-            return View(new Payment());
-        }
-
-
-
+        [HttpGet]        
         public async Task<IActionResult> AddOrEdit(int id)
         {
-           
-
             if (id == 0)
             {            
-                return View(new Payment());
-
+                return View(new Payment { PaymentDate = DateOnly.FromDateTime(DateTime.Today)});
             }
             else
             {
                 var payment= await _paymentRepository.GetByKey(id);
-               
                 return View(payment);
             }
         }
-
+        
         [HttpPost]
         public async Task<JsonResult> AddOrEdit([FromBody] Payment model)
         {
@@ -66,41 +42,14 @@ namespace CourtJustice.Web.Controllers
                 await _paymentRepository.Create(model);
             }
             var payments = await _paymentRepository.GetByCusId(model.CusId);
-            //return PartialView("~/Views/AssetLands/_AssetLandCard.cshtml", assetLands);
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_PaymentCard", payments);
             return new JsonResult(new { isValid = true, html });
         }
-
-
-        [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            try
-            {
-
-
-                await _paymentRepository.Delete(id);
-                //_notify.Success($"Delete is Success.");
-                var results = await GetAll();
-                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
-                return new JsonResult(new { isValid = true, message = "", html });
-            }
-            catch (Exception ex)
-            {
-                return new JsonResult(new { isValid = false, message = ex.Message });
-
-            }
-
-        }
-
-      
-
 
         [HttpGet]
         public async Task<JsonResult> GetByCusId(string id = "")
         {
             var payment = await _paymentRepository.GetByCusId(id);
-
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_PaymentCard", payment);
             return new JsonResult(new { isValid = true, message = "", html });
         }
