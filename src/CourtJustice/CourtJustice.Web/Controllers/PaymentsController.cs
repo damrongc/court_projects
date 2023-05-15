@@ -23,10 +23,13 @@ namespace CourtJustice.Web.Controllers
             _paymentRepository = paymentRepository;
         }
 
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index()
         {
-            return View(await GetAll());
+            return View();
         }
+
+
 
         private async Task<List<Payment>> GetAll()
         {

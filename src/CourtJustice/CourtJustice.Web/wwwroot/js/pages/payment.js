@@ -41,7 +41,7 @@ AddOrEdit = (form) => {
         var txtPatmentDate = $("#PaymentDate");
         var txtAmoung = $("#Amount");
         var txtFee = $("#Fee");
-
+        var txtCusId = $("#txtCusId");
 
         var errorMessage = "";
         var isValid = true;
@@ -76,18 +76,18 @@ AddOrEdit = (form) => {
         }
 
 
-        payments.PaymentId = txtPayMentId.val();
-        payments.PaymentSeq = txtPaymentSeq.val();
-        payments.PaymentDate = txtPatmentDate.val();
-        payments.Amount = txtAmoung.val();
-        payments.Fee = txtFee.val();
-        payments.cusId = cusId;
+        payment.PaymentId = txtPayMentId.val();
+        payment.PaymentSeq = txtPaymentSeq.val();
+        payment.PaymentDate = txtPatmentDate.val();
+        payment.Amount = txtAmoung.val();
+        payment.Fee = txtFee.val();
+        payment.CusId = txtCusId.val();
 
 
         $.ajax({
             type: 'POST',
             url: form.action,
-            data: JSON.stringify(payments),
+            data: JSON.stringify(payment),
             contentType: "application/json; charset=utf-8",
             success: function (res) {
                 if (res.isValid) {

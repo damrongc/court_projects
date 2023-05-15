@@ -117,7 +117,7 @@ namespace CourtJustice.Infrastructure.Repositories
             result.Address = model.Address;
             result.Salary = model.Salary;
             result.SalaryDate = model.SalaryDate;
-            result.AddressSet = model.AddressSet;
+          
 
             await Context.SaveChangesAsync();
         }

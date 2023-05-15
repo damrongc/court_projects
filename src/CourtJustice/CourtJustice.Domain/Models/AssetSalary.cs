@@ -9,18 +9,13 @@ namespace CourtJustice.Domain.Models
         [Key]
         public int AssetId { get; set; }
         public string Company { get; set; } = string.Empty;
-        public string Address { get; set; }=string.Empty;
         public decimal Salary { get; set; } = 0;
         public DateOnly SalaryDate { get; set; }
 
-        public int AddressId { get; set; }
-        [ForeignKey(nameof(AddressId))]
-        public virtual AddressSet? AddressSet { set; get; }
-
-
+        public string Address { get; set; } = string.Empty;
+   
         [Display(Name = "ลูกหนี้")]
         public string CusId { get; set; }
-        [ForeignKey(nameof(CusId))]
-        public virtual Loanee? Loanee { set; get; }
+      
     }
 }

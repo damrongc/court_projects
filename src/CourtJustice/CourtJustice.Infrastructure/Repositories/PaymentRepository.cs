@@ -149,7 +149,6 @@ namespace CourtJustice.Infrastructure.Repositories
             result.Amount = model.Amount;
             result.Fee = model.Fee;
 
-
             await Context.SaveChangesAsync();
         }
     }

@@ -1,0 +1,92 @@
+﻿@using CourtJustice.Domain.Models;
+@model AssetSalary
+@{
+    Layout = null;
+    ViewData["Title"] = "ข้อมูลหลักทรัพย์ (เงินเดือน)";
+    var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
+    var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="AddOrEdit" onsubmit="return AddOrEdit(this);">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AssetId" class="control-label"></label>
+                                    @{
+                                        if (Model.AssetId == 0)
+                                        {
+                                            <input asp-for="AssetId" class="form-control" />
+                                        }
+                                        else
+                                        {
+                                            <input asp-for="AssetId" class="form-control" readonly />
+                                        }
+                                    }
+                                    <span asp-validation-for="AssetId" class="text-danger"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="Company" class="control-label"></label>
+                                        <input asp-for="Company" class="form-control" />
+                                        <span asp-validation-for="Company" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="Salary" class="control-label"></label>
+                                        <input asp-for="Salary" class="form-control" />
+                                        <span asp-validation-for="Salary" class="text-danger"></span>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="SalaryDate" class="control-label"></label>
+                                        <input asp-for="SalaryDate" class="form-control" type="datetime" />
+                                        <span asp-validation-for="SalaryDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Address" class="control-label"></label>
+                                    <div class="input-group">
+                                        <input asp-for="Address" type="text" class="form-control" id="txtAddressSetLookup" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                   
+                                </div>
+                              
+                               
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Hidden("hdGetAddressSetById", Url.Action("GetAddressById", "AddressSets"))
+@*@section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
+            <script src="~/js/pages/asset_land.js" asp-append-version="true"></script>
+        }
+    }*@
+
+
+
+

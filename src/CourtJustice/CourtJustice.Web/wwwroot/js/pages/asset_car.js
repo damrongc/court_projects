@@ -12,7 +12,8 @@ function showAssetCarTab(url) {
         alert('something wrong at showAssetCarTab!');
         return false;
     }
-    var id = = $('#txtCusId').val();
+
+    var id = $('#txtCusId').val();
     if (id == '' || id == undefined) {
         swal({
             title: "Error",

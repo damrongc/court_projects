@@ -1,6 +1,10 @@
 ﻿@using CourtJustice.Domain.Models
-@model IEnumerable<AssetSalary>
+@model IEnumerable<AssetSalary>;
+@{
+    Layout = null;
 
+}
+<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetSalaries",null,Context.Request.Scheme)','เพิ่มข้อมูลหลักทรัพย์')"><i class="fa fa-plus"></i> Create New</a>
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover data-table">
@@ -18,7 +22,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.SalaryDate)
                 </th>
-                
+
                 <th>
 
                 </th>
@@ -40,7 +44,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.SalaryDate)
                     </td>
-                   
+
 
                     <td class="w100">
                         <div class="d-inline">
