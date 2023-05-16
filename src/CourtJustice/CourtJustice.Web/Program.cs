@@ -125,6 +125,7 @@ namespace CourtJustice.Web
                     DefaultEmployee.Seed(context);
                     DefaultLandOffice.Seed(context);
                     DefaultLoanee.Seed(context);
+                    DefaultCarType.Seed(context);
                     logger.LogInformation("Application Starting");
                 }
                 catch (Exception ex)

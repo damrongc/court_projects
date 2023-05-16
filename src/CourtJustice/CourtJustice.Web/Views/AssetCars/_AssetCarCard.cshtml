@@ -17,6 +17,9 @@
                     @Html.DisplayNameFor(model => model.EngineNumber)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.CarTypeName)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Brand)
                 </th>
                 <th>
@@ -34,9 +37,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Owner)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CarType.CarTypeName)
-                </th>
+         
                 <th></th>
             </tr>
         </thead>
@@ -44,13 +45,14 @@
             @foreach (var item in Model)
             {
                 <tr>
-
                     <td>
                         @Html.DisplayFor(modelItem => item.ChassisNumber)
                     </td>
-
                     <td>
                         @Html.DisplayFor(modelItem => item.EngineNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarTypeName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Brand)
@@ -58,7 +60,6 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Model)
                     </td>
-
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductionYear)
                     </td>
@@ -71,9 +72,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Owner)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CarType.CarTypeName)
-                    </td>
+              
                     <td class="w150">
                         <div class="d-inline">
                             <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetCars",new {id=item.ChassisNumber},Context.Request.Scheme)','แก้ไขข้อมูลรถ')"><i class='fa fa-edit'></i></a>

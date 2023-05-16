@@ -120,7 +120,7 @@ AddOrEditPayment = (form) => {
     return false;
 }
 
-DeletePayment = (url) => {
+confirmDeletePayment = (url) => {
     console.log(url);
     var cusId = $('#txtCusId').val();
     swal({

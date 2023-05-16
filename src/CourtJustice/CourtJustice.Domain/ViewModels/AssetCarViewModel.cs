@@ -24,6 +24,7 @@ namespace CourtJustice.Domain.ViewModels
         [Display(Name = "ปี")]
         public int ProductionYear { get; set; }
         [Display(Name = "ราคาประเมิน")]
+        [DisplayFormat(DataFormatString = "{0:###,###.00}")]
         public decimal EstimatePrice { get; set; } = 0;
 
         [Display(Name = "ทะเบียนรถ")]
@@ -32,15 +33,13 @@ namespace CourtJustice.Domain.ViewModels
         [Display(Name = "เจ้าของกรรมสิทธิ")]
         public string Owner { get; set; } = string.Empty;
 
-        [Display(Name = "ประเภทรถ")]
         public int CarTypeCode { get; set; }
-        [ForeignKey(nameof(CarTypeCode))]
-        public virtual CarType? CarType { set; get; }
+
+        [Display(Name = "ประเภทรถ")]
+        public string CarTypeName { get; set; }
 
         [Display(Name = "ลูกหนี้")]
         public string CusId { get; set; }
-        [ForeignKey(nameof(CusId))]
-        public virtual Loanee? Loanee { set; get; }
     }
 }
 

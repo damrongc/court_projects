@@ -2,8 +2,6 @@
 
 $(function () {
 
-
-
 });
 
 
@@ -167,7 +165,7 @@ confirmDeleteAssetCar = (url) => {
                                 text: "ลบข้อมูล เรียบร้อยแล้ว",
                                 icon: "success"
                             }).then((val) => {
-                                $("#view-payment").html(res.html);
+                                $("#view-asset-car").html(res.html);
                             });
                         } else {
                             swal({
