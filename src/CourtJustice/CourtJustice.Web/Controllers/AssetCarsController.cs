@@ -114,8 +114,7 @@ namespace CourtJustice.Web.Controllers
                 catch (Exception ex)
                 {
                     return new JsonResult(new { isValid = false, message = ex.Message });
-                }
-          
+                }          
 
         }
 
