@@ -1,101 +1,174 @@
 ﻿
-
-$(function () {
-    getWithPaging();
-});
 var table;
-getWithPaging = () => {
-    var url = $("#hdGetWithPaging").val();
-    table = $('#tbl_assetsalary').DataTable({
-        "destroy": true,
-        "processing": true,
-        "serverSide": true,
-        "ajax": {
-            "url": url,
-            "type": "POST",
-            "datatype": "json",
-        },
-        "ordering": false,
-        "fixedHeader": true,
-        "aLengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
-        "iDisplayLength": 10,
-        "scrollCollapse": true,
-        "scrollX": true,
-        "scrollY": 500,
-        "autoWidth": false,
-        "language": {
-            search: "_INPUT_",
-            searchPlaceholder: "Search..."
-        },
-        "columns": [
-            { data: "AssetId", name: "AssetId" },
-            {
-                data: "name", name: "name",
-                render: function (data, type, row) {
-                    return "<a href='#' id='btnSelected'  data-id='" + row.AssetLandId + "'>" + data + "</a>";
-                }
-            },
-            { data: "address", name: "address", },
-            { data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: "<a id='btnEdit' class='btn btn-sm btn-primary text-white js-action'><i class='fa fa-edit'></i></a><a id='btnDelete' class='btn btn-sm btn-danger text-white js-action'><i class='fa fa-trash'></i></a>" }
-
-        ]
-
-    });
+$(function () {
+ 
+});
 
 
-    $(table).each(function () {
-        var datatable = $(this);
-        // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-        var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-        search_input.attr('placeholder', 'Search');
-        search_input.removeClass('form-control-sm');
-        // LENGTH - Inline-Form control
-        var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-        length_sel.removeClass('form-control-sm');
-    });
 
-    confirmDelete = (id) => {
-        var url = $('#hdDeleteRoute').val();
-        swal({
-            title: "ต้องการลบ ข้อมูล?",
-            text: "ถ้าลบข้อมูลแล้ว จะไม่สามารถนำกลับมาใช้งานได้",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $.ajax({
-                        type: "DELETE",
-                        url: `${url}/${id}`,
-                        contentType: "application/json; charset=utf-8",
-                        success: function (res) {
-                            console.log(res);
-                            if (res.isValid) {
-                                swal({
-                                    title: "สำเร็จ",
-                                    text: "ลบข้อมูล เรียบร้อยแล้ว",
-                                    icon: "success"
-                                }).then((val) => {
-                                    $("#view-table").html(res.html);
-                                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
-                                        activatejQueryTable();
-                                });
-                            } else {
-                                swal({
-                                    title: "พบข้อผิดพลาด",
-                                    text: res.message,
-                                    icon: "error"
-                                });
-                            }
-                        }
-                    });
-                }
-            });
+function showAssetSalaryTab(url) {
+    if (url == '' || url == undefined) {
+        alert('something wrong at showAssetCarTab!');
         return false;
     }
 
+    var id = $('#txtCusId').val();
+    if (id == '' || id == undefined) {
+        swal({
+            title: "Error",
+            text: "กรุณาเลือกลูกหนี้!",
+            icon: "error"
+        });
+        activaTab('loanee-1');
+        return false;
+    }
+    $.ajax({
+        type: "GET",
+        url: url + "/" + id,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+            if (res.isValid) {
+                $("#view-asset-salary").html(res.html);
+            }
+
+
+        }
+    })
+}
+
+
+AddOrEditAssetSalary = (form) => {
+    try {
+        var assetSalary = {};
+
+       
+        var txtCompany = $("#Company");
+        var txtSalary = $("#Salary");
+        var txtSalaryDate = $("#SalaryDate");
+        var txtAddressSetLookup = $("#txtAddressSetLookup");
+        var txtAddressDetail = $("#AddressDetail");
+        var txtCusId = $("#txtCusId");
+
+
+        var errorMessage = "";
+        var isValid = true;
+        //if (txtPayMentId.val() == '' || txtPayMentId.val() == undefined) {
+        //    isValid = false;
+        //    errorMessage += txtPayMentId.attr('data-val-required') + '\n\r';
+        //}
+        if (txtCompany.val() == '' || txtCompany.val() == undefined) {
+            isValid = false;
+            errorMessage += txtCompany.attr('data-val-required') + '\n\r';
+        }
+        if (txtSalaryDate.val() == '' || txtSalaryDate.val() == undefined) {
+            isValid = false;
+            errorMessage += txtSalaryDate.attr('data-val-required') + '\n\r';
+        }
+        if (txtAddressSetLookup.val() == '' || txtAddressSetLookup.val() == undefined) {
+            isValid = false;
+            errorMessage += txtAddressSetLookup.attr('data-val-required') + '\n\r';
+        }
+        if (txtAddressDetail.val() == '' || txtAddressDetail.val() == undefined) {
+            isValid = false;
+            errorMessage += txtAddressDetail.attr('data-val-required') + '\n\r';
+        }
+     
+        if (txtSalary.val() == '' || txtSalary.val() == undefined) {
+            isValid = false;
+            errorMessage += txtAmoung.attr('data-val-required') + '\n\r';
+        } else {
+            if (parseInt(txtSalary.val()) <= 0) {
+                isValid = false;
+                errorMessage += "เงินเดือนต้องมากกว่า 0" + '\n\r';
+            }
+        }
+
+        if (!isValid) {
+            swal({
+                title: "Error",
+                text: errorMessage,
+                icon: "error"
+            });
+            return false;
+        }
+
+
+    
+        assetSalary.Company = txtCompany.val();
+        assetSalary.SalaryDate = txtSalaryDate.val();
+        assetSalary.Address = txtAddressSetLookup.val();
+        assetSalary.AddressDetail = txtAddressDetail.val();
+        assetSalary.Salary = txtSalary.val();
+        assetSalary.CusId = txtCusId.val();
+
+
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: JSON.stringify(assetSalary),
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                if (res.isValid) {
+                    swal({
+                        title: "สำเร็จ",
+                        text: "ข้อมูล การชำระ บันทึกเรียบร้อยแล้ว.",
+                        icon: "success",
+                    })
+                        .then(() => {
+                            $("#view-asset-salary").html(res.html);
+                            closePopupXL();
+                        });
+                }
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
 
 
 
+
+confirmDeleteAssetSalary = (url) => {
+    console.log(url);
+    var cusId = $('#txtCusId').val();
+    swal({
+        title: "ต้องการลบ ข้อมูล?",
+        text: "ถ้าลบข้อมูลแล้ว จะไม่สามารถนำกลับมาใช้งานได้",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: `${url}?cusId=${cusId}`,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (res) {
+                        if (res.isValid) {
+                            swal({
+                                title: "สำเร็จ",
+                                text: "ลบข้อมูล เรียบร้อยแล้ว",
+                                icon: "success"
+                            }).then((val) => {
+                                $("#view-asset-salary").html(res.html);
+                            });
+                        } else {
+                            swal({
+                                title: "พบข้อผิดพลาด",
+                                text: res.message,
+                                icon: "error"
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    return false;
+}
 

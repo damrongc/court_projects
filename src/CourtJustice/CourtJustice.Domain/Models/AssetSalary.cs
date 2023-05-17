@@ -13,9 +13,12 @@ namespace CourtJustice.Domain.Models
         public DateOnly SalaryDate { get; set; }
 
         public string Address { get; set; } = string.Empty;
-   
-        [Display(Name = "ลูกหนี้")]
+        [Display(Name = "รายละเอียด(ตำบล,อำเภอ,จังหวัด,รหัสไปรษณีย์)")]
+        public string AddressDetail { get; set; } = string.Empty;
+
         public string CusId { get; set; }
-      
+        [ForeignKey(nameof(CusId))]
+        public virtual Loanee? Loanee { set; get; }
+
     }
 }

@@ -1,10 +1,10 @@
-﻿@using CourtJustice.Domain.Models
-@model IEnumerable<AssetSalary>;
+﻿@using CourtJustice.Domain.ViewModels;
+@model IEnumerable<AssetSalaryViewModel>;
 @{
     Layout = null;
 
 }
-<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetSalaries",null,Context.Request.Scheme)','เพิ่มข้อมูลหลักทรัพย์')"><i class="fa fa-plus"></i> Create New</a>
+<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetSalaries",null,Context.Request.Scheme)','เพิ่มข้อมูลหลักทรัพย์(เงินเดือน)')"><i class="fa fa-plus"></i> Create New</a>
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover data-table">
@@ -46,10 +46,10 @@
                     </td>
 
 
-                    <td class="w100">
+                    <td class="w150">
                         <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.AssetId"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.AssetId');"><i class='fa fa-trash'></i></a>
+                            <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetSararies",new {id=item.AssetId},Context.Request.Scheme)','แก้ไขข้อมูลหลักทรัพย์(เงินเดือน)')"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteAssetSalary('@Url.Action("Delete","AssetSararies",new {id=item.AssetId},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
                         </div>
                     </td>
                 </tr>

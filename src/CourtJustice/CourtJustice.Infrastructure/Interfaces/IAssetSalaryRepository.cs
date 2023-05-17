@@ -1,5 +1,6 @@
 ﻿
 using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
@@ -9,9 +10,12 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Create(AssetSalary model);
         Task Update(int id, AssetSalary model);
         Task Delete(int id);
-        Task<AssetSalary> GetByKey(int id);
 
-        Task<IEnumerable<AssetSalary>> GetPaging(int skip, int take, string filter);
+        Task<AssetSalary> GetByKey(int id);
+        Task<List<AssetSalaryViewModel>> GetByCusId(string id);
+        bool IsExisting(int id);
+
+        Task<IEnumerable<AssetSalaryViewModel>> GetPaging(int skip, int take, string filter);
         Task<int> GetRecordCount(string filter);
     }
 }

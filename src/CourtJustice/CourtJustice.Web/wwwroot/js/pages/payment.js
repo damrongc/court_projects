@@ -23,7 +23,7 @@ function showPaymentTab(url) {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             if (res.isValid) {
-                $("#view-asset-car").html(res.html);
+                $("#view-payment").html(res.html);
             }
 
         }

@@ -34,39 +34,21 @@ namespace CourtJustice.Infrastructure.Repositories
             return await Context.AssetSalaries.ToListAsync();
         }
 
-        public async Task<AssetSalary> GetByKey(int id)
-        {
-            var model = await Context.AssetSalaries.FindAsync(id);
-            return model;
-        }
+   
 
-        public async Task<IEnumerable<AssetSalary>> GetPaging(int skip, int take, string filter)
+
+        public async Task<List<AssetSalaryViewModel>> GetByCusId(string id)
         {
             try
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
                 var sb = new StringBuilder();
-                sb.Append("select * from asset_salary");
-                if (!string.IsNullOrEmpty(filter))
-                {
-                    sb.Append(" where (asset_id LIKE @filter");
-                    sb.Append(" or name company @filter");
-                    sb.Append(" )");
-                }
-                sb.Append(" Limit @skip,@take");
-                var dictionary = new Dictionary<string, object>
-                    {
-                         { "@skip", skip },
-                         { "@take", take },
-                    };
-                if (!string.IsNullOrEmpty(filter))
-                {
-                    dictionary.Add("@filter", string.Format("%{0}%", filter));
-                }
-                var parameters = new DynamicParameters(dictionary);
-                var result = await conn.QueryAsync<AssetSalary>(sb.ToString(), parameters);
-                return result;
+                sb.Append("select * from asset_salary where cus_id=@cus_id");
+         
+              
+                var result = await conn.QueryAsync<AssetSalaryViewModel>(sb.ToString(), new { cus_id = id });
+                return result.ToList();
 
             }
             catch (Exception)
@@ -76,8 +58,14 @@ namespace CourtJustice.Infrastructure.Repositories
             }
         }
 
+        public async Task<AssetSalary> GetByKey(int id)
+        {
+            var model = await Context.AssetSalaries.FindAsync(id);
+            return model;
+        }
 
-        public async Task<int> GetRecordCount(string filter)
+
+        public async Task<IEnumerable<AssetSalaryViewModel>> GetPaging(int skip, int take, string filter)
         {
             try
             {
@@ -99,6 +87,40 @@ namespace CourtJustice.Infrastructure.Repositories
                     dictionary.Add("@filter", string.Format("%{0}%", filter));
                 }
                 var parameters = new DynamicParameters(dictionary);
+                var result = await conn.QueryAsync<AssetSalaryViewModel>(sb.ToString(), parameters);
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        public async Task<int> GetRecordCount(string filter)
+        {
+            try
+            {
+                using IDbConnection conn = Connection;
+                conn.Open();
+                var sb = new StringBuilder();
+
+                sb.Append("select count(1) from asset_car");
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    sb.Append(" where (chassis_number LIKE @filter");
+                    sb.Append(" or engine_number  @filter");
+                    sb.Append(" or brand  @filter");
+                    sb.Append(" )");
+                }
+                var dictionary = new Dictionary<string, object>();
+
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    dictionary.Add("@filter", string.Format("%{0}%", filter));
+                }
+                var parameters = new DynamicParameters(dictionary);
 
                 var rowCount = await conn.ExecuteScalarAsync<int>(sb.ToString(), parameters);
                 return rowCount;
@@ -109,6 +131,13 @@ namespace CourtJustice.Infrastructure.Repositories
                 throw;
             }
         }
+
+        public bool IsExisting(int id)
+        {
+            return Context.AssetSalaries.Any(p => p.AssetId == id);
+        }
+
+     
 
         public async Task Update(int id, AssetSalary model)
         {

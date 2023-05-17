@@ -1,6 +1,7 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
+using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -149,20 +150,18 @@ namespace CourtJustice.Web.Controllers
 
 
         [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(string id, string cusId)
         {
             try
             {
                 await _assetLandRepository.Delete(id);
-                //_notify.Success($"Delete is Success.");
-                var results = await GetAll();
-                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", results);
+                var assetCars = await _assetLandRepository.GetByCusId(cusId);
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetCars);
                 return new JsonResult(new { isValid = true, message = "", html });
             }
             catch (Exception ex)
             {
                 return new JsonResult(new { isValid = false, message = ex.Message });
-
             }
 
         }

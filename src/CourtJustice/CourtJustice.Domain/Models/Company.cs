@@ -1,5 +1,8 @@
-﻿namespace CourtJustice.Domain.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CourtJustice.Domain.Models
 {
+    [Table("company")]
     public class Company
     {
         public int CompanyId { get; set; }

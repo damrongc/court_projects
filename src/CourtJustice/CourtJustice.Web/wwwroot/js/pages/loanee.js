@@ -67,7 +67,7 @@ function showNotice(url) {
 //    })
 //}
 
-function showPaymentTab(url) {
+/*function showPaymentTab(url) {
     console.log(url);
     if (url == '' || url == undefined) {
         alert('something wrong at showPaymentTab!');
@@ -85,7 +85,7 @@ function showPaymentTab(url) {
         }
     })
 
-}
+}*/
 
 function onSelectCusId() {
     $(document).on('click', '#btnLoaneeSelected', function () {
