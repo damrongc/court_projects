@@ -42,6 +42,7 @@ AddOrEditAssetSalary = (form) => {
         var assetSalary = {};
 
        
+        var txtAssetId = $("#AssetId");
         var txtCompany = $("#Company");
         var txtSalary = $("#Salary");
         var txtSalaryDate = $("#SalaryDate");
@@ -91,16 +92,14 @@ AddOrEditAssetSalary = (form) => {
             });
             return false;
         }
-
-
     
+        assetSalary.AssetId = txtAssetId.val();
         assetSalary.Company = txtCompany.val();
         assetSalary.SalaryDate = txtSalaryDate.val();
         assetSalary.Address = txtAddressSetLookup.val();
         assetSalary.AddressDetail = txtAddressDetail.val();
         assetSalary.Salary = txtSalary.val();
         assetSalary.CusId = txtCusId.val();
-
 
         $.ajax({
             type: 'POST',
@@ -111,7 +110,7 @@ AddOrEditAssetSalary = (form) => {
                 if (res.isValid) {
                     swal({
                         title: "สำเร็จ",
-                        text: "ข้อมูล การชำระ บันทึกเรียบร้อยแล้ว.",
+                        text: "ข้อมูล หลักทรัพย์เงินเดือน บันทึกเรียบร้อยแล้ว.",
                         icon: "success",
                     })
                         .then(() => {

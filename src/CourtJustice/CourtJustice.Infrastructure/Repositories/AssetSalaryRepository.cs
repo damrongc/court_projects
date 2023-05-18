@@ -34,9 +34,6 @@ namespace CourtJustice.Infrastructure.Repositories
             return await Context.AssetSalaries.ToListAsync();
         }
 
-   
-
-
         public async Task<List<AssetSalaryViewModel>> GetByCusId(string id)
         {
             try
@@ -53,7 +50,6 @@ namespace CourtJustice.Infrastructure.Repositories
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -144,10 +140,9 @@ namespace CourtJustice.Infrastructure.Repositories
             var result = await Context.AssetSalaries.FindAsync(model.AssetId);
             result.Company = model.Company;
             result.Address = model.Address;
+            result.AddressDetail = model.AddressDetail;
             result.Salary = model.Salary;
             result.SalaryDate = model.SalaryDate;
-          
-
             await Context.SaveChangesAsync();
         }
     }

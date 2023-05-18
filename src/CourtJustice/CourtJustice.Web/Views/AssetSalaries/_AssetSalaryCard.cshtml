@@ -1,7 +1,9 @@
 ﻿@using CourtJustice.Domain.ViewModels;
+@using System.Globalization;
 @model IEnumerable<AssetSalaryViewModel>;
 @{
     Layout = null;
+    var cultureInfor = new CultureInfo("th-TH");
 
 }
 <a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetSalaries",null,Context.Request.Scheme)','เพิ่มข้อมูลหลักทรัพย์(เงินเดือน)')"><i class="fa fa-plus"></i> Create New</a>
@@ -10,9 +12,9 @@
     <table class="table table-bordered table-hover data-table">
         <thead>
             <tr class="bg-primary text-white" role="row">
-                <th>
+    @*            <th>
                     @Html.DisplayNameFor(model => model.AssetId)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Company)
                 </th>
@@ -22,7 +24,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.SalaryDate)
                 </th>
-
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                      <th>
+                    @Html.DisplayNameFor(model => model.AddressDetail)
+                </th>
                 <th>
 
                 </th>
@@ -32,9 +39,9 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+         @*           <td>
                         @Html.DisplayFor(modelItem => item.AssetId)
-                    </td>
+                    </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Company)
                     </td>
@@ -42,14 +49,19 @@
                         @Html.DisplayFor(modelItem => item.Salary)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SalaryDate)
+                        @item.SalaryDate.ToString("dd-MM-yyyy",cultureInfor)
                     </td>
 
-
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddressDetail)
+                    </td>
                     <td class="w150">
                         <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetSararies",new {id=item.AssetId},Context.Request.Scheme)','แก้ไขข้อมูลหลักทรัพย์(เงินเดือน)')"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteAssetSalary('@Url.Action("Delete","AssetSararies",new {id=item.AssetId},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
+                            <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetSalaries",new {id=item.AssetId},Context.Request.Scheme)','แก้ไขข้อมูลหลักทรัพย์(เงินเดือน)')"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteAssetSalary('@Url.Action("Delete","AssetSalaries",new {id=item.AssetId},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
                         </div>
                     </td>
                 </tr>
