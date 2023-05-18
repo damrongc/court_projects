@@ -8,14 +8,11 @@ namespace CourtJustice.Domain.Models
     {
         [Key]
         public int AssetId { get; set; }
-        public string Company { get; set; } = string.Empty;
-        public decimal Salary { get; set; } = 0;
-        public DateOnly SalaryDate { get; set; }
-
-        public string Address { get; set; } = string.Empty;
-        [Display(Name = "รายละเอียด(ตำบล,อำเภอ,จังหวัด,รหัสไปรษณีย์)")]
-        public string AddressDetail { get; set; } = string.Empty;
-
+        [Display(Name = "บริษัท")] public string Company { get; set; } = string.Empty;
+        [Display(Name = "เงินเดือน")] public decimal Salary { get; set; } = 0;
+        [Display(Name = "วันที่เงินเดือนออก")] public DateOnly SalaryDate { get; set; }
+        [Display(Name = "ที่อยู่บริษัท")] public string Address { get; set; } = string.Empty;
+        [Display(Name = "รายละเอียด(ตำบล,อำเภอ,จังหวัด,รหัสไปรษณีย์)")]public string AddressDetail { get; set; } = string.Empty;
         public string CusId { get; set; }
         [ForeignKey(nameof(CusId))]
         public virtual Loanee? Loanee { set; get; }
