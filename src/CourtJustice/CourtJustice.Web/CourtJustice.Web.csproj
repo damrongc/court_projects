@@ -58,6 +58,7 @@
     <None Remove="Views\Payments\" />
     <None Remove="Views\LoaneeRemarks\" />
     <None Remove="Views\Companys\" />
+    <None Remove="Views\Gurantors\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CarTypes\" />
@@ -71,6 +72,7 @@
     <Folder Include="wwwroot\notices\" />
     <Folder Include="Views\LoaneeRemarks\" />
     <Folder Include="Views\Companys\" />
+    <Folder Include="Views\Guarantors\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Views\AssetCars\_AssetCarsCardcshtml">

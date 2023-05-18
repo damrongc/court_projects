@@ -1,7 +1,12 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
+using Dapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Data;
+using System.Text;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
@@ -13,27 +18,62 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public async Task Create(Guarantor model)
         {
-            throw new NotImplementedException();
+            await Context.Guarantors.AddAsync(model);
+            await Context.SaveChangesAsync();
         }
 
         public async Task Delete(string id)
         {
-            throw new NotImplementedException();
+            var model = await Context.Guarantors.FindAsync(id);
+            Context.Guarantors.Remove(model);
+            await Context.SaveChangesAsync();
         }
 
         public async Task<List<Guarantor>> GetAll()
         {
-            throw new NotImplementedException();
+            return await Context.Guarantors.ToListAsync();
+        }
+
+        public async Task<List<GuarantorViewModel>> GetByCusId(string id)
+        {
+            try
+            {
+                using IDbConnection conn = Connection;
+                conn.Open();
+                var sb = new StringBuilder();
+                sb.Append("select * from guarantor where cus_id=@cus_id");
+
+
+                var result = await conn.QueryAsync<GuarantorViewModel>(sb.ToString(), new { cus_id = id });
+                return result.ToList();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<Guarantor> GetByKey(string id)
         {
-            throw new NotImplementedException();
+            var model = await Context.Guarantors.FindAsync(id);
+            return model;
         }
 
-        public async Task Update(int id, Guarantor model)
+        public bool IsExisting(string id)
         {
-            throw new NotImplementedException();
+            return Context.Guarantors.Any(p => p.GuarantorCode == id);
+        }
+
+        public async Task Update(string id, Guarantor model)
+        {
+            var result = await Context.Guarantors.FindAsync(model.GuarantorCode);
+            result.Address = model.Address;
+            result.AddressDetail = model.AddressDetail;
+            result.FullName = model.FullName;
+            result.PhoneNumber = model.PhoneNumber;
+            await Context.SaveChangesAsync();
+
         }
     }
 }

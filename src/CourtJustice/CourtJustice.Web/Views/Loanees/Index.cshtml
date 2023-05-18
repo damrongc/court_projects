@@ -66,7 +66,7 @@
                         <a class="nav-link" id="payment-tab" data-toggle="tab" role="tab" href="#payment-1" aria-controls="payment-1" aria-selected="false" onclick="showPaymentTab('@Url.Action("GetByCusId","Payments")')">การชำระ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="guarantor-tab" data-toggle="tab" role="tab" href="#guarantor-1" aria-controls="guarantor-1" aria-selected="false" onclick="showGuratorTab('@Url.Action("GetByCusId","Gurators")')">ผู้ค้ำประกัน</a>
+                        <a class="nav-link" id="guarantor-tab" data-toggle="tab" role="tab" href="#guarantor-1" aria-controls="guarantor-1" aria-selected="false" onclick="showGuaratorTab('@Url.Action("GetByCusId","Guarantors")')">ผู้ค้ำประกัน</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="referencer-tab" data-toggle="tab" role="tab" href="#referencer-1" aria-controls="referencer-1" aria-selected="false" onclick="showReferencerTab('@Url.Action("GetByCusId","Referencers")')">บุคคลอ้างอิง</a>
@@ -128,4 +128,5 @@
     <script src="~/js/pages/payment.js" asp-append-version="true"></script>
     <script src="~/js/pages/asset_car.js" asp-append-version="true"></script>
     <script src="~/js/pages/asset_salary.js" asp-append-version="true"></script>
+    <script src="~/js/pages/guarantor.js" asp-append-version="true"></script>
 }

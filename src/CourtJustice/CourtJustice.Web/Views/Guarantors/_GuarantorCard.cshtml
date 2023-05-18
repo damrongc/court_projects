@@ -1,0 +1,68 @@
+﻿@using CourtJustice.Domain.ViewModels;
+@using System.Globalization;
+@model IEnumerable<GuarantorViewModel>;
+@{
+    Layout = null;
+    // var cultureInfor = new CultureInfo("th-TH");
+
+}
+
+<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","Guarantors",null,Context.Request.Scheme)','เพิ่มข้อมูลผู้ค้ำประกัน')"><i class="fa fa-plus"></i> Create New</a>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover data-table">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+
+                <th>
+                    @Html.DisplayNameFor(model => model.GuarantorCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddressDetail)
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GuarantorCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddressDetail)
+                    </td>
+                    <td class="w150">
+                        <div class="d-inline">
+                            <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","Guarantors",new {id=item.GuarantorCode},Context.Request.Scheme)','แก้ไขข้อมูลผู้ค้ำประกัน')"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteGuarantor('@Url.Action("Delete","Guarantors",new {id=item.GuarantorCode},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
