@@ -18,5 +18,7 @@ namespace CourtJustice.Domain.Models
         public decimal Fee { get; set; }
         [Required]
         public string CusId { get; set; }
+        [ForeignKey(nameof(CusId))]
+        public virtual Loanee? Loanee { set; get; }
     }
 }
