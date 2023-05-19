@@ -1,12 +1,131 @@
 ﻿
+
 $(function () {
-
-
 
 });
 
-confirmDelete = (id) => {
-    var url = $('#hdDeleteRoute').val();
+
+
+function showReferencerTab(url) {
+    if (url == '' || url == undefined) {
+        alert('something wrong at showReferencerTab!');
+        return false;
+    }
+
+    var id = $('#txtCusId').val();
+    if (id == '' || id == undefined) {
+        swal({
+            title: "Error",
+            text: "กรุณาเลือกลูกหนี้!",
+            icon: "error"
+        });
+        activaTab('loanee-1');
+        return false;
+    }
+    $.ajax({
+        type: "GET",
+        url: url + "/" + id,
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+            if (res.isValid) {
+                $("#view-referencer").html(res.html);
+            }
+
+
+        }
+    })
+}
+
+
+AddOrEditReferencer = (form) => {
+    try {
+        var referencer = {};
+
+
+        var txtReferencerCode = $("#ReferencerCode");
+        var txtFullName = $("#FullName");
+        var txtPhoneNumber = $("#PhoneNumber");
+        var txtAddressSetLookup = $("#txtAddressSetLookup");
+        var txtAddressDetail = $("#AddressDetail");
+        var txtCusId = $("#txtCusId");
+
+
+        var errorMessage = "";
+        var isValid = true;
+
+        if (txtReferencerCode.val() == '' || txtReferencerCode.val() == undefined) {
+            isValid = false;
+            errorMessage += txtReferencerCode.attr('data-val-required') + '\n\r';
+        }
+        if (txtFullName.val() == '' || txtFullName.val() == undefined) {
+            isValid = false;
+            errorMessage += txtFullName.attr('data-val-required') + '\n\r';
+        }
+        if (txtPhoneNumber.val() == '' || txtPhoneNumber.val() == undefined) {
+            isValid = false;
+            errorMessage += txtPhoneNumber.attr('data-val-required') + '\n\r';
+        }
+        if (txtAddressSetLookup.val() == '' || txtAddressSetLookup.val() == undefined) {
+            isValid = false;
+            errorMessage += txtAddressSetLookup.attr('data-val-required') + '\n\r';
+        }
+        if (txtAddressDetail.val() == '' || txtAddressDetail.val() == undefined) {
+            isValid = false;
+            errorMessage += txtAddressDetail.attr('data-val-required') + '\n\r';
+        }
+
+
+
+        if (!isValid) {
+            swal({
+                title: "Error",
+                text: errorMessage,
+                icon: "error"
+            });
+            return false;
+        }
+
+        referencer.txtReferencerCode = txtGuarantorCode.val();
+        referencer.FullName = txtFullName.val();
+        referencer.PhoneNumber = txtPhoneNumber.val();
+        referencer.Address = txtAddressSetLookup.val();
+        referencer.AddressDetail = txtAddressDetail.val();
+        referencer.CusId = txtCusId.val();
+
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: JSON.stringify(gurantor),
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                if (res.isValid) {
+                    swal({
+                        title: "สำเร็จ",
+                        text: "ข้อมูล บุคคลอ้างอิง บันทึกเรียบร้อยแล้ว.",
+                        icon: "success",
+                    })
+                        .then(() => {
+                            $("#view-referencer").html(res.html);
+                            closePopupXL();
+                        });
+                }
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
+
+
+
+
+confirmDeleteReferencer = (url) => {
+    console.log(url);
+    var cusId = $('#txtCusId').val();
     swal({
         title: "ต้องการลบ ข้อมูล?",
         text: "ถ้าลบข้อมูลแล้ว จะไม่สามารถนำกลับมาใช้งานได้",
@@ -18,19 +137,16 @@ confirmDelete = (id) => {
             if (willDelete) {
                 $.ajax({
                     type: "DELETE",
-                    url: `${url}/${id}`,
+                    url: `${url}?cusId=${cusId}`,
                     contentType: "application/json; charset=utf-8",
                     success: function (res) {
-                        console.log(res);
                         if (res.isValid) {
                             swal({
                                 title: "สำเร็จ",
                                 text: "ลบข้อมูล เรียบร้อยแล้ว",
                                 icon: "success"
                             }).then((val) => {
-                                $("#view-table").html(res.html);
-                                if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
-                                    activatejQueryTable();
+                                $("#view-referencer").html(res.html);
                             });
                         } else {
                             swal({
@@ -45,7 +161,3 @@ confirmDelete = (id) => {
         });
     return false;
 }
-
-
-
-

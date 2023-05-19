@@ -22,9 +22,9 @@ namespace CourtJustice.Web.Controllers
             _referencerRepository = referencerRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await GetAll());
+            return View();
         }
 
 
@@ -40,57 +40,52 @@ namespace CourtJustice.Web.Controllers
             return View(new Referencer());
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Referencer model)
+
+        [HttpGet]
+        public async Task<IActionResult> AddOrEdit(string id = "")
         {
-            if (ModelState.IsValid)
+            if (string.IsNullOrEmpty(id))
+            {
+                return View(new Referencer());
+            }
+            else
+            {
+                var referencer = await _referencerRepository.GetByKey(id);
+                return View(referencer);
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> AddOrEdit([FromBody] Referencer model)
+        {
+            var isExisting = _referencerRepository.IsExisting(model.ReferencerCode);
+            if (isExisting)
+            {
+                await _referencerRepository.Update(model.ReferencerCode, model);
+            }
+            else
             {
                 await _referencerRepository.Create(model);
-                _notify.Success($"{model.FullName} is Created.");
-                return RedirectToAction(nameof(Index));
             }
-            return View(model);
+            var referencer = await _referencerRepository.GetByCusId(model.CusId);
+            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ReferencerCard", referencer);
+            return new JsonResult(new { isValid = true, html });
         }
 
-        public async Task<IActionResult> Edit(string id)
-        {
-            var model = await _referencerRepository.GetByKey(id);
-            return View(model);
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, Referencer model)
-        {
-            var oldEntity = await _referencerRepository.GetByKey(id);
-
-            if (oldEntity == null)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                await _referencerRepository.Update(id, model);
-                _notify.Success($"{model.FullName} is Updated");
-
-                return RedirectToAction(nameof(Index));
-            }
-            return View(model);
-        }
 
         [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(string id, string cusId)
         {
             try
             {
 
 
                 await _referencerRepository.Delete(id);
-                //_notify.Success($"Delete is Success.");
-                var results = await GetAll();
-                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
+
+                var referencer = await _referencerRepository.GetByCusId(cusId);
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ReferencerCard", referencer);
                 return new JsonResult(new { isValid = true, message = "", html });
             }
             catch (Exception ex)
@@ -100,6 +95,16 @@ namespace CourtJustice.Web.Controllers
             }
 
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetByCusId(string id = "")
+        {
+            var referencer = await _referencerRepository.GetByCusId(id);
+            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ReferencerCard", referencer);
+            return new JsonResult(new { isValid = true, message = "", html });
+        }
+
+      
     }
 }
 

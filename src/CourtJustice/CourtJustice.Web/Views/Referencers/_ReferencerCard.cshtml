@@ -1,11 +1,16 @@
-﻿@using CourtJustice.Domain.Models
-@model IEnumerable<Referencer>
-
-
+﻿@using CourtJustice.Domain.ViewModels;
+@using System.Globalization;
+@model IEnumerable<ReferencerViewModel>;
+@{
+    Layout = null;
+   // var cultureInfor = new CultureInfo("th-TH");
+}
+<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","Referencers",null,Context.Request.Scheme)','เพิ่มข้อมูลบุคคลอ้างอิง')"><i class="fa fa-plus"></i> Create New</a>
 <div class="table-responsive">
     <table class="table table-bordered table-hover data-table">
         <thead>
             <tr class="bg-primary text-white" role="row">
+
                 <th>
                     @Html.DisplayNameFor(model => model.ReferencerCode)
                 </th>
@@ -17,6 +22,9 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddressDetail)
                 </th>
                 <th>
 
@@ -40,10 +48,14 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Address)
                     </td>
-                    <td class="w100">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddressDetail)
+                    </td>
+
+                    <td class="w150">
                         <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.ReferencerCode"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.ReferencerCode');"><i class='fa fa-trash'></i></a>
+                            <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","Referencers",new {id=item.ReferencerCode},Context.Request.Scheme)','แก้ไขข้อมูลบุคคลอ้างอิง')"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteReferencer('@Url.Action("Delete","Referencers",new {id=item.ReferencerCode},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
                         </div>
                     </td>
                 </tr>
