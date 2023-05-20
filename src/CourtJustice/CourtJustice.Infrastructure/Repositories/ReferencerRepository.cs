@@ -23,7 +23,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async Task Delete(string id)
+        public async Task Delete(int id)
         {
             var model = await Context.Referencers.FindAsync(id);
             Context.Referencers.Remove(model);
@@ -56,18 +56,18 @@ namespace CourtJustice.Infrastructure.Repositories
             }
         }
 
-        public async Task<Referencer> GetByKey(string id)
+        public async Task<Referencer> GetByKey(int id)
         {
             var model = await Context.Referencers.FindAsync(id);
             return model;
         }
 
-        public bool IsExisting(string id)
+        public bool IsExisting(int id)
         {
             return Context.Referencers.Any(r => r.ReferencerCode == id);
         }
 
-        public async Task Update(string id, Referencer model)
+        public async Task Update(int id, Referencer model)
         {
             var result = await Context.Referencers.FindAsync(model.ReferencerCode);
             result.FullName = model.FullName;

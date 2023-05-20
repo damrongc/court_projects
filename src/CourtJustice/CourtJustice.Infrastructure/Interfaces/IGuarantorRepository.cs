@@ -7,13 +7,13 @@ namespace CourtJustice.Infrastructure.Interfaces
 	{
         Task<List<Guarantor>> GetAll();
         Task Create(Guarantor model);
-        Task Update(string id, Guarantor model);
-        Task Delete(string id);
-        Task<Guarantor> GetByKey(string id);
+        Task Update(int id, Guarantor model);
+        Task Delete(int id);
+        Task<Guarantor> GetByKey(int id);
 
       
         Task<List<GuarantorViewModel>> GetByCusId(string id);
-        bool IsExisting(string id);
+        bool IsExisting(int id);
 
     }
 }

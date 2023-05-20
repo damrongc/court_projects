@@ -8,12 +8,12 @@ namespace CourtJustice.Infrastructure.Interfaces
     {
         Task<List<Referencer>> GetAll();
         Task Create(Referencer model);
-        Task Update(string id, Referencer model);
-        Task Delete(string id);
-        Task<Referencer> GetByKey(string id);
+        Task Update(int id, Referencer model);
+        Task Delete(int id);
+        Task<Referencer> GetByKey(int id);
 
         Task<List<ReferencerViewModel>> GetByCusId(string id);      
-        bool IsExisting(string id);
+        bool IsExisting(int id);
 
     }
 }

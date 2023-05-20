@@ -82,6 +82,7 @@ namespace CourtJustice.Web.Controllers
             {
                 await _loaneeRemarkRepository.Create(model);
             }
+
             var loaneeRemark = await _loaneeRemarkRepository.GetByCusId(model.CusId);
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_LoaneeRemarkCard", loaneeRemark);
             return new JsonResult(new { isValid = true, html });

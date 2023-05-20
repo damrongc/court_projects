@@ -15,46 +15,26 @@
                 <div class="row">
                     <div class="col-md-12">
                         
-                            <form asp-action="AddOrEdit" onsubmit="return AddOrEditLoaneeRamark(this);">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <form asp-action="AddOrEdit" onsubmit="return AddOrEditLoaneeRamark(this);">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input asp-for="LoaneeRemarkId" class="form-control" type="hidden" />
 
-                                <div class="row">
-
-
-                                    <div class="form-group col-md-3">
-                                        <label asp-for="LoaneeRemarkId" class="control-label"></label>
-                                        @{
-                                            if (Model.LoaneeRemarkId == 0)
-                                            {
-                                                <input asp-for="LoaneeRemarkId" class="form-control" />
-                                            }
-                                            else
-                                            {
-                                                <input asp-for="LoaneeRemarkId" class="form-control" readonly />
-                                            }
-                                        }
-
-                                        <span asp-validation-for="LoaneeRemarkId" class="text-danger"></span>
-                                    </div>
-
-
-
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Remark" class="control-label"></label>
+                                    <textarea asp-for="Remark" class="form-control" rows="5"></textarea>
+                                    @*<input asp-for="Remark" class="form-control" />*@
+                                    <span asp-validation-for="Remark" class="text-danger"></span>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-3">
-                                        <label asp-for="Remark" class="control-label"></label>
-                                        <input asp-for="Remark" class="form-control" />
-                                        <span asp-validation-for="Remark" class="text-danger"></span>
-                                    </div>
-                                </div>
+                            </div>
 
-                                <div class="form-group">
+                            <div class="form-group">
 
-                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                <input type="submit" value="Create" class="btn btn-primary" />
 
-                                </div>
+                            </div>
 
-                            </form>
+                        </form>
                     </div>
                 </div>
 

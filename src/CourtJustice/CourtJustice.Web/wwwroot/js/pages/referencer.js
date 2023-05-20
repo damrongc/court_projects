@@ -53,10 +53,7 @@ AddOrEditReferencer = (form) => {
         var errorMessage = "";
         var isValid = true;
 
-        if (txtReferencerCode.val() == '' || txtReferencerCode.val() == undefined) {
-            isValid = false;
-            errorMessage += txtReferencerCode.attr('data-val-required') + '\n\r';
-        }
+      
         if (txtFullName.val() == '' || txtFullName.val() == undefined) {
             isValid = false;
             errorMessage += txtFullName.attr('data-val-required') + '\n\r';

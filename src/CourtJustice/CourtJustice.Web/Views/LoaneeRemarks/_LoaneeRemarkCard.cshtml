@@ -11,13 +11,13 @@
         <thead>
             <tr class="bg-primary text-white" role="row">
 
-                <th>
-                    @Html.DisplayNameFor(model => model.LoaneeRemarkId)
-                </th>
+                @*  <th>
+                        @Html.DisplayNameFor(model => model.LoaneeRemarkId)
+                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Remark)
                 </th>
-              
+
                 <th>
 
                 </th>
@@ -27,14 +27,14 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LoaneeRemarkId)
-                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.LoaneeRemarkId)
+                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Remark)
                     </td>
 
-                  
+
 
                     <td class="w150">
                         <div class="d-inline">

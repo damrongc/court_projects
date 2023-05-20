@@ -22,7 +22,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async Task Delete(string id)
+        public async Task Delete(int id)
         {
             var model = await Context.Guarantors.FindAsync(id);
             Context.Guarantors.Remove(model);
@@ -54,18 +54,18 @@ namespace CourtJustice.Infrastructure.Repositories
             }
         }
 
-        public async Task<Guarantor> GetByKey(string id)
+        public async Task<Guarantor> GetByKey(int id)
         {
             var model = await Context.Guarantors.FindAsync(id);
             return model;
         }
 
-        public bool IsExisting(string id)
+        public bool IsExisting(int id)
         {
             return Context.Guarantors.Any(p => p.GuarantorCode == id);
         }
 
-        public async Task Update(string id, Guarantor model)
+        public async Task Update(int id, Guarantor model)
         {
             var result = await Context.Guarantors.FindAsync(model.GuarantorCode);
             result.Address = model.Address;

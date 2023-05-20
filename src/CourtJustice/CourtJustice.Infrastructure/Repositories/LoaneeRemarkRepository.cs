@@ -10,16 +10,27 @@ using System.Text;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class LoaneeRemarkRepository :BaseRepository, ILoaneeRemarkRepository
-	{
+    public class LoaneeRemarkRepository : BaseRepository, ILoaneeRemarkRepository
+    {
         public LoaneeRemarkRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
         }
 
         public async Task Create(LoaneeRemark model)
         {
-            await Context.LoaneeRemarks.AddAsync(model);
-            await Context.SaveChangesAsync();
+            try
+            {
+
+                await Context.LoaneeRemarks.AddAsync(model);
+                await Context.SaveChangesAsync();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         public async Task Delete(int id)
@@ -60,7 +71,7 @@ namespace CourtJustice.Infrastructure.Repositories
             return model;
         }
 
-      
+
 
         public bool IsExisting(int id)
         {
@@ -75,7 +86,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-      
+
 
     }
 }

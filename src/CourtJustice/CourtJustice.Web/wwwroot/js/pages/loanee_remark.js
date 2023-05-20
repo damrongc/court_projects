@@ -43,9 +43,8 @@ AddOrEditLoaneeRamark = (form) => {
         var loaneeRemark = {};
 
 
-        var txtLoaneeRemarkId = $("#LoaneeRemarkId");
-        var txtRemark = $("#Remark");
-     
+        var txtLoaneeRemarkId  = $("#LoaneeRemarkId")
+        var txtRemark = $("#Remark");    
         var txtCusId = $("#txtCusId");
 
 
@@ -70,15 +69,14 @@ AddOrEditLoaneeRamark = (form) => {
             return false;
         }
 
-        loaneeRemark.ReferencerCode = txtReferencerCode.val();
-        loaneeRemark.Ramark = txtRemark.val();
-    
-        referencer.CusId = txtCusId.val();
+        loaneeRemark.LoaneeRemarkId = txtLoaneeRemarkId.val();
+        loaneeRemark.Remark = txtRemark.val();
+        loaneeRemark.CusId = txtCusId.val();
 
         $.ajax({
             type: 'POST',
             url: form.action,
-            data: JSON.stringify(referencer),
+            data: JSON.stringify(loaneeRemark),
             contentType: "application/json; charset=utf-8",
             success: function (res) {
                 if (res.isValid) {

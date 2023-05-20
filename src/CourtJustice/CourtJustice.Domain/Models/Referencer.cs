@@ -7,8 +7,8 @@ namespace CourtJustice.Domain.Models
     public class Referencer
     {
         [Key]
-        [Display(Name = "เลขบัตร ปชช")]
-        public string ReferencerCode { get; set; } = string.Empty;
+        [Display(Name = "รหัสบุคคลอ้างอิง")]
+        public int ReferencerCode { get; set; }
         [Display(Name = "บุคคลอ้างอิง")]
         public string FullName { get; set; } = string.Empty;
         [Display(Name = "เบอร์ติดต่อ")]

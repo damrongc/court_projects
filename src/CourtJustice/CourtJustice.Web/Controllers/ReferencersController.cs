@@ -42,9 +42,9 @@ namespace CourtJustice.Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> AddOrEdit(string id = "")
+        public async Task<IActionResult> AddOrEdit(int id = 0)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == 0 )
             {
                 return View(new Referencer());
             }
@@ -76,7 +76,7 @@ namespace CourtJustice.Web.Controllers
 
 
         [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(string id, string cusId)
+        public async Task<IActionResult> DeleteConfirmed(int id, string cusId)
         {
             try
             {
