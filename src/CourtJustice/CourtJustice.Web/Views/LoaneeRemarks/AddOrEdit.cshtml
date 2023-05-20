@@ -3,94 +3,58 @@
 
 @{
     Layout = null;
-    ViewData["Title"] = "ข้อมูลที่ดิน";
-    var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
-    var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
+    ViewData["Title"] = "หมายเหตุ";
+   
 }
 
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-            
+
                 <div class="row">
                     <div class="col-md-12">
-                        <form asp-action="AddOrEdit" onsubmit="return AddOrEdit(this);">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="row">
-                                <div class="form-group col-md-2">
-                                    <label asp-for="AssetLandId" class="control-label"></label>
-                                    @{
-                                        if (string.IsNullOrEmpty(Model.AssetLandId))
-                                        {
-                                            <input asp-for="AssetLandId" class="form-control" />
-                                        }
-                                        else
-                                        {
-                                            <input asp-for="AssetLandId" class="form-control" readonly />
-                                        }
-                                    }
-                                    <span asp-validation-for="AssetLandId" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="Position" class="control-label"></label>
-                                    <input asp-for="Position" class="form-control" />
-                                    <span asp-validation-for="Position" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="Gps" class="control-label"></label>
-                                    <input asp-for="Gps" class="form-control" />
-                                    <span asp-validation-for="Gps" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="LandOfficeCode" class="control-label"></label>
-                                    <select class="form-control dropdown" id="ddlLandOffices" asp-for="LandOfficeCode" asp-items="@ViewBag.LandOffices">
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="EstimatePrice" class="control-label"></label>
-                                    <input asp-for="EstimatePrice" class="form-control" type="number" />
-                                    <span asp-validation-for="EstimatePrice" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label asp-for="Address" class="control-label"></label>
-                                    <div class="input-group">
-                                        <input asp-for="Address" type="text" class="form-control" id="txtAddressSetLookup" />
-                                        <span class="input-group-append">
-                                            <a href="#" onclick="showLookup('0','@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
-                                        </span>
-                                    </div>
-                                    <span asp-validation-for="Address" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label asp-for="AddressDetail" class="control-label"></label>
-                                    <input asp-for="AddressDetail" class="form-control" />
-                                    <span asp-validation-for="AddressDetail" class="text-danger"></span>
-                                </div>
-                                @*<div class="form-group col-md-2">
-                                        <label asp-for="AddressSet!.SubDistrictName" class="control-label"></label>
-                                        <input id="txtSubdistrict" class="form-control" readonly />
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label asp-for="AddressSet!.DistrictName" class="control-label"></label>
-                                        <input id="txtDistrict" class="form-control" readonly />
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label asp-for="AddressSet!.ProvinceName" class="control-label"></label>
-                                        <input id="txtProvince" class="form-control" readonly />
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label asp-for="AddressSet!.PostalCode" class="control-label"></label>
-                                        <input id="txtPostalCode" class="form-control" readonly />
-                                    </div>*@
-                            </div>
-                            <div class="form-group">
+                        
+                            <form asp-action="AddOrEdit" onsubmit="return AddOrEditLoaneeRamark(this);">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                                <input type="submit" value="Create" class="btn btn-primary" />
-                            </div>
-                        </form>
+                                <div class="row">
+
+
+                                    <div class="form-group col-md-3">
+                                        <label asp-for="LoaneeRemarkId" class="control-label"></label>
+                                        @{
+                                            if (Model.LoaneeRemarkId == 0)
+                                            {
+                                                <input asp-for="LoaneeRemarkId" class="form-control" />
+                                            }
+                                            else
+                                            {
+                                                <input asp-for="LoaneeRemarkId" class="form-control" readonly />
+                                            }
+                                        }
+
+                                        <span asp-validation-for="LoaneeRemarkId" class="text-danger"></span>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label asp-for="Remark" class="control-label"></label>
+                                        <input asp-for="Remark" class="form-control" />
+                                        <span asp-validation-for="Remark" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+
+                                </div>
+
+                            </form>
                     </div>
                 </div>
 
@@ -99,12 +63,3 @@
     </div>
 </div>
 @Html.Hidden("hdGetAddressSetById", Url.Action("GetAddressById", "AddressSets"))
-@*@section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-            <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
-            <script src="~/js/pages/asset_land.js" asp-append-version="true"></script>
-        }
-    }*@
-
-

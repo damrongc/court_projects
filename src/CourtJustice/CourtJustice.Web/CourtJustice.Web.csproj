@@ -13,8 +13,6 @@
     <Content Remove="Views\Loanees\_AssetCarCard.cshtml" />
     <Content Remove="Views\Loanees\_AssetLandCard.cshtml" />
     <Content Remove="Views\AssetCars\_AssetCarsCard.cshtml" />
-    <Content Remove="Views\LoaneeRemarks\_LoaneeRemarkCard.cshtml" />
-    <Content Remove="Views\LoaneeRemarks\AddOrEdit.cshtml" />
     <Content Remove="Views\LoaneeRemarks\Index.cshtml" />
   </ItemGroup>
 	<ItemGroup>

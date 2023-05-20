@@ -1,14 +1,15 @@
 ﻿
 
+
 $(function () {
 
 });
 
 
 
-function showReferencerTab(url) {
+function showRemarkTab(url) {
     if (url == '' || url == undefined) {
-        alert('something wrong at showReferencerTab!');
+        alert('something wrong at showRemarkTab!');
         return false;
     }
 
@@ -28,7 +29,7 @@ function showReferencerTab(url) {
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             if (res.isValid) {
-                $("#view-referencer").html(res.html);
+                $("#view-remark").html(res.html);
             }
 
 
@@ -37,42 +38,26 @@ function showReferencerTab(url) {
 }
 
 
-AddOrEditReferencer = (form) => {
+AddOrEditLoaneeRamark = (form) => {
     try {
-        var referencer = {};
+        var loaneeRemark = {};
 
 
-        var txtReferencerCode = $("#ReferencerCode");
-        var txtFullName = $("#FullName");
-        var txtPhoneNumber = $("#PhoneNumber");
-        var txtAddressSetLookup = $("#txtAddressSetLookup");
-        var txtAddressDetail = $("#AddressDetail");
+        var txtLoaneeRemarkId = $("#LoaneeRemarkId");
+        var txtRemark = $("#Remark");
+     
         var txtCusId = $("#txtCusId");
 
 
         var errorMessage = "";
         var isValid = true;
 
-        if (txtReferencerCode.val() == '' || txtReferencerCode.val() == undefined) {
+       
+        if (txtRemark.val() == '' || txtRemark.val() == undefined) {
             isValid = false;
-            errorMessage += txtReferencerCode.attr('data-val-required') + '\n\r';
+            errorMessage += txtRemark.attr('data-val-required') + '\n\r';
         }
-        if (txtFullName.val() == '' || txtFullName.val() == undefined) {
-            isValid = false;
-            errorMessage += txtFullName.attr('data-val-required') + '\n\r';
-        }
-        if (txtPhoneNumber.val() == '' || txtPhoneNumber.val() == undefined) {
-            isValid = false;
-            errorMessage += txtPhoneNumber.attr('data-val-required') + '\n\r';
-        }
-        if (txtAddressSetLookup.val() == '' || txtAddressSetLookup.val() == undefined) {
-            isValid = false;
-            errorMessage += txtAddressSetLookup.attr('data-val-required') + '\n\r';
-        }
-        if (txtAddressDetail.val() == '' || txtAddressDetail.val() == undefined) {
-            isValid = false;
-            errorMessage += txtAddressDetail.attr('data-val-required') + '\n\r';
-        }
+      
 
 
 
@@ -85,11 +70,9 @@ AddOrEditReferencer = (form) => {
             return false;
         }
 
-        referencer.ReferencerCode = txtReferencerCode.val();
-        referencer.FullName = txtFullName.val();
-        referencer.PhoneNumber = txtPhoneNumber.val();
-        referencer.Address = txtAddressSetLookup.val();
-        referencer.AddressDetail = txtAddressDetail.val();
+        loaneeRemark.ReferencerCode = txtReferencerCode.val();
+        loaneeRemark.Ramark = txtRemark.val();
+    
         referencer.CusId = txtCusId.val();
 
         $.ajax({
@@ -101,11 +84,11 @@ AddOrEditReferencer = (form) => {
                 if (res.isValid) {
                     swal({
                         title: "สำเร็จ",
-                        text: "ข้อมูล บุคคลอ้างอิง บันทึกเรียบร้อยแล้ว.",
+                        text: "ข้อมูล หมายเหตุ บันทึกเรียบร้อยแล้ว.",
                         icon: "success",
                     })
                         .then(() => {
-                            $("#view-referencer").html(res.html);
+                            $("#view-remark").html(res.html);
                             closePopupXL();
                         });
                 }
@@ -123,7 +106,7 @@ AddOrEditReferencer = (form) => {
 
 
 
-confirmDeleteReferencer = (url) => {
+confirmDeleteLoaneeRemark = (url) => {
     console.log(url);
     var cusId = $('#txtCusId').val();
     swal({
@@ -146,7 +129,7 @@ confirmDeleteReferencer = (url) => {
                                 text: "ลบข้อมูล เรียบร้อยแล้ว",
                                 icon: "success"
                             }).then((val) => {
-                                $("#view-referencer").html(res.html);
+                                $("#view-remark").html(res.html);
                             });
                         } else {
                             swal({

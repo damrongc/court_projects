@@ -13,10 +13,9 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Update(int id, LoaneeRemark model);
         Task Delete(int id);
         Task<LoaneeRemark> GetByKey(int id);
-        Task<List<LoaneeRemarkViewModel>> GetByCusId(int id);
+        Task<List<LoaneeRemarkViewModel>> GetByCusId(string id);
 
-        Task<IEnumerable<LoaneeRemarkViewModel>> GetPaging(int skip, int take, string filter);
-        Task<int> GetRecordCount(string filter);
+     
 
         bool IsExisting(int id);
     }

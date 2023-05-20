@@ -1,26 +1,26 @@
 ﻿@using CourtJustice.Domain.ViewModels;
+@using System.Globalization;
 @model IEnumerable<LoaneeRemarkViewModel>;
 @{
     Layout = null;
-
+    // var cultureInfor = new CultureInfo("th-TH");
 }
-<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",null,Context.Request.Scheme)','เพิ่มหมายเหตุ')"><i class="fa fa-plus"></i> Create New</a>
+<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",null,Context.Request.Scheme)','เพิ่มข้อมูลหมายเหตุ')"><i class="fa fa-plus"></i> Create New</a>
 <div class="table-responsive">
     <table class="table table-bordered table-hover data-table">
         <thead>
             <tr class="bg-primary text-white" role="row">
+
                 <th>
                     @Html.DisplayNameFor(model => model.LoaneeRemarkId)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Remark)
                 </th>
+              
                 <th>
-                    @Html.DisplayNameFor(model => model.CusId)
+
                 </th>
-                <th>
-               
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -33,14 +33,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Remark)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CusId)
-                    </td>
-                   
+
+                  
+
                     <td class="w150">
                         <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",new {id=item.LoaneeRemarkId},Context.Request.Scheme)','แก้ไขหมายเหตุ')"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.LoaneeRemarkId');"><i class='fa fa-trash'></i></a>
+                            <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",new {id=item.LoaneeRemarkId},Context.Request.Scheme)','แก้ไขข้อมูลหมายเหตุ')"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteLoaneeRemark('@Url.Action("Delete","LoaneeRemarks",new {id=item.LoaneeRemarkId},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
                         </div>
                     </td>
                 </tr>
