@@ -55,6 +55,7 @@ namespace CourtJustice.Infrastructure.Repositories
 
             result.Email = model.Email;
             result.AddressDetail = model.AddressDetail;
+            result.IsActive = model.IsActive;
             await Context.SaveChangesAsync();
         }
     }

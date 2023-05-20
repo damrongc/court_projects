@@ -40,6 +40,7 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.Occupations.FindAsync(model.OccupationId);
             result.OccupationName = model.OccupationName;
+            result.IsActive = model.IsActive;
           
 
             await Context.SaveChangesAsync();

@@ -40,7 +40,7 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.LawCases.FindAsync(model.LawCaseCode);
             result.LawCaseName = model.LawCaseName;
-
+            result.IsActive = model.IsActive;
             await Context.SaveChangesAsync();
         }
     }

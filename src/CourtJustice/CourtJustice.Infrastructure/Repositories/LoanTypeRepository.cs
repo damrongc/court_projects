@@ -45,6 +45,7 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.LoanTypes.FindAsync(model.LoanTypeCode);
             result.LoanTypeName = model.LoanTypeName;
+            result.IsActive = model.IsActive;
 
             await Context.SaveChangesAsync();
         }

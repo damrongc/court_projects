@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "ผู้ว่าจ้าง";
+    var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
+    var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
 }
 <div class="row">
     <div class="col-6">
@@ -31,7 +33,13 @@
                                     <span asp-validation-for="EmployerName" class="text-danger"></span>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                                    </label>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <a asp-action="Index" class="btn btn-light">Back</a>
                                 <input type="submit" value="Create" class="btn btn-primary" />
