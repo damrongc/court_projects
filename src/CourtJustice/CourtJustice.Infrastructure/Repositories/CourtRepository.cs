@@ -113,20 +113,9 @@ namespace CourtJustice.Infrastructure.Repositories
             var result = await Context.Courts.FindAsync(model.CourtId);
             result.CourtName = model.CourtName;
             result.Address = model.Address;
-            result.AddressNo = model.AddressNo;
-            result.Village = model.Village;
-            result.Building = model.Building;
-            result.Email = model.Email;
-            result.Floor = model.Floor;         
+            result.AddressDetail = model.AddressDetail;
             result.IsActive = model.IsActive;
-            result.PhoneNumber = model.PhoneNumber;          
-            result.Street = model.Street;
-            result.Substreet = model.Substreet;
-            result.ProvinceId = model.ProvinceId;
-            result.DistrictId = model.DistrictId;
-            result.SubDistrictId = model.SubDistrictId;
-           
-          
+
             await Context.SaveChangesAsync();
         }
     }

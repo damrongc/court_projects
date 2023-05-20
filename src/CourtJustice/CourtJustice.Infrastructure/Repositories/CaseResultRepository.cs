@@ -44,7 +44,7 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.CaseResults.FindAsync(model.CaseResultId);
             result.CaseResultName = model.CaseResultName;
-
+            result.IsActive = model.IsActive;
             await Context.SaveChangesAsync();
         }
 

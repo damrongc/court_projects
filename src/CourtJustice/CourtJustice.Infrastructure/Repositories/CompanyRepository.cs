@@ -44,6 +44,10 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.Companys.FindAsync(model.CompanyId);
             result.CompanyName = model.CompanyName;
+            result.IsActive = model.IsActive;
+            result.Address = model.Address;
+            result.PhoneNumber = model.PhoneNumber;
+            result.LogoPath = model.LogoPath;
 
             await Context.SaveChangesAsync();
         }

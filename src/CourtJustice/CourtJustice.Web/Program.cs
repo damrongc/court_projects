@@ -66,7 +66,7 @@ namespace CourtJustice.Web
             builder.Services.AddTransient<IPaymentRepository, PaymentRepository>();
             builder.Services.AddTransient<IReferencerRepository, ReferencerRepository>();
             builder.Services.AddTransient<ILoaneeRemarkRepository, LoaneeRemarkRepository>();
-
+            builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
 
             builder.Services.AddScoped<RequestAuthenticationFilter>();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

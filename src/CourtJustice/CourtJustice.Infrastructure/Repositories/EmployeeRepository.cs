@@ -48,8 +48,14 @@ namespace CourtJustice.Infrastructure.Repositories
         public async Task Update(string id, Employee model)
         {
             var result = await Context.Employees.FindAsync(model.EmployeeCode);
-            //result.EmployeeName = model.EmployeeName;
-            //ทำไมถึง เป็น set init
+            result.EmployeeName = model.EmployeeName;
+            result.Address = model.Address;
+            result.AddressDetail = model.AddressDetail;
+            result.Email = model.Email;
+            result.HireDate = model.HireDate;
+            result.Target = model.Target;
+            result.IsActive = model.IsActive;
+
             await Context.SaveChangesAsync();
         }
     }

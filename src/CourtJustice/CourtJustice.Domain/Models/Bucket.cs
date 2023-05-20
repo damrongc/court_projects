@@ -10,7 +10,7 @@ using System.Xml.Linq;
 namespace CourtJustice.Domain.Models
 {
     [Table("bucket")]
-    public class Bucket
+    public class Bucket : BaseEntity
     {
         [Key]
         [Display(Name = "รหัสสถานะบัญชี")]

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CourtJustice.Domain.Models
 {
     [Table("card_type")]
-    public class CardType
+    public class CardType : BaseEntity
     {
         [Key]
         [Display(Name = "รหัสประเภทบัตร")]

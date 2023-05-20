@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CourtJustice.Domain.Models
 {
     [Table("loan_sub_task_status")]
-    public class LoanSubTaskStatus 
+    public class LoanSubTaskStatus : BaseEntity
     {
         [Key]
         [Display(Name = "รหัสกลุ่มงานย่อย")]

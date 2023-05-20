@@ -10,11 +10,11 @@ using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class CreditTypeRepository : BaseRepository, ICreditTypeRepository
-	{
-		public CreditTypeRepository(IConfiguration config, ApplicationDbContext context) : base(config,context)
-		{
-		}
+    public class CreditTypeRepository : BaseRepository, ICreditTypeRepository
+    {
+        public CreditTypeRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+        {
+        }
 
         public async Task Create(CreditType model)
         {
@@ -43,7 +43,8 @@ namespace CourtJustice.Infrastructure.Repositories
         public async Task Update(string id, CreditType model)
         {
             var result = await Context.CreditTypes.FindAsync(model.CreditTypeCode);
-           // result.CreditTypeName = model.CreditTypeName;
+            result.CreditTypeName = model.CreditTypeName;
+            result.IsActive = model.IsActive;
 
             await Context.SaveChangesAsync();
         }

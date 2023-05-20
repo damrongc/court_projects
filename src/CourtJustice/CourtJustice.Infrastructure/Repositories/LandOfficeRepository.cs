@@ -46,7 +46,8 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.LandOffices.FindAsync(model.LandOfficeCode);
             result.LandOfficeName = model.LandOfficeName;
-           
+            result.IsActive = model.IsActive;
+          
 
             await Context.SaveChangesAsync();
         }

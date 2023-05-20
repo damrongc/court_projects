@@ -45,6 +45,7 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.CardTypes.FindAsync(model.CardTypeCode);
             result.CardTypeName = model.CardTypeName;
+            result.IsActive = model.IsActive;
 
             await Context.SaveChangesAsync();
         }

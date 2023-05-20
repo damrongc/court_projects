@@ -2,7 +2,7 @@
 @model Court
 
 @{
-    ViewData["Title"] = "ข้อมูลลูกหนี้";
+    ViewData["Title"] = "ข้อมูลศาล";
     var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
     var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
 }
@@ -29,64 +29,27 @@
                                     <span asp-validation-for="CourtName" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group col-md-2">
-                                    <label asp-for="PhoneNumber" class="control-label"></label>
-                                    <input asp-for="PhoneNumber" class="form-control" />
-                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="Email" class="control-label"></label>
-                                    <input asp-for="Email" class="form-control" type="email" />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-2">
-                                    <label asp-for="AddressNo" class="control-label"></label>
-                                    <input asp-for="AddressNo" class="form-control" />
-                                    <span asp-validation-for="AddressNo" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="Village" class="control-label"></label>
-                                    <input asp-for="Village" class="form-control" />
-                                    <span asp-validation-for="Village" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label asp-for="Building" class="control-label"></label>
-                                    <input asp-for="Building" class="form-control" />
-                                    <span asp-validation-for="Building" class="text-danger"></span>
-                                </div>
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                    <label class="control-label">Address</label>
+                                    <label asp-for="Address" class="control-label"></label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" asp-for="Address" />
-                                        <span asp-validation-for="Address" class="text-danger"></span>
-
+                                        <input asp-for="Address" type="text" class="form-control" id="txtAddressSetLookup" />
                                         <span class="input-group-append">
                                             <a href="#" onclick="showLookup('0','@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
                                         </span>
                                     </div>
+                                    <span asp-validation-for="Address" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="ProvinceId" class="control-label"></label>
-                                    <input id="txtProvince" class="form-control" readonly />
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="DistrictId" class="control-label"></label>
-                                    <input id="txtDistrict" class="form-control" readonly />
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="SubDistrictId" class="control-label"></label>
-                                    <input id="txtSubdistrict" class="form-control" readonly />
-                                </div>
-                                
+                                <div class="form-group col-md-6">
+                                    <label asp-for="AddressDetail" class="control-label"></label>
+                                    <input asp-for="AddressDetail" class="form-control" />
+                                    <span asp-validation-for="AddressDetail" class="text-danger"></span>
+                           
                             </div>
 
-                           
+
 
                             <div class="form-group">
                                 <a asp-action="Index" class="btn btn-light">Back</a>

@@ -1,5 +1,5 @@
 ﻿@using CourtJustice.Domain.Models
-@model IEnumerable<CarType>
+@model IEnumerable<Employee>
 
 
 <div class="table-responsive">
@@ -7,13 +7,16 @@
         <thead>
             <tr class="bg-primary text-white" role="row">
                 <th>
-                    @Html.DisplayNameFor(model => model.CarTypeCode)
+                    @Html.DisplayNameFor(model => model.EmployeeCode)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CarTypeName)
+                    @Html.DisplayNameFor(model => model.EmployeeName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IsActive)
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HireDate)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.UserCreated)
@@ -31,21 +34,16 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CarTypeCode)
+                        @Html.DisplayFor(modelItem => item.EmployeeCode)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CarTypeName)
+                        @Html.DisplayFor(modelItem => item.EmployeeName)
                     </td>
-
                     <td>
-                        @if (item.IsActive)
-                        {
-                            <div class="badge badge-outline-success badge-pill">ใช้งาน</div>
-                        }
-                        else
-                        {
-                            <div class="badge badge-outline-light badge-pill">ไม่ใช้งาน</div>
-                        }
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HireDate)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.UserCreated)
@@ -55,8 +53,8 @@
                     </td>
                     <td class="w130">
                         <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.CarTypeCode"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.CarTypeCode');"><i class='fa fa-trash'></i></a>
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.EmployeeCode"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.EmployeeCode');"><i class='fa fa-trash'></i></a>
                         </div>
                     </td>
                 </tr>

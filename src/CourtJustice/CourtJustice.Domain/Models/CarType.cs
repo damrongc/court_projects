@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CourtJustice.Domain.Models
 {
     [Table("car_type")]
-    public class CarType
+    public class CarType : BaseEntity
     {
         [Key]
         [Display(Name = "รหัสประเภทรถ")]

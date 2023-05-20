@@ -3,7 +3,7 @@
 namespace CourtJustice.Domain.Models
 {
     [Table("company")]
-    public class Company
+    public class Company : BaseEntity
     {
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }

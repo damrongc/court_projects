@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CourtJustice.Domain.Models
 {
     [Table("case_result")]
-    public class CaseResult
+    public class CaseResult : BaseEntity
     {
         [Key]
         [Display(Name = "รหัสผลคดี")]

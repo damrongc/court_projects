@@ -12,7 +12,15 @@
                 <th>
                     @Html.DisplayNameFor(model => model.BucketName)
                 </th>
-
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserCreated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDateTime)
+                </th>
                 <th>
 
                 </th>
@@ -29,8 +37,23 @@
                         @Html.DisplayFor(modelItem => item.BucketName)
                     </td>
 
-
-                    <td class="w100">
+                    <td>
+                        @if (item.IsActive)
+                        {
+                            <div class="badge badge-outline-success badge-pill">ใช้งาน</div>
+                        }
+                        else
+                        {
+                            <div class="badge badge-outline-light badge-pill">ไม่ใช้งาน</div>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDateTime)
+                    </td>
+                    <td class="w130">
                         <div class="d-inline">
                             <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.BucketId"><i class='fa fa-edit'></i></a>
                             <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.BucketId');"><i class='fa fa-trash'></i></a>

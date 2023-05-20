@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CourtJustice.Domain.Models
 {
     [Table("credit_type")]
-    public class CreditType
+    public class CreditType : BaseEntity
     {
         [Key]
         [Display(Name = "รหัสประเภทสินเชื่อ")]

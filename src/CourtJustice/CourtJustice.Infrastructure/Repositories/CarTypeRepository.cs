@@ -42,7 +42,7 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.CarTypes.FindAsync(model.CarTypeCode);
             result.CarTypeName = model.CarTypeName;
-
+            result.IsActive = model.IsActive;
             await Context.SaveChangesAsync();
         }
 

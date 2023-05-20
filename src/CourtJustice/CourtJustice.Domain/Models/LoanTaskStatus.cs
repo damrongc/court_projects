@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CourtJustice.Domain.Models
 {
     [Table("loan_task_status")]
-    public class LoanTaskStatus
+    public class LoanTaskStatus : BaseEntity
     {
         [Key]
         [Display(Name = "รหัสกลุ่มงาน")]

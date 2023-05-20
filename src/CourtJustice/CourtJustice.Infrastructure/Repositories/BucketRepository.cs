@@ -49,6 +49,7 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.Buckets.FindAsync(model.BucketId);
             result.BucketName = model.BucketName;
+            result.IsActive = model.IsActive;
 
             await Context.SaveChangesAsync();
         }
