@@ -14,10 +14,11 @@ namespace CourtJustice.Infrastructure.Seeds
             var programs = context.AppPrograms.ToList();
             if (programs.Count == 0)
             {
+
                 var adminMenu = new AppProgram
                 {
                     ProgramName = "ผู้ดูแลระบบ",
-                    ParentProgramId= 0,
+                    ParentProgramId = 0,
                     MenuIcon = "mdi mdi-shield-check menu-icon"
                 };
 
@@ -46,86 +47,63 @@ namespace CourtJustice.Infrastructure.Seeds
                 context.SaveChanges();
 
 
-                //var masterMenu = new AppProgram
-                //{
-                //    ProgramName = "ข้อมูล Master",
-                //    MenuIcon = "mdi mdi-database menu-icon"
-                //};
-                //context.AppPrograms.Add(masterMenu);
-                //context.SaveChanges();
+                var masterMenu = new AppProgram
+                {
+                    ProgramName = "ข้อมูลหลัก",
+                    ParentProgramId = 0,
+                    MenuIcon = "mdi mdi-database menu-icon"
+                };
+                context.AppPrograms.Add(masterMenu);
+                context.SaveChanges();
 
-                //programList = new()
-                //{
-                //    new AppProgram
-                //    {
-                //        ProgramName = "ข้อมูลกลุ่มสินค้า",
-                //        ParentProgramId= masterMenu.ProgramId,
-                //        ControllerName= "ProductGroups",
-                //        ActionName="Index"
-                //    },
-                //    new app_program
-                //    {
-                //        program_name = "ข้อมูลประเถทสินค้า",
-                //        parent_program_id= masterMenu.id,
-                //         controller_name= "ProductTypes",
-                //        action_name="Index"
-                //    },
-                //    new app_program
-                //    {
-                //        program_name = "ข้อมูลสินค้า",
-                //        parent_program_id= masterMenu.id,
-                //         controller_name= "Products",
-                //        action_name="Index"
-                //    },
-                //    new app_program
-                //    {
-                //        program_name = "ข้อมูลตำแหน่งจัดเก็บ",
-                //        parent_program_id= masterMenu.id,
-                //         controller_name= "Locations",
-                //        action_name="Index"
-                //    },
+                List<AppProgram> programMasterList = new()
+                {
+                   
+                    new AppProgram { ProgramName = "Titles", ParentProgramId= masterMenu.ProgramId, ControllerName= "Titles", ActionName="Index" },
+                     new AppProgram { ProgramName = "สถานะบัญชี", ParentProgramId= masterMenu.ProgramId, ControllerName= "Buckets", ActionName="Index" },
+                    new AppProgram { ProgramName = "ประเภทบัตร", ParentProgramId= masterMenu.ProgramId, ControllerName= "CardTypes", ActionName="Index" },
+                    new AppProgram { ProgramName = "ผลคดี", ParentProgramId= masterMenu.ProgramId, ControllerName= "CaseResults", ActionName="Index" },
+                    new AppProgram { ProgramName = "ประเภทสินเชื่อ", ParentProgramId= masterMenu.ProgramId, ControllerName= "CreditTypes", ActionName="Index" },
+                    new AppProgram { ProgramName = "สำนักงานที่ดิน", ParentProgramId= masterMenu.ProgramId, ControllerName= "LandOffices", ActionName="Index" },
+                    new AppProgram { ProgramName = "คดีความ", ParentProgramId= masterMenu.ProgramId, ControllerName= "LawCases", ActionName="Index" },
+                    new AppProgram { ProgramName = "ศาล", ParentProgramId= masterMenu.ProgramId, ControllerName= "ศาล", ActionName="Index" },
+                    new AppProgram { ProgramName = "ประเภทรถ", ParentProgramId= masterMenu.ProgramId, ControllerName= "CarTypes", ActionName="Index" },
+                    new AppProgram{ProgramName = "ประเภทลูกหนี้",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanTypes",ActionName="Index"},
+                    new AppProgram{ProgramName = "อาชีพ",ParentProgramId= masterMenu.ProgramId,ControllerName= "Occupations",ActionName="Index"},
+                   
+                    new AppProgram{ProgramName = "กลุ่มงานย่อย",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanTaskStatuses",ActionName="Index"},
+                    new AppProgram{ProgramName = "กลุ่มงาน",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanSubTaskStatuses",ActionName="Index"},
+                    new AppProgram{ProgramName = "ข้อมูลบริษัท",ParentProgramId= masterMenu.ProgramId,ControllerName= "Companys",ActionName="Index"},
+                };
+                context.AppPrograms.AddRange(programMasterList);
+                context.SaveChanges();
 
-                //};
-                //context.AppPrograms.AddRange(programList);
-                //context.SaveChanges();
+                var otherMenu = new AppProgram
+                {
+                    ProgramName = "ข้อมูล",
+                    ParentProgramId = 0,
+                    MenuIcon = "mdi mdi-folder-open menu-icon"
+                };
+                context.AppPrograms.Add(otherMenu);
+                context.SaveChanges();
 
-
-                //var processMenu = new app_program
-                //{
-                //    program_name = "หน้าจอการทำงาน",
-                //    menu_icon = "mdi mdi-airplay menu-icon"
-                //};
-                //context.AppPrograms.Add(processMenu);
-                //context.SaveChanges();
-
-                //programList = new()
-                //{
-                //    new app_program
-                //    {
-                //        program_name = "การรับเข้าสินค้า",
-                //        parent_program_id= processMenu.id,
-                //        controller_name= "StockReceives",
-                //        action_name="Index"
-                //    },
-                //    new app_program
-                //    {
-                //        program_name = "การเบิกจ่ายสินค้า",
-                //        parent_program_id= processMenu.id,
-                //         controller_name= "StockIssues",
-                //        action_name="Index"
-                //    },
-
-
-                //};
-                //context.AppPrograms.AddRange(programList);
-                //context.SaveChanges();
-            }
-
-            if (!context.AppPrograms.Any(p => p.ControllerName== "Loanees"))
-            {
-                context.AppPrograms.Add(new AppProgram { ProgramName = "ข้อมูลลูกหนี้", ParentProgramId=1,ControllerName= "Loanees" ,ActionName="Index"});
+                List<AppProgram> programOtherList = new()
+                {
+                    new AppProgram { ProgramName = "ข้อมูลทนายความ", ParentProgramId= otherMenu.ProgramId, ControllerName= "Lawyers", ActionName="Index" },
+                    new AppProgram { ProgramName = "ผู้ว่าจ้าง", ParentProgramId= otherMenu.ProgramId, ControllerName= "Employers", ActionName="Index" },
+                    new AppProgram { ProgramName = "พนักงาน", ParentProgramId= otherMenu.ProgramId, ControllerName= "Employees", ActionName="Index" },
+                    new AppProgram { ProgramName = "ข้อมูลลูกหนี้", ParentProgramId= otherMenu.ProgramId, ControllerName= "Loanees", ActionName="Index" },
+                   
+                };
+                context.AppPrograms.AddRange(programOtherList);
                 context.SaveChanges();
             }
+
+           /* if (!context.AppPrograms.Any(p => p.ControllerName == "Loanees"))
+            {
+                context.AppPrograms.Add(new AppProgram { ProgramName = "ข้อมูลลูกหนี้", ParentProgramId = 1, ControllerName = "Loanees", ActionName = "Index" });
+                context.SaveChanges();
+            }*/
 
         }
     }
