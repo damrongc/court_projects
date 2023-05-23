@@ -33,6 +33,11 @@ namespace CourtJustice.Infrastructure.Repositories
             return await Context.AssetImages.ToListAsync();
         }
 
+        public  List<AssetImage> GetByAssetId(string id)
+        {
+           return Context.AssetImages.Where(x=>x.AssetId==id).ToList(); 
+        }
+
         public async Task<AssetImage> GetByKey(int id)
         {
             var model = await Context.AssetImages.FindAsync(id);

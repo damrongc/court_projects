@@ -71,6 +71,11 @@ namespace Inventor.Infrastructure.Utils
             return a.ToString("yyyy.MM.dd");
         }
 
+        public static DateOnly ToDateOnly(this DateTime a)
+        {
+            return DateOnly.FromDateTime(a);
+        }
+
         public static DataTable ToDataTable<T>(this List<T> items)
         {
             DataTable dataTable = new DataTable(typeof(T).Name);

@@ -1,8 +1,6 @@
 ﻿
-//var table;
-//var btnEdit;
 $(function () {
-    //getWithPaging();
+
 });
 function showAssetLandTab(url) {
     if (url == '' || url == undefined) {
@@ -84,7 +82,7 @@ AddOrEdit = (form) => {
             });
             return false;
         }
-        
+
 
         assetLand.AssetLandId = txtAssetLandId.val();
         assetLand.Position = txtPosition.val();
@@ -94,8 +92,6 @@ AddOrEdit = (form) => {
         assetLand.EstimatePrice = txtEstimatePrice.val();
         assetLand.AddressDetail = txtAddressDetail.val();
         assetLand.CusId = txtCusId.val();
-        //console.log(assetLand);
-
 
         $.ajax({
             type: 'POST',
@@ -114,17 +110,6 @@ AddOrEdit = (form) => {
                             closePopupXL();
                         });
                 }
-
-
-                //if (res.isValid) {
-
-
-                //    //if (typeof activateDraggable !== 'undefined' && $.isFunction(activateDraggable))
-                //    //    activateDraggable();
-
-                //    //if (typeof activateContextMenu !== 'undefined' && $.isFunction(activateContextMenu))
-                //    //    activateContextMenu();
-                //}
             },
             error: function (err) {
                 console.log(err)
@@ -175,61 +160,67 @@ confirmDeleteAssetLand = (url) => {
     return false;
 }
 
-//getWithPaging = () => {
-//    var url = $("#hdGetWithPaging").val();
-//    table = $('#tbl_assetland').DataTable({
-//        "destroy": true,
-//        "processing": true,
-//        "serverSide": true,
-//        "ajax": {
-//            "url": url,
-//            "type": "POST",
-//            "datatype": "json",
-//        },
-//        "ordering": false,
-//        "fixedHeader": true,
-//        "aLengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
-//        "iDisplayLength": 10,
-//        "scrollCollapse": true,
-//        "scrollX": true,
-//        "scrollY": 500,
-//        "autoWidth": false,
-//        "language": {
-//            search: "_INPUT_",
-//            searchPlaceholder: "Search..."
-//        },
-//        "columns": [
-//            {
-//                data: "assetLandId", name: "assetLandId",
-//                 render: function (data, type, row) {
-//                    return "<a href='#' id='btnSelected'  data-id='" + row.assetLandId + "'>" + data + "</a>";
-//                }
-//            },
-//            {
-//                data: "position", name: "position",
 
-//            },
-//            { data: "gps", name: "gps", },
-//            { data: "landOfficeName", name: "landOfficeName", },
-//            { data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: "<a id='btnEdit' class='btn btn-sm btn-primary text-white js-action'><i class='fa fa-edit'></i></a><a id='btnDelete' class='btn btn-sm btn-danger text-white js-action'><i class='fa fa-trash'></i></a>" }
+previewImageAssetLand = (inputId) => {
+    if (typeof (FileReader) != "undefined") {
+        var dvPreview = $("#divAssetLandImagePreview");
+        dvPreview.html("");
+        var input = document.getElementById(inputId);
+        //var files = input.files;
 
-//        ]
+        $($(input)[0].files).each(function () {
+            var file = $(this);
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = $("<img />");
+                img.attr("style", "width: 100%; height:100%;object-fit:contain;");
+                img.attr("src", e.target.result);
+                dvPreview.append(img);
+            }
+            reader.readAsDataURL(file[0]);
+        });
+    } else {
+        alert("This browser does not support HTML5 FileReader.");
+    }
 
-//    });
-//}
-
-
-//$(table).each(function () {
-//    var datatable = $(this);
-//    // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-//    var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-//    search_input.attr('placeholder', 'Search');
-//    search_input.removeClass('form-control-sm');
-//    // LENGTH - Inline-Form control
-//    var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-//    length_sel.removeClass('form-control-sm');
-//});
-
-
-
-
+}
+confirmUploadImageAssetLand = (inputId) => {
+    var url = $("#hdUploadRoute").val();
+    var cusId = $('#txtCusId').val();
+    var assetId = $('#AssetId').val();
+    var input = document.getElementById(inputId);
+    var files = input.files;
+    var formData = new FormData();
+    for (var i = 0; i != files.length; i++) {
+        formData.append("files", files[i]);
+    }
+    formData.append("AssetId", assetId);
+    formData.append("CusId", cusId);
+    $.ajax(
+        {
+            url: url,
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            success: function (res) {
+                if (res.isValid) {
+                    swal({
+                        title: "สำเร็จ",
+                        text: "อัพโหลด เรียบร้อยแล้ว",
+                        icon: "success"
+                    }).then((val) => {
+                        $("#view-asset-land").html(res.html);
+                        closePopupXL();
+                    });
+                } else {
+                    swal({
+                        title: "พบข้อผิดพลาด",
+                        text: res.message,
+                        icon: "error"
+                    });
+                }
+            }
+        }
+    );
+}

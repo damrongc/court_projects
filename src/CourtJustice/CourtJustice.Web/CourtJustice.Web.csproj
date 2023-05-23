@@ -68,6 +68,7 @@
     <Folder Include="Views\Employees\" />
     <Folder Include="Views\LoanTaskStatuses\" />
     <Folder Include="Views\Payments\" />
+    <Folder Include="wwwroot\images\assetlands\" />
     <Folder Include="wwwroot\notices\" />
     <Folder Include="Views\LoaneeRemarks\" />
     <Folder Include="Views\Companys\" />

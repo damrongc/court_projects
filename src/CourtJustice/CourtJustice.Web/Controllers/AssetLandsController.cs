@@ -1,55 +1,34 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CourtJustice.Web.Controllers
 {
 
     public class AssetLandsController : BaseController<AssetLandsController>
     {
+        const string ASSET_PATH = "/images/assetlands/";
         private readonly IAssetLandRepository _assetLandRepository;
         private readonly ILandOfficeRepository _landOfficeRepository;
+        private readonly IAssetImageRepository _assetImageRepository;
 
         public AssetLandsController(IAssetLandRepository assetLandRepository,
-            ILandOfficeRepository landOfficeRepository)
+            ILandOfficeRepository landOfficeRepository,
+            IAssetImageRepository assetImageRepository)
         {
             _assetLandRepository = assetLandRepository;
             _landOfficeRepository = landOfficeRepository;
+            _assetImageRepository = assetImageRepository;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-
-
-
-        private async Task<List<AssetLand>> GetAll()
-        {
-            var results = await _assetLandRepository.GetAll();
-            return results.ToList();
-        }
-
-        //public async Task<IActionResult> Create()
-        //{
-        //    var landOffices = await _landOfficeRepository.GetAll();
-        //    List<SelectListItem> SelectLandOffice = new();
-        //    foreach (var item in landOffices)
-        //    {
-        //        SelectLandOffice.Add(new SelectListItem
-        //        {
-        //            Text = item.LandOfficeName.ToString(),
-        //            Value = item.LandOfficeCode.ToString(),
-        //        });
-        //    }
-        //    ViewBag.LandOffices = SelectLandOffice;
-        //    return View(new AssetLand());
-        //}
 
         public async Task<IActionResult> AddOrEdit(string id="")
         {
@@ -100,53 +79,54 @@ namespace CourtJustice.Web.Controllers
             {
                 await _assetLandRepository.Create(model);
             }
-            var assetLands = await _assetLandRepository.GetByCusId(model.CusId);
-            //return PartialView("~/Views/AssetLands/_AssetLandCard.cshtml", assetLands);
+
+            var assetLands = await GetAssetLands(model.CusId);
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
             return new JsonResult(new { isValid = true, html });
         }
 
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(AssetLand model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _assetLandRepository.Create(model);
-        //        _notify.Success($"{model.AssetLandId} is Created.");
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(model);
-        //}
+        public IActionResult UploadImage(string id = "")
+        {
+            var assetImage = new AssetImageViewModel { AssetId= id };
+            return View(assetImage);
+        }
 
-        //public async Task<IActionResult> Edit(string id)
-        //{
-        //    var model = await _assetLandRepository.GetByKey(id);
-        //    return View(model);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> UploadImage([FromForm] AssetImageViewModel vm)
+        {
+            try
+            {
+                
+                var assetId = vm.AssetId;
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                foreach (var file in vm.Files)
+                {
+                    string extension = Path.GetExtension(file.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(file.FileName) + extension;
+                    string path = Path.Combine(wwwRootPath + ASSET_PATH, fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                    var assetImage = new AssetImage
+                    {
+                        AssetId = assetId,
+                        FileName= fileName,
+                        ImagePath = ASSET_PATH + fileName,
+                    };
+                    await _assetImageRepository.Create(assetImage);
+                }
 
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(string id, AssetLand model)
-        //{
-        //    var oldEntity = await _assetLandRepository.GetByKey(id);
-
-        //    if (oldEntity == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _assetLandRepository.Update(id, model);
-        //        _notify.Success($"{model.AssetLandId} is Updated");
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(model);
-        //}
+                var assetLands = await GetAssetLands(vm.CusId);
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
+                return new JsonResult(new { isValid = true,  html });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { isValid = false, message = ex.Message });
+            }
+        }
 
 
         [HttpDelete, ActionName("Delete")]
@@ -155,67 +135,35 @@ namespace CourtJustice.Web.Controllers
             try
             {
                 await _assetLandRepository.Delete(id);
-                var assetCars = await _assetLandRepository.GetByCusId(cusId);
-                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetCars);
-                return new JsonResult(new { isValid = true, message = "", html });
+
+                var assetLands = await GetAssetLands(id);
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
+                return new JsonResult(new { isValid = true, html });
             }
             catch (Exception ex)
             {
                 return new JsonResult(new { isValid = false, message = ex.Message });
             }
-
         }
-
-
 
         [HttpGet]
         public async Task<JsonResult> GetByCusId(string id="")
         {
-            var assetLands = await _assetLandRepository.GetByCusId(id);
 
-            //Mock Up
-            //var assetLands = new List<AssetLandViewModel>
-            //{
-            //    new AssetLandViewModel
-            //    {
-            //        AssetLandId = "01",
-            //        Position = "asas",
-            //        EstimatePrice = 200000,
-            //        LandOfficeCode ="01"
-                    
-            //    }
-            //};
-            //return PartialView("~/Views/AssetLands/_AssetLandCard.cshtml", assetLands);
+            var assetLands = await GetAssetLands(id);
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
-            return new JsonResult(new { isValid = true, message = "", html });
+            return new JsonResult(new { isValid = true,  html });
         }
 
 
-
-        [HttpPost]
-        public async Task<IActionResult> GetWithPaging()
+        private async Task<List<AssetLandViewModel>> GetAssetLands(string id)
         {
-            try
+            var assetLands = await _assetLandRepository.GetByCusId(id);
+            foreach (var asset in assetLands)
             {
-                //var productGroupCode = Request.Form["productGroupCode"].FirstOrDefault();
-                var draw = Request.Form["draw"].FirstOrDefault();
-                var start = Request.Form["start"].FirstOrDefault();
-                var length = Request.Form["length"].FirstOrDefault();
-                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
-                var searchValue = Request.Form["search[value]"].FirstOrDefault();
-                int pageSize = length != null ? Convert.ToInt32(length) : 0;
-                int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = await _assetLandRepository.GetRecordCount(searchValue);
-
-                var data = await _assetLandRepository.GetPaging(skip, pageSize, searchValue);
-                var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
-                return Ok(jsonData);
+                asset.AssetImages = _assetImageRepository.GetByAssetId(asset.AssetLandId);
             }
-            catch
-            {
-                throw;
-            }
+            return assetLands;
         }
 
     }

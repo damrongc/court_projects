@@ -2,7 +2,6 @@
 @model IEnumerable<AssetLandViewModel>;
 @{
     Layout = null;
-
 }
 <a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetLands",null,Context.Request.Scheme)','เพิ่มข้อมูลที่ดิน')"><i class="fa fa-plus"></i> Create New</a>
 
@@ -27,6 +26,9 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.LandOfficeName)
+                </th>
+                <th>
+                    รูปภาพ
                 </th>
                 <th></th>
             </tr>
@@ -53,8 +55,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.LandOfficeName)
                     </td>
+                    <td>
+                        @foreach (var image in item.AssetImages)
+                        {
+                            var image_url = @Url.Content(image.ImagePath);
+                            <a href=@image_url target="_blank" style="padding-right: 10px;">@image.FileName</a>
+                        }
+                    </td>
                     <td class="w150">
                         <div class="d-inline">
+                            <a class="btn btn-sm btn-dark text-white" onclick="showInPopupXL('@Url.Action("UploadImage","AssetLands",new {id=item.AssetLandId},Context.Request.Scheme)','เพิ่มรูปภาพ')"><i class='fa fa-image'></i></a>
                             <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetLands",new {id=item.AssetLandId},Context.Request.Scheme)','แก้ไขข้อมูลที่ดิน')"><i class='fa fa-edit'></i></a>
                             <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteAssetLand('@Url.Action("Delete","AssetLands",new {id=item.AssetLandId},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
                         </div>

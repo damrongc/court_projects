@@ -1,8 +1,5 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
 
 namespace CourtJustice.Domain.ViewModels
 {
@@ -22,10 +19,9 @@ namespace CourtJustice.Domain.ViewModels
         public string LandOfficeName { get; set; } = string.Empty;
         [Display(Name = "ราคาประเมิน")]
         public decimal EstimatePrice { get; set; } = 0;
-
         public string LandOfficeCode { get; set; } = string.Empty;
-        //public int AddressId { get; set; }
         public string CusId { get; set; } = string.Empty;
+        public List<AssetImage> AssetImages { get; set; } = new();
 
 
     }
