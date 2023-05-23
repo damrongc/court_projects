@@ -23,5 +23,10 @@
         </div>
     </div>
 </div>
-@Html.Hidden("hdDeleteRoute",Url.Action("Delete","Titles"))
+@Html.Hidden("hdDeleteRoute", Url.Action("Delete", "Titles"))
+@section Scripts {
+    @{
 
+        <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
+    }
+}

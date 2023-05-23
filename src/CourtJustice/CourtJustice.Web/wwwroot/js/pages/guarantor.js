@@ -41,7 +41,7 @@ AddOrEditGuarantor = (form) => {
     try {
         var gurantor = {};
 
-
+        var txtIdCardNumber = $("#IdCardNumber");
         var txtGuarantorCode = $("#GuarantorCode");
         var txtFullName = $("#FullName");
         var txtPhoneNumber = $("#PhoneNumber");
@@ -57,6 +57,10 @@ AddOrEditGuarantor = (form) => {
          //   isValid = false;
           //  errorMessage += txtGuarantorCode.attr('data-val-required') + '\n\r';
         //}
+        if (txtIdCardNumber.val() == '' || txtIdCardNumber.val() == undefined) {
+            isValid = false;
+            errorMessage += txtIdCardNumber.attr('data-val-required') + '\n\r';
+        }
         if (txtFullName.val() == '' || txtFullName.val() == undefined) {
             isValid = false;
             errorMessage += txtFullName.attr('data-val-required') + '\n\r';
@@ -84,7 +88,7 @@ AddOrEditGuarantor = (form) => {
             });
             return false;
         }
-
+        gurantor.IdCardNumber = txtIdCardNumber.val();
         gurantor.GuarantorCode = txtGuarantorCode.val();
         gurantor.FullName = txtFullName.val();
         gurantor.PhoneNumber = txtPhoneNumber.val();

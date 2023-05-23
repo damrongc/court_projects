@@ -6,9 +6,8 @@
     var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
     var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
 }
-}
 <div class="row">
-    <div class="col-6">
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-3">
@@ -20,47 +19,37 @@
                         <form asp-action="Edit">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label asp-for="EmployeeCode" class="control-label"></label>
-                                    <input asp-for="EmployeeCode" class="form-control" readonly/>
+                                    <input asp-for="EmployeeCode" class="form-control" readonly />
                                     <span asp-validation-for="EmployeeCode" class="text-danger"></span>
                                 </div>
-                            </div>
-                            <div class="row">
 
                                 <div class="form-group col-md-6">
                                     <label asp-for="EmployeeName" class="control-label"></label>
                                     <input asp-for="EmployeeName" class="form-control" />
                                     <span asp-validation-for="EmployeeName" class="text-danger"></span>
                                 </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="form-group col-md-6">
-                                    <label asp-for="Email" class="control-label"></label>
-                                    <input asp-for="Email" class="form-control" type="email" />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="form-group col-md-6">
-                                    <label asp-for="PhoneNumber" class="control-label"></label>
-                                    <input asp-for="PhoneNumber" class="form-control" />
-                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label asp-for="HireDate" class="control-label"></label>
                                     <input asp-for="HireDate" class="form-control date" asp-format="{0:yyyy-MM-dd}" />
                                     <span asp-validation-for="HireDate" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="row">
 
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label asp-for="PhoneNumber" class="control-label"></label>
+                                    <input asp-for="PhoneNumber" class="form-control" />
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
                                 <div class="form-group col-md-6">
+                                    <label asp-for="Email" class="control-label"></label>
+                                    <input asp-for="Email" class="form-control" type="email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-md-3">
                                     <label asp-for="Target" class="control-label"></label>
                                     <input asp-for="Target" class="form-control" type="number" asp-format="{0:###,###.00}" />
                                     <span asp-validation-for="Target" class="text-danger"></span>
@@ -109,4 +98,5 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+<script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
 }

@@ -9,6 +9,8 @@ namespace CourtJustice.Domain.Models
         [Key]
         [Display(Name = "รหัสบุคคลอ้างอิง")]
         public int ReferencerCode { get; set; }
+        [Display(Name = "เลขบัตรประจำตัวประชาชน")]
+        public string IdCardNumber { get; set; } = string.Empty;
         [Display(Name = "บุคคลอ้างอิง")]
         public string FullName { get; set; } = string.Empty;
         [Display(Name = "เบอร์ติดต่อ")]

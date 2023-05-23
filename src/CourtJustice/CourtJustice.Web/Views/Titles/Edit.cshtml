@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "คำนำหน้าชื่อ";
+    var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
+    var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
 }
 <div class="row">
     <div class="col-6">
@@ -15,9 +17,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         <form asp-action="Edit">
-                            <input asp-for="UserCreated" class="form-control"  type="hidden" />
-                            <input asp-for="CreatedDateTime" class="form-control"  type="hidden" />
-
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
                                 <div class="form-group col-md-6">
@@ -39,9 +38,11 @@
                                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
                                 </label>
                             </div>
+
+
                             <div class="form-group">
                                 <a asp-action="Index" class="btn btn-light">Back</a>
-                                <input type="submit" value="Save" class="btn btn-primary" />
+                                <input type="submit" value="Create" class="btn btn-primary" />
                             </div>
 
                         </form>
@@ -52,9 +53,4 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+@Html.Hidden("hdGetAddressSetById", Url.Action("GetAddressById", "AddressSets"))

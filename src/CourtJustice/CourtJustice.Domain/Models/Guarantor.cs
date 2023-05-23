@@ -8,7 +8,9 @@ namespace CourtJustice.Domain.Models
     {
         [Key]
         [Display(Name = "รหัสผู้ค้ำประกัน")]
-        public int GuarantorCode { get; set; } 
+        public int GuarantorCode { get; set; }
+        [Display(Name = "เลขบัตรประจำตัวประชาชน")]
+        public string IdCardNumber { get; set; } = string.Empty;
         [Display(Name = "ผู้ค้ำ")]
         public string FullName { get; set; } = string.Empty;
         [Display(Name = "เบอร์ติดต่อ")]

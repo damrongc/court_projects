@@ -74,6 +74,7 @@ namespace CourtJustice.Infrastructure.Seeds
                     new AppProgram{ProgramName = "กลุ่มงานย่อย",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanTaskStatuses",ActionName="Index"},
                     new AppProgram{ProgramName = "กลุ่มงาน",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanSubTaskStatuses",ActionName="Index"},
                     new AppProgram{ProgramName = "ข้อมูลบริษัท",ParentProgramId= masterMenu.ProgramId,ControllerName= "Companys",ActionName="Index"},
+                    new AppProgram { ProgramName = "ประเภทสินทรัพย์", ParentProgramId= masterMenu.ProgramId, ControllerName= "AssetTypes", ActionName="Index" },
                 };
                 context.AppPrograms.AddRange(programMasterList);
                 context.SaveChanges();

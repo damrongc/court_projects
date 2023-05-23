@@ -43,6 +43,7 @@ AddOrEditReferencer = (form) => {
 
 
         var txtReferencerCode = $("#ReferencerCode");
+        var txtIdCardNumber = $("#IdCardNumber");
         var txtFullName = $("#FullName");
         var txtPhoneNumber = $("#PhoneNumber");
         var txtAddressSetLookup = $("#txtAddressSetLookup");
@@ -53,7 +54,11 @@ AddOrEditReferencer = (form) => {
         var errorMessage = "";
         var isValid = true;
 
-      
+
+        if (txtIdCardNumber.val() == '' || txtIdCardNumber.val() == undefined) {
+            isValid = false;
+            errorMessage += txtIdCardNumber.attr('data-val-required') + '\n\r';
+        }
         if (txtFullName.val() == '' || txtFullName.val() == undefined) {
             isValid = false;
             errorMessage += txtFullName.attr('data-val-required') + '\n\r';
@@ -82,6 +87,7 @@ AddOrEditReferencer = (form) => {
             return false;
         }
 
+        referencer.IdCardNumber = txtIdCardNumber.val();
         referencer.ReferencerCode = txtReferencerCode.val();
         referencer.FullName = txtFullName.val();
         referencer.PhoneNumber = txtPhoneNumber.val();
