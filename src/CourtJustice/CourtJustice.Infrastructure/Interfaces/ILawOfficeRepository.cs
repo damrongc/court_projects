@@ -6,7 +6,7 @@ namespace CourtJustice.Infrastructure.Interfaces
 	{
         Task<List<LawOffice>> GetAll();
         Task Create(LawOffice model);
-        Task Update(int id, LawOffice model);
+        Task Update(string id, LawOffice model);
         Task Delete(string id);
         Task<LawOffice> GetByKey(string id);
     }

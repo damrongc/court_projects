@@ -57,6 +57,7 @@
     <None Remove="Views\LoaneeRemarks\" />
     <None Remove="Views\Companys\" />
     <None Remove="Views\Gurantors\" />
+    <None Remove="Views\LawOffices\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CarTypes\" />
@@ -71,6 +72,7 @@
     <Folder Include="Views\LoaneeRemarks\" />
     <Folder Include="Views\Companys\" />
     <Folder Include="Views\Guarantors\" />
+    <Folder Include="Views\LawOffices\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Views\AssetCars\_AssetCarsCardcshtml">

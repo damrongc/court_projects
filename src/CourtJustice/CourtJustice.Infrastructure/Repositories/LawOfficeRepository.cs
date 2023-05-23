@@ -39,7 +39,7 @@ namespace CourtJustice.Infrastructure.Repositories
             return model;
         }
 
-        public async Task Update(int id, LawOffice model)
+        public async Task Update(string id, LawOffice model)
         {
             var result = await Context.LawOffices.FindAsync(model.LawOfficeCode);
             result.LawOfficeName = model.LawOfficeName;
