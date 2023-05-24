@@ -1,0 +1,40 @@
+﻿@model CourtJustice.Domain.ViewModels.AssetImageViewModel
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">@ViewData["Title"]</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="UploadImage" enctype="multipart/form-data" >
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label class="control-label">เลขที่ตัวถัง</label>
+                                <input asp-for="AssetId" class="form-control" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">ภาพที่อัพโหลด</label>
+                                <div id="divAssetCarImagePreview">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">เลือก file</label>
+                                <input id="files" type="file" accept="image/*" class="form-control" size="1" multiple onchange="previewImageAssetCar('files');" />
+                            </div>
+                            <div class="form-group">
+                                <input type="button" onclick="confirmUploadImageAssetCar('files')" value="Upload" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Hidden("hdUploadRoute", Url.Action("UploadImage", "AssetCars"))

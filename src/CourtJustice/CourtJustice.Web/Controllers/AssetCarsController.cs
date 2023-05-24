@@ -13,14 +13,19 @@ namespace CourtJustice.Web.Controllers
 
     public class AssetCarsController : BaseController<AssetCarsController>
     {
+        const string ASSET_PATH = "/images/assetlands/";
         private readonly IAssetCarRepository _assetCarRepository;
         private readonly ICarTypeRepository _carTypeRepository;
-       
+        private readonly IAssetImageRepository _assetImageRepository;
 
-        public AssetCarsController(IAssetCarRepository assetCarRepository, ICarTypeRepository carTypeRepository)
+
+        public AssetCarsController(IAssetCarRepository assetCarRepository,
+            ICarTypeRepository carTypeRepository,
+            IAssetImageRepository assetImageRepository)
         {
             _assetCarRepository = assetCarRepository;
             _carTypeRepository = carTypeRepository;
+            _assetImageRepository = assetImageRepository;
         }
 
 
@@ -93,12 +98,54 @@ namespace CourtJustice.Web.Controllers
             {
                 await _assetCarRepository.Create(model);
             }
-            var assetCars = await _assetCarRepository.GetByCusId(model.CusId);
-
+           // var assetCars = await _assetCarRepository.GetByCusId(model.CusId);
+            var assetCars = await GetAssetCars(model.CusId);
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetCarCard", assetCars);
             return new JsonResult(new { isValid = true, html });
         }
 
+
+        public IActionResult UploadImage(string id = "")
+        {
+            var assetCar = new AssetImageViewModel { AssetId = id };
+            return View(assetCar);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadImage([FromForm] AssetImageViewModel vm)
+        {
+            try
+            {
+
+                var assetId = vm.AssetId;
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                foreach (var file in vm.Files)
+                {
+                    string extension = Path.GetExtension(file.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(file.FileName) + extension;
+                    string path = Path.Combine(wwwRootPath + ASSET_PATH, fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                    var assetImage = new AssetImage
+                    {
+                        AssetId = assetId,
+                        FileName = fileName,
+                        ImagePath = ASSET_PATH + fileName,
+                    };
+                    await _assetImageRepository.Create(assetImage);
+                }
+
+                var assetCars = await GetAssetCars(vm.CusId);
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetCarCard", assetCars);
+                return new JsonResult(new { isValid = true, html });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { isValid = false, message = ex.Message });
+            }
+        }
 
         [HttpDelete, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(string id, string cusId)
@@ -122,12 +169,22 @@ namespace CourtJustice.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> GetByCusId(string id = "")
         {
-            var assetCars = await _assetCarRepository.GetByCusId(id);
-
+            //var assetCars = await _assetCarRepository.GetByCusId(id);
+            var assetCars = await GetAssetCars(id);
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetCarCard", assetCars);
             return new JsonResult(new { isValid = true, message = "", html });
         }
 
+
+        private async Task<List<AssetCarViewModel>> GetAssetCars(string id)
+        {
+            var assetCar = await _assetCarRepository.GetByCusId(id);
+            foreach (var asset in assetCar)
+            {
+                asset.AssetImages = _assetImageRepository.GetByAssetId(asset.ChassisNumber);
+            }
+            return assetCar;
+        }
 
 
         /* [HttpPost]

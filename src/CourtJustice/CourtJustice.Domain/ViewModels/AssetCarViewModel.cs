@@ -40,6 +40,7 @@ namespace CourtJustice.Domain.ViewModels
 
         [Display(Name = "ลูกหนี้")]
         public string CusId { get; set; }
+        public List<AssetImage> AssetImages { get; set; } = new();
     }
 }
 

@@ -37,7 +37,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Owner)
                 </th>
-         
+                <th>
+                    รูปภาพ
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -72,9 +74,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Owner)
                     </td>
-              
+                    <td>
+                        @foreach (var image in item.AssetImages)
+                        {
+                            var image_url = @Url.Content(image.ImagePath);
+                            <a href=@image_url target="_blank" style="padding-right: 10px;">@image.FileName</a>
+                        }
+                    </td>
                     <td class="w150">
                         <div class="d-inline">
+                            <a class="btn btn-sm btn-dark text-white" onclick="showInPopupXL('@Url.Action("UploadImage","AssetLands",new {id=item.ChassisNumber},Context.Request.Scheme)','เพิ่มรูปภาพ')"><i class='fa fa-image'></i></a>
                             <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","AssetCars",new {id=item.ChassisNumber},Context.Request.Scheme)','แก้ไขข้อมูลรถ')"><i class='fa fa-edit'></i></a>
                             <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteAssetCar('@Url.Action("Delete","AssetCars",new {id=item.ChassisNumber},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
                         </div>

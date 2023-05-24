@@ -44,6 +44,7 @@ AddOrEditAsserCar = (form) => {
         var txtEngineNumber = $("#EngineNumber");
         var ddlCarTypes = $("#ddlCarTypes");
         var txtBrand = $("#Brand");
+        var txtModel = $("#Model");
         var txtEstimatePrice = $("#EstimatePrice");
         var txtLicensePlate = $("#LicensePlate");
         var txtOwner = $("#Owner");
@@ -105,6 +106,7 @@ AddOrEditAsserCar = (form) => {
         assetCar.EngineNumber = txtEngineNumber.val();
         assetCar.CarTypeCode = ddlCarTypes.val();
         assetCar.Brand = txtBrand.val();
+        assetCar.Model = txtModel.val();
         assetCar.EstimatePrice = txtEstimatePrice.val();
         assetCar.LicensePlate = txtLicensePlate.val();
         assetCar.Owner = txtOwner.val();
@@ -181,6 +183,70 @@ confirmDeleteAssetCar = (url) => {
     return false;
 }
 
+
+previewImageAssetCar = (inputId) => {
+    if (typeof (FileReader) != "undefined") {
+        var dvPreview = $("#divAssetCarImagePreview");
+        dvPreview.html("");
+        var input = document.getElementById(inputId);
+        //var files = input.files;
+
+        $($(input)[0].files).each(function () {
+            var file = $(this);
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = $("<img />");
+                img.attr("style", "width: 100%; height:100%;object-fit:contain;");
+                img.attr("src", e.target.result);
+                dvPreview.append(img);
+            }
+            reader.readAsDataURL(file[0]);
+        });
+    } else {
+        alert("This browser does not support HTML5 FileReader.");
+    }
+
+}
+confirmUploadImageAssetCar = (inputId) => {
+    var url = $("#hdUploadRoute").val();
+    var cusId = $('#txtCusId').val();
+    var assetId = $('#AssetId').val();
+    var input = document.getElementById(inputId);
+    var files = input.files;
+    var formData = new FormData();
+    for (var i = 0; i != files.length; i++) {
+        formData.append("files", files[i]);
+    }
+    formData.append("AssetId", assetId);
+    formData.append("CusId", cusId);
+    $.ajax(
+        {
+            url: url,
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            success: function (res) {
+                if (res.isValid) {
+                    swal({
+                        title: "สำเร็จ",
+                        text: "อัพโหลด เรียบร้อยแล้ว",
+                        icon: "success"
+                    }).then((val) => {
+                        $("#view-asset-car").html(res.html);
+                        closePopupXL();
+                    });
+                } else {
+                    swal({
+                        title: "พบข้อผิดพลาด",
+                        text: res.message,
+                        icon: "error"
+                    });
+                }
+            }
+        }
+    );
+}
 
 
 
