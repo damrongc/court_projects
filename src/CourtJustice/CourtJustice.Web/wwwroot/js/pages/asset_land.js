@@ -190,6 +190,14 @@ confirmUploadImageAssetLand = (inputId) => {
     var assetId = $('#AssetId').val();
     var input = document.getElementById(inputId);
     var files = input.files;
+    if (files.length == 0) {
+        swal({
+            title: "พบข้อผิดพลาด",
+            text: "กรุณาเลือกรูปภาพที่ต้องการอัพโหลด!",
+            icon: "error"
+        });
+        return false;
+    }
     var formData = new FormData();
     for (var i = 0; i != files.length; i++) {
         formData.append("files", files[i]);
@@ -212,6 +220,35 @@ confirmUploadImageAssetLand = (inputId) => {
                     }).then((val) => {
                         $("#view-asset-land").html(res.html);
                         closePopupXL();
+                    });
+                } else {
+                    swal({
+                        title: "พบข้อผิดพลาด",
+                        text: res.message,
+                        icon: "error"
+                    });
+                }
+            }
+        }
+    );
+}
+
+confirmDeleteImageAssetLand = (url) => {
+    var cusId = $('#txtCusId').val();
+    $.ajax(
+        {
+            url: `${url}?cusId=${cusId}`,
+            contentType: "application/json; charset=utf-8",
+            type: "DELETE",
+            success: function (res) {
+                if (res.isValid) {
+                    swal({
+                        title: "สำเร็จ",
+                        text: "อัพโหลด เรียบร้อยแล้ว",
+                        icon: "success"
+                    }).then((val) => {
+                        $("#view-asset-land").html(res.html);
+                        closePopup();
                     });
                 } else {
                     swal({

@@ -7,7 +7,6 @@ using CourtJustice.Infrastructure.Seeds;
 using CourtJustice.Web.ActionFilters;
 using FastReport.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 
 namespace CourtJustice.Web
 {

@@ -56,11 +56,13 @@
                         @Html.DisplayFor(modelItem => item.LandOfficeName)
                     </td>
                     <td>
-                        @foreach (var image in item.AssetImages)
+                        
+                        <a class="btn btn-sm btn-dark text-white" onclick="showInPopup('@Url.Action("ShowImages","AssetLands",new {id=item.AssetLandId},Context.Request.Scheme)','รูปภาพ')">ดูรูปภาพ (@item.AssetImages.Count)</a>
+                @*        @foreach (var image in item.AssetImages)
                         {
                             var image_url = @Url.Content(image.ImagePath);
                             <a href=@image_url target="_blank" style="padding-right: 10px;">@image.FileName</a>
-                        }
+                        }*@
                     </td>
                     <td class="w150">
                         <div class="d-inline">

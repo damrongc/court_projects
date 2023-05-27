@@ -6,6 +6,6 @@ namespace CourtJustice.Domain.ViewModels
     {
         public string AssetId { get; set; } = string.Empty;
         public string CusId { get; set; } = string.Empty;
-        public IList<IFormFile> Files { get; set; }
+        public IList<IFormFile>? Files { get; set; }
     }
 }

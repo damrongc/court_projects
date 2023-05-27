@@ -2,6 +2,7 @@
 using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
+using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -136,7 +137,7 @@ namespace CourtJustice.Web.Controllers
             {
                 await _assetLandRepository.Delete(id);
 
-                var assetLands = await GetAssetLands(id);
+                var assetLands = await GetAssetLands(cusId);
                 var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
                 return new JsonResult(new { isValid = true, html });
             }
@@ -149,7 +150,6 @@ namespace CourtJustice.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> GetByCusId(string id="")
         {
-
             var assetLands = await GetAssetLands(id);
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
             return new JsonResult(new { isValid = true,  html });
@@ -166,6 +166,35 @@ namespace CourtJustice.Web.Controllers
             return assetLands;
         }
 
+        [HttpGet]
+        public IActionResult ShowImages(string id = "")
+        {
+            var images =  _assetImageRepository.GetByAssetId(id);
+            return View(images);
+        }
+
+        [HttpDelete, ActionName("DeleteImage")]
+        public async Task<IActionResult> DeleteImageConfirmed(int id, string cusId)
+        {
+            try
+            {
+                var assetImage = await _assetImageRepository.GetByKey(id);
+
+                await _assetImageRepository.Delete(assetImage.ImageId);
+
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string path = Path.Combine(wwwRootPath + assetImage.ImagePath);
+                
+
+                var assetLands = await GetAssetLands(cusId);
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetLandCard", assetLands);
+                return new JsonResult(new { isValid = true, html });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { isValid = false, message = ex.Message });
+            }
+        }
     }
 }
 

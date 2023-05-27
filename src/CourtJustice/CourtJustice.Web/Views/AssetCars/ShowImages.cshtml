@@ -1,0 +1,35 @@
+﻿@using CourtJustice.Domain.Models;
+@model IEnumerable<AssetImage>;
+@{
+    Layout = null;
+}
+<div class="table-responsive">
+    <table class="table table-bordered table-hover data-table">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+                <th>
+                    @Html.DisplayNameFor(model => model.FileName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @{
+                            var image_url = @Url.Content(item.ImagePath);
+                            <a href=@image_url target="_blank" style="padding-right: 10px;">@item.FileName</a>
+                        }
+                    </td>
+                    <td class="w100">
+                        <div class="d-inline">
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteImageAssetCar('@Url.Action("DeleteImage","AssetCars",new {id=item.ImageId},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

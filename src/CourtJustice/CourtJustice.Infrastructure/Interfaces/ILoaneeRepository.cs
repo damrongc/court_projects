@@ -14,6 +14,7 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Update(int id, Loanee model);
         Task Delete(string id);
         Task<LoaneeViewModel> GetByKey(string id);
+        Task BulkInsert(List<LoaneeViewModel> loanees);
     }
 }
 

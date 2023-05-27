@@ -160,7 +160,11 @@ showInPopupFullScreenTable = (url, title) => {
         }
     })
 }
-
+closePopup = () => {
+    $('#form-modal .modal-body').html('');
+    $('#form-modal .modal-title').html('');
+    $('#form-modal').modal('hide');
+}
 closePopupXL = () => {
     $('#form-modal-xl .modal-body').html('');
     $('#form-modal-xl .modal-title').html('');

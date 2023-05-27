@@ -2,6 +2,7 @@
 using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
+using Inventor.Infrastructure.Utils;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data;
@@ -14,6 +15,70 @@ namespace CourtJustice.Infrastructure.Repositories
     {
         public LoaneeRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
+        }
+
+        public async Task BulkInsert(List<LoaneeViewModel> loanees)
+        {
+            try
+            {
+                foreach (var item in loanees)
+                {
+                    var loanee = new Loanee();
+                    loanee.AssignDate = item.AssignDate.ToDateOnly();
+                    loanee.ExpireDate = item.ExpireDate.ToDateOnly();
+                    loanee.NationalityId = item.NationalityId;
+                    loanee.BirthDate = item.BirthDate.ToDateOnly();
+                    loanee.CusId = item.CusId;
+                    loanee.Name = item.Name;
+                    loanee.ContractNo = item.ContractNo;
+                    loanee.ContractDate = item.ContractDate.ToDateOnly();
+                    loanee.WODate = item.WODate.ToDateOnly();
+                    loanee.Term = item.Term;
+                    loanee.InstallmentsByContract = item.InstallmentsByContract;
+                    loanee.LoanAmount = item.LoanAmount;
+                    loanee.WOBalance = item.WOBalance;
+                    loanee.OverdueAmount = item.OverdueAmount;
+                    loanee.TotalPenalty = item.TotalPenalty;
+                    loanee.ClosingAmount = item.ClosingAmount;
+                    loanee.RcvAmtBeforeWO = item.RcvAmtBeforeWO;
+                    loanee.RcvAmtAfterWO = item.RcvAmtAfterWO;
+                    loanee.LastPaidAmount = item.LastPaidAmount;
+                    loanee.NoOfAssignment = item.NoOfAssignment;
+                    loanee.Description = item.Description;
+                    loanee.HomeAddress1 = item.HomeAddress1;
+                    loanee.HomeAddress2 = item.HomeAddress2;
+                    loanee.HomeAddress3 = item.HomeAddress3;
+                    loanee.HomeAddress4 = item.HomeAddress4;
+                    loanee.TelephoneHome = item.TelephoneHome;
+                    loanee.OfficeAddress1 = item.OfficeAddress1;
+                    loanee.OfficeAddress2 = item.OfficeAddress2;
+                    loanee.OfficeAddress3 = item.OfficeAddress3;
+                    loanee.OfficeAddress4 = item.OfficeAddress4;
+                    loanee.TelephoneOffice = item.TelephoneOffice;
+                    loanee.IdenAddress1 = item.IdenAddress1;
+                    loanee.IdenAddress2 = item.IdenAddress2;
+                    loanee.IdenAddress3 = item.IdenAddress3;
+                    loanee.IdenAddress4 = item.IdenAddress4;
+                    loanee.MobileHome = item.MobileHome;
+                    loanee.MobileOffice = item.MobileOffice;
+                    loanee.MobileEmg = item.MobileEmg;
+                    loanee.SpecialNote = item.SpecialNote;
+                    loanee.CPCase = item.CPCase;
+                    loanee.NoOfCP = item.NoOfCP;
+                    loanee.BucketId = item.BucketId;
+                    loanee.CPDate = item.CPDate.ToDateOnly();
+                    loanee.OAFee = item.OAFee;
+                    loanee.MaxOAFeeAmount = item.MaxOAFeeAmount;
+                    loanee.MaxOAFeeBalance = item.MaxOAFeeBalance;
+                    await Context.Loanees.AddAsync(loanee);
+                }
+                await Context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task Create(Loanee model)

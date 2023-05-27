@@ -319,17 +319,15 @@ namespace CourtJustice.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ConfirmImport(IList<IFormFile> files)
         {
-            //IFormFile batchMeters
-            var columnCount = 0;
             var rowCount = 0;
             var rowIndex = 0;
             //var addressAndSubAddress = "";
             Program.Progress = 0;
-            List<LoaneeViewModel> loanees = new List<LoaneeViewModel>();
+            List<LoaneeViewModel> loanees = new();
             const string DATE_FORMAT = "dd/MM/yyyy";
 
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            CultureInfo culture = new CultureInfo("en-US");
+            CultureInfo culture = new("en-US");
             try
             {
                 if (files[0]?.Length != 0)
@@ -346,7 +344,8 @@ namespace CourtJustice.Web.Controllers
                     //dt.DefaultView.Sort = "Column11,Column2,Column3 ASC";
 
                     var compDt = dt.DefaultView.ToTable();
-                    columnCount = compDt.Columns.Count;
+                    //IFormFile batchMeters
+                    int columnCount = compDt.Columns.Count;
                     var loanee = new LoaneeViewModel();
                     for (int i = 0; i < compDt.Rows.Count; i++)
                     {
@@ -407,6 +406,7 @@ namespace CourtJustice.Web.Controllers
                         loanee.SpecialNote = dt.Rows[i][54].ToString().Trim();
                         loanee.CPCase = dt.Rows[i][56].ToString().Trim();
                         loanee.NoOfCP = dt.Rows[i][57].ToString().Trim().ToInt16();
+                        loanee.BucketId = 1;
 
                         var cpDate = DateTime.ParseExact(dt.Rows[i][58].ToString().Trim(), DATE_FORMAT, culture);
                         if (cpDate.Year > 2500) cpDate = cpDate.AddYears(-543);
@@ -424,8 +424,7 @@ namespace CourtJustice.Web.Controllers
                         ViewBag.Message = messsage;
                         return View();
                     }
-
-                    //_loaneeRepository.Create()
+                    await _loaneeRepository.BulkInsert(loanees);
                 }
                 var message = $"Loanee {rowCount} records is imported.";
                 _notify.Success(message);
@@ -434,8 +433,7 @@ namespace CourtJustice.Web.Controllers
             }
             catch (Exception err)
             {
-                string msgError = "";
-                msgError = err.ToString();
+                string msgError = err.ToString();
                 Program.Progress = (int)((float)rowIndex / (float)rowCount * 100.0);
                 return Json(new { isvalid = false, message = msgError });
             }
@@ -449,8 +447,6 @@ namespace CourtJustice.Web.Controllers
             try
             {
                 //var productGroupCode = Request.Form["productGroupCode"].FirstOrDefault();
-
-
                 var draw = Request.Form["draw"].FirstOrDefault();
                 var start = Request.Form["start"].FirstOrDefault();
                 var length = Request.Form["length"].FirstOrDefault();
@@ -460,8 +456,6 @@ namespace CourtJustice.Web.Controllers
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
                 int recordsTotal = await _loaneeRepository.GetRecordCount(searchValue!);
-
-
                 var data = await _loaneeRepository.GetPaging(skip, pageSize, searchValue);
                 var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
                 return Ok(jsonData);

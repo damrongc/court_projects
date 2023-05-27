@@ -186,6 +186,38 @@ namespace CourtJustice.Web.Controllers
             return assetCar;
         }
 
+        [HttpGet]
+        public IActionResult ShowImages(string id = "")
+        {
+            var images = _assetImageRepository.GetByAssetId(id);
+            return View(images);
+        }
+
+        [HttpDelete, ActionName("DeleteImage")]
+        public async Task<IActionResult> DeleteImageConfirmed(int id, string cusId)
+        {
+            try
+            {
+                var assetImage = await _assetImageRepository.GetByKey(id);
+
+                await _assetImageRepository.Delete(assetImage.ImageId);
+
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string path = Path.Combine(wwwRootPath + assetImage.ImagePath);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                var assetCars = await GetAssetCars(cusId);
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_AssetCarCard", assetCars);
+                return new JsonResult(new { isValid = true, html });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { isValid = false, message = ex.Message });
+            }
+        }
+
 
         /* [HttpPost]
          public async Task<IActionResult> GetWithPaging()
