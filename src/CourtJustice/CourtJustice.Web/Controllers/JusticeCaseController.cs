@@ -77,9 +77,9 @@ namespace CourtJustice.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Create(string cusId)
+        public async Task<IActionResult> Create(string id)
         {
-            var loanee = await _loaneeRepository.GetByKey(cusId);
+            var loanee = await _loaneeRepository.GetByKey(id);
             var justiceCase = new JusticeCaseViewModel
             {
                 CusId = loanee.CusId,
