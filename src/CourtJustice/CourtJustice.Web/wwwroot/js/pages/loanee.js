@@ -2,32 +2,32 @@
 
 
 $(function () {
-    $('#ddlEmployer').select2();
-    $('#ddlLoanTaskStatus').select2();
-    $('#txtLastPaidDate').datetimepicker({
-        timepicker: false,
-        format: 'd-m-Y',
-        closeOnDateSelect: true
-    });
-    $('#txtFirstPaidDate').datetimepicker({
-        timepicker: false,
-        format: 'd-m-Y',
-        closeOnDateSelect: true
-    });
-    $('#txtDueDate').datetimepicker({
-        timepicker: false,
-        format: 'd-m-Y',
-        closeOnDateSelect: true
-    });
-    $('#txtFollowUpDate').datetimepicker({
-        timepicker: false,
-        format: 'd-m-Y',
-        closeOnDateSelect: true
-    });
-    getWithPaging();
+    //$('#ddlEmployer').select2();
+    //$('#ddlLoanTaskStatus').select2();
 
+
+    //$('#txtLastPaidDate').datetimepicker({
+    //    timepicker: false,
+    //    format: 'd-m-Y',
+    //    closeOnDateSelect: true
+    //});
+    //$('#txtFirstPaidDate').datetimepicker({
+    //    timepicker: false,
+    //    format: 'd-m-Y',
+    //    closeOnDateSelect: true
+    //});
+    //$('#txtDueDate').datetimepicker({
+    //    timepicker: false,
+    //    format: 'd-m-Y',
+    //    closeOnDateSelect: true
+    //});
+    //$('#txtFollowUpDate').datetimepicker({
+    //    timepicker: false,
+    //    format: 'd-m-Y',
+    //    closeOnDateSelect: true
+    //});
+    getLoanee();
     onSelectCusId();
-
 
     //$('#asset-tab').on('click', function () {
     //    var url = $(this).attr('data-url');
@@ -132,8 +132,10 @@ var actionSection = `<ul class="navbar-nav">
               </div>
             </li>
           </ul>`
-getWithPaging = () => {
+getLoanee = () => {
     var url = $("#hdGetWithPaging").val();
+    var bucketId = $("#ddlLoanTaskStatus").val();
+    var employerCode = $("#ddlEmployer").val();
     table = $('#tbl_loanee').DataTable({
         "destroy": true,
         "processing": true,
@@ -142,6 +144,10 @@ getWithPaging = () => {
             "url": url,
             "type": "POST",
             "datatype": "json",
+            "data": function (d) {
+                d.bucketId = bucketId;
+                d.employerCode = employerCode;
+            }
         },
         "ordering": false,
         "fixedHeader": true,
@@ -275,4 +281,8 @@ getWithPaging = () => {
         var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
         length_sel.removeClass('form-control-sm');
     });
+}
+
+navigateTo = (route) => {
+    window.location.href = route;
 }

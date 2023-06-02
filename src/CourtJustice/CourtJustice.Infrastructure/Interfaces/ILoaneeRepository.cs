@@ -6,8 +6,8 @@ namespace CourtJustice.Infrastructure.Interfaces
 {
 	public interface ILoaneeRepository
 	{
-        Task<IEnumerable<LoaneeViewModel>> GetPaging(int skip, int take, string filter);
-        Task<int> GetRecordCount(string filter);
+        Task<IEnumerable<LoaneeViewModel>> GetPaging(int bucketId,string employerCode, int skip, int take, string filter);
+        Task<int> GetRecordCount(int bucketId, string employerCode,string filter);
 
         //Task<List<Loanee>> GetAll();
         Task Create(Loanee model);
@@ -15,6 +15,8 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Delete(string id);
         Task<LoaneeViewModel> GetByKey(string id);
         Task BulkInsert(List<LoaneeViewModel> loanees);
+
+        bool IsExisting(string id);
     }
 }
 

@@ -8,12 +8,13 @@ namespace CourtJustice.Domain.Models
     {
         [Key]
         public int LawyerId { get; set; }
+        [Required]
         public string LawyerName { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
+        public string? Email { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? Address { get; set; }
         [Display(Name = "รายละเอียด(ตำบล,อำเภอ,จังหวัด,รหัสไปรษณีย์)")]
-        public string AddressDetail { get; set; } = string.Empty;
+        public string? AddressDetail { get; set; }
 
        /* public string? AddressNo { get; set; }
         public string? Village { get; set; }

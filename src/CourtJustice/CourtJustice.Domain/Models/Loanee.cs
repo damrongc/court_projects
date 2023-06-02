@@ -23,21 +23,6 @@ namespace CourtJustice.Domain.Models
         [Required]
         [Display(Name = "เบอร์ติดต่อ")]
         public string TelephoneHome { get; set; } = string.Empty;
-        //[Required]
-        //[Display(Name = "ที่อยู่ตาม ทร.")]
-        //public string Address { get; set; } = string.Empty;
-        //public int AddressId { get; set; }
-        //[ForeignKey(nameof(AddressId))]
-        //public virtual AddressSet? AddressSet { set; get; }
-
-        //[Display(Name = "ที่อยู่ที่ติดต่อได้(1)")]
-        //public string? Address1 { get; set; } = string.Empty;
-        //public int Address1Id { get; set; }
-
-        //[Display(Name = "ที่อยู่ที่ติดต่อได้(2)")]
-        //public string? Address2 { get; set; } = string.Empty;
-        //public int Address2Id { get; set; }
-
 
         public int OccupationId { get; set; }
         [ForeignKey(nameof(OccupationId))]
@@ -68,7 +53,7 @@ namespace CourtJustice.Domain.Models
         public decimal LastPaidAmount { get; set; }
         [Display(Name = "จำนวนครั้งที่ Assign")]
         public int NoOfAssignment { get; set; }
-        [Display(Name = "ประเภทของสินค้าสำหรับ IL/ดิวการชำระสำหรับ RL(02,17,27)")]
+        
         public string? Description { get; set; } = string.Empty;
 
         [Display(Name = "ประเภทสินเชื่อ")]
@@ -110,43 +95,36 @@ namespace CourtJustice.Domain.Models
         [Display(Name = "กลุ่มงาน")]
         public int LoanTaskStatusId { get; set; }
 
-        [Display(Name = "ทีอยู่บ้าน 1")]
         public string? HomeAddress1 { get; set; } = string.Empty;
-        [Display(Name = "ทีอยู่บ้าน 2")]
         public string? HomeAddress2 { get; set; } = string.Empty;
-        [Display(Name = "ทีอยู่บ้าน 3")]
         public string? HomeAddress3 { get; set; } = string.Empty;
-        [Display(Name = "ทีอยู่บ้าน 4")] public string? HomeAddress4 { get; set; } = string.Empty;
-        [Display(Name = "ที่อยู่ออฟฟิต 1")] public string? OfficeAddress1 { get; set; } = string.Empty;
-        [Display(Name = "ที่อยู่ออฟฟิต 2")] public string? OfficeAddress2 { get; set; } = string.Empty;
-        [Display(Name = "ที่อยู่ออฟฟิต 3")] public string? OfficeAddress3 { get; set; } = string.Empty;
-        [Display(Name = "ที่อยู่ออฟฟิต 4")] public string? OfficeAddress4 { get; set; } = string.Empty;
-        [Display(Name = "เบอร์ออฟฟิต")] public string? TelephoneOffice { get; set; } = string.Empty;
+        public string? HomeAddress4 { get; set; } = string.Empty;
+        public string? OfficeAddress1 { get; set; } = string.Empty;
+        public string? OfficeAddress2 { get; set; } = string.Empty;
+        public string? OfficeAddress3 { get; set; } = string.Empty;
+        public string? OfficeAddress4 { get; set; } = string.Empty;
+        public string? TelephoneOffice { get; set; } = string.Empty;
+        public string? IdenAddress1 { get; set; }
+        public string? IdenAddress2 { get; set; }
+        public string? IdenAddress3 { get; set; }
+        public string? IdenAddress4 { get; set; }
+        public string? MobileHome { get; set; }
+        public string? MobileOffice { get; set; }
+        public string? MobileEmg { get; set; }
+        public string? SpecialNote { get; set; }
+        public string? CPCase { get; set; }
 
-        [Display(Name = "ที่อยู่ตามบัตรประชาชน 1")] public string? IdenAddress1 { get; set; }
-        [Display(Name = "ที่อยู่ตามบัตรประชาชน 2")] public string? IdenAddress2 { get; set; }
-        [Display(Name = "ที่อยู่ตามบัตรประชาชน 3")] public string? IdenAddress3 { get; set; }
-        [Display(Name = "ที่อยู่ตามบัตรประชาชน 4")] public string? IdenAddress4 { get; set; }
-        [Display(Name = "เบอร์มือถือของลูกค้า")] public string? MobileHome { get; set; } 
-        [Display(Name = "เบอร์มือลูกค้าของออฟฟิต")] public string? MobileOffice { get; set; }
-        [Display(Name = "เบอร์ฉุกเฉินของลูกค้า")] public string? MobileEmg { get; set; } 
-        [Display(Name = "ข้อมูลเพิ่มเติม")] public string? SpecialNote { get; set; } 
-        [Display(Name = "คอมเพลน Code")] public string? CPCase { get; set; }
-        [Display(Name = "จำนวนครั้งที่คอมเพลน")]
         public int NoOfCP { get; set; }
-        [Display(Name = "วันที่คอมเพลน")]
+
         public DateOnly? CPDate { get; set; }
-        [Display(Name = "ค่าติดตามทวงถาม")]
+
         public decimal OAFee { get; set; }
-        [Display(Name = "ค่าติดตามทวงถามของเงินต้น")]
+
         public decimal MaxOAFeeAmount { get; set; }
-        [Display(Name = "ค่าติดตามทวงถามคงเหลือของเงินต้น")]
         public decimal MaxOAFeeBalance { get; set; }
         public string? OAFlag { get; set; }
-        [Display(Name = "สถานที่ส่งเอกสาร")]
         public string? SendingAddress { get; set; } = string.Empty;
-        //[Display(Name = "รหัสกลุ่มงานย่อย")]
-        //public int SubTaskStatusId { get; set; }
+
 
     }
 }

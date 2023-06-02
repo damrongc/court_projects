@@ -41,7 +41,8 @@
 </head>
 <body>
     @{
-        var logoPath = @Url.Content("~/images/logos/" + @appLogo);
+        //var logoPath = @Url.Content("~/images/logos/" + @appLogo);
+        var logoPath = @Url.Content("~/images/logos/justice_block.jpg");
     }
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
@@ -53,7 +54,7 @@
                             <div class="brand-logo text-center">
                                 @*<img src="~/images/energy_plus_logo.jpg" />*@
                                 @*<img src="~/images/app_logo.jpg" />*@
-                                <img src="@logoPath" />
+                                <img src="@logoPath" style="width:350px;"/>
 
                             </div>
                             @*<h4>Hello! let's get started</h4>*@

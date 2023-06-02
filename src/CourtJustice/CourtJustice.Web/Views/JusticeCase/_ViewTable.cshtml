@@ -1,0 +1,55 @@
+﻿@using CourtJustice.Domain.ViewModels;
+@model JusticeCaseViewModel
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" id="tbl_loanee">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.BlackCaseNo)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.CaseDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.CusId)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.CusName)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.CourtName)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.ApprovalDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.JudgmentDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.AssetAmount)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.FeeCase)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.SubmissionDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.CommitDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.PostingDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.CaseResultName)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.CaseDocumentResult)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>

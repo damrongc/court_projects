@@ -66,6 +66,9 @@ namespace CourtJustice.Web
             builder.Services.AddTransient<IReferencerRepository, ReferencerRepository>();
             builder.Services.AddTransient<ILoaneeRemarkRepository, LoaneeRemarkRepository>();
             builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
+            builder.Services.AddTransient<IJusticeCaseRepository, JusticeCaseRepository>();
+            builder.Services.AddTransient<IJusticeAppointmentRepository, JusticeAppointmentRepository>();
+            builder.Services.AddTransient<IJusticeCaseLawyerRepository, JusticeCaseLawyerRepository>();
           
 
             builder.Services.AddScoped<RequestAuthenticationFilter>();
@@ -126,8 +129,12 @@ namespace CourtJustice.Web
                     DefaultEmployer.Seed(context);
                     DefaultEmployee.Seed(context);
                     DefaultLandOffice.Seed(context);
-                    DefaultLoanee.Seed(context);
+                    //DefaultLoanee.Seed(context);
                     DefaultCarType.Seed(context);
+                    DefaultCompany.Seed(context);
+                    DefaultCourt.Seed(context);
+                    DefaultCaseResult.Seed(context);
+                    DefaultLawyer.Seed(context);
                     logger.LogInformation("Application Starting");
                 }
                 catch (Exception ex)

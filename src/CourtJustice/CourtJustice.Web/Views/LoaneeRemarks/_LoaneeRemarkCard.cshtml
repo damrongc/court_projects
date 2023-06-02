@@ -3,23 +3,16 @@
 @model IEnumerable<LoaneeRemarkViewModel>;
 @{
     Layout = null;
-    // var cultureInfor = new CultureInfo("th-TH");
 }
 <a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",null,Context.Request.Scheme)','เพิ่มข้อมูลหมายเหตุ')"><i class="fa fa-plus"></i> Create New</a>
 <div class="table-responsive">
     <table class="table table-bordered table-hover data-table">
         <thead>
             <tr class="bg-primary text-white" role="row">
-
-                @*  <th>
-                        @Html.DisplayNameFor(model => model.LoaneeRemarkId)
-                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Remark)
                 </th>
-
                 <th>
-
                 </th>
             </tr>
         </thead>
@@ -27,15 +20,9 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.LoaneeRemarkId)
-                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Remark)
                     </td>
-
-
-
                     <td class="w150">
                         <div class="d-inline">
                             <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",new {id=item.LoaneeRemarkId},Context.Request.Scheme)','แก้ไขข้อมูลหมายเหตุ')"><i class='fa fa-edit'></i></a>

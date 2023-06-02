@@ -4,17 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CourtJustice.Domain.Models
 {
     [Table("court")]
-    public class Court : BaseEntity
+    public class Court
     {
         [Key]
-        public int CourtId { get; set; }
+        [Display(Name = "รหัสหน่วยงาน")]
+        public string CourtId { get; set; }
+        [Display(Name = "หน่วยงานรับคำฟ้อง")]
         public string CourtName { get; set; }
-
-        [Display(Name = "ที่อยู่ศาล")]
-        public string Address { get; set; } = string.Empty;
-
-        [Display(Name = "รายละเอียด(ตำบล,อำเภอ,จังหวัด,รหัสไปรษณีย์)")]
-        public string AddressDetail { get; set; } = string.Empty;
-
     }
 }

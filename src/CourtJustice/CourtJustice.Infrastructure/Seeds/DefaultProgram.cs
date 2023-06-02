@@ -59,22 +59,22 @@ namespace CourtJustice.Infrastructure.Seeds
                 List<AppProgram> programMasterList = new()
                 {
                    
-                    new AppProgram { ProgramName = "Titles", ParentProgramId= masterMenu.ProgramId, ControllerName= "Titles", ActionName="Index" },
+                    //new AppProgram { ProgramName = "Titles", ParentProgramId= masterMenu.ProgramId, ControllerName= "Titles", ActionName="Index" },
                      new AppProgram { ProgramName = "สถานะบัญชี", ParentProgramId= masterMenu.ProgramId, ControllerName= "Buckets", ActionName="Index" },
                     new AppProgram { ProgramName = "ประเภทบัตร", ParentProgramId= masterMenu.ProgramId, ControllerName= "CardTypes", ActionName="Index" },
                     new AppProgram { ProgramName = "ผลคดี", ParentProgramId= masterMenu.ProgramId, ControllerName= "CaseResults", ActionName="Index" },
-                    new AppProgram { ProgramName = "ประเภทสินเชื่อ", ParentProgramId= masterMenu.ProgramId, ControllerName= "CreditTypes", ActionName="Index" },
+                    //new AppProgram { ProgramName = "ประเภทสินเชื่อ", ParentProgramId= masterMenu.ProgramId, ControllerName= "CreditTypes", ActionName="Index" },
                     new AppProgram { ProgramName = "สำนักงานที่ดิน", ParentProgramId= masterMenu.ProgramId, ControllerName= "LandOffices", ActionName="Index" },
                     new AppProgram { ProgramName = "คดีความ", ParentProgramId= masterMenu.ProgramId, ControllerName= "LawCases", ActionName="Index" },
-                    new AppProgram { ProgramName = "ศาล", ParentProgramId= masterMenu.ProgramId, ControllerName= "ศาล", ActionName="Index" },
+                    new AppProgram { ProgramName = "ศาล", ParentProgramId= masterMenu.ProgramId, ControllerName= "Courts", ActionName="Index" },
                     new AppProgram { ProgramName = "ประเภทรถ", ParentProgramId= masterMenu.ProgramId, ControllerName= "CarTypes", ActionName="Index" },
-                    new AppProgram{ProgramName = "ประเภทลูกหนี้",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanTypes",ActionName="Index"},
+                    new AppProgram{ProgramName = "ประเภทสินเชื่อ",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanTypes",ActionName="Index"},
                     new AppProgram{ProgramName = "อาชีพ",ParentProgramId= masterMenu.ProgramId,ControllerName= "Occupations",ActionName="Index"},
                    
-                    new AppProgram{ProgramName = "กลุ่มงานย่อย",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanTaskStatuses",ActionName="Index"},
-                    new AppProgram{ProgramName = "กลุ่มงาน",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanSubTaskStatuses",ActionName="Index"},
+                    new AppProgram{ProgramName = "กลุ่มงาน",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanTaskStatuses",ActionName="Index"},
+                    //new AppProgram{ProgramName = "กลุ่มงาน",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanSubTaskStatuses",ActionName="Index"},
                     new AppProgram{ProgramName = "ข้อมูลบริษัท",ParentProgramId= masterMenu.ProgramId,ControllerName= "Companys",ActionName="Index"},
-                    new AppProgram { ProgramName = "ประเภทสินทรัพย์", ParentProgramId= masterMenu.ProgramId, ControllerName= "AssetTypes", ActionName="Index" },
+                    //new AppProgram { ProgramName = "ประเภทสินทรัพย์", ParentProgramId= masterMenu.ProgramId, ControllerName= "AssetTypes", ActionName="Index" },
                      new AppProgram { ProgramName = "สำนักงานทนายความ",ParentProgramId= masterMenu.ProgramId, ControllerName= "LawOffices", ActionName="Index" },
                 };
                 context.AppPrograms.AddRange(programMasterList);
@@ -95,6 +95,7 @@ namespace CourtJustice.Infrastructure.Seeds
                     new AppProgram { ProgramName = "ผู้ว่าจ้าง", ParentProgramId= otherMenu.ProgramId, ControllerName= "Employers", ActionName="Index" },
                     new AppProgram { ProgramName = "พนักงาน", ParentProgramId= otherMenu.ProgramId, ControllerName= "Employees", ActionName="Index" },
                     new AppProgram { ProgramName = "ข้อมูลลูกหนี้", ParentProgramId= otherMenu.ProgramId, ControllerName= "Loanees", ActionName="Index" },
+                    new AppProgram { ProgramName = "ข้อมูลฟ้อง", ParentProgramId= otherMenu.ProgramId, ControllerName= "JusticeCase", ActionName="Index" },
                    
                 };
                 context.AppPrograms.AddRange(programOtherList);

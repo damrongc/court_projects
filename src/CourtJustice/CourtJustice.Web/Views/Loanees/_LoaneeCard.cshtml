@@ -3,24 +3,318 @@
 @{
     Layout = null;
     ViewData["Title"] = "รายละเอียดลูกหนี้";
+    var firstPaidDate = Model.FirstPaidDate == DateTime.MinValue ? "" : Model.FirstPaidDate.ToString("dd-MM-yyyy");
+    var lastPaidDate = Model.LastPaidDate == DateTime.MinValue ? "" : Model.LastPaidDate.ToString("dd-MM-yyyy");
+    var dueDate = Model.DueDate == DateTime.MinValue ? "" : Model.DueDate.ToString("dd-MM-yyyy");
+    var followUpDate = Model.FollowUpDate == DateTime.MinValue ? "" : Model.FollowUpDate.ToString("dd-MM-yyyy");
+    var cpDate = Model.CPDate == DateTime.MinValue ? "" : Model.CPDate.ToString("dd-MM-yyyy");
+    var woDate = Model.WODate == DateTime.MinValue ? "" : Model.WODate.ToString("dd-MM-yyyy");
 }
 <div class="row">
-    <div class="col-md-12 mb-5">
+    <div class="col-md-12 mb-3 d-flex flex-wrap justify-content-end">
         <a href="#" class="btn btn-warning btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ออก Notice</a>
         <a href="#" class="btn btn-info btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ขออนุมัติฟ้อง-เอกสาร</a>
         <a href="#" class="btn btn-info btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ขออนุมัติส่วนลด-เอกสาร</a>
-        <a href="#" class="btn btn-danger btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ฟ้องคดี</a>
+        <a href="#" class="btn btn-danger btn-sm" onclick="return navigateTo('@Url.Action("Create","JusticeCase",new {id=Model.CusId})')">ฟ้องคดี</a>
     </div>
 </div>
-@*<div class="row col-md-12">
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="ContractNo" class="control-label"></label>
+                    <input asp-for="ContractNo" class="form-control bg-info" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="ContractDate" class="control-label"></label>
+                    <input type="text" class="form-control dateonly" asp-for="ContractDate" id="txtContractDate" asp-format="{0:dd-MM-yyyy}" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="CusId" class="control-label"></label>
+                    <input asp-for="CusId" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control bg-light" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label" asp-for="LoanTypeCode"></label>
+                    <select class="form-control dropdown" id="ddlLoanTypes" asp-for="LoanTypeCode" asp-items="@ViewBag.LoanTypes">
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">อาชีพ</label>
+                    <select class="form-control dropdown" id="ddlOccupations" asp-for="OccupationId" asp-items="@ViewBag.Occupations">
+                    </select>
+                </div>
+            </div>
 
-    <div class="col-md-4">
-        <p>@Html.DisplayNameFor(model => model.ContractNo): <b>@Html.DisplayFor(model => model.ContractNo)</b></p>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="HomeAddress1" class="control-label"></label>
+                    <input asp-for="HomeAddress1" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="HomeAddress2" class="control-label"></label>
+                    <input asp-for="HomeAddress2" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="HomeAddress3" class="control-label"></label>
+                    <input asp-for="HomeAddress3" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="HomeAddress4" class="control-label"></label>
+                    <input asp-for="HomeAddress4" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="TelephoneHome" class="control-label"></label>
+                    <input asp-for="TelephoneHome" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="MobileHome" class="control-label"></label>
+                    <input asp-for="MobileHome" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="IdenAddress1" class="control-label"></label>
+                    <input asp-for="IdenAddress1" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="IdenAddress2" class="control-label"></label>
+                    <input asp-for="IdenAddress2" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="IdenAddress3" class="control-label"></label>
+                    <input asp-for="IdenAddress3" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="IdenAddress4" class="control-label"></label>
+                    <input asp-for="IdenAddress4" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="MobileEmg" class="control-label"></label>
+                    <input asp-for="MobileEmg" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="OfficeAddress1" class="control-label"></label>
+                    <input asp-for="OfficeAddress1" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="OfficeAddress2" class="control-label"></label>
+                    <input asp-for="OfficeAddress2" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="OfficeAddress3" class="control-label"></label>
+                    <input asp-for="OfficeAddress3" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="OfficeAddress4" class="control-label"></label>
+                    <input asp-for="OfficeAddress4" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="TelephoneOffice" class="control-label"></label>
+                    <input asp-for="TelephoneOffice" class="form-control" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="MobileOffice" class="control-label"></label>
+                    <input asp-for="MobileOffice" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label class="control-label" asp-for="EmployerCode"></label>
+                    <select class="form-control dropdown" id="ddlEmployer" asp-for="EmployerCode" asp-items="@ViewBag.Employers">
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label" asp-for="EmployeeCode"></label>
+                    <select class="form-control dropdown" id="ddlEmployees" asp-for="EmployeeCode" asp-items="@ViewBag.Employees">
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label" asp-for="BucketId"></label>
+                    <select class="form-control dropdown" id="ddlBuckets" asp-for="BucketId" asp-items="@ViewBag.Buckets">
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="WODate" class="control-label"></label>
+                    <input type="text" class="form-control dateonly"  id="txtWODate" value="@woDate" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="Term" class="control-label"></label>
+                    <input asp-for="Term" class="form-control" type="number" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="LoanAmount" class="control-label"></label>
+                    <input asp-for="LoanAmount" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="WOBalance" class="control-label"></label>
+                    <input asp-for="WOBalance" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="InstallmentsByContract" class="control-label"></label>
+                    <input asp-for="InstallmentsByContract" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="InstallmentsByAgree" class="control-label"></label>
+                    <input asp-for="InstallmentsByAgree" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="OverdueAmount" class="control-label"></label>
+                    <input asp-for="OverdueAmount" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="TotalPenalty" class="control-label"></label>
+                    <input asp-for="TotalPenalty" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="ClosingAmount" class="control-label"></label>
+                    <input asp-for="ClosingAmount" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="RcvAmtStatus" class="control-label"></label>
+                    <input asp-for="RcvAmtStatus" class="form-control" type="text" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="RcvAmtBeforeWO" class="control-label"></label>
+                    <input asp-for="RcvAmtBeforeWO" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="RcvAmtAfterWO" class="control-label"></label>
+                    <input asp-for="RcvAmtAfterWO" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="FirstPaidDate" class="control-label"></label>
+
+                    <input type="text" class="form-control dateonly" id="txtFirstPaidDate" value="@firstPaidDate" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="LastPaidAmount" class="control-label"></label>
+                    <input asp-for="LastPaidAmount" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="LastPaidDate" class="control-label"></label>
+                    <input type="text" class="form-control dateonly" id="txtLastPaidDate" value="@lastPaidDate" />
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label asp-for="DueDate" class="control-label"></label>
+                    <input type="text" class="form-control dateonly" id="txtDueDate" value="@dueDate" />
+
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="FollowUpDate" class="control-label"></label>
+                    <input type="text" class="form-control dateonly" id="txtFollowUpDate" value="@followUpDate" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="IntereteRate" class="control-label"></label>
+                    <input asp-for="IntereteRate" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="IntereteRateAmount" class="control-label"></label>
+                    <input asp-for="IntereteRateAmount" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="PaidAmount" class="control-label"></label>
+                    <input asp-for="PaidAmount" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="PaidInMonthAmount" class="control-label"></label>
+                    <input asp-for="PaidInMonthAmount" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="TotalAmount" class="control-label"></label>
+                    <input asp-for="TotalAmount" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="RemainingAmount" class="control-label"></label>
+                    <input asp-for="RemainingAmount" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+            </div>
+            @*            <div class="row">
+
+            <div class="form-group col-md-2">
+            <label asp-for="OverdueDayAmount" class="control-label"></label>
+            <input asp-for="OverdueDayAmount" class="form-control" type="number" />
+            </div>
+            </div>*@
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="CPCase" class="control-label"></label>
+                    <input asp-for="CPCase" class="form-control" type="text" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="NoOfCP" class="control-label"></label>
+                    <input asp-for="NoOfCP" class="form-control" type="number" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="CPDate" class="control-label"></label>
+                    <input type="text" class="form-control dateonly" id="txtCPDate" value="@cpDate" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="OAFee" class="control-label"></label>
+                    <input asp-for="OAFee" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="MaxOAFeeAmount" class="control-label"></label>
+                    <input asp-for="MaxOAFeeAmount" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="MaxOAFeeBalance" class="control-label"></label>
+                    <input asp-for="MaxOAFeeBalance" class="form-control" type="number" step="0.01" min="0" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="บันทึกข้อมูล" class="btn btn-primary btn-sm" />
+            </div>
+
+        </form>
     </div>
-    <div class="col-md-4">
-        <lable class="label">@Html.DisplayNameFor(model => model.ContractDate): <b>@Html.DisplayFor(model => model.ContractDate)</b></lable>
+</div>
+@*<div class="row">
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                กลุ่มงาน
+            </dt>
+            <dd class="col-sm-6">
+                <select id="ddlLoanTaskStatus" class="form-control" asp-items="ViewBag.LoanTaskStatus"></select>
+            </dd>
+            <dt class="col-sm-6">
+                ผู้ว่าจ้าง
+            </dt>
+            <dd class="col-sm-6">
+                <select id="ddlEmployer" class="form-control" asp-items="ViewBag.Employers"></select>
+            </dd>
+        </dl>
     </div>
-</div>*@
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-sm-6">
+                พนักงานที่รับผิดชอบ
+            </dt>
+            <dd class="col-sm-6">
+                <select id="ddlEmployee" class="form-control" asp-items="ViewBag.Employees"></select>
+            </dd>
+        </dl>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-3">
         <dl class="row">
@@ -127,7 +421,12 @@
                 @Html.DisplayNameFor(model => model.LastPaidDate)
             </dt>
             <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.LastPaidDate)
+                @if (Model.LastPaidDate != DateTime.MinValue)
+                {
+                    @Model.LastPaidDate
+                }else{
+                    <label>-</label>
+                }
             </dd>
             <dt class="col-sm-6">
                 @Html.DisplayNameFor(model => model.LastPaidAmount)
@@ -177,13 +476,27 @@
                 @Html.DisplayNameFor(model => model.DueDate)
             </dt>
             <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.DueDate)
+                @if (Model.DueDate != DateTime.MinValue)
+                {
+                    @Model.DueDate
+                }
+                else
+                {
+                    <label>-</label>
+                }
             </dd>
             <dt class="col-sm-6">
                 @Html.DisplayNameFor(model => model.FollowUpDate)
             </dt>
             <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.FollowUpDate)
+                 @if (Model.FollowUpDate != DateTime.MinValue)
+                {
+                    @Model.FollowUpDate
+                }
+                else
+                {
+                    <label>-</label>
+                }
             </dd>
         </dl>
     </div>
@@ -221,44 +534,22 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6">
         <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.HomeAddress1)
+            <dt class="col-sm-3">
+                ที่อยู่บ้าน
             </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.HomeAddress1)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.HomeAddress2)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.HomeAddress2)
+            <dd class="col-sm-9">
+                @Model.FullHomeAddress()
             </dd>
         </dl>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
         <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.HomeAddress3)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.HomeAddress3)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.HomeAddress4)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.HomeAddress4)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
+            <dt class="col-sm-3">
                 @Html.DisplayNameFor(model => model.TelephoneHome)
             </dt>
-            <dd class="col-sm-6">
+            <dd class="col-sm-9">
                 @Html.DisplayFor(model => model.TelephoneHome)
             </dd>
 
@@ -266,39 +557,18 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6">
         <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.OfficeAddress1)
+            <dt class="col-sm-3">
+                ที่อยู่ออฟฟิต
             </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.OfficeAddress1)
+            <dd class="col-sm-9">
+                @Model.FullOfficeAddress()
             </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.OfficeAddress2)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.OfficeAddress2)
-            </dd>
+
         </dl>
     </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.OfficeAddress3)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.OfficeAddress3)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.OfficeAddress4)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.OfficeAddress4)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
         <dl class="row">
             <dt class="col-sm-6">
                 @Html.DisplayNameFor(model => model.TelephoneOffice)
@@ -310,55 +580,44 @@
         </dl>
     </div>
 </div>
-
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6">
         <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.IdenAddress1)
+            <dt class="col-sm-3">
+                ที่อยู่ตามบัตรประชาชน
             </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.IdenAddress1)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.IdenAddress2)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.IdenAddress2)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.IdenAddress3)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.IdenAddress3)
+            <dd class="col-sm-9">
+                @Model.FullIdenAddress()
             </dd>
 
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.IdenAddress4)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.IdenAddress4)
-            </dd>
         </dl>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
         <dl class="row">
-            <dt class="col-sm-6">
+            <dt class="col-sm-3">
                 @Html.DisplayNameFor(model => model.MobileHome)
             </dt>
-            <dd class="col-sm-6">
+            <dd class="col-sm-9">
                 @Html.DisplayFor(model => model.MobileHome)
             </dd>
-            <dt class="col-sm-6">
+            <dt class="col-sm-3">
                 @Html.DisplayNameFor(model => model.MobileOffice)
             </dt>
-            <dd class="col-sm-6">
+            <dd class="col-sm-9">
                 @Html.DisplayFor(model => model.MobileOffice)
             </dd>
         </dl>
     </div>
-</div>
+</div>*@
+
+
+<script>
+
+    $(function () {
+        $('.dateonly').datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            closeOnDateSelect: true
+        });
+    });
+</script>

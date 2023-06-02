@@ -9,12 +9,12 @@ namespace CourtJustice.Infrastructure.Seeds
             var models = context.Employees.ToList();
             if (models.Count == 0)
             {
-                context.Employees.Add(new Employee {EmployeeCode="E01",
-                    EmployeeName="Emplyee1",
+                context.Employees.Add(new Employee {EmployeeCode="E00",
+                    EmployeeName="ไม่ระบุ",
                     Email="em@test.com",
                     PhoneNumber="-",
                     HireDate=DateOnly.FromDateTime(DateTime.Today),
-                    Target=200000,
+                    Target=0,
                     Address="-",
                     IsActive=true,UserCreated="admin",CreatedDateTime=DateTime.Now});
 

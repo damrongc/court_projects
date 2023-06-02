@@ -21,7 +21,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(string id)
         {
             var model = await Context.Courts.FindAsync(id);
             Context.Courts.Remove(model);
@@ -33,7 +33,7 @@ namespace CourtJustice.Infrastructure.Repositories
             return await Context.Courts.ToListAsync();
         }
 
-        public async Task<Court> GetByKey(int id)
+        public async Task<Court> GetByKey(string id)
         {
             var model = await Context.Courts.FindAsync(id);
             return model;
@@ -108,14 +108,10 @@ namespace CourtJustice.Infrastructure.Repositories
             }
         }
 
-        public async Task Update(int id, Court model)
+        public async Task Update(string id, Court model)
         {
             var result = await Context.Courts.FindAsync(model.CourtId);
             result.CourtName = model.CourtName;
-            result.Address = model.Address;
-            result.AddressDetail = model.AddressDetail;
-            result.IsActive = model.IsActive;
-
             await Context.SaveChangesAsync();
         }
     }

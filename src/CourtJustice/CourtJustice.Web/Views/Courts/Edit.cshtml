@@ -30,27 +30,6 @@
                                 </div>
 
                             </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label asp-for="Address" class="control-label"></label>
-                                    <div class="input-group">
-                                        <input asp-for="Address" type="text" class="form-control" id="txtAddressSetLookup" />
-                                        <span class="input-group-append">
-                                            <a href="#" onclick="showLookup('0','@showAddressSetLookupUrl','@getAddressSetLookupUrl');" class="btn btn-primary text-white">...</a>
-                                        </span>
-                                    </div>
-                                    <span asp-validation-for="Address" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label asp-for="AddressDetail" class="control-label"></label>
-                                    <input asp-for="AddressDetail" class="form-control" />
-                                    <span asp-validation-for="AddressDetail" class="text-danger"></span>
-
-                                </div>
-
-                            </div>
-
                             <div class="form-group">
                                 <a asp-action="Index" class="btn btn-light">Back</a>
                                 <input type="submit" value="Create" class="btn btn-primary" />

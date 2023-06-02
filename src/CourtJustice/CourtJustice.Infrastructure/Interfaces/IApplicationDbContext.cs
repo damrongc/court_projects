@@ -33,6 +33,21 @@ namespace CourtJustice.Infrastructure.Interfaces
         public DbSet<Bucket> Buckets { get; set; }
         public DbSet<CreditType> CreditTypes { get; set; }
         public DbSet<CardType> CardTypes { get; set; }
+        public DbSet<CarType> CarTypes { get; set; }
+        public DbSet<LandOffice> LandOffices { get; set; }
+        public DbSet<LawCase> LawCases { get; set; }
+        public DbSet<LoanType> LoanTypes { get; set; }
+        public DbSet<Occupation> Occupations { get; set; }
+        public DbSet<Referencer> Referencers { get; set; }
+        public DbSet<LoanSubTaskStatus> LoanSubTaskStatuses { get; set; }
+        public DbSet<LoanTaskStatus> LoanTaskStatuses { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<LoaneeRemark> LoaneeRemarks { get; set; }
+        public DbSet<Company> Companys { get; set; }
+        public DbSet<JusticeCase> JusticeCases { get; set; }
+        public DbSet<JusticeAppointment> JusticeAppointments { get; set; }
+        public DbSet<JusticeCaseDocument> JusticeCaseDocuments { get; set; }
+        public DbSet<JusticeCaseLawyer> JusticeCaseLawyers { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

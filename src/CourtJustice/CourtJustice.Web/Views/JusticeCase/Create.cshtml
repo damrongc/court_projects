@@ -1,0 +1,137 @@
+﻿@using CourtJustice.Domain.ViewModels;
+@model JusticeCaseViewModel
+@{
+    ViewData["Title"] = "ข้อมูลฟ้องคดี";
+}
+@{
+    var caseDate = Model.CaseDate == DateTime.MinValue ? "" : Model.CaseDate.ToString("dd-MM-yyyy");
+    var approvalDate = Model.ApprovalDate == DateTime.MinValue ? "" : Model.ApprovalDate.ToString("dd-MM-yyyy");
+    var judgmentDate = Model.JudgmentDate == DateTime.MinValue ? "" : Model.JudgmentDate.ToString("dd-MM-yyyy");
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">เพิ่ม @ViewData["Title"] @Model.CusName</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label asp-for="CusId" class="control-label"></label>
+                                    <input asp-for="CusId" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="CusName" class="control-label"></label>
+                                    <input asp-for="CusName" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="BlackCaseNo" class="control-label"></label>
+                                    <input asp-for="BlackCaseNo" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label asp-for="CaseDate" class="control-label"></label>
+                                    <input type="text" class="form-control dateonly" id="txtCaseDate" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="ApprovalDate" class="control-label"></label>
+                                    <input type="text" class="form-control dateonly" id="txtApprovalDate" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="JudgmentDate" class="control-label"></label>
+                                    <input type="text" class="form-control" readonly />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="AssetAmount" class="control-label"></label>
+                                    <input asp-for="AssetAmount" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label class="control-label" asp-for="CourtName"></label>
+                                    <select class="form-control dropdown" id="ddlCourts"  asp-items="@ViewBag.Courts">
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">ทยาน</label>
+                                    <select class="form-control dropdown" id="ddlLawyers" asp-items="@ViewBag.Lawyers" multiple="multiple">
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="control-label" asp-for="CaseResultName"></label>
+                                    <select class="form-control dropdown" id="ddlCaseResults"  asp-items="@ViewBag.CaseResults">
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="FeeCase" class="control-label"></label>
+                                    <input asp-for="FeeCase" class="form-control" type="number" step="0.01" min="0" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label asp-for="SubmissionDate" class="control-label"></label>
+                                    <input type="text" class="form-control dateonly" id="txtSubmissionDate" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="SubmissionResult" class="control-label"></label>
+                                    <input type="text" class="form-control" asp-for="SubmissionResult" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="CommitDate" class="control-label"></label>
+                                    <input type="text" class="form-control dateonly" id="txtCommitDate" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="PostingDate" class="control-label"></label>
+                                    <input type="text" class="form-control dateonly" id="txtPostingDate" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a onclick="showInPopup('@Url.Action("AppointmentConfig","JusticeCase",new {id= Model.BlackCaseNo},Context.Request.Scheme)','เพิ่มการนัดหมาย')"
+                                   class="btn btn-info text-white btn-sm mt-2 mb-2"><i class="fa fa-plus"></i> เพิ่มการนัดหมาย</a>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <table id="tblAppointment" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr class="bg-dark text-white" role="row">
+                                                <th class="w150">วันนัดพิจารณา</th>
+                                                <th>หมายเหตุ</th>
+                                                <th class="w100"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.JusticeAppointments)
+                                            {
+                                                <tr>
+                                                    <td class="appointment_date">@item.AppointmentDate</td>
+                                                    <td class="remark">@item.Remark</td>
+                                                    <td>
+                                                        <button class='btn btn-sm btn-danger text-white btnDelete' data-id="@item.JusticeAppointmentId"><i class='fa fa-trash'></i></button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <input onclick="return saveJusticeCase();" value="บันทึกข้อมูล" class="btn btn-primary btn-sm" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Hidden("hdAppointmentConfigUrl",Url.Action("AppointmentConfig","JusticeCase"))
+@section scripts{
+    <script src="~/js/pages/justice_case.js" asp-append-version="true"></script>
+}

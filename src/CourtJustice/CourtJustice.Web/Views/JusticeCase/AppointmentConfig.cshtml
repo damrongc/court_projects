@@ -1,0 +1,23 @@
+﻿@using CourtJustice.Domain.ViewModels;
+@model JusticeAppointmentViewModel
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label asp-for="AppointmentDate" class="control-label"></label>
+                <input type="text" class="form-control dateonly" id="txtAppointmentDate" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="control-label">หมายเหตุ</label>
+                <input id="txtRemark" class="form-control" />
+            </div>
+        </div>
+        <input onclick="addAppointmentToTable();" type="button" value="บันทึก" class="btn btn-primary" />
+    </div>
+</div>
+

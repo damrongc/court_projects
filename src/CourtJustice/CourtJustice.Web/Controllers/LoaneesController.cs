@@ -21,6 +21,7 @@ namespace CourtJustice.Web.Controllers
         private readonly IBucketRepository _bucketRepository;
         private readonly IEmployerRepository _employerRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly ILoanTaskStatusRepository _loanTaskStatusRepository;
         private readonly IWebHostEnvironment _webHost;
         private readonly IConfiguration _configuration;
 
@@ -31,7 +32,8 @@ namespace CourtJustice.Web.Controllers
             IEmployerRepository employerRepository,
             IEmployeeRepository employeeRepository,
             IWebHostEnvironment webHost,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ILoanTaskStatusRepository loanTaskStatusRepository)
         {
             _loaneeRepository = loaneeRepository;
             _occupationRepository = occupationRepository;
@@ -41,38 +43,37 @@ namespace CourtJustice.Web.Controllers
             _employeeRepository = employeeRepository;
             _webHost = webHost;
             _configuration = configuration;
+            _loanTaskStatusRepository = loanTaskStatusRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            //var occupations = await _occupationRepository.GetAll();
+            var employers = await _employerRepository.GetAll();
+            employers.Insert(0, new Employer { EmployerCode = "0", EmployerName = "แสดงทั้งหมด" });
             List<SelectListItem> SelectEmployers = new();
-            //foreach (var item in occupations)
-            //{
-            //    SelectOccupations.Add(new SelectListItem
-            //    {
-            //        Text = item.OccupationName.ToString(),
-            //        Value = item.OccupationId.ToString(),
-            //    });
-            //}
-
-            SelectEmployers.Add(new SelectListItem { Text = "Easy buy", Value = "1" });
-            SelectEmployers.Add(new SelectListItem { Text = "กรุงเทพ", Value = "2" });
+            foreach (var item in employers)
+            {
+                SelectEmployers.Add(new SelectListItem
+                {
+                    Text = item.EmployerName.ToString(),
+                    Value = item.EmployerCode.ToString(),
+                });
+            }
             ViewBag.Employers = SelectEmployers;
 
+            var loanTaskStatus = await _loanTaskStatusRepository.GetAll();
+            loanTaskStatus.Insert(0, new LoanTaskStatus { LoanTaskStatusId = 0, LoanTaskStatusName = "แสดงทั้งหมด" });
             List<SelectListItem> SelectLoanTaks = new();
-            SelectLoanTaks.Add(new SelectListItem { Text = "ติดต่อได้-นัดชำระ", Value = "1" });
-            SelectLoanTaks.Add(new SelectListItem { Text = "ติดต่อได้-ไม่นัดชำระ", Value = "2" });
+            foreach (var item in loanTaskStatus)
+            {
+                SelectLoanTaks.Add(new SelectListItem
+                {
+                    Text = item.LoanTaskStatusName,
+                    Value = item.LoanTaskStatusId.ToString()
+                });
+            }
             ViewBag.LoanTaskStatus = SelectLoanTaks;
-
-
-            //dynamic mymodel = new ExpandoObject();
-            //mymodel.Lonees = new List<LoaneeViewModel>();
-            //mymodel.AssetLands = new List<AssetLandViewModel>();
-
-
             var tupleModel = new Tuple<LoaneeViewModel, IEnumerable<AssetLandViewModel>>(new LoaneeViewModel(), Enumerable.Empty<AssetLandViewModel>());
-
             return View(tupleModel);
         }
 
@@ -181,6 +182,87 @@ namespace CourtJustice.Web.Controllers
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("th-TH");
             var loanee = await _loaneeRepository.GetByKey(id);
 
+            var loanTaskStatus = await _loanTaskStatusRepository.GetAll();
+            List<SelectListItem> SelectLoanTaks = new();
+            foreach (var item in loanTaskStatus)
+            {
+                SelectLoanTaks.Add(new SelectListItem
+                {
+                    Selected =item.LoanTaskStatusId== loanee.LoanTaskStatusId,
+                    Text = item.LoanTaskStatusName,
+                    Value = item.LoanTaskStatusId.ToString()
+                });
+            }
+            ViewBag.LoanTaskStatus = SelectLoanTaks;
+
+
+            var employers = await _employerRepository.GetAll();
+            List<SelectListItem> SelectEmployers = new();
+            foreach (var item in employers)
+            {
+                SelectEmployers.Add(new SelectListItem
+                {
+                    Selected =item.EmployerCode==loanee.EmployerCode,
+                    Text = item.EmployerName.ToString(),
+                    Value = item.EmployerCode.ToString(),
+                });
+            }
+            ViewBag.Employers = SelectEmployers;
+
+
+            var employees = await _employeeRepository.GetAll();
+            List<SelectListItem> SelectEmployees = new();
+            foreach (var item in employees)
+            {
+                SelectEmployees.Add(new SelectListItem
+                {
+                    Selected = item.EmployeeCode == loanee.EmployerCode,
+                    Text = item.EmployeeName.ToString(),
+                    Value = item.EmployeeCode.ToString(),
+                });
+            }
+            ViewBag.Employees = SelectEmployees;
+
+
+            var buckets = await _bucketRepository.GetAll();
+            List<SelectListItem> SelectBuckets = new();
+            foreach (var item in buckets)
+            {
+                SelectBuckets.Add(new SelectListItem
+                {
+                    Selected = item.BucketId == loanee.BucketId,
+                    Text = item.BucketName.ToString(),
+                    Value = item.BucketId.ToString(),
+                });
+            }
+            ViewBag.Buckets = SelectBuckets;
+
+            var occupations = await _occupationRepository.GetAll();
+            List<SelectListItem> SelectOccupations = new();
+            foreach (var item in occupations)
+            {
+                SelectOccupations.Add(new SelectListItem
+                {
+                    Selected = item.OccupationId == loanee.OccupationId,
+                    Text = item.OccupationName.ToString(),
+                    Value = item.OccupationId.ToString(),
+                });
+            }
+            ViewBag.Occupations = SelectOccupations;
+
+            var loanTypes = await _loanTypeRepository.GetAll();
+            List<SelectListItem> SelectLoanTypes = new();
+            foreach (var item in loanTypes)
+            {
+                SelectLoanTypes.Add(new SelectListItem
+                {
+                    Selected = item.LoanTypeCode == loanee.LoanTypeCode,
+                    Text = item.LoanTypeName.ToString(),
+                    Value = item.LoanTypeCode.ToString(),
+                });
+            }
+            ViewBag.LoanTypes = SelectLoanTypes;
+
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_LoaneeCard", loanee);
             return new JsonResult(new { isValid = true, message = "", html });
         }
@@ -228,8 +310,8 @@ namespace CourtJustice.Web.Controllers
             //conn.ConnectionString = _configuration.GetConnectionString("DefaultConnection");
             //webReport.Report.Dictionary.Connections.Add(conn);
 
-            var path = System.IO.Path.Combine(ReportUtils.DesignerPath(_webHost), "notice.frx");
-            var xmlPath = System.IO.Path.Combine(ReportUtils.DesignerPath(_webHost), "notice.xml");
+            var path = Path.Combine(ReportUtils.DesignerPath(_webHost), "notice.frx");
+            var xmlPath = Path.Combine(ReportUtils.DesignerPath(_webHost), "notice.xml");
             webReport.Report.Load(path);
             //var dataSet = new DataSet();
 
@@ -346,9 +428,13 @@ namespace CourtJustice.Web.Controllers
                     var compDt = dt.DefaultView.ToTable();
                     //IFormFile batchMeters
                     int columnCount = compDt.Columns.Count;
-                    var loanee = new LoaneeViewModel();
                     for (int i = 0; i < compDt.Rows.Count; i++)
                     {
+                        var loanee = new LoaneeViewModel();
+                        var cusId = dt.Rows[i][4].ToString().Trim();
+                        var isExisting = _loaneeRepository.IsExisting(cusId);
+                        if (isExisting)
+                            continue;
                         var assignDate = DateTime.ParseExact(dt.Rows[i][0].ToString().Trim(), DATE_FORMAT, culture);
                         if (assignDate.Year > 2500) assignDate = assignDate.AddYears(-543);
                         loanee.AssignDate = assignDate;
@@ -361,7 +447,7 @@ namespace CourtJustice.Web.Controllers
                         var birthDate = DateTime.ParseExact(dt.Rows[i][3].ToString().Trim(), DATE_FORMAT, culture);
                         if (birthDate.Year > 2500) birthDate = birthDate.AddYears(-543);
                         loanee.BirthDate = birthDate;
-                        loanee.CusId = dt.Rows[i][4].ToString().Trim();
+                        loanee.CusId = cusId;
                         loanee.Name = dt.Rows[i][5].ToString().Trim();
                         loanee.ContractNo = dt.Rows[i][6].ToString().Trim();
 
@@ -390,7 +476,7 @@ namespace CourtJustice.Web.Controllers
                         loanee.HomeAddress2 = dt.Rows[i][25].ToString().Trim();
                         loanee.HomeAddress3 = dt.Rows[i][26].ToString().Trim();
                         loanee.HomeAddress4 = dt.Rows[i][27].ToString().Trim();
-                        loanee.TelephoneHome = dt.Rows[i][28].ToString().Trim();
+                        loanee.TelephoneHome = dt.Rows[i][28].ToString().Trim(new char[] { (char)39 });
                         loanee.OfficeAddress1 = dt.Rows[i][29].ToString().Trim();
                         loanee.OfficeAddress2 = dt.Rows[i][30].ToString().Trim();
                         loanee.OfficeAddress3 = dt.Rows[i][31].ToString().Trim();
@@ -400,14 +486,16 @@ namespace CourtJustice.Web.Controllers
                         loanee.IdenAddress2 = dt.Rows[i][35].ToString().Trim();
                         loanee.IdenAddress3 = dt.Rows[i][36].ToString().Trim();
                         loanee.IdenAddress4 = dt.Rows[i][37].ToString().Trim();
-                        loanee.MobileHome = dt.Rows[i][50].ToString().Trim();
-                        loanee.MobileOffice = dt.Rows[i][51].ToString().Trim();
-                        loanee.MobileEmg = dt.Rows[i][53].ToString().Trim();
+                        loanee.MobileHome = dt.Rows[i][50].ToString().Trim(new char[] { (char)39 });
+                        loanee.MobileOffice = dt.Rows[i][51].ToString().Trim(new char[] { (char)39 });
+                        loanee.MobileEmg = dt.Rows[i][53].ToString().Trim(new char[] { (char)39 });
                         loanee.SpecialNote = dt.Rows[i][54].ToString().Trim();
                         loanee.CPCase = dt.Rows[i][56].ToString().Trim();
                         loanee.NoOfCP = dt.Rows[i][57].ToString().Trim().ToInt16();
                         loanee.BucketId = 1;
-
+                        loanee.EmployeeCode = "E00";
+                        loanee.OccupationId = 1;
+                        loanee.LoanTypeCode = "00";
                         var cpDate = DateTime.ParseExact(dt.Rows[i][58].ToString().Trim(), DATE_FORMAT, culture);
                         if (cpDate.Year > 2500) cpDate = cpDate.AddYears(-543);
 
@@ -426,10 +514,10 @@ namespace CourtJustice.Web.Controllers
                     }
                     await _loaneeRepository.BulkInsert(loanees);
                 }
-                var message = $"Loanee {rowCount} records is imported.";
+                var message = $"Loanee {loanees.Count} records is imported.";
                 _notify.Success(message);
                 ViewBag.Message = message;
-                return Json(new { isvalid = true, message = $"Data {rowCount} Uploaded Successfully!" });
+                return Json(new { isvalid = true, message = $"Data {loanees.Count} Uploaded Successfully!" });
             }
             catch (Exception err)
             {
@@ -439,14 +527,13 @@ namespace CourtJustice.Web.Controllers
             }
         }
 
-        
-
         [HttpPost]
         public async Task<IActionResult> GetWithPaging()
         {
             try
             {
-                //var productGroupCode = Request.Form["productGroupCode"].FirstOrDefault();
+                var bucketId = Request.Form["bucketId"].FirstOrDefault();
+                var employerCode = Request.Form["employerCode"].FirstOrDefault();
                 var draw = Request.Form["draw"].FirstOrDefault();
                 var start = Request.Form["start"].FirstOrDefault();
                 var length = Request.Form["length"].FirstOrDefault();
@@ -455,8 +542,10 @@ namespace CourtJustice.Web.Controllers
                 var searchValue = Request.Form["search[value]"].FirstOrDefault();
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = await _loaneeRepository.GetRecordCount(searchValue!);
-                var data = await _loaneeRepository.GetPaging(skip, pageSize, searchValue);
+
+                employerCode = employerCode=="0"? "": employerCode;
+                int recordsTotal = await _loaneeRepository.GetRecordCount(bucketId.ToInt16(), employerCode,searchValue!);
+                var data = await _loaneeRepository.GetPaging(bucketId.ToInt16(), employerCode,skip, pageSize, searchValue);
                 var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
                 return Ok(jsonData);
             }

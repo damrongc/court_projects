@@ -75,7 +75,7 @@ namespace CourtJustice.Web.Controllers
 
        
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
             var model = await _courtRepository.GetByKey(id);
             return View(model);
@@ -83,7 +83,7 @@ namespace CourtJustice.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Court model)
+        public async Task<IActionResult> Edit(string id, Court model)
         {
             var oldEntity = await _courtRepository.GetByKey(id);
 
@@ -103,12 +103,10 @@ namespace CourtJustice.Web.Controllers
         }
 
         [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             try
             {
-
-
                 await _courtRepository.Delete(id);
                 //_notify.Success($"Delete is Success.");
                 var results = await GetAll();

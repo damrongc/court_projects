@@ -61,5 +61,11 @@ namespace CourtJustice.Web.Controllers
 
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction(nameof(Login));
+        }
+
     }
 }
