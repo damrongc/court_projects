@@ -1,6 +1,7 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
+using CourtJustice.Infrastructure.Repositories;
 using CourtJustice.Web.Requests;
 using Inventor.Infrastructure.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -37,18 +38,29 @@ namespace CourtJustice.Web.Controllers
             _justiceCaseLawyerRepository = justiceCaseLawyerRepository;
         }
 
+
+     
+
+        private async Task<List<JusticeCaseViewModel>> GetAll()
+        {
+            var results = await _justiceCaseRepository.GetAll();
+            return results.ToList();
+        }
+
         public async Task<IActionResult> Index()
         {
-            //var justiceCase = await _justiceCaseRepository.GetByCusId(id);
-            //if (justiceCase == null)
-            //{
-            //    return RedirectToAction(nameof(Create), new { cusId = id });
-            //}
-            //return View(justiceCase);
+
+            var justiceCases = await _justiceCaseRepository.GetAll();
+
+            // var justiceCase = await _justiceCaseRepository.GetByCusId("18225-00214-2");
+            // if (justiceCase == null)
+            // {
+            //  return RedirectToAction(nameof(Create), new { cusId = model.CusId });
+            // }
             List<SelectListItem> selects = new();
             var courts = await _courtRepository.GetAll();
             courts.Insert(0, new Court { CourtId = "0", CourtName = "แสดงทั้งหมด" });
-        
+
             foreach (var item in courts)
             {
                 selects.Add(new SelectListItem
@@ -73,9 +85,11 @@ namespace CourtJustice.Web.Controllers
             }
             ViewBag.CaseResults = selects;
 
-
-            return View();
+           
+           return View();
         }
+
+      
 
         public async Task<IActionResult> Create(string id)
         {
@@ -170,20 +184,20 @@ namespace CourtJustice.Web.Controllers
                 justiceCase.BlackCaseNo = request.BlackCaseNo;
                 if (!string.IsNullOrEmpty(request.CaseDate))
                 {
-                    DateTime caseDate= Utils.DateTimeConverter.ConvertDateTime(request.CaseDate);
+                    DateTime caseDate = Utils.DateTimeConverter.ConvertDateTime(request.CaseDate);
                     //DateTime.TryParse(request.CaseDate, culture, styles, out caseDate);
                     justiceCase.CaseDate = caseDate.ToDateOnly();
                 }
                 if (!string.IsNullOrEmpty(request.ApprovalDate))
                 {
-                    DateTime approvalDate= Utils.DateTimeConverter.ConvertDateTime(request.ApprovalDate);
+                    DateTime approvalDate = Utils.DateTimeConverter.ConvertDateTime(request.ApprovalDate);
                     //DateTime.TryParse(request.ApprovalDate, culture, styles, out approvalDate);
                     justiceCase.ApprovalDate = approvalDate.ToDateOnly();
                 }
 
                 if (!string.IsNullOrEmpty(request.JudgmentDate))
                 {
-                    DateTime judgmentDate= Utils.DateTimeConverter.ConvertDateTime(request.JudgmentDate);
+                    DateTime judgmentDate = Utils.DateTimeConverter.ConvertDateTime(request.JudgmentDate);
                     justiceCase.JudgmentDate = judgmentDate.ToDateOnly();
 
                 }
@@ -241,6 +255,37 @@ namespace CourtJustice.Web.Controllers
             catch (Exception ex)
             {
                 return new JsonResult(new { isValid = false, message = ex.Message, });
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> GetWithPaging()
+        {
+            try
+            {
+
+               
+                var countId = Request.Form["countId"].FirstOrDefault();
+                var caseResultId = Request.Form["caseResultId"].FirstOrDefault();
+                var draw = Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault();
+                var length = Request.Form["length"].FirstOrDefault();
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+                countId = countId == "0" ? "" : countId;
+                int recordsTotal = await _justiceCaseRepository.GetRecordCount(countId, caseResultId.ToInt16(), searchValue!);
+                var data = await _justiceCaseRepository.GetPaging(countId, caseResultId.ToInt16(), skip, pageSize, searchValue);
+                var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
+                return Ok(jsonData);
+            }
+            catch
+            {
+                throw;
             }
         }
     }

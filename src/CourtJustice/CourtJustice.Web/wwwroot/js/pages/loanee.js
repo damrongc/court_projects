@@ -132,6 +132,7 @@ var actionSection = `<ul class="navbar-nav">
               </div>
             </li>
           </ul>`
+
 getLoanee = () => {
     var url = $("#hdGetWithPaging").val();
     var bucketId = $("#ddlLoanTaskStatus").val();
@@ -166,7 +167,6 @@ getLoanee = () => {
             {
                 data: "contractDate", name: "contractDate", class: "text-nowrap", render: function (data, type, row) {
                     return formatDate(data);
-                    //return moment(data).add(543,'year').format("DD-MM-YYYY");
                 }
             },
             { data: "cusId", name: "cusId", class: "text-nowrap" },
@@ -189,13 +189,16 @@ getLoanee = () => {
                 }
             },
             { data: "term", name: "term", },
-            { data: "loanAmount", name: "loanAmount", render: function (data, type, row) {
-                return formatNumber(data);
-            }
-},
-            { data: "woBalance", name: "woBalance", render: function (data, type, row) {
-                return formatNumber(data);
-            } },
+            {
+                data: "loanAmount", name: "loanAmount", render: function (data, type, row) {
+                    return formatNumber(data);
+                }
+            },
+            {
+                data: "woBalance", name: "woBalance", render: function (data, type, row) {
+                    return formatNumber(data);
+                }
+            },
             //{ data: "occupationName", name: "occupationName", },
             //{
             //    data: "installmentsByAgree", name: "installmentsByAgree", render: function (data, type, row) {
