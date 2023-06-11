@@ -9,11 +9,11 @@
         public string LoaneeName { get; set; }
         public string LoaneeNumber { get; set; }
         public string ContractDate { get; set; }
-        public double Amount { get; set; }
-        public double Rate { get; set; }
-        public double DebtAmount { get; set; }
-        public double Fee { get; set; }
-        public double TotalAmount { get; set; }
+        public string Amount { get; set; }
+        public string Rate { get; set; }
+        public string DebtAmount { get; set; }
+        public string Fee { get; set; }
+        public string TotalAmount { get; set; }
 
     }
 }

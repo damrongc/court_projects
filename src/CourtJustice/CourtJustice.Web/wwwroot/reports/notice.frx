@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="05/11/2023 20:06:57" ReportInfo.Modified="05/12/2023 21:27:00" ReportInfo.CreatorVersion="2022.2.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="05/11/2023 20:06:57" ReportInfo.Modified="06/06/2023 23:19:47" ReportInfo.CreatorVersion="2022.2.0.0">
   <Dictionary>
-    <XmlDataConnection Name="NoticeConnection" ConnectionString="rijcmlqZoTdSDCZp8LJQwpjfWmCXt4E50hbJ6VrwAbRuf44UoOnuOkNmj8a+cljsSHyD20DhwMhfUa6eTLGdbdL6XkxhSEqahr9UCXND1JWsGkOLyvD1+U2p7HZzNnA7+jIDdEmizJqrbGFknH9HlEOuOBtAZtLfSy40M9s1cRq7M9WWCQ=">
+    <XmlDataConnection Name="NoticeConnection" ConnectionString="rijcmlqZoTdSDCZp8LJQwpjfWmCXt4E50hbJ6VrwAbRuf44UoOnuOkNmj8a+cljsSHyD20DhwMhfUa6eTLGdbdL6XkxhSEqahr9UCXND1JWsGkOLyvD1+U2p7HZzNnA7+jIDdEmizJqrbGFknH9HlEOuOBtASAr0iuztNWQmxU8oVXZjTk=">
       <TableDataSource Name="notice" DataType="System.Int32" Enabled="true" TableName="notice">
         <Column Name="CompanyName" DataType="System.String"/>
         <Column Name="Address" DataType="System.String"/>
@@ -10,33 +10,36 @@
         <Column Name="LoaneeName" DataType="System.String"/>
         <Column Name="LoaneeNumber" DataType="System.String"/>
         <Column Name="ContractDate" DataType="System.String"/>
-        <Column Name="Amount" DataType="System.Double"/>
-        <Column Name="Rate" DataType="System.Double"/>
-        <Column Name="DebtAmount" DataType="System.Double"/>
-        <Column Name="Fee" DataType="System.Double"/>
-        <Column Name="TotalAmount" DataType="System.Double"/>
+        <Column Name="Amount" DataType="System.String"/>
+        <Column Name="Rate" DataType="System.String"/>
+        <Column Name="DebtAmount" DataType="System.String"/>
+        <Column Name="Fee" DataType="System.String"/>
+        <Column Name="TotalAmount" DataType="System.String"/>
       </TableDataSource>
     </XmlDataConnection>
   </Dictionary>
   <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
-    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="41.58">
-      <TextObject Name="Text11" Left="194.87" Top="9.07" Width="226.43" Height="18.9" Text="[notice.CompanyName]" Font="Tahoma, 10pt"/>
-      <TextObject Name="Text12" Left="432.1" Top="8.33" Width="94.5" Height="18.9" Text="[notice.Address]" Font="Tahoma, 10pt"/>
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="74.13">
+      <TextObject Name="Text11" Left="51.53" Top="3.68" Width="568.89" Height="36.3" Text="[notice.CompanyName]" HorzAlign="Center" Font="Tahoma, 14pt, style=Bold"/>
+      <TextObject Name="Text12" Left="50.76" Top="43.13" Width="569.58" Height="18.9" Text="[notice.Address]" HorzAlign="Center" Font="Tahoma, 10pt"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="44.42" Width="718.2" Height="30.24">
+    <PageHeaderBand Name="PageHeader1" Top="76.54" Width="718.2" Height="25.39">
       <TextObject Name="Text3" Left="51.42" Top="5.58" Width="38.69" Height="18.9" Text="วันที่" Font="Tahoma, 11pt"/>
       <TextObject Name="Text13" Left="93.98" Top="5.61" Width="94.5" Height="18.9" Text="[notice.NoticeDate]" Font="Tahoma, 10pt"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="77.49" Width="718.2" Height="526.92" DataSource="notice">
-      <TextObject Name="Text1" Left="50.45" Top="119.64" Width="640.71" Height="305.76" Text="	ตามที่ บริษัท เมืองไทย แคปปิตอล จำกัด (มหาชน) ซึ่งต่อไปในหนังสือฉบับนี้จะเรียกว่า (“ผู้โอน”) ได้ตกลงทำสัญญาโอนขายสิทธิเรียกร้องให้กับ ผู้รับโอน บริษัท เอ็ม.บี.ลีกัล แอนด์ บิซิเนส จำกัด ซึ่งต่อไปในหนังสือนี้จะเรียกว่า (“ผู้รับโอน”) โดยตามสัญญาโอนขายสิทธิเรียกร้อง ฉบับลงวันที่ 27 กันยายน 2565 เมื่อท่านได้รับหนังสือฉบับนี้ อันเป็นการบอกกล่าวการโอนสิทธิเรียกร้องมายังท่าน ตามกฎหมายซึ่งมีผลให้สิทธิเรียกร้องตามสัญญาที่อ้างถึงตลอดจนหลักประกันที่ท่านทำไว้กับผู้โอน นั้นโอนมายัง ผู้รับโอน โดยหนังสือฉบับนี้จึงแจ้งมาเพื่อทราบ &#13;&#10;โดยท่านได้ทำสัญญากู้ยืมเงิน/ค้ำประกันที่อ้างถึง กับ ผู้โอน เป็นจำนวน 135,000.00 บาท โดยตกลงชำระดอกเบี้ยเงินกู้ในอัตราร้อยละ  20.55  ต่อปี และตกลงผ่อนชำระเงินกู้คืนพร้อมดอกเบี้ยเป็นรายงวด งวดละเดือน รายละเอียดตามสัญญากู้ยืม/สัญญาค้ำประกันที่อ้างถึงข้างต้น ตามความที่ท่านทราบดีอยู่แล้วนั้น&#13;&#10;และท่านได้ผิดนัดชำระหนี้ตามสัญญากู้ยืมเงิน/ค้ำประกันดังกล่าวข้างต้น โดยท่านค้างชำระเงินต้นจำนวน                   99,970.94 บาท และค้างชำระดอกเบี้ยและค่าปรับจำนวน  20,318.89 บาท รวมเป็นหนี้คงค้างชำระตามสัญญาทั้งสิ้นจำนวน 120,289.83 บาท โดยท่านในฐานะผู้กู้ยืมและ/หรือผู้ค้ำประกันมีหน้าที่ต้องชำระหนี้ดังกล่าวแก่ผู้รับโอน&#13;&#10;โดยหนังสือฉบับนี้นับตั้งแต่วันที่โอนสิทธิเป็นต้นไป&#13;&#10;ท่านสามารถชำระหนี้แก่ผู้รับโอน ตามสัญญาสินเชื่อ หรือส่งมอบรถยนต์คันที่เป็นประกันการชำระหนี้ตามบันทึกข้อตกลงเสนอการโอนกรรมสิทธิ์รถ หรือชำระตามคำสั่งที่ผู้รับโอน จะแจ้งให้ท่านทราบเป็นลายลักษณ์อักษร เป็นคราวๆไป&#13;&#10;โดยหนังสือฉบับนี้ ข้าพเจ้า บริษัท เอ็ม.บี.ลีกัล แอนด์ บิซิเนส จำกัด ในฐานะผู้รับโอนสิทธิจาก บริษัท เมืองไทย แคปปิตอล จำกัด (มหาชน) ที่มีต่อท่านดังกล่าวมาข้างต้น จึงขอบอกกล่าวโอนสิทธิเรียกร้องและขอให้ท่านชำระหนี้ ภายใน 20 วัน นับแต่วันที่ได้รับหนังสือฉบับนี้ &#13;&#10;" Font="Tahoma, 10pt"/>
+    <DataBand Name="Data1" Top="104.34" Width="718.2" Height="526.92" DataSource="notice">
+      <TextObject Name="Text1" Left="50.45" Top="119.64" Width="640.71" Height="305.76" Text="	ตามที่ [notice.BankName] ซึ่งต่อไปในหนังสือฉบับนี้จะเรียกว่า (“ผู้โอน”) ได้ตกลงทำสัญญาโอนขายสิทธิเรียกร้องให้กับ ผู้รับโอน [notice.CompanyName] ซึ่งต่อไปในหนังสือนี้จะเรียกว่า (“ผู้รับโอน”) โดยตามสัญญาโอนขายสิทธิเรียกร้อง ฉบับลงวันที่ 27 กันยายน 2565 เมื่อท่านได้รับหนังสือฉบับนี้ อันเป็นการบอกกล่าวการโอนสิทธิเรียกร้องมายังท่าน ตามกฎหมายซึ่งมีผลให้สิทธิเรียกร้องตามสัญญาที่อ้างถึงตลอดจนหลักประกันที่ท่านทำไว้กับผู้โอน นั้นโอนมายัง ผู้รับโอน โดยหนังสือฉบับนี้จึงแจ้งมาเพื่อทราบ &#13;&#10;โดยท่านได้ทำสัญญากู้ยืมเงิน/ค้ำประกันที่อ้างถึง กับ ผู้โอน เป็นจำนวน [notice.Amount] บาท โดยตกลงชำระดอกเบี้ยเงินกู้ในอัตราร้อยละ  [notice.Rate]  ต่อปี และตกลงผ่อนชำระเงินกู้คืนพร้อมดอกเบี้ยเป็นรายงวด งวดละเดือน รายละเอียดตามสัญญากู้ยืม/สัญญาค้ำประกันที่อ้างถึงข้างต้น ตามความที่ท่านทราบดีอยู่แล้วนั้น&#13;&#10;และท่านได้ผิดนัดชำระหนี้ตามสัญญากู้ยืมเงิน/ค้ำประกันดังกล่าวข้างต้น โดยท่านค้างชำระเงินต้นจำนวน [notice.DebtAmount] บาท และค้างชำระดอกเบี้ยและค่าปรับจำนวน [notice.Fee] บาท รวมเป็นหนี้คงค้างชำระตามสัญญาทั้งสิ้นจำนวน [notice.TotalAmount] บาท โดยท่านในฐานะผู้กู้ยืมและ/หรือผู้ค้ำประกันมีหน้าที่ต้องชำระหนี้ดังกล่าวแก่ผู้รับโอน&#13;&#10;โดยหนังสือฉบับนี้นับตั้งแต่วันที่โอนสิทธิเป็นต้นไป&#13;&#10;ท่านสามารถชำระหนี้แก่ผู้รับโอน ตามสัญญาสินเชื่อ หรือส่งมอบรถยนต์คันที่เป็นประกันการชำระหนี้ตามบันทึกข้อตกลงเสนอการโอนกรรมสิทธิ์รถ หรือชำระตามคำสั่งที่ผู้รับโอน จะแจ้งให้ท่านทราบเป็นลายลักษณ์อักษร เป็นคราวๆไป&#13;&#10;โดยหนังสือฉบับนี้ ข้าพเจ้า [notice.CompanyName] ในฐานะผู้รับโอนสิทธิจาก [notice.BankName] ที่มีต่อท่านดังกล่าวมาข้างต้น จึงขอบอกกล่าวโอนสิทธิเรียกร้องและขอให้ท่านชำระหนี้ ภายใน 20 วัน นับแต่วันที่ได้รับหนังสือฉบับนี้ &#13;&#10;" Font="Tahoma, 10pt"/>
       <TextObject Name="Text7" Left="492.4" Top="442.33" Width="153.41" Height="18.9" Text="ขอแสดงความนับถือ" Font="Tahoma, 10pt"/>
-      <TextObject Name="Text8" Left="54.05" Top="11.3" Width="37.07" Height="21.86" Text="เรื่อง&#13;&#10;" AllowExpressions="false" WordWrap="false" Font="Tahoma, 10pt"/>
+      <TextObject Name="Text8" Left="52.85" Top="10.7" Width="37.07" Height="21.86" Text="เรื่อง&#13;&#10;" AllowExpressions="false" WordWrap="false" Font="Tahoma, 10pt"/>
       <TextObject Name="Text9" Left="51.47" Top="37.83" Width="37.8" Height="21.86" Text="เรียน &#13;&#10;" AllowExpressions="false" WordWrap="false" Font="Tahoma, 10pt"/>
-      <TextObject Name="Text10" Left="51.16" Top="65.91" Width="640.71" Height="36.06" Text="อ้างถึง	สัญญากู้ยืม/สัญญาค้ำประกันโดยนำรถยนต์มาค้ำประกันการประกันการชำระหนี้  สัญญาเลขที่  630331  &#13;&#10;ฉบับลงวันที่  31 มีนาคม 2563&#13;&#10;" AllowExpressions="false" WordWrap="false" Font="Tahoma, 10pt"/>
+      <TextObject Name="Text10" Left="51.16" Top="65.91" Width="535.39" Height="19.26" Text="อ้างถึง สัญญากู้ยืม/สัญญาค้ำประกันโดยนำรถยนต์มาค้ำประกันการประกันการชำระหนี้ สัญญาเลขที่&#13;&#10;&#13;&#10;" AllowExpressions="false" WordWrap="false" Font="Tahoma, 10pt"/>
       <TextObject Name="Text14" Left="93.79" Top="11.05" Width="267" Height="21.86" Text="บอกกล่าวการโอนสิทธิเรียกร้อง/ขอให้ชำระหนี้ &#13;&#10;" AllowExpressions="false" WordWrap="false" Font="Tahoma, 10pt"/>
       <TextObject Name="Text15" Left="95.42" Top="38.76" Width="264.03" Height="18.9" Text="[notice.LoaneeName]" Font="Tahoma, 10pt"/>
+      <TextObject Name="Text16" Left="589.2" Top="65.43" Width="101.1" Height="18.9" Text="[notice.LoaneeNumber]" Font="Tahoma, 10pt"/>
+      <TextObject Name="Text17" Left="51.44" Top="86.82" Width="73.2" Height="21.86" Text="ฉบับลงวันที่" AllowExpressions="false" WordWrap="false" Font="Tahoma, 10pt"/>
+      <TextObject Name="Text18" Left="132.3" Top="86.94" Width="143.24" Height="18.9" Text="[notice.ContractDate]" Font="Tahoma, 10pt"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="607.25" Width="718.2" Height="222.67">
+    <PageFooterBand Name="PageFooter1" Top="633.67" Width="718.2" Height="222.67">
       <TextObject Name="Text4" Left="41.62" Top="0.67" Width="655.87" Height="58.86" Text="หมายเหตุ หากท่านมีความสงสัยประการใดๆเกี่ยวกับข้อมูลจดหมายฉบับนี้ท่านสามารถติดต่อสอบถามได้ที่ ติดต่อสอบถาม นายไกรทอง ขัติศรี 092-279-4701 ,นายธนัท อวัยวานนท์ 063-359-5595 ,นายจุตินันท์  รื่นภาคจิตร์ 087-917-9677,นายสุชาติ  เสือหนู 081-451-6612" Font="Tahoma, 10pt"/>
       <TextObject Name="Text5" Left="39.91" Top="65.39" Width="659.16" Height="54.4" Text="การติดตามทวงถาม ในกรณีที่ท่านผิดนัดชำระเงิน  ท่านอาจได้รับการติดต่อทวงถามหนี้จากพนักงานผู้รับโอน  หรือผู้ให้บริการเรียกเก็บหนี้ที่ผู้รับโอน ว่าจ้างให้เป็นตัวแทนในการติดตามทวงถามหนี้  แต่ลูกหนี้ต้องชำระเงินให้แก่ผู้รับโอน โดยตรง โดยลูกหนี้สามารถชำระ ผ่านช่องทางการรับชำระโดยใบชำระเงินผ่านธนาคารเท่านั้น" Font="Tahoma, 10pt"/>
       <TextObject Name="Text6" Left="39.86" Top="132.77" Width="660.52" Height="89.19" Border.Lines="All" Text="ธนาคารแห่งประเทศไทยได้จัดตั้งศูนย์คุ้มครองผู้ใช้บริการทางการเงินขึ้น โดยมีวัตถุประสงค์เพื่อให้คำปรึกษา รับและดูแลเรื่องร้องเรียนเกี่ยวกับบริการทางการเงินของสถาบันการเงินหรือผู้ให้บริการทางการเงินที่อยู่ภายใต้การกำกับดูแลของธนาคารแห่งประเทศไทย และให้ความรู้ทางการเงินแก่ประชาชน หากท่านต้องการรายละเอียดเพิ่มเติม กรุณาสอบถามที่หมายเลขโทรศัพท์ 1213 โทรสาร  02-283-6151 หรือ อีเมล์ fcc@bot.or.th" Font="Tahoma, 10pt"/>

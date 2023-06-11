@@ -14,11 +14,11 @@
                 <xs:element name="LoaneeName" type="xs:string" minOccurs="0" />
                 <xs:element name="LoaneeNumber" type="xs:string" minOccurs="0" />
                 <xs:element name="ContractDate" type="xs:string" minOccurs="0" />
-                <xs:element name="Amount" type="xs:double" minOccurs="0" />
-                <xs:element name="Rate" type="xs:double" minOccurs="0" />
-                <xs:element name="DebtAmount" type="xs:double" minOccurs="0" />
-                <xs:element name="Fee" type="xs:double" minOccurs="0" />
-                <xs:element name="TotalAmount" type="xs:double" minOccurs="0" />
+                <xs:element name="Amount" type="xs:string" minOccurs="0" />
+                <xs:element name="Rate" type="xs:string" minOccurs="0" />
+                <xs:element name="DebtAmount" type="xs:string" minOccurs="0" />
+                <xs:element name="Fee" type="xs:string" minOccurs="0" />
+                <xs:element name="TotalAmount" type="xs:string" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -34,10 +34,10 @@
     <LoaneeName>นิภาพร ทรัพย์เกิด</LoaneeName>
     <LoaneeNumber>630227</LoaneeNumber>
     <ContractDate>12/05/2023</ContractDate>
-    <Amount>1000</Amount>
+    <Amount>1,000.54</Amount>
     <Rate>25.25</Rate>
-    <DebtAmount>1000</DebtAmount>
-    <Fee>20</Fee>
-    <TotalAmount>100000</TotalAmount>
+    <DebtAmount>1,000.99</DebtAmount>
+    <Fee>20.25</Fee>
+    <TotalAmount>1,000,000.55</TotalAmount>
   </notice>
 </notice>

@@ -400,4 +400,4 @@ FodyWeavers.xsd
 *.json
 
 [Mm]igrations/
-
+appsettings.json

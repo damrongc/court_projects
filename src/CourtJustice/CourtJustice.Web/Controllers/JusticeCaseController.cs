@@ -85,8 +85,9 @@ namespace CourtJustice.Web.Controllers
             }
             ViewBag.CaseResults = selects;
 
-           
-           return View();
+
+            return View();
+
         }
 
       

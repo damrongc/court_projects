@@ -22,6 +22,7 @@ namespace CourtJustice.Web.Controllers
         private readonly IEmployerRepository _employerRepository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly ILoanTaskStatusRepository _loanTaskStatusRepository;
+        private readonly ICompanyRepository _companyRepository;
         private readonly IWebHostEnvironment _webHost;
         private readonly IConfiguration _configuration;
 
@@ -33,7 +34,8 @@ namespace CourtJustice.Web.Controllers
             IEmployeeRepository employeeRepository,
             IWebHostEnvironment webHost,
             IConfiguration configuration,
-            ILoanTaskStatusRepository loanTaskStatusRepository)
+            ILoanTaskStatusRepository loanTaskStatusRepository,
+            ICompanyRepository companyRepository)
         {
             _loaneeRepository = loaneeRepository;
             _occupationRepository = occupationRepository;
@@ -44,6 +46,7 @@ namespace CourtJustice.Web.Controllers
             _webHost = webHost;
             _configuration = configuration;
             _loanTaskStatusRepository = loanTaskStatusRepository;
+            _companyRepository = companyRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -73,8 +76,9 @@ namespace CourtJustice.Web.Controllers
                 });
             }
             ViewBag.LoanTaskStatus = SelectLoanTaks;
-            var tupleModel = new Tuple<LoaneeViewModel, IEnumerable<AssetLandViewModel>>(new LoaneeViewModel(), Enumerable.Empty<AssetLandViewModel>());
-            return View(tupleModel);
+            return View(new LoaneeViewModel());
+            //var tupleModel = new Tuple<LoaneeViewModel, IEnumerable<AssetLandViewModel>>(new LoaneeViewModel(), Enumerable.Empty<AssetLandViewModel>());
+            //return View(tupleModel);
         }
 
         private async Task ListOfViewBag()
@@ -303,34 +307,37 @@ namespace CourtJustice.Web.Controllers
         //    return new JsonResult(new { isValid = true, message = "", html });
         //}
         [HttpGet]
-        public IActionResult ShowNotice(string id)
+        public async Task<IActionResult> ShowNotice(string id)
         {
             var webReport = new WebReport();
             //var conn = new MySqlDataConnection();
             //conn.ConnectionString = _configuration.GetConnectionString("DefaultConnection");
             //webReport.Report.Dictionary.Connections.Add(conn);
 
+            var company = await _companyRepository.GetByKey(1);
+            var loanee = await _loaneeRepository.GetByKey(id);
+            var employer = await _employerRepository.GetByKey(loanee.EmployerCode);
             var path = Path.Combine(ReportUtils.DesignerPath(_webHost), "notice.frx");
             var xmlPath = Path.Combine(ReportUtils.DesignerPath(_webHost), "notice.xml");
             webReport.Report.Load(path);
             //var dataSet = new DataSet();
 
-            CultureInfo cultureInfo = new CultureInfo("th-TH");
+            CultureInfo cultureInfo = new("th-TH");
             var notices = new List<LoaneeNoticeViewModel>();
             var notice = new LoaneeNoticeViewModel
             {
                 NoticeDate = DateTime.Today.ToString("dd MMMM yyyy", cultureInfo),
-                CompanyName = "Company",
-                BankName = "Bank Name",
-                Address = "Address",
-                LoaneeName = "ขวัญเรือน บุญมา",
-                ContractDate = DateTime.Now.ToString("dd MMMM yyyy", cultureInfo),
-                LoaneeNumber = "630227",
-                Amount = 1000,
-                DebtAmount = 1000,
-                Fee = 20,
-                Rate = 25.25,
-                TotalAmount = 100000
+                CompanyName = company.CompanyName,
+                BankName = employer.EmployerName,
+                Address = company.Address,
+                LoaneeName = loanee.Name,
+                ContractDate = loanee.ContractDate.ToString("dd MMMM yyyy", cultureInfo),
+                LoaneeNumber = loanee.ContractNo,
+                Amount = loanee.LoanAmount.ToFormat2Decimal(),
+                DebtAmount =Convert.ToDecimal( 99970.94).ToFormat2Decimal(),
+                Fee = Convert.ToDecimal(20318.89).ToFormat2Decimal(),
+                Rate = loanee.IntereteRate.ToFormat2Decimal(),
+                TotalAmount = Convert.ToDecimal(12289.93).ToFormat2Decimal()
             };
 
 
@@ -361,12 +368,12 @@ namespace CourtJustice.Web.Controllers
 
             webReport.Report.Prepare();
 
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new())
             {
-                PDFSimpleExport pdfExport = new PDFSimpleExport();
+                PDFSimpleExport pdfExport = new();
                 pdfExport.Export(webReport.Report, ms);
                 ms.Flush();
-                return File(ms.ToArray(), "application/pdf", "notices.pdf");
+                return File(ms.ToArray(), "application/pdf", loanee.ContractNo +".pdf");
             }
 
             return View(webReport);
@@ -544,8 +551,8 @@ namespace CourtJustice.Web.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
                 employerCode = employerCode=="0"? "": employerCode;
-                int recordsTotal = await _loaneeRepository.GetRecordCount(bucketId.ToInt16(), employerCode,searchValue!);
-                var data = await _loaneeRepository.GetPaging(bucketId.ToInt16(), employerCode,skip, pageSize, searchValue);
+                int recordsTotal = await _loaneeRepository.GetRecordCount(bucketId!.ToInt16(), employerCode!,searchValue!);
+                var data = await _loaneeRepository.GetPaging(bucketId!.ToInt16(), employerCode!,skip, pageSize, searchValue!);
                 var jsonData = new { draw, recordsFiltered = recordsTotal, recordsTotal, data };
                 return Ok(jsonData);
             }

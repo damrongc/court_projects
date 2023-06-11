@@ -1,5 +1,6 @@
 ﻿@using CourtJustice.Domain.ViewModels;
-@model Tuple<LoaneeViewModel, IEnumerable<AssetLandViewModel>>
+@model LoaneeViewModel
+@*@model Tuple<LoaneeViewModel, IEnumerable<AssetLandViewModel>>*@
 @{
     ViewData["Title"] = "ข้อมูลลูกหนี้";
 }
@@ -40,7 +41,7 @@
         <div class="card">
             <div class="card-body">
                 <div id="view-table">
-                    @await Html.PartialAsync("_ViewTable", Model.Item1)
+                    @await Html.PartialAsync("_ViewTable", Model)
                 </div>
             </div>
         </div>
