@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CourtJustice.Domain.Models
 {
     [Table("company_action_code")]
-    public class CompanyActionCode
+    public class CompanyActionCode : BaseEntity
     {
         [Key]
         public string CompanyActionCodeId { get; set; }

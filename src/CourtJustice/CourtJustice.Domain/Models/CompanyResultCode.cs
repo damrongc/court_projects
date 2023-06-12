@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CourtJustice.Domain.Models
 {
     [Table("company_result_code")]
-    public class CompanyResultCode
+    public class CompanyResultCode : BaseEntity
     {
         [Key]
-        public string BankResultCodeId { get; set; }
-        public string BankResultCodeName { get; set; }
+        public string CompanyResultCodeId { get; set; }
+        public string CompanyResultCodeName { get; set; }
 
         public bool NotCallFlag { get; set; }
         public bool ShowHideFlag { get; set; }

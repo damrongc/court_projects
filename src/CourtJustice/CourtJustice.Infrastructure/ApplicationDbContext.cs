@@ -66,6 +66,11 @@ namespace CourtJustice.Infrastructure
         public DbSet<JusticeCaseDocument> JusticeCaseDocuments { get; set; }
         public DbSet<JusticeCaseLawyer> JusticeCaseLawyers { get; set; }
 
+        public DbSet<BankActionCode> BankActionCodes { get; set; }
+        public DbSet<BankResultCode> BankResultCodes { get; set; }
+        public DbSet<CompanyActionCode> CompanyActionCodes { get; set; }
+        public DbSet<CompanyResultCode> CompanyResultCodes { get; set; }
+
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             //var auditEntries = HandleAuditingBeforeSaveChanges("System");
