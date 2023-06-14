@@ -4,7 +4,7 @@
 @{
     Layout = null;
 }
-<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",null,Context.Request.Scheme)','เพิ่มข้อมูลหมายเหตุ')"><i class="fa fa-plus"></i> Create New</a>
+<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",null,Context.Request.Scheme)','เพิ่ม รายงายผลการติดตาม')"><i class="fa fa-plus"></i> Create New</a>
 <div class="table-responsive">
     <table class="table table-bordered table-hover data-table">
         <thead>
@@ -13,6 +13,23 @@
                     @Html.DisplayNameFor(model => model.Remark)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.TransactionDatetime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BankActionCodeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BankResultCodeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompanyActionCodeName)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.CompanyResultCodeName)
+                </th>
+                <th>
+
                 </th>
             </tr>
         </thead>
@@ -22,6 +39,21 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Remark)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionDatetime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankActionCodeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankResultCodeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyActionCodeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyResultCodeName)
                     </td>
                     <td class="w150">
                         <div class="d-inline">

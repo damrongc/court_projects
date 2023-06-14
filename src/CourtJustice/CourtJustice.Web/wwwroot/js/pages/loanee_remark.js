@@ -1,11 +1,19 @@
 ﻿
-
-
 $(function () {
-
+    $('.dateonly').datetimepicker({
+        timepicker: false,
+        format: 'd-m-Y',
+        closeOnDateSelect: true
+    });
+    $('#form-modal').on('shown.bs.modal', function () {
+        $(".dateonly").datetimepicker({
+            timepicker: false,
+            format: 'd-m-Y',
+            closeOnDateSelect: true
+        });
+    });
+  
 });
-
-
 
 function showRemarkTab(url) {
     if (url == '' || url == undefined) {
@@ -82,7 +90,7 @@ AddOrEditLoaneeRamark = (form) => {
                 if (res.isValid) {
                     swal({
                         title: "สำเร็จ",
-                        text: "ข้อมูล หมายเหตุ บันทึกเรียบร้อยแล้ว.",
+                        text: "ข้อมูล รายงายผลการติดตาม บันทึกเรียบร้อยแล้ว.",
                         icon: "success",
                     })
                         .then(() => {

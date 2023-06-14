@@ -14,10 +14,23 @@ namespace CourtJustice.Web.Controllers
     public class LoaneeRemarksController : BaseController<LoaneeRemarksController>
     {
         private readonly ILoaneeRemarkRepository _loaneeRemarkRepository;
+        private readonly IBankActionCodeRepository _bankActionCodeRepository;
+        private readonly IBankResultCodeRepository _bankResultCodeRepository;
+        private readonly ICompanyActionCodeRepository _companyActionCodeRepository;
+        private readonly ICompanyResultCodeRepository _companyResultCodeRepository;
 
-        public LoaneeRemarksController(ILoaneeRemarkRepository loaneeRemarkRepository)
+
+        public LoaneeRemarksController(ILoaneeRemarkRepository loaneeRemarkRepository,
+                   IBankActionCodeRepository bankActionCodeRepository,
+                   IBankResultCodeRepository bankResultCodeRepository,
+                   ICompanyActionCodeRepository companyActionCodeRepository,
+                   ICompanyResultCodeRepository companyResultCodeRepository)
         {
             _loaneeRemarkRepository = loaneeRemarkRepository;
+            _bankActionCodeRepository = bankActionCodeRepository;
+            _bankResultCodeRepository = bankResultCodeRepository;
+            _companyActionCodeRepository = companyActionCodeRepository;
+            _companyResultCodeRepository = companyResultCodeRepository;
         }
 
         public IActionResult Index()
@@ -32,8 +45,11 @@ namespace CourtJustice.Web.Controllers
             return results.ToList();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+
+            await GetViewBag();
+
             return View(new LoaneeRemark());
         }
 
@@ -57,6 +73,8 @@ namespace CourtJustice.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AddOrEdit(int id)
         {
+            await GetViewBag();
+
             if (id == 0)
             {
                 return View(new LoaneeRemark());
@@ -95,6 +113,59 @@ namespace CourtJustice.Web.Controllers
             var loaneeRemark = await _loaneeRemarkRepository.GetByCusId(id);
             var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_LoaneeRemarkCard", loaneeRemark);
             return new JsonResult(new { isValid = true, message = "", html });
+        }
+
+
+        private async Task GetViewBag()
+        {
+            var backActions = await _bankActionCodeRepository.GetAll();
+            List<SelectListItem> selects = new();
+            foreach (var item in backActions)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = item.BankActionCodeName.ToString(),
+                    Value = item.BankActionCodeId.ToString(),
+                });
+            }
+            ViewBag.BankActionCodes = selects;
+
+
+            var bankResults = await _bankResultCodeRepository.GetAll();
+            selects = new();
+            foreach (var item in bankResults)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = item.BankResultCodeName.ToString(),
+                    Value = item.BankResultCodeId.ToString(),
+                });
+            }
+            ViewBag.BankResultCodes = selects;
+
+            var companyActions = await _companyActionCodeRepository.GetAll();
+            selects = new();
+            foreach (var item in companyActions)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = item.CompanyActionName.ToString(),
+                    Value = item.CompanyActionCodeId.ToString(),
+                });
+            }
+            ViewBag.CompanyActionCodes = selects;
+
+            var companyResults = await _companyResultCodeRepository.GetAll();
+            selects = new();
+            foreach (var item in companyResults)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = item.CompanyResultCodeName.ToString(),
+                    Value = item.CompanyResultCodeId.ToString(),
+                });
+            }
+            ViewBag.CompanyActionCodes = selects;
         }
 
     }
