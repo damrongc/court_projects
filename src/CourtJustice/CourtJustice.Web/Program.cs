@@ -69,7 +69,11 @@ namespace CourtJustice.Web
             builder.Services.AddTransient<IJusticeCaseRepository, JusticeCaseRepository>();
             builder.Services.AddTransient<IJusticeAppointmentRepository, JusticeAppointmentRepository>();
             builder.Services.AddTransient<IJusticeCaseLawyerRepository, JusticeCaseLawyerRepository>();
-          
+
+            builder.Services.AddTransient<IBankActionCodeRepository, BankActionCodeRepository>();
+            builder.Services.AddTransient<IBankResultCodeRepository, BankResultCodeRepository>();
+            builder.Services.AddTransient<ICompanyActionCodeRepository, CompanyActionCodeRepository>();
+            builder.Services.AddTransient<ICompanyResultCodeRepository, CompanyResultCodeRepository>();
 
             builder.Services.AddScoped<RequestAuthenticationFilter>();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

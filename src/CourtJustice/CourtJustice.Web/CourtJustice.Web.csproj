@@ -58,6 +58,10 @@
     <None Remove="Views\Companys\" />
     <None Remove="Views\Gurantors\" />
     <None Remove="Views\LawOffices\" />
+    <None Remove="Views\BankActionCodes\" />
+    <None Remove="Views\BankResultCodes\" />
+    <None Remove="Views\CompanyActionCodes\" />
+    <None Remove="Views\CompanyResultCodes\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CarTypes\" />
@@ -74,6 +78,10 @@
     <Folder Include="Views\Companys\" />
     <Folder Include="Views\Guarantors\" />
     <Folder Include="Views\LawOffices\" />
+    <Folder Include="Views\BankActionCodes\" />
+    <Folder Include="Views\BankResultCodes\" />
+    <Folder Include="Views\CompanyActionCodes\" />
+    <Folder Include="Views\CompanyResultCodes\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Views\AssetCars\_AssetCarsCardcshtml">

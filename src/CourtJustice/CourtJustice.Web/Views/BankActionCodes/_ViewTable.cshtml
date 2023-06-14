@@ -1,0 +1,49 @@
+﻿@using CourtJustice.Domain.Models
+@model IEnumerable<BankActionCode>
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover data-table">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+                <th>
+                    @Html.DisplayNameFor(model => model.BankActionCodeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BankActionCodeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployerCode)
+                </th>
+
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankActionCodeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BankActionCodeName)
+                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmployerCode)
+                    </th>
+
+
+                    <td class="w100">
+                        <div class="d-inline">
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.BankActionCodeId"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.BankActionCodeId');"><i class='fa fa-trash'></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,46 +1,100 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CourtJustice.Domain.Models;
+using CourtJustice.Infrastructure.Helpers;
+using CourtJustice.Infrastructure.Interfaces;
+using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace CourtJustice.Web.Controllers
+namespace CourtJustice.Web.Controllers 
 {
-    [Route("api/[controller]")]
-    public class BankActionCodesController : Controller
+   
+    public class BankActionCodesController : BaseController<IBankActionCodeRepository>
     {
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IBankActionCodeRepository _bankActionCodeRepository;
+
+        public BankActionCodesController(IBankActionCodeRepository bankActionCodeRepository)
         {
-            return new string[] { "value1", "value2" };
+            _bankActionCodeRepository = bankActionCodeRepository;
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Index()
         {
-            return "value";
+            return View(await GetAll());
         }
 
-        // POST api/values
+
+
+        private async Task<List<BankActionCode>> GetAll()
+        {
+            var results = await _bankActionCodeRepository.GetAll();
+            return results.ToList();
+        }
+
+        public IActionResult Create()
+        {
+            return View(new BankActionCode());
+        }
+
         [HttpPost]
-        public void Post([FromBody]string value)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(BankActionCode model)
         {
+            if (ModelState.IsValid)
+            {
+                await _bankActionCodeRepository.Create(model);
+                _notify.Success($"{model.BankActionCodeName} is Created.");
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<IActionResult> Edit(string id)
         {
+            var model = await _bankActionCodeRepository.GetByKey(id);
+            return View(model);
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, BankActionCode model)
         {
+            var oldEntity = await _bankActionCodeRepository.GetByKey(id);
+
+            if (oldEntity == null)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                await _bankActionCodeRepository.Update(id, model);
+                _notify.Success($"{model.BankActionCodeName} is Updated");
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
+
+        [HttpDelete, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            try
+            {
+
+
+                await _bankActionCodeRepository.Delete(id);
+                //_notify.Success($"Delete is Success.");
+                var results = await GetAll();
+                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
+                return new JsonResult(new { isValid = true, message = "", html });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { isValid = false, message = ex.Message });
+
+            }
+
         }
     }
 }
