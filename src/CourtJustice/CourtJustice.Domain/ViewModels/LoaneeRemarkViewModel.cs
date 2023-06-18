@@ -11,7 +11,7 @@ namespace CourtJustice.Domain.ViewModels
         public string Remark { get; set; }
         public string CusId { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime TransactionDatetime { get; set; } = DateTime.Now;
         public string BankActionCodeId { get; set; }
         public string BankActionCodeName { get; set; }
@@ -25,10 +25,10 @@ namespace CourtJustice.Domain.ViewModels
         [Display(Name = "เบอร์ติดต่อ")]
         public string ContractNo { get; set; }
 
-        [Required]
+      
         [Display(Name = "วันนัด")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
-        public DateOnly AppointmentDate { get; set; }
+        public DateTime AppointmentDate { get; set; }
 
         [Display(Name = "ยอดจ่าย")]
         [DisplayFormat(DataFormatString = "{0:###,###.00}")]

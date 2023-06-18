@@ -18,6 +18,7 @@ namespace CourtJustice.Domain.Models
 
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime TransactionDatetime { get; set; } = DateTime.Now;
+
         public string BankActionCodeId { get; set; }
         [ForeignKey(nameof(BankActionCodeId))]
         public virtual BankActionCode? BankActionCode { set; get; }

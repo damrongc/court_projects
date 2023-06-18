@@ -80,8 +80,18 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public async Task Update(int id, LoaneeRemark model)
         {
-            var result = await Context.LoaneeRemarks.FindAsync(model.LoaneeRemarkId);
+            var result = await Context.LoaneeRemarks.FindAsync(id);
             result.Remark = model.Remark;
+            result.AppointmentContract = model.AppointmentContract;
+            result.Amount    = model.Amount;
+            result.AppointmentDate = model.AppointmentDate;
+            result.BankActionCodeId = model.BankActionCodeId;
+            result.BankResultCodeId = model.BankResultCodeId;
+            result.CompanyActionCodeId = model.CompanyActionCodeId;
+            result.CompanyResultCodeId = model.CompanyResultCodeId;
+            result.TransactionDatetime = model.TransactionDatetime;
+            result.CusId = model.CusId;
+            result.ContractNo = model.ContractNo;
 
             await Context.SaveChangesAsync();
         }

@@ -1,5 +1,6 @@
 ﻿using CourtJustice.Domain;
 using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
@@ -89,16 +90,29 @@ namespace CourtJustice.Web.Controllers
 
 
         [HttpPost]
-        public async Task<JsonResult> AddOrEdit([FromBody] LoaneeRemark model)
+        public async Task<JsonResult> AddOrEdit([FromBody] LoaneeRemarkViewModel model)
         {
             var isExisting = _loaneeRemarkRepository.IsExisting(model.LoaneeRemarkId);
+            var newloaneeRemark = new LoaneeRemark();
+            newloaneeRemark.Amount = model.Amount;
+            newloaneeRemark.TransactionDatetime = model.TransactionDatetime;
+            newloaneeRemark.BankActionCodeId = model.BankActionCodeId;
+            newloaneeRemark.BankResultCodeId = model.BankResultCodeId;
+            newloaneeRemark.CompanyActionCodeId = model.CompanyActionCodeId;
+            newloaneeRemark.CompanyResultCodeId = model.CompanyResultCodeId;
+            newloaneeRemark.ContractNo = model.ContractNo;
+            newloaneeRemark.CusId = model.CusId;
+            newloaneeRemark.AppointmentDate = DateOnly.FromDateTime(model.AppointmentDate);
+            newloaneeRemark.AppointmentContract = model.AppointmentContract;
+            newloaneeRemark.Remark = model.Remark;
+
             if (isExisting)
             {
-                await _loaneeRemarkRepository.Update(model.LoaneeRemarkId, model);
+                await _loaneeRemarkRepository.Update(model.LoaneeRemarkId, newloaneeRemark);
             }
             else
             {
-                await _loaneeRemarkRepository.Create(model);
+                await _loaneeRemarkRepository.Create(newloaneeRemark);
             }
 
             var loaneeRemark = await _loaneeRemarkRepository.GetByCusId(model.CusId);
@@ -165,7 +179,7 @@ namespace CourtJustice.Web.Controllers
                     Value = item.CompanyResultCodeId.ToString(),
                 });
             }
-            ViewBag.CompanyActionCodes = selects;
+            ViewBag.CompanyResultCodes = selects;
         }
 
     }
