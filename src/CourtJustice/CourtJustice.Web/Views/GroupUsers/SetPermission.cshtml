@@ -1,0 +1,64 @@
+﻿@using CourtJustice.Domain.ViewModels;
+@model UserPermissionViewModel
+
+@{
+    ViewData["Title"] = "กำหนดสิทธิการเช้าใช้งานเมนู ของกลุ่ม";
+}
+<style>
+    .no_checkbox > i.jstree-checkbox {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">@ViewData["Title"] : @Model.GroupName</h3>
+                </div>
+                <input type="hidden" asp-for="GroupId" />
+                @Html.Hidden("RedirectTo", Url.Action("Index", "GroupUsers"))
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <label class="control-label">รายการเมนู</label>
+                        <div id="programTree">
+                            <ul>
+
+                                @foreach (var item in Model.AppPrograms)
+                                {
+
+                                    var parentChecked = item.IsCheck ? "checked" : "unchecked";
+                                    <li id="@item.ProgramId" data-checkstate="@parentChecked">
+                                        <a href="#">@item.ProgramName</a>
+                                        @if (item.ProgramParents.Count > 0)
+                                        {
+                                            <ul>
+                                                @foreach (var child in item.ProgramParents)
+                                                {
+                                                    var childChecked = child.IsCheck ? "checked" : "unchecked";
+                                                    <li id="@child.ProgramId" data-checkstate="@childChecked">
+                                                        <a href="#">@child.ProgramName</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <a class="btn btn-light" asp-action="Index">Back</a>
+                    <a id="btnSave" class="btn btn-primary text-white" data-url="@Url.Action("SetPermission", "GroupUsers")">Save</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/pages/user_permission.js"></script>
+}

@@ -439,9 +439,9 @@ namespace CourtJustice.Web.Controllers
                     {
                         var loanee = new LoaneeViewModel();
                         var cusId = dt.Rows[i][4].ToString().Trim();
-                        var isExisting = _loaneeRepository.IsExisting(cusId);
-                        if (isExisting)
-                            continue;
+                        //var isExisting = _loaneeRepository.IsExisting(cusId);
+                        //if (isExisting)
+                        //    continue;
                         var assignDate = DateTime.ParseExact(dt.Rows[i][0].ToString().Trim(), DATE_FORMAT, culture);
                         if (assignDate.Year > 2500) assignDate = assignDate.AddYears(-543);
                         loanee.AssignDate = assignDate;
@@ -519,7 +519,7 @@ namespace CourtJustice.Web.Controllers
                         ViewBag.Message = messsage;
                         return View();
                     }
-                    await _loaneeRepository.BulkInsert(loanees);
+                    await _loaneeRepository.BulkInsertOrUpdate(loanees);
                 }
                 var message = $"Loanee {loanees.Count} records is imported.";
                 _notify.Success(message);

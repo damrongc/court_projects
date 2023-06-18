@@ -74,6 +74,8 @@ namespace CourtJustice.Web
             builder.Services.AddTransient<IBankResultCodeRepository, BankResultCodeRepository>();
             builder.Services.AddTransient<ICompanyActionCodeRepository, CompanyActionCodeRepository>();
             builder.Services.AddTransient<ICompanyResultCodeRepository, CompanyResultCodeRepository>();
+            builder.Services.AddTransient<IAppProgramRepository, AppProgramRepository>();
+            builder.Services.AddTransient<IUserPermissionRepository, UserPermissionRepository>();
 
             builder.Services.AddScoped<RequestAuthenticationFilter>();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

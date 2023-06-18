@@ -9,10 +9,12 @@ namespace CourtJustice.Infrastructure.Interfaces
 
         Task<List<AppUser>> GetAll();
         Task Create(AppUser model);
-        Task Update(int id, AppUser model);
-        Task Delete(int id);
-        Task<AppUser> GetByKey(int id);
+        Task Update(string id, AppUser model);
+        Task Delete(string id);
+        Task<AppUser> GetByKey(string id);
 
-        Task<int> CheckExistingAtUser(int id);
+        Task<int> CheckExistingAtUser(string id);
+
+        bool IsExisting(string id);
     }
 }

@@ -12,6 +12,6 @@ namespace CourtJustice.Domain.Models
         [Required]
         [Display(Name = "กลุ่มผู้ใช้")]
         public string GroupName { get; set; }
-        public virtual ICollection<AppUser> AppUsers { get; set; }
+        //public virtual ICollection<AppUser> AppUsers { get; set; }
     }
 }

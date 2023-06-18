@@ -5,19 +5,19 @@
     <table class="table table-bordered table-hover" id="tbl_loanee">
         <thead>
             <tr class="bg-primary text-white" role="row">
-                <th class="text-nowrap">
+                <th class="text-nowrap bg-primary">
                     @Html.DisplayNameFor(model => model.ContractNo)
                 </th>
-                <th class="text-nowrap">
+                <th class="text-nowrap bg-primary">
                     @Html.DisplayNameFor(model => model.ContractDate)
                 </th>
-                <th class="text-nowrap">
+                <th class="text-nowrap bg-primary">
                     @Html.DisplayNameFor(model => model.CusId)
                 </th>
-                <th class="text-nowrap">
+                <th class="text-nowrap bg-primary">
                     @Html.DisplayNameFor(model => model.NationalityId)
                 </th>
-                <th class="text-nowrap">
+                <th class="text-nowrap bg-primary">
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th class="text-nowrap">
@@ -32,52 +32,87 @@
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.WOBalance)
                 </th>
-         @*       <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.OccupationName)
-                </th>*@
-              @*  <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.InstallmentsByContract)
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.HomeAddress1)
                 </th>
                 <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.InstallmentsByAgree)
+                    @Html.DisplayNameFor(model => model.HomeAddress2)
                 </th>
                 <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.LastPaidDate)
+                    @Html.DisplayNameFor(model => model.HomeAddress3)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.HomeAddress4)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.TelephoneHome)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.MobileHome)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.IdenAddress1)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.IdenAddress2)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.IdenAddress3)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.IdenAddress4)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.MobileEmg)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.OfficeAddress1)
+                </th>                                   
+                <th class="text-nowrap">                
+                    @Html.DisplayNameFor(model => model.OfficeAddress2)
+                </th>                                   
+                <th class="text-nowrap">                
+                    @Html.DisplayNameFor(model => model.OfficeAddress3)
+                </th>                                   
+                <th class="text-nowrap">                
+                    @Html.DisplayNameFor(model => model.OfficeAddress4)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.TelephoneOffice)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.MobileOffice)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.OverdueAmount)
+                </th>
+                      <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.TotalPenalty)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.ClosingAmount)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.RcvAmtStatus)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.RcvAmtBeforeWO)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.RcvAmtAfterWO)
                 </th>
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.FirstPaidDate)
                 </th>
                 <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.IntereteRate)
+                    @Html.DisplayNameFor(model => model.LastPaidAmount)
                 </th>
-                <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.IntereteRateAmount)
-                </th>
-                <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.OverdueAmount)
+                       <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.LastPaidDate)
                 </th>
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.DueDate)
                 </th>
-                <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.FollowUpDate)
-                </th>
-                <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.PaidAmount)
-                </th>
-                <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.PaidInMonthAmount)
-                </th>
-                <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.TotalAmount)
-                </th>
-                <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.RemainingAmount)
-                </th>
-                <th class="text-nowrap">
-                    @Html.DisplayNameFor(model => model.OverdueDayAmount)
-                </th>*@
-                @*<th></th>*@
             </tr>
         </thead>
         <tbody>

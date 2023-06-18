@@ -178,9 +178,11 @@ function formatNumber(num) {
 }
 
 function formatDate(data) {
+    if (moment(data).year() == 1) return '';
     return moment(data).add(543, 'year').format("DD-MM-YYYY");
 }
 function formatDatetime(data) {
+    if (moment(data).year() == 1) return '';
     return moment(data).add(543, 'year').format("DD-MM-YYYY h:mm");
 }
 

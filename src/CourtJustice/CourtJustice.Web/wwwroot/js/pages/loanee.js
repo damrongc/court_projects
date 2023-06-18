@@ -163,16 +163,16 @@ getLoanee = () => {
             searchPlaceholder: "Search..."
         },
         "columns": [
-            { data: "contractNo", name: "contractNo" },
+            { data: "contractNo", name: "contractNo", class: "text-nowrap bg-primary text-white", },
             {
-                data: "contractDate", name: "contractDate", class: "text-nowrap", render: function (data, type, row) {
+                data: "contractDate", name: "contractDate", class: "text-nowrap bg-primary text-white", render: function (data, type, row) {
                     return formatDate(data);
                 }
             },
-            { data: "cusId", name: "cusId", class: "text-nowrap" },
-            { data: "nationalityId", name: "nationalityId", class: "text-nowrap" },
+            { data: "cusId", name: "cusId", class: "text-nowrap bg-primary text-white" },
+            { data: "nationalityId", name: "nationalityId", class: "text-nowrap bg-primary text-white" },
             {
-                data: "name", name: "name", class: "text-nowrap",
+                data: "name", name: "name", class: "text-nowrap bg-primary text-white",
                 render: function (data, type, row) {
                     return "<a href='#' id='btnLoaneeSelected'  data-id='" + row.cusId + "'>" + data + "</a>";
                 }
@@ -184,88 +184,88 @@ getLoanee = () => {
             //{ data: "occupationName", name: "occupationName", class: "text-nowrap", },
             //{ data: "loanTypeName", name: "loanTypeName", },
             {
-                data: "installmentsByContract", name: "installmentsByContract", render: function (data, type, row) {
+                data: "installmentsByContract", name: "installmentsByContract", class: "text-right", render: function (data, type, row) {
                     return formatNumber(data);
                 }
             },
-            { data: "term", name: "term", },
+            { data: "term", name: "term", class: "text-right", },
             {
-                data: "loanAmount", name: "loanAmount", render: function (data, type, row) {
+                data: "loanAmount", name: "loanAmount", class: "text-right", render: function (data, type, row) {
                     return formatNumber(data);
                 }
             },
             {
-                data: "woBalance", name: "woBalance", render: function (data, type, row) {
+                data: "woBalance", name: "woBalance", class: "text-right", render: function (data, type, row) {
                     return formatNumber(data);
                 }
             },
-            //{ data: "occupationName", name: "occupationName", },
-            //{
-            //    data: "installmentsByAgree", name: "installmentsByAgree", render: function (data, type, row) {
-            //        return formatNumber(data);
-            //    }
-            //},
-            //{
-            //    data: "lastPaidDate", name: "lastPaidDate", render: function (data, type, row) {
-            //        return moment(data).format("DD-MM-YYYY");
-            //    }
-            //},
-            //{
-            //    data: "firstPaidDate", name: "firstPaidDate", render: function (data, type, row) {
-            //        return moment(data).format("DD-MM-YYYY");
-            //    }
-            //},
-            //{
-            //    data: "intereteRate", name: "intereteRate", render: function (data, type, row) {
-            //        return formatNumber(data);
-            //    }
-            //},
-            //{
-            //    data: "intereteRateAmount", name: "intereteRateAmount", render: function (data, type, row) {
-            //        return formatNumber(data);
-            //    }
-            //},
-            //{
-            //    data: "overdueAmount", name: "overdueAmount", render: function (data, type, row) {
-            //        return formatNumber(data);
-            //    }
-            //},
-            //{
-            //    data: "dueDate", name: "dueDate", class: "text-nowrap", render: function (data, type, row) {
-            //        return moment(data).format("DD-MM-YYYY");
-            //    }
-            //},
-            //{
-            //    data: "followUpDate", name: "followUpDate", class: "text-nowrap", render: function (data, type, row) {
-            //        return moment(data).format("DD-MM-YYYY");
-            //    }
-            //},
-            //{
-            //    data: "paidAmount", name: "paidAmount", render: function (data, type, row) {
-            //        return formatNumber(data);
-            //    }
-            //},
-            //{
-            //    data: "paidInMonthAmount", name: "paidInMonthAmount", render: function (data, type, row) {
-            //        return formatNumber(data);
-            //    }
-            //},
-            //{
-            //    data: "totalAmount", name: "totalAmount", render: function (data, type, row) {
-            //        return formatNumber(data);
-            //    }
-            //},
-            //{
-            //    data: "remainingAmount", name: "remainingAmount", render: function (data, type, row) {
-            //        return formatNumber(data);
-            //    }
-            //},
-            //{
-            //    data: "overdueDayAmount", name: "overdueDayAmount", render: function (data, type, row) {
-            //        return formatNumber(data);
-            //    }
-            //},
-
+            { data: "homeAddress1", name: "homeAddress1", class: "text-nowrap", },
+            { data: "homeAddress2", name: "homeAddress2", class: "text-nowrap", },
+            { data: "homeAddress3", name: "homeAddress3", class: "text-nowrap", },
+            { data: "homeAddress4", name: "homeAddress4", class: "text-nowrap", },
+            { data: "telephoneHome", name: "telephoneHome", class: "text-nowrap", },
+            { data: "mobileHome", name: "mobileHome", class: "text-nowrap", },
+            { data: "idenAddress1", name: "idenAddress1", class: "text-nowrap", },
+            { data: "idenAddress2", name: "idenAddress2", class: "text-nowrap", },
+            { data: "idenAddress3", name: "idenAddress3", class: "text-nowrap", },
+            { data: "idenAddress4", name: "idenAddress4", class: "text-nowrap", },
+            { data: "mobileEmg", name: "mobileEmg", class: "text-nowrap", },
+            { data: "officeAddress1", name: "officeAddress1", class: "text-nowrap", },
+            { data: "officeAddress2", name: "officeAddress2", class: "text-nowrap", },
+            { data: "officeAddress3", name: "officeAddress3", class: "text-nowrap", },
+            { data: "officeAddress4", name: "officeAddress4", class: "text-nowrap", },
+            { data: "telephoneOffice", name: "telephoneOffice", class: "text-nowrap", },
+            { data: "mobileOffice", name: "mobileOffice", class: "text-nowrap", },
+            {
+                data: "overdueAmount", name: "overdueAmount", class: "text-right", render: function (data, type, row) {
+                    return formatNumber(data);
+                }
+            },
+            {
+                data: "totalPenalty", name: "totalPenalty", class: "text-right", render: function (data, type, row) {
+                    return formatNumber(data);
+                }
+            },
+            {
+                data: "closingAmount", name: "closingAmount", class: "text-right", render: function (data, type, row) {
+                    return formatNumber(data);
+                }
+            },
+            {
+                data: "rcvAmtStatus", name: "rcvAmtStatus", class: "text-right", render: function (data, type, row) {
+                    return formatNumber(data);
+                }
+            },
+            {
+                data: "rcvAmtBeforeWO", name: "rcvAmtBeforeWO", class: "text-right", render: function (data, type, row) {
+                    return formatNumber(data);
+                }
+            },
+            {
+                data: "rcvAmtAfterWO", name: "rcvAmtAfterWO", class: "text-right", render: function (data, type, row) {
+                    return formatNumber(data);
+                }
+            },
+            {
+                data: "firstPaidDate", name: "firstPaidDate", class: "text-nowrap", render: function (data, type, row) {
+                    return formatDate(data);
+                }
+            },
+            {
+                data: "lastPaidAmount", name: "lastPaidAmount", class: "text-right", render: function (data, type, row) {
+                    return formatNumber(data);
+                }
+            },
+            {
+                data: "lastPaidDate", name: "lastPaidDate", class: "text-nowrap", render: function (data, type, row) {
+                    return formatDate(data);
+                }
+            },
+            {
+                data: "dueDate", name: "dueDate", class: "text-nowrap", render: function (data, type, row) {
+                    return formatDate(data);
+                }
+            },
             //{ data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: actionSection }
             //{ data: "(string)null", searchable: false, className: "w100", sortable: false, defaultContent: "<a id='btnEdit' class='btn btn-sm btn-primary text-white js-action'><i class='fa fa-edit'></i></a><a id='btnDelete' class='btn btn-sm btn-danger text-white js-action'><i class='fa fa-trash'></i></a>" }
 
@@ -283,6 +283,10 @@ getLoanee = () => {
         // LENGTH - Inline-Form control
         var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
         length_sel.removeClass('form-control-sm');
+    });
+
+    new $.fn.dataTable.FixedColumns(table, {
+        leftColumns: 5
     });
 }
 

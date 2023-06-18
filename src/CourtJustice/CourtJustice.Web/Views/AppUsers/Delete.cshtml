@@ -1,0 +1,87 @@
+﻿@using CourtJustice.Domain.Models
+@model AppUser
+
+@{
+    ViewData["Title"] = "ข้อมูลผู้ใช้งาน";
+}
+
+
+
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">ลบ @ViewData["Title"]</h2>
+                <p class="card-description">Are you sure you want to <code>delete</code> this?</p>
+                <div class="template-demo">
+
+                    <table class="table mb-0">
+
+                        <tbody>
+                            <tr>
+                                <td class="pl-0">    @Html.DisplayNameFor(model => model.UserName)</td>
+                                <td class="pr-0 text-right"> @Html.DisplayFor(model => model.UserName)</td>
+                            </tr>
+                            <tr>
+                                <td class="pl-0">    @Html.DisplayNameFor(model => model.Password)</td>
+                                <td class="pr-0 text-right"> @Html.DisplayFor(model => model.Password)</td>
+                            </tr>
+            @*                <tr>
+                                <td class="pl-0">    @Html.DisplayNameFor(model => model.DisplayName)</td>
+                                <td class="pr-0 text-right"> @Html.DisplayFor(model => model.DisplayName)</td>
+                            </tr>*@
+                            <tr>
+                                <td class="pl-0">    @Html.DisplayNameFor(model => model.Email)</td>
+                                <td class="pr-0 text-right"> @Html.DisplayFor(model => model.Email)</td>
+                            </tr>
+                            <tr>
+                                <td class="pl-0">    @Html.DisplayNameFor(model => model.IsActive)</td>
+
+                                <td class="pr-0 text-right">
+                                    @if (@Model.IsActive)
+                                    {
+                                        <div class="badge badge-primary">Active</div>
+                                    }
+                                    else
+                                    {
+
+                                        <div class="badge badge-dark">InActive</div>
+                                    }
+
+
+                                </td>
+
+                            </tr>
+@*                            <tr>
+                                <td class="pl-0">    @Html.DisplayNameFor(model => model.CreatedBy)</td>
+                                <td class="pr-0 text-right"> @Html.DisplayFor(model => model.CreatedBy)</td>
+                            </tr>
+                            <tr>
+                                <td class="pl-0">    @Html.DisplayNameFor(model => model.CreatedOn)</td>
+                                <td class="pr-0 text-right"> @Html.DisplayFor(model => model.CreatedOn)</td>
+                            </tr>
+                            <tr>
+                                <td class="pl-0">    @Html.DisplayNameFor(model => model.LastModifiedBy)</td>
+                                <td class="pr-0 text-right"> @Html.DisplayFor(model => model.LastModifiedBy)</td>
+                            </tr>
+                            <tr>
+                                <td class="pl-0">    @Html.DisplayNameFor(model => model.LastModifiedOn)</td>
+                                <td class="pr-0 text-right"> @Html.DisplayFor(model => model.LastModifiedOn)</td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="UserId" />
+                        <a asp-action="Index" class="btn btn-light">Back</a>
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

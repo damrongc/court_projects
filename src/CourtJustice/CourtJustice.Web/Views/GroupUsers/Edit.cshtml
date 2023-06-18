@@ -1,0 +1,53 @@
+﻿@using CourtJustice.Domain.Models;
+@model GroupUser
+
+@{
+    ViewData["Title"] = "ข้อมูลกลุ่มผู้ใช้งาน";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">แก้ไข @ViewData["Title"]</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="GroupId" />
+                            <input type="hidden" asp-for="UserCreated" />
+                            <input type="hidden" asp-for="CreatedDateTime" />
+                            <div class="form-group">
+                                <label asp-for="GroupName" class="control-label"></label>
+                                <input asp-for="GroupName" class="form-control" />
+                                <span asp-validation-for="GroupName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                                </label>
+                            </div>
+
+
+                            <div class="form-group">
+                                <a class="btn btn-light" asp-action="Index">Back</a>
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
