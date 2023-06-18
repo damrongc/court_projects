@@ -3,6 +3,7 @@ using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,10 +13,12 @@ namespace CourtJustice.Web.Controllers
     public class CompanyResultCodesController : BaseController<ICompanyResultCodeRepository>
     {
         private readonly ICompanyResultCodeRepository _companyResultCodeRepository;
+        private readonly ICompanyRepository _companyRepository;
 
-        public CompanyResultCodesController(ICompanyResultCodeRepository companyResultCodeRepository)
+        public CompanyResultCodesController(ICompanyResultCodeRepository companyResultCodeRepository,  ICompanyRepository companyRepository)
         {
             _companyResultCodeRepository = companyResultCodeRepository;
+            _companyRepository = companyRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -31,8 +34,20 @@ namespace CourtJustice.Web.Controllers
             return results.ToList();
         }
 
-        public IActionResult Create()
+
+        public async Task<IActionResult> Create()
         {
+            var companies = await _companyRepository.GetAll();
+            List<SelectListItem> selects = new();
+            foreach (var item in companies)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = item.CompanyName.ToString(),
+                    Value = item.CompanyId.ToString(),
+                });
+            }
+            ViewBag.Companies = selects;
             return View(new CompanyResultCode());
         }
 
@@ -51,6 +66,18 @@ namespace CourtJustice.Web.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
+
+            var companies = await _companyRepository.GetAll();
+            List<SelectListItem> selects = new();
+            foreach (var item in companies)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = item.CompanyName.ToString(),
+                    Value = item.CompanyId.ToString(),
+                });
+            }
+            ViewBag.Companies = selects;
             var model = await _companyResultCodeRepository.GetByKey(id);
             return View(model);
         }

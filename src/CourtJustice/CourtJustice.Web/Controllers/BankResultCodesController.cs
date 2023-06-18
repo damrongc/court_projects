@@ -3,6 +3,7 @@ using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,11 +13,13 @@ namespace CourtJustice.Web.Controllers
    
     public class BankResultCodesController : BaseController<IBankResultCodeRepository>
     {
+        private readonly IEmployerRepository _employerRepository;
         private readonly IBankResultCodeRepository _bankResultCodeRepository;
 
-        public BankResultCodesController(IBankResultCodeRepository bankResultCodeRepository)
+        public BankResultCodesController(IBankResultCodeRepository bankResultCodeRepository, IEmployerRepository employerRepository)
         {
             _bankResultCodeRepository = bankResultCodeRepository;
+            _employerRepository = employerRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -32,8 +35,19 @@ namespace CourtJustice.Web.Controllers
             return results.ToList();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var employers = await _employerRepository.GetAll();
+            List<SelectListItem> selects = new();
+            foreach (var item in employers)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = item.EmployerName.ToString(),
+                    Value = item.EmployerCode.ToString(),
+                });
+            }
+            ViewBag.Employers = selects;
             return View(new BankResultCode());
         }
 
@@ -52,6 +66,18 @@ namespace CourtJustice.Web.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
+            var employers = await _employerRepository.GetAll();
+            List<SelectListItem> selects = new();
+            foreach (var item in employers)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = item.EmployerName.ToString(),
+                    Value = item.EmployerCode.ToString(),
+                });
+            }
+            ViewBag.Employers = selects;
+
             var model = await _bankResultCodeRepository.GetByKey(id);
             return View(model);
         }

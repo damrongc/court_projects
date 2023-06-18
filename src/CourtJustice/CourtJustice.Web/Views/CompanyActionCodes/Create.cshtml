@@ -1,0 +1,62 @@
+﻿@using CourtJustice.Domain.Models;
+@model CompanyActionCode
+
+@{
+    ViewData["Title"] = "Company Action";
+}
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CompanyActionCodeId" class="control-label"></label>
+                                    <input asp-for="CompanyActionCodeId" class="form-control" />
+                                    <span asp-validation-for="CompanyActionCodeId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CompanyActionName" class="control-label"></label>
+                                    <input asp-for="CompanyActionName" class="form-control" />
+                                    <span asp-validation-for="CompanyActionName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6">
+
+                                    <label class="control-label" asp-for="CompanyId"></label>
+                                    <select class="form-control dropdown" id="ddlCompanys" asp-for="CompanyId" asp-items="@ViewBag.Companies">
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a asp-action="Index" class="btn btn-light">Back</a>
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

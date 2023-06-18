@@ -1,5 +1,5 @@
 ﻿@using CourtJustice.Domain.Models
-@model IEnumerable<BankActionCode>
+@model IEnumerable<BankResultCode>
 
 
 <div class="table-responsive">
@@ -7,10 +7,10 @@
         <thead>
             <tr class="bg-primary text-white" role="row">
                 <th>
-                    @Html.DisplayNameFor(model => model.BankActionCodeId)
+                    @Html.DisplayNameFor(model => model.BankResultCodeId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.BankActionCodeName)
+                    @Html.DisplayNameFor(model => model.BankResultCodeName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.EmployerCode)
@@ -31,25 +31,26 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.BankActionCodeId)
+                        @Html.DisplayFor(modelItem => item.BankResultCodeId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.BankActionCodeName)
+                        @Html.DisplayFor(modelItem => item.BankResultCodeName)
                     </td>
                     <th>
                         @Html.DisplayFor(modelItem => item.EmployerCode)
                     </th>
-
                     <td>
                         @Html.DisplayFor(modelItem => item.UserCreated)
                     </td>
                     <th>
                         @Html.DisplayFor(modelItem => item.CreatedDateTime)
                     </th>
+
+
                     <td class="w100">
                         <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.BankActionCodeId"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.BankActionCodeId');"><i class='fa fa-trash'></i></a>
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.BankResultCodeId"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.BankResultCodeId');"><i class='fa fa-trash'></i></a>
                         </div>
                     </td>
                 </tr>
