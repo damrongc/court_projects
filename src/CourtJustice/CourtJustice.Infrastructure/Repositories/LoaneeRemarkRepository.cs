@@ -52,7 +52,17 @@ namespace CourtJustice.Infrastructure.Repositories
                 using IDbConnection conn = Connection;
                 conn.Open();
                 var sb = new StringBuilder();
-                sb.Append("select * from loanee_remark where cus_id=@cus_id");
+                sb.Append("select loanee_remark.*, " +
+                    " bank_action_code.bank_action_code_name," +
+                    " bank_result_code.bank_result_code_name, " +
+                    " company_action_code.company_action_name as company_action_code_name," +
+                    " company_result_code.company_result_code_name " +
+                    " from loanee_remark " +
+                    " left outer JOIN bank_result_code ON loanee_remark.bank_result_code_id = bank_result_code.bank_result_code_id " +
+                    " left OUTER JOIN bank_action_code ON loanee_remark.bank_action_code_id = bank_action_code.bank_action_code_id " +
+                    " left OUTER JOIN company_action_code ON loanee_remark.company_action_code_id = company_action_code.company_action_code_id " +
+                    " left OUTER JOIN company_result_code ON loanee_remark.company_result_code_id = company_result_code.company_result_code_id " +
+                    " where cus_id=@cus_id");
 
                 var result = await conn.QueryAsync<LoaneeRemarkViewModel>(sb.ToString(), new { cus_id = id });
                 return result.ToList();

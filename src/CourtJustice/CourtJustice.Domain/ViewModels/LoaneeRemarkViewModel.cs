@@ -11,15 +11,30 @@ namespace CourtJustice.Domain.ViewModels
         public string Remark { get; set; }
         public string CusId { get; set; }
 
+        [Display(Name = "วันที่ทำ")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime TransactionDatetime { get; set; } = DateTime.Now;
+
+
+        [Display(Name = "รหัสการดำเนินการของธนาคาร")]
         public string BankActionCodeId { get; set; }
+
+        [Display(Name = "การดำเนินการของธนาคาร")]
         public string BankActionCodeName { get; set; }
+        [Display(Name = "รหัสผลการดำเนินการของธนาคาร")]
         public string BankResultCodeId { get; set; }
+
+        [Display(Name = "ผลการดำเนินการของธนาคาร")]
         public string BankResultCodeName { get; set; }
+        [Display(Name = "รหัสการดำเนินการของบริษัท")]
         public string CompanyActionCodeId { get; set; }
+
+        [Display(Name = "การดำเนินการของบริษัท")]
         public string CompanyActionCodeName { get; set; }
+        [Display(Name = "รหัสผลการดำเนินการของบริษัท")]
         public string CompanyResultCodeId { get; set; }
+
+        [Display(Name = "ผลการดำเนินการของบริษัท")]
         public string CompanyResultCodeName { get; set; }
 
         [Display(Name = "เบอร์ติดต่อ")]
