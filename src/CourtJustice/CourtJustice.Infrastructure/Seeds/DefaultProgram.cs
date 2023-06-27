@@ -1,9 +1,4 @@
 ﻿using CourtJustice.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtJustice.Infrastructure.Seeds
 {
@@ -76,6 +71,10 @@ namespace CourtJustice.Infrastructure.Seeds
                     new AppProgram{ProgramName = "ข้อมูลบริษัท",ParentProgramId= masterMenu.ProgramId,ControllerName= "Companys",ActionName="Index"},
                     //new AppProgram { ProgramName = "ประเภทสินทรัพย์", ParentProgramId= masterMenu.ProgramId, ControllerName= "AssetTypes", ActionName="Index" },
                      new AppProgram { ProgramName = "สำนักงานทนายความ",ParentProgramId= masterMenu.ProgramId, ControllerName= "LawOffices", ActionName="Index" },
+                     new AppProgram { ProgramName = "Action Code(ธนาคาร)",ParentProgramId= masterMenu.ProgramId, ControllerName= "BankActionCodes", ActionName="Index" },
+                     new AppProgram { ProgramName = "Result Code(ธนาคาร)",ParentProgramId= masterMenu.ProgramId, ControllerName= "BankResultCodes", ActionName="Index" },
+                     new AppProgram { ProgramName = "Action Code(บริษัท)",ParentProgramId= masterMenu.ProgramId, ControllerName= "CompanyActionCodes", ActionName="Index" },
+                     new AppProgram { ProgramName = "Result Code(บริษัท)",ParentProgramId= masterMenu.ProgramId, ControllerName= "CompanyResultCodes", ActionName="Index" },
                 };
                 context.AppPrograms.AddRange(programMasterList);
                 context.SaveChanges();
