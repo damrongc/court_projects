@@ -1,10 +1,9 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface ILoanTaskStatusRepository
-	{
+    public interface ILoanTaskStatusRepository
+    {
         Task<List<LoanTaskStatus>> GetAll();
         Task Create(LoanTaskStatus model);
         Task Update(int id, LoanTaskStatus model);

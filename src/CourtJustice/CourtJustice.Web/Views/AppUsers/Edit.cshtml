@@ -1,7 +1,9 @@
-﻿@using CourtJustice.Domain.Models
-@model AppUser
+﻿@using CourtJustice.Domain.ViewModels
+@model AppUserViewModel
 @{
     ViewData["Title"] = "ข้อมูลผู้ใช้งาน";
+    var groupId = Model.GroupId;
+
 }
 
 <div class="row">
@@ -15,9 +17,9 @@
                     <div class="col-md-12">
                         <form asp-action="Edit">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="Password" />
+                            @*                       <input type="hidden" asp-for="Password" />
                             <input type="hidden" asp-for="UserCreated" />
-                            <input type="hidden" asp-for="CreatedDateTime" />
+                            <input type="hidden" asp-for="CreatedDateTime" />*@
                             <div class="form-group">
                                 <label asp-for="UserId" class="control-label"></label>
                                 <input asp-for="UserId" class="form-control" readonly="readonly" />
@@ -29,15 +31,15 @@
                                 <span asp-validation-for="UserName" class="text-danger"></span>
                             </div>
                             @*<div class="form-group">
-                                    <label asp-for="Password" class="control-label"></label>
-                                    <input asp-for="Password" class="form-control" type="password" />
-                                    <span asp-validation-for="Password" class="text-danger"></span>
-                                </div>*@
-           @*                 <div class="form-group">
-                                <label asp-for="DisplayName" class="control-label"></label>
-                                <input asp-for="DisplayName" class="form-control" />
-                                <span asp-validation-for="DisplayName" class="text-danger"></span>
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control" type="password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
                             </div>*@
+                            <div class="form-group">
+                                <label asp-for="PhoneNumber" class="control-label"></label>
+                                <input asp-for="PhoneNumber" class="form-control" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
 
                             <div class="form-group">
                                 <label asp-for="Email" class="control-label"></label>
@@ -51,6 +53,25 @@
                                 <span asp-validation-for="GroupId" class="text-danger"></span>
 
                             </div>
+
+                            <div class="form-group">
+                                <label class="control-label">ผู้ว่าจ้าง/ธนาคาร</label>
+                                <select name="EmployerCode" class="form-control" asp-for="EmployerCode" asp-items="@ViewBag.Employers">
+                                </select>
+                                @*<span asp-validation-for="EmployerCode" class="text-danger"></span>*@
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">หัวหน้างาน</label>
+                                <select name="ManagerId" class="form-control" asp-for="ManagerId" asp-items="@ViewBag.Managers">
+                                </select>
+                                @*<span asp-validation-for="ManagerId" class="text-danger"></span>*@
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Target" class="control-label"></label>
+                                <input asp-for="Target" class="form-control" type="number" />
+                                @*<span asp-validation-for="Target" class="text-danger"></span>*@
+                            </div>
+
 
                             <div class="form-group form-check">
                                 <label class="form-check-label">
@@ -73,5 +94,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

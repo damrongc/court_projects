@@ -2,8 +2,8 @@
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface ICaseResultRepository
-	{
+    public interface ICaseResultRepository
+    {
 
         Task<List<CaseResult>> GetAll();
         Task Create(CaseResult model);

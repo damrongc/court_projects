@@ -3,66 +3,101 @@
 @model IEnumerable<LoaneeRemarkViewModel>;
 @{
     Layout = null;
+    var cultureInfor = new CultureInfo("th-TH");
+    var cusId = ViewBag.CusId;
 }
-<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",null,Context.Request.Scheme)','เพิ่ม รายงายผลการติดตาม')"><i class="fa fa-plus"></i> Create New</a>
-<div class="table-responsive">
-    <table class="table table-bordered table-hover data-table">
-        <thead>
-            <tr class="bg-primary text-white" role="row">
-                <th>
-                    @Html.DisplayNameFor(model => model.Remark)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TransactionDatetime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BankActionCodeName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BankResultCodeName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CompanyActionCodeName)
-                </th>
+<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",new {id=0,cusId=cusId},Context.Request.Scheme)','เพิ่ม รายงายผลการติดตาม')"><i class="fa fa-plus"></i> เพิ่มข้อมูล</a>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.CompanyResultCodeName)
-                </th>
-                <th>
 
-                </th>
+<table class="table table-bordered table-hover data-table">
+    <thead>
+        <tr class="bg-primary text-white" role="row">
+
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.TransactionDatetime)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.BankActionCodeName)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.BankResultCodeName)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.CompanyActionCodeName)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.CompanyResultCodeName)
+            </th>
+
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.AppointmentDate)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.AppointmentContract)
+            </th>
+            <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.FollowContractNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remark)
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-nowrap">
+                    @item.TransactionDatetime.ToString("dd-MM-yyyy HH:mm",cultureInfor)
+                </td>
+                <td class="text-nowrap">
+                    @Html.DisplayFor(modelItem => item.BankActionCodeName)
+                </td>
+                <td class="text-nowrap">
+                    @Html.DisplayFor(modelItem => item.BankResultCodeName)
+                </td>
+                <td class="text-nowrap">
+                    @Html.DisplayFor(modelItem => item.CompanyActionCodeName)
+                </td>
+                <td class="text-nowrap">
+                    @Html.DisplayFor(modelItem => item.CompanyResultCodeName)
+                </td>
+
+                <td class="text-nowrap">
+                    @item.AppointmentDate.ToString("dd-MM-yyyy",cultureInfor)
+                </td>
+                <td class="text-nowrap text-right">
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td class="text-nowrap">
+                    @Html.DisplayFor(modelItem => item.AppointmentContract)
+                </td>
+                <td class="text-nowrap">
+                    @Html.DisplayFor(modelItem => item.FollowContractNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remark)
+                </td>
+                <td class="w150 text-nowrap">
+                    <div class="d-inline">
+                        <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",new {id=item.LoaneeRemarkId,cusId=cusId},Context.Request.Scheme)','แก้ไขข้อมูลหมายเหตุ')"><i class='fa fa-edit'></i></a>
+                        <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteLoaneeRemark('@Url.Action("Delete","LoaneeRemarks",new {id=item.LoaneeRemarkId},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
+                    </div>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Remark)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TransactionDatetime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BankActionCodeName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BankResultCodeName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CompanyActionCodeName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CompanyResultCodeName)
-                    </td>
-                    <td class="w150">
-                        <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" onclick="showInPopupXL('@Url.Action("AddOrEdit","LoaneeRemarks",new {id=item.LoaneeRemarkId},Context.Request.Scheme)','แก้ไขข้อมูลหมายเหตุ')"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDeleteLoaneeRemark('@Url.Action("Delete","LoaneeRemarks",new {id=item.LoaneeRemarkId},Context.Request.Scheme)');"><i class='fa fa-trash'></i></a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        }
+    </tbody>
+</table>
+@*
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/pages/loanee_remark.js" asp-append-version="true"></script>
+    <script src="~/js/pages/upload_with_progress.js" asp-append-version="true"></script>
+}*@

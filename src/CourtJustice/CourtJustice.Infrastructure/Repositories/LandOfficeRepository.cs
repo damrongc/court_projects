@@ -1,17 +1,15 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Interfaces;
-using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class LandOfficeRepository : BaseRepository , ILandOfficeRepository
-	{
-		public LandOfficeRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+    public class LandOfficeRepository : BaseRepository, ILandOfficeRepository
+    {
+        public LandOfficeRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
-		}
+        }
 
         public async Task Create(LandOffice model)
         {
@@ -37,9 +35,9 @@ namespace CourtJustice.Infrastructure.Repositories
             return model;
         }
 
-        public  bool IsExisting(string id)
+        public bool IsExisting(string id)
         {
-            return Context.LandOffices.Any(p=>p.LandOfficeCode== id);
+            return Context.LandOffices.Any(p => p.LandOfficeCode == id);
         }
 
         public async Task Update(string id, LandOffice model)
@@ -47,7 +45,7 @@ namespace CourtJustice.Infrastructure.Repositories
             var result = await Context.LandOffices.FindAsync(model.LandOfficeCode);
             result.LandOfficeName = model.LandOfficeName;
             result.IsActive = model.IsActive;
-          
+
 
             await Context.SaveChangesAsync();
         }

@@ -1,4 +1,4 @@
-﻿using Inventor.Infrastructure.Utils;
+﻿using CourtJustice.Infrastructure.Utils;
 
 namespace CourtJustice.Web.Utils
 {

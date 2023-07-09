@@ -20,5 +20,13 @@ namespace CourtJustice.Domain.Models
         public string CusId { get; set; }
         [ForeignKey(nameof(CusId))]
         public virtual Loanee? Loanee { set; get; }
+        public DateOnly BookingDate { get; set; }
+        public string StartOverdueStatus { get; set; }
+        public string EndOverdueStatus { get; set; }
+
+        [Required]
+        public string EmployerCode { get; set; }
+        public decimal WOBalance { get; set; }
+
     }
 }

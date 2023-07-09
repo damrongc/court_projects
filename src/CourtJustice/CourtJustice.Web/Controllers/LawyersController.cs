@@ -8,14 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CourtJustice.Web.Controllers
 {
-   
+
     public class LawyersController : BaseController<LawyersController>
     {
         private readonly ILawyerRepository _lawyerRepository;
+        private readonly IAppUserRepository _appUserRepository;
 
-        public LawyersController(ILawyerRepository lawyerRepository)
+        public LawyersController(ILawyerRepository lawyerRepository, IAppUserRepository appUserRepository)
         {
             _lawyerRepository = lawyerRepository;
+            _appUserRepository = appUserRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -49,7 +51,7 @@ namespace CourtJustice.Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
             var model = await _lawyerRepository.GetByKey(id);
             return View(model);
@@ -57,7 +59,7 @@ namespace CourtJustice.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Lawyer model)
+        public async Task<IActionResult> Edit(string id, Lawyer model)
         {
             var oldEntity = await _lawyerRepository.GetByKey(id);
 
@@ -69,6 +71,17 @@ namespace CourtJustice.Web.Controllers
             if (ModelState.IsValid)
             {
                 await _lawyerRepository.Update(id, model);
+
+                var appUser = new AppUser
+                {
+                    UserId  =model.LawyerCode,
+                    UserName = model.LawyerName,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    IsActive = model.IsActive
+                };
+                await _appUserRepository.Update(id, appUser);
+
                 _notify.Success($"{model.LawyerName} is Updated");
 
                 return RedirectToAction(nameof(Index));
@@ -77,7 +90,7 @@ namespace CourtJustice.Web.Controllers
         }
 
         [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             try
             {

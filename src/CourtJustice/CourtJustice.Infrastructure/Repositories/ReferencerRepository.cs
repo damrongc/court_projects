@@ -1,12 +1,11 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Data;
+using System.Text;
 
 namespace CourtJustice.Infrastructure.Repositories
 {

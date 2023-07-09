@@ -12,6 +12,9 @@ namespace CourtJustice.Domain.Models
         [Required]
         [Display(Name = "กลุ่มผู้ใช้")]
         public string GroupName { get; set; }
-        //public virtual ICollection<AppUser> AppUsers { get; set; }
+        //[Display(Name = "ผู้ว่าจ้าง/ธนาคาร")]
+        //public string? EmployerCode { get; set; }
+        public int GroupLevel { get; set; }
+
     }
 }

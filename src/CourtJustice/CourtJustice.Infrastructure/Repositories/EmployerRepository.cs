@@ -1,20 +1,15 @@
 ﻿using CourtJustice.Domain.Models;
-using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class EmployerRepository: BaseRepository , IEmployerRepository
-	{
-		public EmployerRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+    public class EmployerRepository : BaseRepository, IEmployerRepository
+    {
+        public EmployerRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
-		}
+        }
 
         public async Task Create(Employer model)
         {
@@ -31,9 +26,14 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public async Task<List<Employer>> GetAll()
         {
-           return  await Context.Employers.ToListAsync();
+            return await Context.Employers.ToListAsync();
         }
 
+
+        public async Task<List<Employer>> GetAllActive()
+        {
+            return await Context.Employers.Where(p=>p.IsActive).ToListAsync();
+        }
         public async Task<Employer> GetByKey(string id)
         {
             var model = await Context.Employers.FindAsync(id);
@@ -44,9 +44,9 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.Employers.FindAsync(model.EmployerCode);
             result.EmployerName = model.EmployerName;
-          
+            result.StartDay = model.StartDay;
+            result.TotalDay = model.TotalDay;
             result.IsActive = model.IsActive;
-           
             await Context.SaveChangesAsync();
         }
     }

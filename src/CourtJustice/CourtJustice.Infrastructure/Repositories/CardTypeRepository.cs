@@ -1,21 +1,16 @@
 ﻿using CourtJustice.Domain.Models;
-using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class CardTypeRepository : BaseRepository, ICardTypeRepository
+    public class CardTypeRepository : BaseRepository, ICardTypeRepository
     {
-		public CardTypeRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+        public CardTypeRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
 
         {
-		}
+        }
 
         public async Task Create(CardType model)
         {

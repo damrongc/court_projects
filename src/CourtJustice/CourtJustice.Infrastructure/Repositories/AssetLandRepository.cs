@@ -10,10 +10,10 @@ using System.Text;
 namespace CourtJustice.Infrastructure.Repositories
 {
     public class AssetLandRepository : BaseRepository, IAssetLandRepository
-	{
-		public AssetLandRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+    {
+        public AssetLandRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
-		}
+        }
 
         public async Task Create(AssetLand model)
         {
@@ -134,10 +134,10 @@ namespace CourtJustice.Infrastructure.Repositories
                 var sb = new StringBuilder();
                 sb.Append("select asset_land_id, position, gps,address,address_detail,cus_id,estimate_price, a.land_office_code, land_office_name" +
                     " from asset_land a,land_office b" +
-                    " where a.land_office_code = b.land_office_code"+
+                    " where a.land_office_code = b.land_office_code" +
                     " and cus_id=@cus_id");
-                
-                var result = await conn.QueryAsync<AssetLandViewModel>(sb.ToString(), new { cus_id =id});
+
+                var result = await conn.QueryAsync<AssetLandViewModel>(sb.ToString(), new { cus_id = id });
                 return result.ToList();
 
             }

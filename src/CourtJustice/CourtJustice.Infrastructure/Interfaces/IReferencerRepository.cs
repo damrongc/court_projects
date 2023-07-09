@@ -1,5 +1,4 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
@@ -12,7 +11,7 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Delete(int id);
         Task<Referencer> GetByKey(int id);
 
-        Task<List<ReferencerViewModel>> GetByCusId(string id);      
+        Task<List<ReferencerViewModel>> GetByCusId(string id);
         bool IsExisting(int id);
 
     }

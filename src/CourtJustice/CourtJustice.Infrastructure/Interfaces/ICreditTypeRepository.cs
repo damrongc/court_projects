@@ -1,10 +1,9 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface ICreditTypeRepository
-	{
+    public interface ICreditTypeRepository
+    {
         Task<List<CreditType>> GetAll();
         Task Create(CreditType model);
         Task Update(string id, CreditType model);

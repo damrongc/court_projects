@@ -1,0 +1,49 @@
+﻿@using CourtJustice.Domain.ViewModels;
+@using CourtJustice.Infrastructure.Utils;
+@using System.Globalization;
+@model IEnumerable<PaymentExcelViewModel>
+@{
+    Layout = null;
+    var cultureInfor = new CultureInfo("th-TH");
+}
+<div class="table-responsive">
+    <table class="table table-bordered table-hover data-table">
+        <thead>
+            <tr class="bg-primary text-white" role="row">
+                <th class="text-nowrap">ASSIGN DATE</th>
+                <th class="text-nowrap">EXPIRE DATE</th>
+                <th class="text-nowrap">CUSTOMER CODE</th>
+                <th class="text-nowrap">CUSTOMER NAME</th>
+                <th class="text-nowrap">CONTRACT NO</th>
+                <th class="text-nowrap">RECEIPT DATE</th>
+                <th class="text-nowrap">BOOKING DATE</th>
+                <th class="text-nowrap">TOTAL RECEIVED</th>
+                <th class="text-nowrap">W/O BALANCE</th>
+                <th class="text-nowrap">START OD STATUS</th>
+                <th class="text-nowrap">END OD STATUS</th>
+                <th class="text-nowrap">COLLECTOR</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-nowrap"> @item.AssignDate.ToString("dd-MM-yyyy",cultureInfor)</td>
+                    <td class="text-nowrap">@item.ExpireDate.ToString("dd-MM-yyyy",cultureInfor)</td>
+                    <td class="text-nowrap">@item.CusId</td>
+                    <td class="text-nowrap">@item.CusName</td>
+                    <td class="text-nowrap">@item.ContractNo</td>
+                    <td class="text-nowrap">@item.ReceiptDate.ToString("dd-MM-yyyy",cultureInfor)</td>
+                    <td class="text-nowrap">@item.BookingDate.ToString("dd-MM-yyyy",cultureInfor)</td>
+                    <td class="text-nowrap text-right">@item.TotalReceived.ToFormat2Decimal()</td>
+                    <td class="text-nowrap text-right">@item.WOBalance.ToFormat2Decimal()</td>
+                    <td class="text-nowrap">@item.StartOverdueStatus</td>
+                    <td class="text-nowrap">@item.EndOverdueStatus</td>
+                    <td class="text-nowrap">@item.UserCreated</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,5 +1,4 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
+﻿using System.Data;
+using System.Globalization;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 using System.Xml;
+using System.Xml.Serialization;
 
-namespace Inventor.Infrastructure.Utils
+namespace CourtJustice.Infrastructure.Utils
 {
     public static class Extensions
     {
@@ -74,6 +69,41 @@ namespace Inventor.Infrastructure.Utils
         public static DateOnly ToDateOnly(this DateTime a)
         {
             return DateOnly.FromDateTime(a);
+        }
+
+        public static DateTime ConvertDateFormatTHToUS(this string date)
+        {
+            const string DATE_FORMAT = "dd/MM/yyyy";
+      
+            CultureInfo culture = new("en-US");
+            var convertdDate = DateTime.ParseExact(date.Trim(), DATE_FORMAT, culture);
+            if (convertdDate.Year > 2500) convertdDate = convertdDate.AddYears(-543);
+            return convertdDate;
+        }
+
+        public static long ToUnixTimestamp(this DateTime value)
+        {
+            return (long)(value.ToUniversalTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+        }
+
+        /// <summary>
+        /// Gets a Unix timestamp representing the current moment
+        /// </summary>
+        /// <param name="ignored">Parameter ignored</param>
+        /// <returns>Now expressed as a Unix timestamp</returns>
+        public static long UnixTimestamp(this DateTime ignored)
+        {
+            return (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+        }
+
+        /// <summary>
+        /// Returns a local DateTime based on provided unix timestamp
+        /// </summary>
+        /// <param name="timestamp">Unix/posix timestamp</param>
+        /// <returns>Local datetime</returns>
+        public static DateTime ParseUnixTimestamp(long timestamp)
+        {
+            return (new DateTime(1970, 1, 1)).AddSeconds(timestamp).ToLocalTime();
         }
 
         public static DataTable ToDataTable<T>(this List<T> items)

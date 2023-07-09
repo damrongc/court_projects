@@ -36,6 +36,13 @@ namespace CourtJustice.Infrastructure.Seeds
                          ControllerName= "AppUsers",
                         ActionName="Index"
                     },
+                     new AppProgram
+                    {
+                        ProgramName = "ข้อความแจ้งเตือน",
+                        ParentProgramId= adminMenu.ProgramId,
+                         ControllerName= "RemainTasks",
+                        ActionName="Index"
+                    },
 
                 };
                 context.AppPrograms.AddRange(programList);
@@ -65,16 +72,16 @@ namespace CourtJustice.Infrastructure.Seeds
                     new AppProgram { ProgramName = "ประเภทรถ", ParentProgramId= masterMenu.ProgramId, ControllerName= "CarTypes", ActionName="Index" },
                     new AppProgram{ProgramName = "ประเภทสินเชื่อ",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanTypes",ActionName="Index"},
                     new AppProgram{ProgramName = "อาชีพ",ParentProgramId= masterMenu.ProgramId,ControllerName= "Occupations",ActionName="Index"},
-                   
+
                     new AppProgram{ProgramName = "กลุ่มงาน",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanTaskStatuses",ActionName="Index"},
                     //new AppProgram{ProgramName = "กลุ่มงาน",ParentProgramId= masterMenu.ProgramId,ControllerName= "LoanSubTaskStatuses",ActionName="Index"},
                     new AppProgram{ProgramName = "ข้อมูลบริษัท",ParentProgramId= masterMenu.ProgramId,ControllerName= "Companys",ActionName="Index"},
                     //new AppProgram { ProgramName = "ประเภทสินทรัพย์", ParentProgramId= masterMenu.ProgramId, ControllerName= "AssetTypes", ActionName="Index" },
                      new AppProgram { ProgramName = "สำนักงานทนายความ",ParentProgramId= masterMenu.ProgramId, ControllerName= "LawOffices", ActionName="Index" },
-                     new AppProgram { ProgramName = "Action Code(ธนาคาร)",ParentProgramId= masterMenu.ProgramId, ControllerName= "BankActionCodes", ActionName="Index" },
-                     new AppProgram { ProgramName = "Result Code(ธนาคาร)",ParentProgramId= masterMenu.ProgramId, ControllerName= "BankResultCodes", ActionName="Index" },
-                     new AppProgram { ProgramName = "Action Code(บริษัท)",ParentProgramId= masterMenu.ProgramId, ControllerName= "CompanyActionCodes", ActionName="Index" },
-                     new AppProgram { ProgramName = "Result Code(บริษัท)",ParentProgramId= masterMenu.ProgramId, ControllerName= "CompanyResultCodes", ActionName="Index" },
+                     new AppProgram { ProgramName = "Action Code[ธนาคาร]",ParentProgramId= masterMenu.ProgramId, ControllerName= "BankActionCodes", ActionName="Index" },
+                     new AppProgram { ProgramName = "Result Code[ธนาคาร]",ParentProgramId= masterMenu.ProgramId, ControllerName= "BankResultCodes", ActionName="Index" },
+                     new AppProgram { ProgramName = "Action Code[บริษัท]",ParentProgramId= masterMenu.ProgramId, ControllerName= "CompanyActionCodes", ActionName="Index" },
+                     new AppProgram { ProgramName = "Result Code[บริษัท]",ParentProgramId= masterMenu.ProgramId, ControllerName= "CompanyResultCodes", ActionName="Index" },
                 };
                 context.AppPrograms.AddRange(programMasterList);
                 context.SaveChanges();
@@ -90,22 +97,25 @@ namespace CourtJustice.Infrastructure.Seeds
 
                 List<AppProgram> programOtherList = new()
                 {
+                    new AppProgram { ProgramName = "Dashboard", ParentProgramId= otherMenu.ProgramId, ControllerName= "Dashboards", ActionName="Index" },
                     new AppProgram { ProgramName = "ข้อมูลทนายความ", ParentProgramId= otherMenu.ProgramId, ControllerName= "Lawyers", ActionName="Index" },
                     new AppProgram { ProgramName = "ผู้ว่าจ้าง", ParentProgramId= otherMenu.ProgramId, ControllerName= "Employers", ActionName="Index" },
-                    new AppProgram { ProgramName = "พนักงาน", ParentProgramId= otherMenu.ProgramId, ControllerName= "Employees", ActionName="Index" },
+                    //new AppProgram { ProgramName = "พนักงาน", ParentProgramId= otherMenu.ProgramId, ControllerName= "Employees", ActionName="Index" },
                     new AppProgram { ProgramName = "ข้อมูลลูกหนี้", ParentProgramId= otherMenu.ProgramId, ControllerName= "Loanees", ActionName="Index" },
                     new AppProgram { ProgramName = "ข้อมูลฟ้อง", ParentProgramId= otherMenu.ProgramId, ControllerName= "JusticeCase", ActionName="Index" },
-                   
+                    new AppProgram { ProgramName = "รายงานการชำระ", ParentProgramId= otherMenu.ProgramId, ControllerName= "Reports", ActionName="IndexReceipt" },
+                    new AppProgram { ProgramName = "รายงานการติดตาม", ParentProgramId= otherMenu.ProgramId, ControllerName= "Reports", ActionName="IndexRemark" },
+
                 };
                 context.AppPrograms.AddRange(programOtherList);
                 context.SaveChanges();
             }
 
-           /* if (!context.AppPrograms.Any(p => p.ControllerName == "Loanees"))
-            {
-                context.AppPrograms.Add(new AppProgram { ProgramName = "ข้อมูลลูกหนี้", ParentProgramId = 1, ControllerName = "Loanees", ActionName = "Index" });
-                context.SaveChanges();
-            }*/
+            /* if (!context.AppPrograms.Any(p => p.ControllerName == "Loanees"))
+             {
+                 context.AppPrograms.Add(new AppProgram { ProgramName = "ข้อมูลลูกหนี้", ParentProgramId = 1, ControllerName = "Loanees", ActionName = "Index" });
+                 context.SaveChanges();
+             }*/
 
         }
     }

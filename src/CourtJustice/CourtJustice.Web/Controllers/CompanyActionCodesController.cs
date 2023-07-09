@@ -59,7 +59,7 @@ namespace CourtJustice.Web.Controllers
             if (ModelState.IsValid)
             {
                 await _companyActionCodeRepository.Create(model);
-                _notify.Success($"{model.CompanyActionName} is Created.");
+                _notify.Success($"{model.CompanyActionCodeName} is Created.");
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
@@ -97,7 +97,7 @@ namespace CourtJustice.Web.Controllers
             if (ModelState.IsValid)
             {
                 await _companyActionCodeRepository.Update(id, model);
-                _notify.Success($"{model.CompanyActionName} is Updated");
+                _notify.Success($"{model.CompanyActionCodeName} is Updated");
 
                 return RedirectToAction(nameof(Index));
             }

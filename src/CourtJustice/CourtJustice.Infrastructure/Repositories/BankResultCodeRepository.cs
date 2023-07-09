@@ -1,21 +1,17 @@
 ﻿using CourtJustice.Domain.Models;
-using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class BankResultCodeRepository : BaseRepository , IBankResultCodeRepository
-	{
+    public class BankResultCodeRepository : BaseRepository, IBankResultCodeRepository
+    {
         public BankResultCodeRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
         }
 
-        public  async Task Create(BankResultCode model)
+        public async Task Create(BankResultCode model)
         {
             await Context.BankResultCodes.AddAsync(model);
             await Context.SaveChangesAsync();
@@ -30,7 +26,12 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public async Task<List<BankResultCode>> GetAll()
         {
-            return await Context.BankResultCodes.ToListAsync();
+            return await Context.BankResultCodes.Include(p => p.Employer).ToListAsync();
+        }
+
+        public async Task<List<BankResultCode>> GetByEmployer(string employerCode)
+        {
+            return await Context.BankResultCodes.Where(p => p.EmployerCode.Equals(employerCode)).ToListAsync();
         }
 
         public async Task<BankResultCode> GetByKey(string id)

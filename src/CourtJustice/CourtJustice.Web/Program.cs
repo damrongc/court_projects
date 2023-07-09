@@ -76,6 +76,12 @@ namespace CourtJustice.Web
             builder.Services.AddTransient<ICompanyResultCodeRepository, CompanyResultCodeRepository>();
             builder.Services.AddTransient<IAppProgramRepository, AppProgramRepository>();
             builder.Services.AddTransient<IUserPermissionRepository, UserPermissionRepository>();
+            builder.Services.AddTransient<IRemainTaskRepository, RemainTaskRepository>();
+            builder.Services.AddTransient<IDashboardRepository, DashboardRepository>();
+            builder.Services.AddTransient<IUserEmployerMappingRepository, UserEmployerMappingRepository>();
+            builder.Services.AddTransient<IReceiptSummaryRepository, ReceiptSummaryRepository>();
+            builder.Services.AddTransient<IReportRepository, ReportRepository>();
+
 
             builder.Services.AddScoped<RequestAuthenticationFilter>();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -130,17 +136,18 @@ namespace CourtJustice.Web
                     DefaultGroupUser.Seed(context);
                     DefaultUser.Seed(context);
                     DefaultTaskStatus.Seed(context);
-                    DefaultOccupation.Seed(context);
+                    //DefaultOccupation.Seed(context);
                     DefaultBucket.Seed(context);
                     DefaultEmployer.Seed(context);
-                    DefaultEmployee.Seed(context);
+                    //DefaultEmployee.Seed(context);
                     DefaultLandOffice.Seed(context);
                     //DefaultLoanee.Seed(context);
                     DefaultCarType.Seed(context);
                     DefaultCompany.Seed(context);
                     DefaultCourt.Seed(context);
                     DefaultCaseResult.Seed(context);
-                    DefaultLawyer.Seed(context);
+                    //DefaultLawyer.Seed(context);
+                    DefaultLoanType.Seed(context);
                     logger.LogInformation("Application Starting");
                 }
                 catch (Exception ex)

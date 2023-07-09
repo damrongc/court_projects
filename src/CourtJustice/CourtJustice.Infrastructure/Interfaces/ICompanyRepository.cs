@@ -1,10 +1,9 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface ICompanyRepository
-	{
+    public interface ICompanyRepository
+    {
         Task<List<Company>> GetAll();
         Task Create(Company model);
         Task Update(int id, Company model);

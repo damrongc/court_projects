@@ -5,53 +5,53 @@
     ViewData["Title"] = "ข้อมูลพนักงาน";
     var showAddressSetLookupUrl = @Url.Action("IndexAddressSetLookup", "AddressSets");
     var getAddressSetLookupUrl = @Url.Action("GetWithPaging", "AddressSets");
+    //var hireDate = Model.HireDate == DateOnly.FromDateTime(DateTime.MinValue) ? "" : Model.HireDate.ToString("dd-MM-yyyy");
 }
 <div class="row">
-    <div class="col-12">
+    <div class="col-9">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-3">
                     <h3 class="mb-3">แก้ไข @ViewData["Title"]</h3>
                 </div>
-
                 <div class="row">
                     <div class="col-md-12">
                         <form asp-action="Edit">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="row">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label asp-for="EmployeeCode" class="control-label"></label>
                                     <input asp-for="EmployeeCode" class="form-control" readonly />
                                     <span asp-validation-for="EmployeeCode" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label asp-for="EmployeeName" class="control-label"></label>
                                     <input asp-for="EmployeeName" class="form-control" />
                                     <span asp-validation-for="EmployeeName" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-3">
+                    @*            <div class="form-group col-md-4">
                                     <label asp-for="HireDate" class="control-label"></label>
-                                    <input asp-for="HireDate" class="form-control date" asp-format="{0:yyyy-MM-dd}" />
+                                    <input asp-for="HireDate" class="form-control dateonly" asp-format="{0:dd-MM-yyyy}" />
                                     <span asp-validation-for="HireDate" class="text-danger"></span>
-                                </div>
+                                </div>*@
                             </div>
 
                             <div class="row">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label asp-for="PhoneNumber" class="control-label"></label>
                                     <input asp-for="PhoneNumber" class="form-control" />
                                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label asp-for="Email" class="control-label"></label>
                                     <input asp-for="Email" class="form-control" type="email" />
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label asp-for="Target" class="control-label"></label>
-                                    <input asp-for="Target" class="form-control" type="number" asp-format="{0:###,###.00}" />
+                                    <input asp-for="Target" class="form-control" type="number" />
                                     <span asp-validation-for="Target" class="text-danger"></span>
                                 </div>
                             </div>
@@ -66,19 +66,26 @@
                                     </div>
                                     <span asp-validation-for="Address" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-8">
                                     <label asp-for="AddressDetail" class="control-label"></label>
                                     <input asp-for="AddressDetail" class="form-control" />
                                     <span asp-validation-for="AddressDetail" class="text-danger"></span>
                                 </div>
-
                             </div>
                             <div class="row">
-                                <div class="form-group form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                                    </label>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label" asp-for="ManagerCode"></label>
+                                    <select class="form-control dropdown" id="ddlManager" asp-for="ManagerCode" asp-items="@ViewBag.Managers">
+                                    </select>
+                                    <span asp-validation-for="ManagerCode" class="text-danger"></span>
                                 </div>
+
+                            </div>
+
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                                </label>
                             </div>
                             <div class="form-group">
                                 <a asp-action="Index" class="btn btn-light">Back</a>
@@ -98,5 +105,6 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-<script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
+    <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
+    <script src="~/js/pages/employee.js" asp-append-version="true"></script>
 }

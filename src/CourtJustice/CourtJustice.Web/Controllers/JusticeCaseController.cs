@@ -3,7 +3,7 @@ using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
 using CourtJustice.Web.Requests;
-using Inventor.Infrastructure.Utils;
+using CourtJustice.Infrastructure.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Globalization;
@@ -150,7 +150,7 @@ namespace CourtJustice.Web.Controllers
                 selects.Add(new SelectListItem
                 {
                     Text = item.LawyerName.ToString(),
-                    Value = item.LawyerId.ToString(),
+                    Value = item.LawyerCode.ToString(),
                 });
             }
             ViewBag.Lawyers = selects;
@@ -235,7 +235,7 @@ namespace CourtJustice.Web.Controllers
                 {
                     var justiceLawyer = new JusticeCaseLawyer
                     {
-                        LawyerId = item.LawyerId,
+                        LawyerCode = item.LawyerCode,
                         BlackCaseNo = request.BlackCaseNo
                     };
                     await _justiceCaseLawyerRepository.Create(justiceLawyer);

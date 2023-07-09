@@ -5,26 +5,37 @@
     <table class="table table-bordered table-hover data-table">
         <thead>
             <tr class="bg-primary text-white" role="row">
-                <th>
-                    @Html.DisplayNameFor(model => model.LawyerId)
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.LawyerCode)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.LawyerName)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.PhoneNumber)
                 </th>
-              
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.Address)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UpdatedDateTime)
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.AddressDetail)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.CreatedDateTime)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.UserCreated)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.UpdatedDateTime)
+                </th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.UserUpdated)
                 </th>
                 <th></th>
@@ -35,7 +46,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.LawyerId)
+                        @Html.DisplayFor(modelItem => item.LawyerCode)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.LawyerName)
@@ -45,6 +56,28 @@
                         @Html.DisplayFor(modelItem => item.PhoneNumber)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddressDetail)
+                    </td>
+                    <td>
+                        @if (item.IsActive)
+                        {
+                            <div class="badge badge-outline-success badge-pill">ใช้งาน</div>
+                        }
+                        else
+                        {
+                            <div class="badge badge-outline-light badge-pill">ไม่ใช้งาน</div>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserCreated)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.UpdatedDateTime)
                     </td>
                     <td>
@@ -52,8 +85,8 @@
                     </td>
                     <td class="w100">
                         <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.LawyerId"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.LawyerId');"><i class='fa fa-trash'></i></a>
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.LawyerCode"><i class='fa fa-edit'></i></a>
+                            @*<a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.LawyerCode');"><i class='fa fa-trash'></i></a>*@
                         </div>
                     </td>
                 </tr>

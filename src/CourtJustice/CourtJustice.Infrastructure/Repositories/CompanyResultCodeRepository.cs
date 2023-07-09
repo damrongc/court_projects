@@ -1,16 +1,12 @@
 ﻿using CourtJustice.Domain.Models;
-using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class CompanyResultCodeRepository : BaseRepository , ICompanyResultCodeRepository
-	{
+    public class CompanyResultCodeRepository : BaseRepository, ICompanyResultCodeRepository
+    {
         public CompanyResultCodeRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
         }
@@ -30,7 +26,7 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public async Task<List<CompanyResultCode>> GetAll()
         {
-            return await Context.CompanyResultCodes.ToListAsync();
+            return await Context.CompanyResultCodes.Include(p => p.Company).ToListAsync();
         }
 
         public async Task<CompanyResultCode> GetByKey(string id)

@@ -9,27 +9,27 @@ namespace CourtJustice.Infrastructure.Seeds
             var models = context.Loanees.ToList();
             if (models.Count == 0)
             {
-                context.Loanees.Add(new Loanee
-                {
-                    CusId = "05512-94337-2",
-                    AssignDate = DateOnly.FromDateTime(DateTime.Today),
-                    ExpireDate = DateOnly.FromDateTime(DateTime.Today),
-                    BirthDate = DateOnly.FromDateTime(DateTime.Today),
-                    NationalityId = "32121124654551",
-                    Name = "ขวัญเรือน บุญมา",
-                    TelephoneHome = "0832XXXX",
-                    OccupationId = 1,
-                    ContractNo = "630807",
-                    ContractDate = DateOnly.FromDateTime(DateTime.Today),
-                    Term = 20,
-                    LoanTypeCode="IR",
-                    IsActive = true,
-                    CreatedDateTime = DateTime.Now,
-                    UserCreated = "system"
+                //context.Loanees.Add(new Loanee
+                //{
+                //    CusId = "05512-94337-2",
+                //    AssignDate = DateOnly.FromDateTime(DateTime.Today),
+                //    ExpireDate = DateOnly.FromDateTime(DateTime.Today),
+                //    BirthDate = DateOnly.FromDateTime(DateTime.Today),
+                //    NationalityId = "32121124654551",
+                //    Name = "ขวัญเรือน บุญมา",
+                //    TelephoneHome = "0832XXXX",
+                //    OccupationId = 1,
+                //    ContractNo = "630807",
+                //    ContractDate = DateOnly.FromDateTime(DateTime.Today),
+                //    Term = 20,
+                //    LoanTypeCode = "IR",
+                //    IsActive = true,
+                //    CreatedDateTime = DateTime.Now,
+                //    UserCreated = "system"
 
-                }) ;
-     
-                context.SaveChanges();
+                //});
+
+                //context.SaveChanges();
             }
 
             //var models1 = context.LoanSubTaskStatuses.ToList();

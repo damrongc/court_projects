@@ -7,11 +7,16 @@ namespace CourtJustice.Domain.Models
     public class Lawyer : BaseEntity
     {
         [Key]
-        public int LawyerId { get; set; }
+        [Display(Name = "รหัสทนายความ")]
+        public string LawyerCode { get; set; }
         [Required]
+        [Display(Name = "ชื่อทนายความ")]
         public string LawyerName { get; set; }
+        [Display(Name = "อีเมลล์")]
         public string? Email { get; set; }
+        [Display(Name = "เบอร์ติดต่อ")]
         public string? PhoneNumber { get; set; }
+        [Display(Name = "ที่อยู่")]
         public string? Address { get; set; }
         [Display(Name = "รายละเอียด(ตำบล,อำเภอ,จังหวัด,รหัสไปรษณีย์)")]
         public string? AddressDetail { get; set; }

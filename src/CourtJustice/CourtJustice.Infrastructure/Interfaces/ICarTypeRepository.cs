@@ -1,10 +1,9 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface ICarTypeRepository
-	{
+    public interface ICarTypeRepository
+    {
         Task<List<CarType>> GetAll();
         Task Create(CarType model);
         Task Update(int id, CarType model);

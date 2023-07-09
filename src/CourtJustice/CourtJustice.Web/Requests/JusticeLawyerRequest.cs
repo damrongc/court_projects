@@ -2,7 +2,7 @@
 {
     public class JusticeLawyerRequest
     {
-        public int LawyerId { get; set; }
+        public string LawyerCode { get; set; }
         public string LawyerName { get; set; }
     }
 }

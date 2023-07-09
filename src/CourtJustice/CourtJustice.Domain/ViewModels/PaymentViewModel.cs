@@ -17,6 +17,11 @@ namespace CourtJustice.Domain.ViewModels
         [DisplayFormat(DataFormatString = "{0:###,###.00}")]
         public decimal Fee { get; set; }
         public string CusId { get; set; }
+        [Display(Name = "Start OD")]
+        public string StartOverdueStatus { get; set; }
+        [Display(Name = "End OD")]
+        public string EndOverdueStatus { get; set; }
+        public string EmployerCode { get; set; }
     }
 }
 

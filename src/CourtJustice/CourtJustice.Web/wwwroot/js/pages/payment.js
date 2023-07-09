@@ -14,7 +14,7 @@ function showPaymentTab(url) {
             text: "กรุณาเลือกลูกหนี้!",
             icon: "error"
         });
-        activaTab('loanee-1');
+        activaTab('remark-1');
         return false;
     }
     $.ajax({
@@ -34,23 +34,22 @@ AddOrEditPayment = (form) => {
     try {
         var payment = {};
 
-        var txtPaymentId = $("#PaymentId");
-        var txtPaymentSeq = $("#PaymentSeq");
-        var txtPaymentDate = $("#PaymentDate");
-        var txtAmoung = $("#Amount");
-        var txtFee = $("#Fee");
+        var txtPaymentId = $("#txtPaymentId");
+        /*var txtPaymentSeq = $("#txtPaymentSeq");*/
+        var txtPaymentDate = $("#txtPaymentDate");
+        var txtAmoung = $("#txtAmount");
+        var txtFee = $("#txtFee");
         var txtCusId = $("#txtCusId");
+        var txtStartOverdueStatus = $("#txtStartOverdueStatus");
+        var txtEndOverdueStatus = $("#txtEndOverdueStatus");
 
         var errorMessage = "";
         var isValid = true;
-        //if (txtPayMentId.val() == '' || txtPayMentId.val() == undefined) {
+
+        //if (txtPaymentSeq.val() == '' || txtPaymentSeq.val() == undefined) {
         //    isValid = false;
-        //    errorMessage += txtPayMentId.attr('data-val-required') + '\n\r';
+        //    errorMessage += txtPaymentSeq.attr('data-val-required') + '\n\r';
         //}
-        if (txtPaymentSeq.val() == '' || txtPaymentSeq.val() == undefined) {
-            isValid = false;
-            errorMessage += txtPaymentSeq.attr('data-val-required') + '\n\r';
-        }
         if (txtPaymentDate.val() == '' || txtPaymentDate.val() == undefined) {
             isValid = false;
             errorMessage += txtPaymentDate.attr('data-val-required') + '\n\r';
@@ -67,12 +66,18 @@ AddOrEditPayment = (form) => {
         if (txtFee.val() == '' || txtFee.val() == undefined) {
             isValid = false;
             errorMessage += txtFee.attr('data-val-required') + '\n\r';
-        } else {
-            if (parseInt(txtFee.val()) <= 0) {
-                isValid = false;
-                errorMessage += "ค่าปรับต้องมากกว่า 0" + '\n\r';
-            }
         }
+
+        if (txtStartOverdueStatus.val() == '' || txtStartOverdueStatus.val() == undefined) {
+            isValid = false;
+            errorMessage += txtStartOverdueStatus.attr('data-val-required') + '\n\r';
+        }
+
+        if (txtEndOverdueStatus.val() == '' || txtEndOverdueStatus.val() == undefined) {
+            isValid = false;
+            errorMessage += txtEndOverdueStatus.attr('data-val-required') + '\n\r';
+        }
+
 
         if (!isValid) {
             swal({
@@ -83,13 +88,14 @@ AddOrEditPayment = (form) => {
             return false;
         }
 
-
         payment.PaymentId = txtPaymentId.val();
-        payment.PaymentSeq = txtPaymentSeq.val();
+        //payment.PaymentSeq = txtPaymentSeq.val();
         payment.PaymentDate = txtPaymentDate.val();
         payment.Amount = txtAmoung.val();
         payment.Fee = txtFee.val();
         payment.CusId = txtCusId.val();
+        payment.StartOverdueStatus = txtStartOverdueStatus.val();
+        payment.EndOverdueStatus = txtEndOverdueStatus.val();
 
 
         $.ajax({

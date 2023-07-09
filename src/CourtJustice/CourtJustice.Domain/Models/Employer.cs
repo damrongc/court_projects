@@ -12,5 +12,10 @@ namespace CourtJustice.Domain.Models
         [Required]
         [Display(Name = "ผู้ว่าจ้าง")]
         public string EmployerName { get; set; } = string.Empty;
+
+        [Display(Name = "วันที่เริ่มต้นรอบบัญชี")]
+        public int StartDay { get; set; }
+        [Display(Name = "จำนวนวัน")]
+        public int TotalDay { get; set; }
     }
 }

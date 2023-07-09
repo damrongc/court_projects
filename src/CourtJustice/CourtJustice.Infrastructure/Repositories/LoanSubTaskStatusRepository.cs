@@ -1,16 +1,15 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class LoanSubTaskStatusRepository : BaseRepository,ILoanSubTaskStatusRepository
+    public class LoanSubTaskStatusRepository : BaseRepository, ILoanSubTaskStatusRepository
 
     {
-		public LoanSubTaskStatusRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+        public LoanSubTaskStatusRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
-		}
+        }
 
         public async Task Create(LoanSubTaskStatus model)
         {

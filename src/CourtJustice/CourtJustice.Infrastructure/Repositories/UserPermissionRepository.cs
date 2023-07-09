@@ -1,5 +1,4 @@
 ﻿using CourtJustice.Domain.Models;
-using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +15,7 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             await Context.UserPermissions.AddAsync(model);
             await Context.SaveChangesAsync();
-     
+
         }
 
         public async Task DeleteByGroupId(int id)

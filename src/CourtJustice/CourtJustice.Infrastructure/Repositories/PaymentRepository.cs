@@ -1,12 +1,12 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
+using CourtJustice.Infrastructure.Utils;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Data;
+using System.Text;
 namespace CourtJustice.Infrastructure.Repositories
 {
     public class PaymentRepository : BaseRepository, IPaymentRepository
@@ -108,7 +108,7 @@ namespace CourtJustice.Infrastructure.Repositories
 
                 sb.Append("select max(payment_seq) from payment where cus_id=@cus_id");
                 var seq = await conn.ExecuteScalarAsync<int>(sb.ToString(), new { cus_id = cusId });
-                return seq+1;
+                return seq + 1;
             }
             catch (Exception)
             {
@@ -161,8 +161,42 @@ namespace CourtJustice.Infrastructure.Repositories
             result.PaymentDate = model.PaymentDate;
             result.Amount = model.Amount;
             result.Fee = model.Fee;
-
+            result.StartOverdueStatus = model.StartOverdueStatus;
+            result.EndOverdueStatus = model.EndOverdueStatus;
             await Context.SaveChangesAsync();
+        }
+
+        public async Task BulkInsertOrUpdate(List<PaymentExcelViewModel> payments)
+        {
+            try
+            {
+                foreach (var item in payments)
+                {
+                    var payment = new Payment
+                    {
+                        CusId = item.CusId,
+                        PaymentSeq = 1,
+                        PaymentDate = DateOnly.FromDateTime(item.ReceiptDate),
+                        BookingDate = DateOnly.FromDateTime(item.BookingDate),
+                        Amount = item.TotalReceived,
+                        WOBalance= item.WOBalance,
+                        Fee = 0,
+                        IsActive = true,
+                        //UserCreated = item.UserCreated,
+                        //CreatedDateTime = DateTime.Now,
+                        StartOverdueStatus = item.StartOverdueStatus,
+                        EndOverdueStatus = item.EndOverdueStatus,
+                        EmployerCode=item.EmployerCode
+                    };
+                    await Context.Payments.AddAsync(payment);
+                }
+                await Context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

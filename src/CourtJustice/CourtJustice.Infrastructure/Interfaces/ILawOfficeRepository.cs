@@ -2,8 +2,8 @@
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface ILawOfficeRepository
-	{
+    public interface ILawOfficeRepository
+    {
         Task<List<LawOffice>> GetAll();
         Task Create(LawOffice model);
         Task Update(string id, LawOffice model);

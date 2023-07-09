@@ -1,20 +1,15 @@
 ﻿using CourtJustice.Domain.Models;
-using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class CaseResultRepository : BaseRepository , ICaseResultRepository
-	{
-		public CaseResultRepository(IConfiguration config, ApplicationDbContext context) : base (config, context)
-		{
-		}
+    public class CaseResultRepository : BaseRepository, ICaseResultRepository
+    {
+        public CaseResultRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+        {
+        }
 
         public async Task Create(CaseResult model)
         {
@@ -47,7 +42,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-       
+
     }
 }
 

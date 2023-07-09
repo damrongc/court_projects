@@ -7,8 +7,11 @@ namespace CourtJustice.Domain.Models
     public class BankActionCode : BaseEntity
     {
         [Key]
+        [Display(Name = "Action Code[ธนาคาร]")]
         public string BankActionCodeId { get; set; }
+        [Display(Name = "คำอธิบาย")]
         public string BankActionCodeName { get; set; }
+        [Display(Name = "ธนาคาร")]
         public string EmployerCode { get; set; }
 
         [ForeignKey(nameof(EmployerCode))]

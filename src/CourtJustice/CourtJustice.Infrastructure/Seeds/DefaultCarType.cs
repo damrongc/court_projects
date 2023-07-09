@@ -9,7 +9,7 @@ namespace CourtJustice.Infrastructure.Seeds
             var models = context.CarTypes.ToList();
             if (models.Count == 0)
             {
-                context.CarTypes.Add(new CarType { CarTypeName ="รถยนต์ 4 ประตู" });
+                context.CarTypes.Add(new CarType { CarTypeName = "รถยนต์ 4 ประตู" });
                 context.CarTypes.Add(new CarType { CarTypeName = "รถกะบะ" });
                 context.SaveChanges();
             }

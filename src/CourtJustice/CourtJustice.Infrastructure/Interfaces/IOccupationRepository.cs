@@ -1,10 +1,9 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface IOccupationRepository
-	{
+    public interface IOccupationRepository
+    {
         Task<List<Occupation>> GetAll();
         Task Create(Occupation model);
         Task Update(int id, Occupation model);

@@ -1,8 +1,9 @@
-﻿@using CourtJustice.Domain.Models
-@model AppUser
+﻿@using CourtJustice.Domain.ViewModels
+@model AppUserViewModel
 
 @{
     ViewData["Title"] = "ข้อมูลผู้ใช้งาน";
+    var groupId = Model.GroupId;
 }
 
 <div class="row">
@@ -31,11 +32,11 @@
                                 <input asp-for="Password" class="form-control" type="password" />
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
-           @*                 <div class="form-group">
-                                <label asp-for="DisplayName" class="control-label"></label>
-                                <input asp-for="DisplayName" class="form-control" />
-                                <span asp-validation-for="DisplayName" class="text-danger"></span>
-                            </div>*@
+                            <div class="form-group">
+                                <label asp-for="PhoneNumber" class="control-label"></label>
+                                <input asp-for="PhoneNumber" class="form-control" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
 
                             <div class="form-group">
                                 <label asp-for="Email" class="control-label"></label>
@@ -44,10 +45,28 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">กลุ่มผู้ใช้งาน</label>
-                                <select name="GroupId" class="form-control" id="GroupId" asp-for="GroupId" asp-items="@ViewBag.GroupUsers">
+                                <select name="GroupId" class="form-control" asp-for="GroupId" asp-items="@ViewBag.GroupUsers">
                                 </select>
                                 <span asp-validation-for="GroupId" class="text-danger"></span>
+                            </div>
 
+
+                            <div class="form-group">
+                                <label class="control-label">ผู้ว่าจ้าง/ธนาคาร</label>
+                                <select name="EmployerCode" class="form-control" asp-for="EmployerCode" asp-items="@ViewBag.Employers">
+                                </select>
+                                @*<span asp-validation-for="EmployerCode" class="text-danger"></span>*@
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">หัวหน้างาน</label>
+                                <select name="ManagerId" class="form-control" asp-for="ManagerId" asp-items="@ViewBag.Managers">
+                                </select>
+                                @*<span asp-validation-for="ManagerId" class="text-danger"></span>*@
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Target" class="control-label"></label>
+                                <input asp-for="Target" class="form-control" type="number" />
+                                @*<span asp-validation-for="Target" class="text-danger"></span>*@
                             </div>
 
                             <div class="form-group form-check">
@@ -73,5 +92,7 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

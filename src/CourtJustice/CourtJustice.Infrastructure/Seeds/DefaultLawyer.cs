@@ -11,7 +11,7 @@ namespace CourtJustice.Infrastructure.Seeds
             {
                 context.Lawyers.Add(new Lawyer
                 {
-                    LawyerName="ทนายเอ",
+                    LawyerName = "ทนายเอ",
                 });
                 context.Lawyers.Add(new Lawyer
                 {

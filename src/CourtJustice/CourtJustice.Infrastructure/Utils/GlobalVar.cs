@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Inventor.Infrastructure.Utils
+﻿namespace CourtJustice.Infrastructure.Utils
 {
     public static class GlobalVar
     {
@@ -112,7 +106,7 @@ namespace Inventor.Infrastructure.Utils
     public enum RunningCode { Packing, ExtraCode, BarCodeId, PalletNo, PutAway, Transfer, ConfirmIssue, Receive, Picking, QC, InTrans, Return, Purchase, Adjust };
     public enum TransState { New, Edit };
     public enum IssueDocType { None, Sale, Repack, Reprocess, QC, Damage, QC1, Produce, Others }
-    public enum DocType { Production, Purchase, Issue, Return, Receive, Picking,Stock }
+    public enum DocType { Production, Purchase, Issue, Return, Receive, Picking, Stock }
 
     public sealed class ControlChars
     {

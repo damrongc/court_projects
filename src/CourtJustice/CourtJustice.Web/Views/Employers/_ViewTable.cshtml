@@ -13,13 +13,25 @@
                     @Html.DisplayNameFor(model => model.EmployerName)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.StartDay)
+                </th>
+                   <th>
+                    @Html.DisplayNameFor(model => model.TotalDay)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.IsActive)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.UserCreated)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.CreatedDateTime)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.UpdatedDateTime)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.UserUpdated)
                 </th>
                 <th>
 
@@ -37,6 +49,12 @@
                         @Html.DisplayFor(modelItem => item.EmployerName)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.StartDay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalDay)
+                    </td>
+                    <td>
                         @if (item.IsActive)
                         {
                             <div class="badge badge-outline-success badge-pill">ใช้งาน</div>
@@ -51,6 +69,12 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatedDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdatedDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserUpdated)
                     </td>
                     <td class="w100">
                         <div class="d-inline">

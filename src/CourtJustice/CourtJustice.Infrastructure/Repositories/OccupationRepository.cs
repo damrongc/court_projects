@@ -1,16 +1,15 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class OccupationRepository : BaseRepository, IOccupationRepository
+    public class OccupationRepository : BaseRepository, IOccupationRepository
     {
-		public OccupationRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+        public OccupationRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
-		}
+        }
 
         public async Task Create(Occupation model)
         {
@@ -41,7 +40,7 @@ namespace CourtJustice.Infrastructure.Repositories
             var result = await Context.Occupations.FindAsync(model.OccupationId);
             result.OccupationName = model.OccupationName;
             result.IsActive = model.IsActive;
-          
+
 
             await Context.SaveChangesAsync();
         }

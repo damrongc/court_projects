@@ -1,10 +1,9 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface INationalityRepository
-	{
+    public interface INationalityRepository
+    {
         Task<List<Nationality>> GetAll();
         Task Create(Nationality model);
         Task Update(string id, Nationality model);

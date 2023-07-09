@@ -1,16 +1,12 @@
 ﻿using CourtJustice.Domain.Models;
-using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class BucketRepository :BaseRepository, IBucketRepository
-	{
+    public class BucketRepository : BaseRepository, IBucketRepository
+    {
         public BucketRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
         }
@@ -21,7 +17,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-    
+
 
         public async Task Delete(int id)
         {
@@ -35,9 +31,9 @@ namespace CourtJustice.Infrastructure.Repositories
             return await Context.Buckets.ToListAsync();
         }
 
-      
 
-      
+
+
 
         public async Task<Bucket> GetByKey(int id)
         {

@@ -1,0 +1,19 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CourtJustice.Domain.ViewModels
+{
+    public class RemainTaskViewModel
+    {
+        public int TaskId { get; set; }
+        [Display(Name = "วันที่ทำรายการ")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
+        public DateTime TaskDatetime { get; set; }
+        [Display(Name = "รายละเอียด")]
+        public string TaskDetail { get; set; }
+        [Display(Name = "พนักงาน")]
+        public string AssignTo { get; set; }
+        [Display(Name = "หัวหน้า")]
+        public string AssignFrom { get; set; }
+        public string AssignFromName { get; set; }
+    }
+}

@@ -1,5 +1,5 @@
-﻿@using CourtJustice.Domain.Models
-@model IEnumerable<AppUser>
+﻿@using CourtJustice.Domain.ViewModels
+@model IEnumerable<AppUserViewModel>
 
 
 <div class="table-responsive">
@@ -16,19 +16,22 @@
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.GroupUser!.GroupName)
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GroupName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Target)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ManagerName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.IsActive)
                 </th>
          
-                <th>
-                    @Html.DisplayNameFor(model => model.UserUpdated)
-                </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedDateTime)
-                </th>
                 <th>
                 </th>
             </tr>
@@ -47,7 +50,16 @@
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelIitem => item.GroupUser!.GroupName)
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelIitem => item.GroupName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Target)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ManagerName)
                     </td>
                     <td>
                         @if (item.IsActive)
@@ -60,12 +72,7 @@
                         }
                     </td>
                
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedDateTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserCreated)
-                    </td>
+        
 
                     <td class="w100">
                         <div class="d-inline">

@@ -52,7 +52,7 @@ namespace CourtJustice.Infrastructure.Repositories
             }
         }
 
-        public  async Task<int> GetRecordCount(string filter)
+        public async Task<int> GetRecordCount(string filter)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace CourtJustice.Infrastructure.Repositories
                     sb.Append(" where postal_code LIKE @filter");
                 }
                 var dictionary = new Dictionary<string, object>();
-                
+
                 if (!string.IsNullOrEmpty(filter))
                 {
                     dictionary.Add("@filter", string.Format("%{0}%", filter));

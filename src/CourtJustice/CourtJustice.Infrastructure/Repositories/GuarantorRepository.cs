@@ -4,7 +4,6 @@ using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Data;
 using System.Text;
 

@@ -1,5 +1,5 @@
-﻿@using CourtJustice.Domain.Models;
-@model IEnumerable<GroupUser>
+﻿@using CourtJustice.Domain.ViewModels;
+@model IEnumerable<GroupUserViewModel>
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover data-table">
@@ -11,6 +11,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.GroupName)
                 </th>
+                @*                <th>
+                @Html.DisplayNameFor(model => model.EmployerName)
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.IsActive)
                 </th>
@@ -28,11 +31,14 @@
             {
                 <tr>
                     <td class="w100">
-                        <div class="badge badge-success badge-pill">@item.GroupId</div>
+                        @Html.DisplayFor(modelItem => item.GroupId)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.GroupName)
                     </td>
+                    @*                    <td>
+                @Html.DisplayFor(modelItem => item.EmployerName)
+                </td>*@
                     <td>
                         @if (item.IsActive)
                         {

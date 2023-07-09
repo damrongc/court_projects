@@ -4,6 +4,7 @@ using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CourtJustice.Web.Controllers
 {
@@ -12,14 +13,16 @@ namespace CourtJustice.Web.Controllers
         private readonly IGroupUserRepository _groupUserRepository;
         private readonly IUserPermissionRepository _userPermissionRepository;
         private readonly IAppProgramRepository _appProgramRepository;
-
+        private readonly IEmployerRepository _employerRepository;
         public GroupUsersController(IGroupUserRepository groupUserRepository,
             IUserPermissionRepository userPermissionRepository,
-            IAppProgramRepository appProgramRepository)
+            IAppProgramRepository appProgramRepository,
+            IEmployerRepository employerRepository)
         {
             _groupUserRepository = groupUserRepository;
             _userPermissionRepository = userPermissionRepository;
             _appProgramRepository = appProgramRepository;
+            _employerRepository = employerRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -29,14 +32,15 @@ namespace CourtJustice.Web.Controllers
 
 
 
-        private async Task<List<GroupUser>> GetAll()
+        private async Task<List<GroupUserViewModel>> GetAll()
         {
             var results = await _groupUserRepository.GetAll();
             return results.ToList();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await GetEmployers();
             return View(new GroupUser { IsActive=true});
         }
 
@@ -50,12 +54,26 @@ namespace CourtJustice.Web.Controllers
                 _notify.Success($"{model.GroupName} is Created.");
                 return RedirectToAction(nameof(Index));
             }
+            await GetEmployers();
             return View(model);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             var model = await _groupUserRepository.GetByKey(id);
+            //var employers = await _employerRepository.GetAll();
+            //employers.Insert(0, new Employer { EmployerCode = "", EmployerName = "==ไม่ระบุ==" });
+            //List<SelectListItem> selects = new();
+            //foreach (var item in employers)
+            //{
+            //    selects.Add(new SelectListItem
+            //    {
+            //        Selected = item.EmployerCode== model.EmployerCode? true:false,
+            //        Text = $"{item.EmployerName}",
+            //        Value = item.EmployerCode.ToString(),
+            //    });
+            //}
+            //ViewBag.Employers = selects;
             return View(model);
         }
 
@@ -77,6 +95,7 @@ namespace CourtJustice.Web.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+            await GetEmployers();
             return View(model);
         }
 
@@ -272,6 +291,22 @@ namespace CourtJustice.Web.Controllers
                 return new JsonResult(new { isValid = false, message = ex.ToString() });
             }
 
+        }
+
+        private async Task GetEmployers()
+        {
+            var employers = await _employerRepository.GetAll();
+            employers.Insert(0, new Employer {EmployerCode="",EmployerName="==ไม่ระบุ==" });
+            List<SelectListItem> selects = new();
+            foreach (var item in employers)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = $"{item.EmployerName}",
+                    Value = item.EmployerCode.ToString(),
+                });
+            }
+            ViewBag.Employers = selects;
         }
     }
 }

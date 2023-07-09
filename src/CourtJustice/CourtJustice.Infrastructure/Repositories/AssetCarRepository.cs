@@ -1,6 +1,5 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +21,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-   
+
 
         public async Task Delete(string id)
         {
@@ -30,7 +29,7 @@ namespace CourtJustice.Infrastructure.Repositories
             Context.AssetCars.Remove(model);
             await Context.SaveChangesAsync();
         }
-    
+
 
         public async Task<List<AssetCar>> GetAll()
         {
@@ -67,7 +66,7 @@ namespace CourtJustice.Infrastructure.Repositories
             return model;
         }
 
-    
+
 
         public bool IsExisting(string id)
         {
@@ -89,7 +88,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-       
+
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.NetworkInformation;
 
 namespace CourtJustice.Domain.Models
 {
@@ -8,44 +9,51 @@ namespace CourtJustice.Domain.Models
     {
         [Key]
         public int LoaneeRemarkId { get; set; }
-        [Required]
-        public string Remark { get; set; }
-
         public string CusId { get; set; }
         [ForeignKey(nameof(CusId))]
         public virtual Loanee? Loanee { set; get; }
 
-
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime TransactionDatetime { get; set; } = DateTime.Now;
 
+        [Display(Name = "Action Code[ธนาคาร]")]
         public string BankActionCodeId { get; set; }
         [ForeignKey(nameof(BankActionCodeId))]
         public virtual BankActionCode? BankActionCode { set; get; }
 
+        [Display(Name = "Result Code[ธนาคาร]")]
         public string BankResultCodeId { get; set; }
         [ForeignKey(nameof(BankResultCodeId))]
         public virtual BankResultCode? BankResultCode { set; get; }
 
+        [Display(Name = "Action Code[บริษัท]")]
         public string CompanyActionCodeId { get; set; }
         [ForeignKey(nameof(CompanyActionCodeId))]
         public virtual CompanyActionCode? CompanyActionCode { set; get; }
+
+        [Display(Name = "Result Code[บริษัท]")]
         public string CompanyResultCodeId { get; set; }
         [ForeignKey(nameof(CompanyResultCodeId))]
         public virtual CompanyResultCode? CompanyResultCode { set; get; }
 
-
         [Display(Name = "เบอร์ติดต่อ")]
-        public string? ContractNo { get; set; }
+        public string? FollowContractNo { get; set; }
 
-        [Required]
-        [Display(Name = "วันนัด")]
-        public DateOnly AppointmentDate { get; set; }
+        [Display(Name = "วันที่นัด")]
+        public DateOnly? AppointmentDate { get; set; }
 
         [Display(Name = "ยอดจ่าย")]
         public decimal? Amount { get; set; }
 
         [Display(Name = "ผู้นัด")]
         public string? AppointmentContract { get; set; }
+        [Required]
+        [Display(Name = "หมายเหตุ")]
+        public string Remark { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime? UpdateDatetime { get; set; }
+
+        [Required]
+        public string EmployerCode { get; set; }
     }
 }

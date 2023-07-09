@@ -1,4 +1,5 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CourtJustice.Infrastructure.Interfaces
@@ -7,7 +8,7 @@ namespace CourtJustice.Infrastructure.Interfaces
     {
         bool HasChanges { get; }
 
-        
+
         public DbSet<Lawyer> Lawyers { get; set; }
         public DbSet<AppProgram> AppPrograms { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
@@ -48,6 +49,17 @@ namespace CourtJustice.Infrastructure.Interfaces
         public DbSet<JusticeAppointment> JusticeAppointments { get; set; }
         public DbSet<JusticeCaseDocument> JusticeCaseDocuments { get; set; }
         public DbSet<JusticeCaseLawyer> JusticeCaseLawyers { get; set; }
+        public DbSet<BankActionCode> BankActionCodes { get; set; }
+        public DbSet<BankResultCode> BankResultCodes { get; set; }
+        public DbSet<CompanyActionCode> CompanyActionCodes { get; set; }
+        public DbSet<CompanyResultCode> CompanyResultCodes { get; set; }
+        public DbSet<RemainTask> RemainTasks { get; set; }
+        public DbSet<UserEmployerMapping> UserEmployerMappings { get; set; }
+
+        public DbSet<MonthModel> MonthModels { get; set; }
+        public DbSet<ReceiptSummary> ReceiptSummaries { get; set; }
+
+
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

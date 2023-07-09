@@ -1,0 +1,51 @@
+﻿@using CourtJustice.Domain.Models;
+@model RemainTask
+
+@{
+    ViewData["Title"] = "ข้อความเตือน";
+
+}
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" asp-for="AssignTo"></label>
+                                    <select class="form-control dropdown" id="ddlEmployee" asp-for="AssignTo" asp-items="@ViewBag.Employees">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label asp-for="TaskDetail" class="control-label"></label>
+                                    <input asp-for="TaskDetail" class="form-control" />
+                                    <span asp-validation-for="TaskDetail" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a asp-action="Index" class="btn btn-light">Back</a>
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/pages/remain_task.js" asp-append-version="true"></script>
+    }
+}

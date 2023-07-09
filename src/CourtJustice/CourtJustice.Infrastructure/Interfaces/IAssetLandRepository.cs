@@ -1,11 +1,10 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface IAssetLandRepository
-	{
+    public interface IAssetLandRepository
+    {
         Task<List<AssetLand>> GetAll();
         Task Create(AssetLand model);
         Task Update(string id, AssetLand model);

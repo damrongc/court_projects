@@ -1,9 +1,4 @@
 ﻿using CourtJustice.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
@@ -11,10 +6,9 @@ namespace CourtJustice.Infrastructure.Interfaces
     {
         Task<List<Lawyer>> GetAll();
         Task Create(Lawyer model);
-        Task Update(int id, Lawyer model);
-        Task Delete(int id);
-        Task<Lawyer> GetByKey(int id);
-
-        Task<int> CheckExistingAtUser(int id);
+        Task Update(string id, Lawyer model);
+        Task Delete(string id);
+        Task<Lawyer> GetByKey(string id);
+        Task<int> CheckExistingAtUser(string id);
     }
 }

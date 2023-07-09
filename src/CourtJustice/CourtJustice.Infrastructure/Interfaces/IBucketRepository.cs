@@ -2,8 +2,8 @@
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface IBucketRepository
-	{
+    public interface IBucketRepository
+    {
 
         Task<List<Bucket>> GetAll();
         Task Create(Bucket model);

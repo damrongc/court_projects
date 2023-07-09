@@ -1,46 +1,38 @@
-﻿using CourtJustice.Domain.Models;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CourtJustice.Domain.ViewModels
 {
     public class LoaneeRemarkViewModel
 	{
         public int LoaneeRemarkId { get; set; }
-        public string Remark { get; set; }
+        public string ContractNo { get; set; }
+        public string NationalityId { get; set; }
         public string CusId { get; set; }
+        public string Name { get; set; }
 
-        [Display(Name = "วันที่ทำ")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [Display(Name = "วันเวลาทำรายการ")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime TransactionDatetime { get; set; } = DateTime.Now;
-
-
-        [Display(Name = "รหัสการดำเนินการของธนาคาร")]
         public string BankActionCodeId { get; set; }
-
-        [Display(Name = "การดำเนินการของธนาคาร")]
+        
+        [Display(Name = "Action Code[ธนาคาร]")]
         public string BankActionCodeName { get; set; }
-        [Display(Name = "รหัสผลการดำเนินการของธนาคาร")]
         public string BankResultCodeId { get; set; }
 
-        [Display(Name = "ผลการดำเนินการของธนาคาร")]
+        [Display(Name = "Result Code[ธนาคาร]")]
         public string BankResultCodeName { get; set; }
-        [Display(Name = "รหัสการดำเนินการของบริษัท")]
         public string CompanyActionCodeId { get; set; }
 
-        [Display(Name = "การดำเนินการของบริษัท")]
+        [Display(Name = "Person Code[ธนาคาร]")]
         public string CompanyActionCodeName { get; set; }
-        [Display(Name = "รหัสผลการดำเนินการของบริษัท")]
         public string CompanyResultCodeId { get; set; }
 
-        [Display(Name = "ผลการดำเนินการของบริษัท")]
+        [Display(Name = "Result Code[บริษัท]")]
         public string CompanyResultCodeName { get; set; }
 
         [Display(Name = "เบอร์ติดต่อ")]
-        public string ContractNo { get; set; }
+        public string FollowContractNo { get; set; }
 
-      
         [Display(Name = "วันนัด")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime AppointmentDate { get; set; }
@@ -51,6 +43,9 @@ namespace CourtJustice.Domain.ViewModels
 
         [Display(Name = "ผู้นัด")]
         public string AppointmentContract { get; set; }
+        [Display(Name = "หมายเหตุ")]
+        public string Remark { get; set; }
+        public string EmployerCode { get; set; }
     }
 }
 

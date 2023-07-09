@@ -1,9 +1,4 @@
 ﻿using CourtJustice.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtJustice.Infrastructure.Seeds
 {
@@ -16,17 +11,18 @@ namespace CourtJustice.Infrastructure.Seeds
             {
                 context.AppUsers.Add(new AppUser
                 {
-                    UserId= "admin",
-                    UserName= "Administrator",
-                    Password= "fORRNGKa8yYj1WaiuGE079GcOFcTadWiDkwa7Hzd0yg=",
-                    Email= "admin@inventor.com",
-                    GroupId=1,
-                    IsActive=true,
+                    UserId = "admin",
+                    UserName = "ผู้ดูแลระบบ",
+                    Password = "fORRNGKa8yYj1WaiuGE079GcOFcTadWiDkwa7Hzd0yg=",
+                    Email = "admin@court.com",
+                    PhoneNumber = "",
+                    GroupId = 1,
+                    IsActive = true,
                     UserCreated = "admin",
                     CreatedDateTime = DateTime.UtcNow
 
                 });
-               context.SaveChanges();
+                context.SaveChanges();
             }
 
         }

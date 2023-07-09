@@ -2,11 +2,6 @@
 using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
@@ -31,7 +26,7 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public async Task<List<LoanType>> GetAll()
         {
-           
+
             return await Context.LoanTypes.ToListAsync();
         }
 

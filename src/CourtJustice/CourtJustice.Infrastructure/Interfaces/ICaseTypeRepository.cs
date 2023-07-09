@@ -1,10 +1,9 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface ICaseTypeRepository
-	{
+    public interface ICaseTypeRepository
+    {
         Task<List<CaseType>> GetAll();
         Task Create(CaseType model);
         Task Update(string id, CaseType model);

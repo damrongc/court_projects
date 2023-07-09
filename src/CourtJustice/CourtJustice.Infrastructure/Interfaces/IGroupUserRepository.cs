@@ -1,10 +1,11 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
     public interface IGroupUserRepository
     {
-        Task<List<GroupUser>> GetAll();
+        Task<List<GroupUserViewModel>> GetAll();
         Task Create(GroupUser model);
         Task Update(int id, GroupUser model);
         Task Delete(int id);

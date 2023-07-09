@@ -1,17 +1,16 @@
-﻿using System;
-using System.Data;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Data;
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class LoanTaskStatusRepository : BaseRepository, ILoanTaskStatusRepository
-	{
-		public LoanTaskStatusRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+    public class LoanTaskStatusRepository : BaseRepository, ILoanTaskStatusRepository
+    {
+        public LoanTaskStatusRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
-		}
+        }
 
         public async Task<int> CheckExistingAtSub(int id)
         {
@@ -29,7 +28,7 @@ namespace CourtJustice.Infrastructure.Repositories
             }
         }
 
-        public  async Task Create(LoanTaskStatus model)
+        public async Task Create(LoanTaskStatus model)
         {
             await Context.LoanTaskStatuses.AddAsync(model);
             await Context.SaveChangesAsync();
@@ -42,7 +41,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async  Task<List<LoanTaskStatus>> GetAll()
+        public async Task<List<LoanTaskStatus>> GetAll()
         {
             return await Context.LoanTaskStatuses.ToListAsync();
         }

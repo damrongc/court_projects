@@ -1,5 +1,5 @@
-﻿@using CourtJustice.Domain.Models
-@model IEnumerable<Employee>
+﻿@using CourtJustice.Domain.ViewModels
+@model IEnumerable<EmployeeViewModel>
 
 @{
     ViewData["Title"] = "พนักงาน";
@@ -11,7 +11,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-3">
                     <h3 class="mb-3">@ViewData["Title"]</h3>
-                    <a asp-action="Create" class="btn btn-success text-white"><i class="fa fa-plus"></i> Create New</a>
+                    @*<a asp-action="Create" class="btn btn-success text-white"><i class="fa fa-plus"></i> Create New</a>*@
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
 </div>
 
 @Html.Hidden("hdDeleteRoute", Url.Action("Delete", "Employees"))
-@section scripts{
+@*@section scripts{
     <script src="~/js/pages/address_lookup.js" asp-append-version="true"></script>
     <script src="~/js/pages/employee.js" asp-append-version="true"></script>
-}
+}*@

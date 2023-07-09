@@ -3,18 +3,51 @@
 @{
     Layout = null;
     ViewData["Title"] = "รายละเอียดลูกหนี้";
-    var firstPaidDate = Model.FirstPaidDate == DateTime.MinValue ? "" : Model.FirstPaidDate.ToString("dd-MM-yyyy");
-    var lastPaidDate = Model.LastPaidDate == DateTime.MinValue ? "" : Model.LastPaidDate.ToString("dd-MM-yyyy");
-    var dueDate = Model.DueDate == DateTime.MinValue ? "" : Model.DueDate.ToString("dd-MM-yyyy");
-    var followUpDate = Model.FollowUpDate == DateTime.MinValue ? "" : Model.FollowUpDate.ToString("dd-MM-yyyy");
-    var cpDate = Model.CPDate == DateTime.MinValue ? "" : Model.CPDate.ToString("dd-MM-yyyy");
-    var woDate = Model.WODate == DateTime.MinValue ? "" : Model.WODate.ToString("dd-MM-yyyy");
+    //var firstPaidDate = Model.FirstPaidDate == DateTime.MinValue ? "" : Model.FirstPaidDate.ToString("dd-MM-yyyy");
+    //var lastPaidDate = Model.LastPaidDate == DateTime.MinValue ? "" : Model.LastPaidDate.ToString("dd-MM-yyyy");
+    //var dueDate = Model.DueDate == DateTime.MinValue ? "" : Model.DueDate.ToString("dd-MM-yyyy");
+    //var followUpDate = Model.FollowUpDate == DateTime.MinValue ? "" : Model.FollowUpDate.ToString("dd-MM-yyyy");
+    //var cpDate = Model.CPDate == DateTime.MinValue ? "" : Model.CPDate.ToString("dd-MM-yyyy");
+    //var woDate = Model.WODate == DateTime.MinValue ? "" : Model.WODate.ToString("dd-MM-yyyy");
+
+    var firstPaidDate = Model.FirstPaidDate;
+    var lastPaidDate =Model.LastPaidDate;
+    var dueDate =Model.DueDate;
+    var followUpDate = Model.FollowUpDate;
+    var cpDate =  Model.CPDate;
+    var woDate =  Model.WODate;
+
+    bool isEditable = ViewBag.IsEditable;
 }
+<style>
+    .form-group {
+        margin-bottom: 0.0rem !important;
+    }
+
+    .form-control, .asColorPicker-input, .dataTables_wrapper select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number], .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-search__field, .typeahead, .tt-query, .tt-hint {
+        height: 30px !important;
+    }
+
+        select.form-control, select.asColorPicker-input, .dataTables_wrapper select, .jsgrid .jsgrid-table .jsgrid-filter-row select, .select2-container--default select.select2-selection--single, .select2-container--default .select2-selection--single select.select2-search__field, select.typeahead, select.tt-query, select.tt-hint {
+            padding: .0rem .75rem !important;
+        }
+        .tab-content {
+        padding: 1rem 1rem !important;
+}
+</style>
+
 <div class="row">
     <div class="col-md-12 mb-3 d-flex flex-wrap justify-content-end">
-        <a href="#" class="btn btn-warning btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ออก Notice</a>
-        <a href="#" class="btn btn-info btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ขออนุมัติฟ้อง-เอกสาร</a>
-        <a href="#" class="btn btn-info btn-sm" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ขออนุมัติส่วนลด-เอกสาร</a>
+        @{
+            @if (@isEditable)
+            {
+
+                <input type="button" value="บันทึกข้อมูล" class="btn btn-primary btn-sm mr-2" onclick="return updateLoanee();" />
+            }
+        }
+        <a href="#" class="btn btn-warning btn-sm mr-2" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ออก Notice</a>
+        <a href="#" class="btn btn-info btn-sm mr-2" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ขออนุมัติฟ้อง-เอกสาร</a>
+        <a href="#" class="btn btn-info btn-sm mr-2" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ขออนุมัติส่วนลด-เอกสาร</a>
         <a href="#" class="btn btn-danger btn-sm" onclick="return navigateTo('@Url.Action("Create","JusticeCase",new {id=Model.CusId})')">ฟ้องคดี</a>
     </div>
 </div>
@@ -37,116 +70,139 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" readonly />
+                    <input asp-for="Name" class="form-control" id="txtName" />
                 </div>
                 <div class="form-group col-md-2">
                     <label class="control-label" asp-for="LoanTypeCode"></label>
                     <select class="form-control dropdown" id="ddlLoanTypes" asp-for="LoanTypeCode" asp-items="@ViewBag.LoanTypes">
                     </select>
                 </div>
-                <div class="form-group col-md-2">
+        @*        <div class="form-group col-md-2">
                     <label class="control-label">อาชีพ</label>
                     <select class="form-control dropdown" id="ddlOccupations" asp-for="OccupationId" asp-items="@ViewBag.Occupations">
                     </select>
-                </div>
+                </div>*@
             </div>
 
             <div class="row">
                 <div class="form-group col-md-2">
                     <label asp-for="HomeAddress1" class="control-label"></label>
-                    <input asp-for="HomeAddress1" class="form-control" readonly/>
+                    <input asp-for="HomeAddress1" class="form-control" id="txtHomeAddress1" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="HomeAddress2" class="control-label"></label>
-                    <input asp-for="HomeAddress2" class="form-control" readonly />
+                    <input asp-for="HomeAddress2" class="form-control" id="txtHomeAddress2" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="HomeAddress3" class="control-label"></label>
-                    <input asp-for="HomeAddress3" class="form-control" readonly />
+                    <input asp-for="HomeAddress3" class="form-control" id="txtHomeAddress3" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="HomeAddress4" class="control-label"></label>
-                    <input asp-for="HomeAddress4" class="form-control" readonly />
+                    <input asp-for="HomeAddress4" class="form-control" id="txtHomeAddress4" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="TelephoneHome" class="control-label"></label>
-                    <input asp-for="TelephoneHome" class="form-control" readonly />
+                    <input asp-for="TelephoneHome" class="form-control" id="txtTelephoneHome" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="MobileHome" class="control-label"></label>
-                    <input asp-for="MobileHome" class="form-control" readonly />
+                    <input asp-for="MobileHome" class="form-control" id="txtMobileHome" />
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-2">
                     <label asp-for="IdenAddress1" class="control-label"></label>
-                    <input asp-for="IdenAddress1" class="form-control" readonly/>
+                    <input asp-for="IdenAddress1" class="form-control" id="txtIdenAddress1" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="IdenAddress2" class="control-label"></label>
-                    <input asp-for="IdenAddress2" class="form-control" readonly/>
+                    <input asp-for="IdenAddress2" class="form-control" id="txtIdenAddress2" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="IdenAddress3" class="control-label"></label>
-                    <input asp-for="IdenAddress3" class="form-control" readonly />
+                    <input asp-for="IdenAddress3" class="form-control" id="txtIdenAddress3" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="IdenAddress4" class="control-label"></label>
-                    <input asp-for="IdenAddress4" class="form-control" readonly/>
+                    <input asp-for="IdenAddress4" class="form-control" id="txtIdenAddress4" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="MobileEmg" class="control-label"></label>
-                    <input asp-for="MobileEmg" class="form-control" readonly />
+                    <input asp-for="MobileEmg" class="form-control" id="txtMobileEmg" />
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-2">
+                    <label asp-for="CompanyName" class="control-label"></label>
+                    <input asp-for="CompanyName" class="form-control" id="txtCompanyName" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="Salary" class="control-label"></label>
+                    <input asp-for="Salary" class="form-control" id="txtSalary" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="OccupationName" class="control-label"></label>
+                    <input asp-for="OccupationName" class="form-control" id="txtOccupationName" />
+                </div>
+  
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-2">
                     <label asp-for="OfficeAddress1" class="control-label"></label>
-                    <input asp-for="OfficeAddress1" class="form-control" readonly />
+                    <input asp-for="OfficeAddress1" class="form-control" id="txtOfficeAddress1" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="OfficeAddress2" class="control-label"></label>
-                    <input asp-for="OfficeAddress2" class="form-control" readonly/>
+                    <input asp-for="OfficeAddress2" class="form-control" id="txtOfficeAddress2" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="OfficeAddress3" class="control-label"></label>
-                    <input asp-for="OfficeAddress3" class="form-control" readonly />
+                    <input asp-for="OfficeAddress3" class="form-control" id="txtOfficeAddress3" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="OfficeAddress4" class="control-label"></label>
-                    <input asp-for="OfficeAddress4" class="form-control" readonly />
+                    <input asp-for="OfficeAddress4" class="form-control" id="txtOfficeAddress4" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="TelephoneOffice" class="control-label"></label>
-                    <input asp-for="TelephoneOffice" class="form-control" readonly />
+                    <input asp-for="TelephoneOffice" class="form-control" id="txtTelephoneOffice" />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="MobileOffice" class="control-label"></label>
-                    <input asp-for="MobileOffice" class="form-control" readonly />
+                    <input asp-for="MobileOffice" class="form-control" id="txtMobileOffice" />
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-md-2">
-                    <label class="control-label" asp-for="EmployerCode"></label>
-                    <select class="form-control dropdown" id="ddlEmployer" asp-for="EmployerCode" asp-items="@ViewBag.Employers">
-                    </select>
+                    <label class="control-label" asp-for="EmployerName"></label>
+                    <input asp-for="EmployerName" class="form-control" readonly />
+                    @*           <select class="form-control dropdown" id="ddlEmployer" asp-for="EmployerCode" asp-items="@ViewBag.Employers">
+                    </select>*@
                 </div>
                 <div class="form-group col-md-2">
                     <label class="control-label" asp-for="EmployeeCode"></label>
-                    <select class="form-control dropdown" id="ddlEmployees" asp-for="EmployeeCode" asp-items="@ViewBag.Employees">
-                    </select>
+                    <input asp-for="EmployeeCode" class="form-control" readonly />
+         @*           <select class="form-control dropdown" id="ddlEmployees" asp-for="EmployeeCode" asp-items="@ViewBag.Employees">
+                    </select>*@
                 </div>
                 <div class="form-group col-md-2">
                     <label class="control-label" asp-for="BucketId"></label>
                     <select class="form-control dropdown" id="ddlBuckets" asp-for="BucketId" asp-items="@ViewBag.Buckets">
                     </select>
                 </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label" asp-for="LoanTaskStatusId"></label>
+                    <select class="form-control dropdown" id="ddlLoanTaskStatus" asp-for="LoanTaskStatusId" asp-items="@ViewBag.LoanTaskStatus">
+                    </select>
+                </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-2">
                     <label asp-for="WODate" class="control-label"></label>
-                    <input type="text" class="form-control dateonly" id="txtWODate" value="@woDate" readonly/>
+                    <input type="text" class="form-control dateonly" id="txtWODate" value="@woDate" readonly />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="Term" class="control-label"></label>
@@ -154,11 +210,11 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="LoanAmount" class="control-label"></label>
-                    <input asp-for="LoanAmount" class="form-control" type="number" step="0.01" min="0" readonly/>
+                    <input asp-for="LoanAmount" class="form-control" type="number" step="0.01" min="0" readonly />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="WOBalance" class="control-label"></label>
-                    <input asp-for="WOBalance" class="form-control" type="number" step="0.01" min="0" readonly/>
+                    <input asp-for="WOBalance" class="form-control" type="number" step="0.01" min="0" readonly />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="InstallmentsByContract" class="control-label"></label>
@@ -192,13 +248,12 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="RcvAmtAfterWO" class="control-label"></label>
-                    <input asp-for="RcvAmtAfterWO" class="form-control" type="number" step="0.01" min="0" readonly/>
+                    <input asp-for="RcvAmtAfterWO" class="form-control" type="number" step="0.01" min="0" readonly />
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-2">
                     <label asp-for="FirstPaidDate" class="control-label"></label>
-
                     <input type="text" class="form-control dateonly" id="txtFirstPaidDate" value="@firstPaidDate" readonly />
                 </div>
                 <div class="form-group col-md-2">
@@ -223,7 +278,7 @@
             <div class="row">
                 <div class="form-group col-md-2">
                     <label asp-for="IntereteRate" class="control-label"></label>
-                    <input asp-for="IntereteRate" class="form-control" type="number" step="0.01" min="0" readonly/>
+                    <input asp-for="IntereteRate" class="form-control" type="number" step="0.01" min="0" readonly />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="IntereteRateAmount" class="control-label"></label>
@@ -235,24 +290,18 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="PaidInMonthAmount" class="control-label"></label>
-                    <input asp-for="PaidInMonthAmount" class="form-control" type="number" step="0.01" min="0" readonly/>
+                    <input asp-for="PaidInMonthAmount" class="form-control" type="number" step="0.01" min="0" readonly />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="TotalAmount" class="control-label"></label>
-                    <input asp-for="TotalAmount" class="form-control" type="number" step="0.01" min="0" readonly/>
+                    <input asp-for="TotalAmount" class="form-control" type="number" step="0.01" min="0" readonly />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="RemainingAmount" class="control-label"></label>
                     <input asp-for="RemainingAmount" class="form-control" type="number" step="0.01" min="0" readonly />
                 </div>
             </div>
-            @*            <div class="row">
 
-            <div class="form-group col-md-2">
-            <label asp-for="OverdueDayAmount" class="control-label"></label>
-            <input asp-for="OverdueDayAmount" class="form-control" type="number" />
-            </div>
-            </div>*@
             <div class="row">
                 <div class="form-group col-md-2">
                     <label asp-for="CPCase" class="control-label"></label>
@@ -260,7 +309,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="NoOfCP" class="control-label"></label>
-                    <input asp-for="NoOfCP" class="form-control" type="number" readonly/>
+                    <input asp-for="NoOfCP" class="form-control" type="number" readonly />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="CPDate" class="control-label"></label>
@@ -272,7 +321,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="MaxOAFeeAmount" class="control-label"></label>
-                    <input asp-for="MaxOAFeeAmount" class="form-control" type="number" step="0.01" min="0" readonly/>
+                    <input asp-for="MaxOAFeeAmount" class="form-control" type="number" step="0.01" min="0" readonly />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="MaxOAFeeBalance" class="control-label"></label>
@@ -280,344 +329,103 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="บันทึกข้อมูล" class="btn btn-primary btn-sm" />
-            </div>
-
         </form>
     </div>
 </div>
-@*<div class="row">
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                กลุ่มงาน
-            </dt>
-            <dd class="col-sm-6">
-                <select id="ddlLoanTaskStatus" class="form-control" asp-items="ViewBag.LoanTaskStatus"></select>
-            </dd>
-            <dt class="col-sm-6">
-                ผู้ว่าจ้าง
-            </dt>
-            <dd class="col-sm-6">
-                <select id="ddlEmployer" class="form-control" asp-items="ViewBag.Employers"></select>
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                พนักงานที่รับผิดชอบ
-            </dt>
-            <dd class="col-sm-6">
-                <select id="ddlEmployee" class="form-control" asp-items="ViewBag.Employees"></select>
-            </dd>
-        </dl>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.ContractNo)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.ContractNo)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.ContractDate)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.ContractDate)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.CusId)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.CusId)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.NationalityId)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.NationalityId)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.InstallmentsByContract)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.InstallmentsByContract)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.LoanAmount)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.LoanAmount)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.Term)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.Term)
-            </dd>
-        </dl>
+<div class="card">
+    <div class="card-body">
+        <ul class="nav nav-tabs" role="tablist">
+            @*        <li class="nav-item">
+            <a class="nav-link active" id="loanee-tab" data-toggle="tab" href="#loanee-1" role="tab" aria-controls="loanee-1" aria-selected="true">รายละเอียดลูกหนี้</a>
+            </li>*@
+            <li class="nav-item">
+                <a class="nav-link active" id="remark-tab" data-toggle="tab" role="tab" href="#remark-1" aria-controls="remark-1" aria-selected="false" onclick="showRemarkTab('@Url.Action("GetByCusId","LoaneeRemarks")')">รายงานผลการติดตาม</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="asset-land-tab" data-toggle="tab" role="tab" href="#asset-land-1" aria-controls="asset-land-1" aria-selected="false" onclick="showAssetLandTab('@Url.Action("GetByCusId","AssetLands")');">หลักทรัพย์(ที่ดิน)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="asset-car-tab" data-toggle="tab" role="tab" href="#asset-car-1" aria-controls="asset-car-1" aria-selected="false" onclick="showAssetCarTab('@Url.Action("GetByCusId","AssetCars")');">หลักทรัพย์(รถ)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="asset-salary-tab" data-toggle="tab" role="tab" href="#asset-salary-1" aria-controls="asset-salary-1" aria-selected="false" onclick="showAssetSalaryTab('@Url.Action("GetByCusId","AssetSalaries")');">หลักทรัพย์(เงืนเดือน)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="payment-tab" data-toggle="tab" role="tab" href="#payment-1" aria-controls="payment-1" aria-selected="false" onclick="showPaymentTab('@Url.Action("GetByCusId","Payments")')">การชำระ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="guarantor-tab" data-toggle="tab" role="tab" href="#guarantor-1" aria-controls="guarantor-1" aria-selected="false" onclick="showGuaratorTab('@Url.Action("GetByCusId","Guarantors")')">ผู้ค้ำประกัน</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="referencer-tab" data-toggle="tab" role="tab" href="#referencer-1" aria-controls="referencer-1" aria-selected="false" onclick="showReferencerTab('@Url.Action("GetByCusId","Referencers")')">บุคคลอ้างอิง</a>
+            </li>
+
+        </ul>
+        <div class="tab-content">
+            @*      <div class="tab-pane fade show active" id="loanee-1" role="tabpanel" aria-labelledby="loanee-tab">
+            </div>*@
+            <div class="tab-pane fade show active" id="remark-1" role="tabpanel" aria-labelledby="remark-tab">
+                <div class="row">
+                    <div id="view-remark">
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="asset-land-1" role="tabpanel" aria-labelledby="asset-land-tab">
+                <div class="row">
+                    <div id="view-asset-land">
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="asset-car-1" role="tabpanel" aria-labelledby="asset-car-tab">
+                <div class="row">
+                    <div id="view-asset-car">
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="asset-salary-1" role="tabpanel" aria-labelledby="asset-salary-tab">
+                <div class="row">
+                    <div id="view-asset-salary">
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="payment-1" role="tabpanel" aria-labelledby="payment-tab">
+                <div class="row">
+                    <div id="view-payment">
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="guarantor-1" role="tabpanel" aria-labelledby="guarantor-tab">
+                <div class="row">
+                    <div id="view-guarantor">
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="referencer-1" role="tabpanel" aria-labelledby="referencer-tab">
+                <div class="row">
+                    <div id="view-referencer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.WOBalance)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.WOBalance)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.OverdueAmount)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.OverdueAmount)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.RcvAmtBeforeWO)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.RcvAmtBeforeWO)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.RcvAmtBeforeWO)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.RcvAmtBeforeWO)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.LastPaidDate)
-            </dt>
-            <dd class="col-sm-6">
-                @if (Model.LastPaidDate != DateTime.MinValue)
-                {
-                    @Model.LastPaidDate
-                }else{
-                    <label>-</label>
-                }
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.LastPaidAmount)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.LastPaidAmount)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.NoOfAssignment)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.NoOfAssignment)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-        </dl>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.IntereteRate)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.IntereteRate)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.IntereteRateAmount)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.IntereteRateAmount)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.DueDate)
-            </dt>
-            <dd class="col-sm-6">
-                @if (Model.DueDate != DateTime.MinValue)
-                {
-                    @Model.DueDate
-                }
-                else
-                {
-                    <label>-</label>
-                }
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.FollowUpDate)
-            </dt>
-            <dd class="col-sm-6">
-                 @if (Model.FollowUpDate != DateTime.MinValue)
-                {
-                    @Model.FollowUpDate
-                }
-                else
-                {
-                    <label>-</label>
-                }
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.PaidAmount)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.PaidAmount)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.PaidInMonthAmount)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.PaidInMonthAmount)
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-3">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.TotalAmount)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.TotalAmount)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.RemainingAmount)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.RemainingAmount)
-            </dd>
-        </dl>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <dl class="row">
-            <dt class="col-sm-3">
-                ที่อยู่บ้าน
-            </dt>
-            <dd class="col-sm-9">
-                @Model.FullHomeAddress()
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-6">
-        <dl class="row">
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.TelephoneHome)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.TelephoneHome)
-            </dd>
 
-        </dl>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <dl class="row">
-            <dt class="col-sm-3">
-                ที่อยู่ออฟฟิต
-            </dt>
-            <dd class="col-sm-9">
-                @Model.FullOfficeAddress()
-            </dd>
-
-        </dl>
-    </div>
-    <div class="col-md-6">
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.TelephoneOffice)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.TelephoneHome)
-            </dd>
-
-        </dl>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <dl class="row">
-            <dt class="col-sm-3">
-                ที่อยู่ตามบัตรประชาชน
-            </dt>
-            <dd class="col-sm-9">
-                @Model.FullIdenAddress()
-            </dd>
-
-        </dl>
-    </div>
-    <div class="col-md-6">
-        <dl class="row">
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.MobileHome)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.MobileHome)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.MobileOffice)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.MobileOffice)
-            </dd>
-        </dl>
-    </div>
-</div>*@
 
 
 <script>
 
-    $(function () {
-        $('.dateonly').datetimepicker({
-            timepicker: false,
-            format: 'd-m-Y',
-            closeOnDateSelect: true
-        });
-    });
+    //$(function () {
+    //    $('.dateonly').datetimepicker({
+    //        timepicker: false,
+    //        format: 'd-m-Y',
+    //        closeOnDateSelect: true
+    //    });
+    //});
 </script>

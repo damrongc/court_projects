@@ -4,7 +4,7 @@ $(function () {
 });
 function showAssetLandTab(url) {
     if (url == '' || url == undefined) {
-        alert('something wrong at showAssetSalaryTab!');
+        alert('something wrong at showAssetLandTab!');
         return false;
     }
     var id = $('#txtCusId').val();
@@ -14,7 +14,7 @@ function showAssetLandTab(url) {
             text: "กรุณาเลือกลูกหนี้!",
             icon: "error"
         });
-        activaTab('loanee-1');
+        activaTab('remark-1');
         return false;
     }
     $.ajax({

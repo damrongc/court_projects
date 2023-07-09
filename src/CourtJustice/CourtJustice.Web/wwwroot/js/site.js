@@ -1,5 +1,9 @@
 ﻿
-
+//$.ajaxSetup({
+//    error: function (xhr) {
+//        alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+//    }
+//});
 function activatejQueryTable() {
     $('.data-table').DataTable({
         //fixedHeader: true,

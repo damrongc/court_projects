@@ -1,7 +1,9 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,10 +14,12 @@ namespace CourtJustice.Web.Controllers
     public class EmployeesController : BaseController<EmployeesController>
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IAppUserRepository _appUserRepository;
 
-        public EmployeesController(IEmployeeRepository employeeRepository)
+        public EmployeesController(IEmployeeRepository employeeRepository, IAppUserRepository appUserRepository)
         {
             _employeeRepository = employeeRepository;
+            _appUserRepository = appUserRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -23,7 +27,7 @@ namespace CourtJustice.Web.Controllers
             return View(await GetAll());
         }
 
-        private async Task<List<Employee>> GetAll()
+        private async Task<List<EmployeeViewModel>> GetAll()
         {
             var result = await _employeeRepository.GetAll();
             return result.ToList();
@@ -49,6 +53,19 @@ namespace CourtJustice.Web.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
+            var managers = await _appUserRepository.GetUserByGroup(2);
+            managers.Insert(0, new AppUserViewModel { UserId="",UserName="ไม่ระบุ"});
+            List<SelectListItem> selects = new();
+            foreach (var item in managers)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = item.UserName,
+                    Value = item.UserId,
+                });
+            }
+            ViewBag.Managers = selects;
+
             var model = await _employeeRepository.GetByKey(id);
             return View(model);
         }
@@ -58,19 +75,42 @@ namespace CourtJustice.Web.Controllers
         public async Task<IActionResult> Edit(string id, Employee model)
         {
             var oldEntity = await _employeeRepository.GetByKey(id);
-
             if (oldEntity == null)
             {
                 return NotFound();
             }
-
+            //if (string.IsNullOrEmpty(model.ManagerCode))
+            //{
+            //    ModelState.AddModelError("ManagerCode", "กรุณาเลือก ผู้จัดการ");
+            //}
             if (ModelState.IsValid)
             {
                 await _employeeRepository.Update(id, model);
+                var appUser = new AppUser
+                {
+                    UserId=model.EmployeeCode,
+                    UserName = model.EmployeeName,
+                    Email = model!.Email,
+                    PhoneNumber = model!.PhoneNumber,
+                    IsActive = model.IsActive
+                };
+                await _appUserRepository.Update(id, appUser);
                 _notify.Success($"{model.EmployeeName} is Updated");
 
                 return RedirectToAction(nameof(Index));
             }
+            var managers = await _appUserRepository.GetUserByGroup(2);
+            managers.Insert(0, new AppUserViewModel { UserId = "", UserName = "ไม่ระบุ" });
+            List<SelectListItem> selects = new();
+            foreach (var item in managers)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Text = item.UserName,
+                    Value = item.UserId,
+                });
+            }
+            ViewBag.Managers = selects;
             return View(model);
         }
 

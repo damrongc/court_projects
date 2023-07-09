@@ -4,21 +4,34 @@
 <div class="table-responsive">
     <table class="table table-bordered table-hover" id="tbl_loanee">
         <thead>
-            <tr class="bg-primary text-white" role="row">
-                <th class="text-nowrap bg-primary">
+            <tr class="bg-light" role="row">
+                <th class="text-nowrap bg-light">
                     @Html.DisplayNameFor(model => model.ContractNo)
                 </th>
-                <th class="text-nowrap bg-primary">
+                <th class="text-nowrap bg-light">
                     @Html.DisplayNameFor(model => model.ContractDate)
                 </th>
-                <th class="text-nowrap bg-primary">
+                <th class="text-nowrap bg-light">
                     @Html.DisplayNameFor(model => model.CusId)
                 </th>
-                <th class="text-nowrap bg-primary">
+                <th class="text-nowrap bg-light">
                     @Html.DisplayNameFor(model => model.NationalityId)
                 </th>
-                <th class="text-nowrap bg-primary">
+                <th class="text-nowrap bg-light">
                     @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th class="text-nowrap bg-light">
+                    @Html.DisplayNameFor(model => model.Gender)
+                </th>
+                <th class="text-nowrap bg-light">
+                    @Html.DisplayNameFor(model => model.MaritalStatus)
+                </th>
+
+                <th class="text-nowrap bg-light">
+                    @Html.DisplayNameFor(model => model.AssignDate)
+                </th>
+                <th class="text-nowrap bg-light">
+                    @Html.DisplayNameFor(model => model.ExpireDate)
                 </th>
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.InstallmentsByContract)
@@ -31,6 +44,18 @@
                 </th>
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.WOBalance)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.DebtAge)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.EmployerWorkGroup)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.ProductCode)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.TotalPayment)
                 </th>
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.HomeAddress1)
@@ -66,15 +91,24 @@
                     @Html.DisplayNameFor(model => model.MobileEmg)
                 </th>
                 <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.CompanyName)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.Salary)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.OccupationName)
+                </th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.OfficeAddress1)
-                </th>                                   
-                <th class="text-nowrap">                
+                </th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.OfficeAddress2)
-                </th>                                   
-                <th class="text-nowrap">                
+                </th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.OfficeAddress3)
-                </th>                                   
-                <th class="text-nowrap">                
+                </th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.OfficeAddress4)
                 </th>
                 <th class="text-nowrap">
@@ -86,7 +120,7 @@
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.OverdueAmount)
                 </th>
-                      <th class="text-nowrap">
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.TotalPenalty)
                 </th>
                 <th class="text-nowrap">
@@ -107,11 +141,14 @@
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.LastPaidAmount)
                 </th>
-                       <th class="text-nowrap">
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.LastPaidDate)
                 </th>
                 <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.DueDate)
+                </th>
+                <th class="text-nowrap">
+                    @Html.DisplayNameFor(model => model.FollowContractNo)
                 </th>
             </tr>
         </thead>

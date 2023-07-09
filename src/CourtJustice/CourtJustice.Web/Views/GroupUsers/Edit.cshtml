@@ -25,6 +25,20 @@
                                 <input asp-for="GroupName" class="form-control" />
                                 <span asp-validation-for="GroupName" class="text-danger"></span>
                             </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="GroupLevel" class="control-label"></label>
+                                    <input asp-for="GroupLevel" class="form-control" type="number" />
+                                    <span asp-validation-for="GroupLevel" class="text-danger"></span>
+                                </div>
+                            </div>
+@*                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" asp-for="EmployerCode"></label>
+                                    <select class="form-control dropdown" id="ddlEmployer" asp-for="EmployerCode" asp-items="@ViewBag.Employers">
+                                    </select>
+                                </div>
+                            </div>*@
                             <div class="form-group form-check">
                                 <label class="form-check-label">
                                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)

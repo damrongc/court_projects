@@ -1,8 +1,8 @@
 ﻿using CourtJustice.Domain.Models;
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface ICardTypeRepository
-	{
+    public interface ICardTypeRepository
+    {
 
         Task<List<CardType>> GetAll();
         Task Create(CardType model);

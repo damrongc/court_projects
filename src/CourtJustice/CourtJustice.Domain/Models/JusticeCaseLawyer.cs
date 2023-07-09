@@ -8,8 +8,8 @@ namespace CourtJustice.Domain.Models
     {
         [Key]
         public int JusticeCaseLawyerId { get; set; }
-        public int LawyerId { get; set; }
-        [ForeignKey(nameof(LawyerId))]
+        public string LawyerCode { get; set; }
+        [ForeignKey(nameof(LawyerCode))]
         public virtual Lawyer? Lawyer { set; get; }
 
         [Required]

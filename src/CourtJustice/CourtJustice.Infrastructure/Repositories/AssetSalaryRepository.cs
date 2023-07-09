@@ -1,6 +1,5 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +9,11 @@ using System.Text;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class AssetSalaryRepository : BaseRepository , IAssetSalaryRepository
-	{
-		public AssetSalaryRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
-		{
-		}
+    public class AssetSalaryRepository : BaseRepository, IAssetSalaryRepository
+    {
+        public AssetSalaryRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+        {
+        }
 
         public async Task Create(AssetSalary model)
         {
@@ -42,8 +41,8 @@ namespace CourtJustice.Infrastructure.Repositories
                 conn.Open();
                 var sb = new StringBuilder();
                 sb.Append("select * from asset_salary where cus_id=@cus_id");
-         
-              
+
+
                 var result = await conn.QueryAsync<AssetSalaryViewModel>(sb.ToString(), new { cus_id = id });
                 return result.ToList();
 
@@ -133,7 +132,7 @@ namespace CourtJustice.Infrastructure.Repositories
             return Context.AssetSalaries.Any(p => p.AssetId == id);
         }
 
-     
+
 
         public async Task Update(int id, AssetSalary model)
         {

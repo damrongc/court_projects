@@ -9,10 +9,10 @@ namespace CourtJustice.Infrastructure.Seeds
             var models = context.LoanTaskStatuses.ToList();
             if (models.Count == 0)
             {
-                context.LoanTaskStatuses.Add(new LoanTaskStatus { LoanTaskStatusId=1,LoanTaskStatusName= "ติดต่อได้-นัดชำระ" });
-                context.LoanTaskStatuses.Add(new LoanTaskStatus { LoanTaskStatusId=2,LoanTaskStatusName= "ติดต่อได้-ไม่นัดชำระ" });
-                context.LoanTaskStatuses.Add(new LoanTaskStatus { LoanTaskStatusId=3,LoanTaskStatusName= "ติดต่อไม่ได้-หาตัวเจอ" });
-                context.LoanTaskStatuses.Add(new LoanTaskStatus { LoanTaskStatusId=4,LoanTaskStatusName= "ติดต่อไม่ได้-หาตัวไม่เจอ" });
+                context.LoanTaskStatuses.Add(new LoanTaskStatus { LoanTaskStatusId = 1, LoanTaskStatusName = "ติดต่อได้-นัดชำระ" });
+                context.LoanTaskStatuses.Add(new LoanTaskStatus { LoanTaskStatusId = 2, LoanTaskStatusName = "ติดต่อได้-ไม่นัดชำระ" });
+                context.LoanTaskStatuses.Add(new LoanTaskStatus { LoanTaskStatusId = 3, LoanTaskStatusName = "ติดต่อไม่ได้-หาตัวเจอ" });
+                context.LoanTaskStatuses.Add(new LoanTaskStatus { LoanTaskStatusId = 4, LoanTaskStatusName = "ติดต่อไม่ได้-หาตัวไม่เจอ" });
                 context.SaveChanges();
             }
 

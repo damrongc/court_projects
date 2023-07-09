@@ -36,16 +36,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.BankActionCodeName)
                     </td>
-                    <th>
-                        @Html.DisplayFor(modelItem => item.EmployerCode)
-                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employer.EmployerName)
+                    </td>
 
                     <td>
                         @Html.DisplayFor(modelItem => item.UserCreated)
                     </td>
-                    <th>
+                    <td>
                         @Html.DisplayFor(modelItem => item.CreatedDateTime)
-                    </th>
+                    </td>
                     <td class="w100">
                         <div class="d-inline">
                             <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.BankActionCodeId"><i class='fa fa-edit'></i></a>

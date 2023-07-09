@@ -1,9 +1,4 @@
 ﻿using CourtJustice.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
@@ -15,8 +10,8 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task Delete(string id);
         Task<Title> GetByKey(string id);
 
-       bool IsExisting(string id);
+        bool IsExisting(string id);
 
-       
+
     }
 }

@@ -1,8 +1,9 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Reflection.Emit;
 
 namespace CourtJustice.Infrastructure
 {
@@ -70,7 +71,10 @@ namespace CourtJustice.Infrastructure
         public DbSet<BankResultCode> BankResultCodes { get; set; }
         public DbSet<CompanyActionCode> CompanyActionCodes { get; set; }
         public DbSet<CompanyResultCode> CompanyResultCodes { get; set; }
-
+        public DbSet<RemainTask> RemainTasks { get; set; }
+        public DbSet<UserEmployerMapping> UserEmployerMappings { get; set; }
+        public DbSet<MonthModel> MonthModels { get; set; }
+        public DbSet<ReceiptSummary> ReceiptSummaries { get; set; }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             //var auditEntries = HandleAuditingBeforeSaveChanges("System");
@@ -127,6 +131,23 @@ namespace CourtJustice.Infrastructure
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+            builder.Entity<MonthModel>()
+              .HasData(new List<MonthModel>() {
+                         new() {MonthId = 1, MonthName = "มกราคม"},
+                         new() {MonthId = 2, MonthName = "กุมภาพันธ์"},
+                         new() {MonthId = 3, MonthName = "มีนาคม"},
+                         new() {MonthId = 4, MonthName = "เมษายน"},
+                         new() {MonthId = 5, MonthName = "พฤษภาคม"},
+                         new() {MonthId = 6, MonthName = "มิถุนายน"},
+                         new() {MonthId = 7, MonthName = "กรกฎาคม"},
+                         new() {MonthId = 8, MonthName = "สิงหาคม"},
+                         new() {MonthId = 9, MonthName = "กันยายน"},
+                         new() {MonthId = 10, MonthName = "ตุลาคม"},
+                         new() {MonthId = 11, MonthName = "พฤศจิกายน"},
+                         new() {MonthId = 12, MonthName = "ธันวาคม"},
+
+              });
+
             base.OnModelCreating(builder);
         }
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -136,7 +157,7 @@ namespace CourtJustice.Infrastructure
                 .HavePrecision(18, 2);
             configurationBuilder
                 .Properties<string>()
-                .HaveMaxLength(400);
+                .HaveMaxLength(200);
 
         }
     }

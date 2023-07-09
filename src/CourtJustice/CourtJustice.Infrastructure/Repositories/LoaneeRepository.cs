@@ -2,7 +2,7 @@
 using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
-using Inventor.Infrastructure.Utils;
+using CourtJustice.Infrastructure.Utils;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Globalization;
@@ -26,6 +26,13 @@ namespace CourtJustice.Infrastructure.Repositories
                     var existingLoanee = await Context.Loanees.FindAsync(item.CusId);
                     if (existingLoanee != null)
                     {
+
+                        existingLoanee.AssignDate = item.AssignDate;
+                        existingLoanee.ExpireDate = item.ExpireDate;
+                        existingLoanee.ContractDate = item.ContractDate;
+                        existingLoanee.BirthDate = item.BirthDate;
+                        existingLoanee.WODate = item.WODate;
+
                         existingLoanee.Term = item.Term;
                         existingLoanee.InstallmentsByContract = item.InstallmentsByContract;
                         existingLoanee.LoanAmount = item.LoanAmount;
@@ -43,6 +50,8 @@ namespace CourtJustice.Infrastructure.Repositories
                         existingLoanee.HomeAddress3 = item.HomeAddress3;
                         existingLoanee.HomeAddress4 = item.HomeAddress4;
                         existingLoanee.TelephoneHome = item.TelephoneHome;
+                        existingLoanee.CompanyName = item.CompanyName;
+                        existingLoanee.OccupationName = item.OccupationName;
                         existingLoanee.OfficeAddress1 = item.OfficeAddress1;
                         existingLoanee.OfficeAddress2 = item.OfficeAddress2;
                         existingLoanee.OfficeAddress3 = item.OfficeAddress3;
@@ -52,30 +61,58 @@ namespace CourtJustice.Infrastructure.Repositories
                         existingLoanee.IdenAddress2 = item.IdenAddress2;
                         existingLoanee.IdenAddress3 = item.IdenAddress3;
                         existingLoanee.IdenAddress4 = item.IdenAddress4;
+
+                        existingLoanee.EmergencyContract1 = item.EmergencyContract1;
+                        existingLoanee.EmergencyPhone1 = item.IdenAddress1;
+                        existingLoanee.EmergencyExt1 = item.EmergencyExt1;
+
+                        existingLoanee.EmergencyContract2 = item.EmergencyContract2;
+                        existingLoanee.EmergencyPhone2 = item.IdenAddress2;
+                        existingLoanee.EmergencyExt2 = item.EmergencyExt2;
+
+                        existingLoanee.EmergencyContract3 = item.EmergencyContract3;
+                        existingLoanee.EmergencyPhone3 = item.IdenAddress3;
+                        existingLoanee.EmergencyExt3 = item.EmergencyExt3;
+
+                        existingLoanee.EmergencyContract4 = item.EmergencyContract4;
+                        existingLoanee.EmergencyPhone4 = item.IdenAddress4;
+                        existingLoanee.EmergencyExt4 = item.EmergencyExt4;
+
+
                         existingLoanee.MobileHome = item.MobileHome;
                         existingLoanee.MobileOffice = item.MobileOffice;
+                        existingLoanee.MobileCont = item.MobileCont;
                         existingLoanee.MobileEmg = item.MobileEmg;
                         existingLoanee.SpecialNote = item.SpecialNote;
                         existingLoanee.CPCase = item.CPCase;
                         existingLoanee.NoOfCP = item.NoOfCP;
-                        existingLoanee.CPDate = item.CPDate.ToDateOnly();
+                        existingLoanee.CPDate = item.CPDate;
                         existingLoanee.OAFee = item.OAFee;
                         existingLoanee.MaxOAFeeAmount = item.MaxOAFeeAmount;
                         existingLoanee.MaxOAFeeBalance = item.MaxOAFeeBalance;
+
+                        existingLoanee.Gender = item.Gender;
+                        existingLoanee.MaritalStatus = item.MaritalStatus;
+                        existingLoanee.ProductCode = item.ProductCode;
+                        existingLoanee.DebtAge = item.DebtAge;
+                        existingLoanee.TotalPayment = item.TotalPayment;
+                        existingLoanee.EmployerWorkGroup = item.EmployerWorkGroup;
+                        existingLoanee.Salary = item.Salary;
+
                     }
                     else
                     {
                         var loanee = new Loanee
                         {
-                            AssignDate = item.AssignDate.ToDateOnly(),
-                            ExpireDate = item.ExpireDate.ToDateOnly(),
+                            AssignDate = item.AssignDate,
+                            ExpireDate = item.ExpireDate,
                             NationalityId = item.NationalityId,
-                            BirthDate = item.BirthDate.ToDateOnly(),
+                            BirthDate = item.BirthDate,
                             CusId = item.CusId,
                             Name = item.Name,
                             ContractNo = item.ContractNo,
-                            ContractDate = item.ContractDate.ToDateOnly(),
-                            WODate = item.WODate.ToDateOnly(),
+                            ContractDate = item.ContractDate,
+                            WODate = item.WODate,
                             Term = item.Term,
                             InstallmentsByContract = item.InstallmentsByContract,
                             LoanAmount = item.LoanAmount,
@@ -93,6 +130,8 @@ namespace CourtJustice.Infrastructure.Repositories
                             HomeAddress3 = item.HomeAddress3,
                             HomeAddress4 = item.HomeAddress4,
                             TelephoneHome = item.TelephoneHome,
+                            CompanyName = item.CompanyName,
+                            OccupationName = item.OccupationName,
                             OfficeAddress1 = item.OfficeAddress1,
                             OfficeAddress2 = item.OfficeAddress2,
                             OfficeAddress3 = item.OfficeAddress3,
@@ -102,23 +141,50 @@ namespace CourtJustice.Infrastructure.Repositories
                             IdenAddress2 = item.IdenAddress2,
                             IdenAddress3 = item.IdenAddress3,
                             IdenAddress4 = item.IdenAddress4,
+                            EmergencyContract1 = item.EmergencyContract1,
+                            EmergencyPhone1 = item.IdenAddress1,
+                            EmergencyExt1 = item.EmergencyExt1,
+
+                            EmergencyContract2 = item.EmergencyContract2,
+                            EmergencyPhone2 = item.IdenAddress2,
+                            EmergencyExt2 = item.EmergencyExt2,
+
+                            EmergencyContract3 = item.EmergencyContract3,
+                            EmergencyPhone3 = item.IdenAddress3,
+                            EmergencyExt3 = item.EmergencyExt3,
+
+                            EmergencyContract4 = item.EmergencyContract4,
+                            EmergencyPhone4 = item.IdenAddress4,
+                            EmergencyExt4 = item.EmergencyExt4,
+
                             MobileHome = item.MobileHome,
                             MobileOffice = item.MobileOffice,
+                            MobileCont = item.MobileCont,
                             MobileEmg = item.MobileEmg,
                             SpecialNote = item.SpecialNote,
                             CPCase = item.CPCase,
                             NoOfCP = item.NoOfCP,
-                            CPDate = item.CPDate.ToDateOnly(),
+                            CPDate = item.CPDate,
                             OAFee = item.OAFee,
                             MaxOAFeeAmount = item.MaxOAFeeAmount,
                             MaxOAFeeBalance = item.MaxOAFeeBalance,
                             BucketId = item.BucketId,
                             EmployeeCode = item.EmployeeCode,
-                            OccupationId = item.OccupationId,
+                            //OccupationId = item.OccupationId,
+                            EmployerCode = item.EmployerCode,
+                            LoanTypeCode = item.LoanTypeCode,
+
+                            Gender = item.Gender,
+                            MaritalStatus = item.MaritalStatus,
+                            ProductCode = item.ProductCode,
+                            DebtAge = item.DebtAge,
+                            TotalPayment = item.TotalPayment,
+                            EmployerWorkGroup = item.EmployerWorkGroup,
+                            Salary = item.Salary,
                         };
                         await Context.Loanees.AddAsync(loanee);
                     }
-                    
+
                 }
                 await Context.SaveChangesAsync();
             }
@@ -133,6 +199,26 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             await Context.Loanees.AddAsync(model);
             await Context.SaveChangesAsync();
+        }
+
+        public async Task DeActivate(List<LoaneeViewModel> loanees)
+        {
+            try
+            {
+                foreach (var item in loanees)
+                {
+                    var loanee = await Context.Loanees.FindAsync(item.CusId);
+                    if (loanee != null)
+                    {
+                        loanee.IsActive = false;
+                        await Context.SaveChangesAsync();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task Delete(string id)
@@ -151,9 +237,92 @@ namespace CourtJustice.Infrastructure.Repositories
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
-                var sql = @"select * from loanee where cus_id=@cus_id";
-               
-                var result = await conn.QueryAsync<LoaneeViewModel>(sql, new { cus_id =id});
+                var sql = @"SELECT loanee.cus_id,
+    loanee.assign_date,
+    loanee.expire_date,
+    loanee.birth_date,
+    loanee.nationality_id,
+    loanee.name,
+    loanee.telephone_home,
+    loanee.contract_no,
+    loanee.contract_date,
+    loanee.wo_date,
+    loanee.term,
+    loanee.loan_amount,
+    loanee.wo_balance,
+    loanee.overdue_amount,
+    loanee.total_penalty,
+    loanee.closing_amount,
+    loanee.rcv_amt_status,
+    loanee.rcv_amt_before_wo,
+    loanee.rcv_amt_after_wo,
+    loanee.last_paid_amount,
+    loanee.no_of_assignment,
+    loanee.description,
+    loanee.loan_type_code,
+    loanee.installments_by_contract,
+    loanee.installments_by_agree,
+    loanee.last_paid_date,
+    loanee.bucket_id,
+    loanee.first_paid_date,
+    loanee.interete_rate,
+    loanee.interete_rate_amount,
+    loanee.due_date,
+    loanee.follow_up_date,
+    loanee.paid_amount,
+    loanee.paid_in_month_amount,
+    loanee.total_amount,
+    loanee.employee_code,
+    loanee.remaining_amount,
+    loanee.overdue_day_amount,
+    loanee.employer_code,
+    loanee.loan_task_status_id,
+    loanee.home_address1,
+    loanee.home_address2,
+    loanee.home_address3,
+    loanee.home_address4,
+    loanee.company_name,
+    loanee.occupation_name,
+    loanee.office_address1,
+    loanee.office_address2,
+    loanee.office_address3,
+    loanee.office_address4,
+    loanee.telephone_office,
+    loanee.iden_address1,
+    loanee.iden_address2,
+    loanee.iden_address3,
+    loanee.iden_address4,
+    loanee.mobile_home,
+    loanee.mobile_office,
+    loanee.mobile_cont,
+    loanee.mobile_emg,
+    loanee.special_note,
+    loanee.cp_case,
+    loanee.no_of_cp,
+    loanee.cp_date,
+    loanee.oa_fee,
+    loanee.max_oa_fee_amount,
+    loanee.max_oa_fee_balance,
+    loanee.oa_flag,
+    loanee.sending_address,
+    loanee.follow_contract_no,
+    loanee.debt_age,
+    loanee.employer_work_group,
+    loanee.gender,
+    loanee.marital_status,
+    loanee.product_code,
+    loanee.total_payment,
+    loanee.salary,
+    loanee.is_active,
+    loanee.user_created,
+    loanee.created_date_time,
+    loanee.user_updated,
+    loanee.updated_date_time,
+    employer.employer_name
+from loanee,employer 
+where loanee.employer_code=employer.employer_code 
+and cus_id=@cus_id";
+                var result = await conn.QueryAsync<LoaneeViewModel>(sql, new { cus_id = id });
                 return result.FirstOrDefault();
 
             }
@@ -164,14 +333,97 @@ namespace CourtJustice.Infrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<LoaneeViewModel>> GetPaging(int bucketId, string employerCode,int skip, int take, string filter)
+        public async Task<IEnumerable<LoaneeViewModel>> GetPaging(int loanTaskStatusId, string employerCode, List<string> employeeCodes, int skip, int take, string filter)
         {
             try
             {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("th-TH");
                 using IDbConnection conn = Connection;
                 conn.Open();
-                var sql = @"select * from loanee where 1=1";
+                var sql = @"SELECT loanee.cus_id,
+    loanee.assign_date,
+    loanee.expire_date,
+    loanee.birth_date,
+    loanee.nationality_id,
+    loanee.name,
+    loanee.telephone_home,
+    loanee.contract_no,
+    loanee.contract_date,
+    loanee.wo_date,
+    loanee.term,
+    loanee.loan_amount,
+    loanee.wo_balance,
+    loanee.overdue_amount,
+    loanee.total_penalty,
+    loanee.closing_amount,
+    loanee.rcv_amt_status,
+    loanee.rcv_amt_before_wo,
+    loanee.rcv_amt_after_wo,
+    loanee.last_paid_amount,
+    loanee.no_of_assignment,
+    loanee.description,
+    loanee.loan_type_code,
+    loanee.installments_by_contract,
+    loanee.installments_by_agree,
+    loanee.last_paid_date,
+    loanee.bucket_id,
+    loanee.first_paid_date,
+    loanee.interete_rate,
+    loanee.interete_rate_amount,
+    loanee.due_date,
+    loanee.follow_up_date,
+    loanee.paid_amount,
+    loanee.paid_in_month_amount,
+    loanee.total_amount,
+    loanee.employee_code,
+    loanee.remaining_amount,
+    loanee.overdue_day_amount,
+    loanee.employer_code,
+    loanee.loan_task_status_id,
+    loanee.home_address1,
+    loanee.home_address2,
+    loanee.home_address3,
+    loanee.home_address4,
+    loanee.company_name,
+    loanee.occupation_name,
+    loanee.office_address1,
+    loanee.office_address2,
+    loanee.office_address3,
+    loanee.office_address4,
+    loanee.telephone_office,
+    loanee.iden_address1,
+    loanee.iden_address2,
+    loanee.iden_address3,
+    loanee.iden_address4,
+    loanee.mobile_home,
+    loanee.mobile_office,
+    loanee.mobile_cont,
+    loanee.mobile_emg,
+    loanee.special_note,
+    loanee.cp_case,
+    loanee.no_of_cp,
+    loanee.cp_date,
+    loanee.oa_fee,
+    loanee.max_oa_fee_amount,
+    loanee.max_oa_fee_balance,
+    loanee.oa_flag,
+    loanee.sending_address,
+    loanee.follow_contract_no,
+    loanee.debt_age,
+    loanee.employer_work_group,
+    loanee.gender,
+    loanee.marital_status,
+    loanee.product_code,
+    loanee.total_payment,
+    loanee.salary,
+    loanee.is_active,
+    loanee.user_created,
+    loanee.created_date_time,
+    loanee.user_updated,
+    loanee.updated_date_time,
+    employer.employer_name
+from loanee,employer 
+where loanee.employer_code=employer.employer_code and loanee.is_active=1";
                 var sb = new StringBuilder();
                 sb.Append(sql);
                 if (!string.IsNullOrEmpty(filter))
@@ -179,16 +431,43 @@ namespace CourtJustice.Infrastructure.Repositories
                     sb.Append(" and (cus_id LIKE @filter");
                     sb.Append(" or name LIKE @filter");
                     sb.Append(" or contract_no LIKE @filter");
+                    sb.Append(" or telephone_home LIKE @filter");
+                    sb.Append(" or mobile_home LIKE @filter");
+                    sb.Append(" or mobile_office LIKE @filter");
+                    sb.Append(" or telephone_office LIKE @filter");
+                    sb.Append(" or follow_contract_no LIKE @filter");
                     sb.Append(" or nationality_id LIKE @filter");
+                    sb.Append(" or product_code LIKE @filter");
+                    sb.Append(" or employer_work_group LIKE @filter");
+                    sb.Append(" or employee_code LIKE @filter");
                     sb.Append(" )");
                 }
-                if (bucketId > 0)
+                if (loanTaskStatusId > 0)
                 {
-                    sb.Append(" and bucket_id=@bucketId");
+                    sb.Append(" and loan_task_status_id=@loanTaskStatusId");
                 }
                 if (!string.IsNullOrEmpty(employerCode))
                 {
-                    sb.Append(" and employer_code=@employerCode");
+                    sb.Append(" and loanee.employer_code=@employerCode");
+                }
+                if (employeeCodes.Count > 0)
+                {
+                    if (employeeCodes.Count == 1)
+                    {
+                        sb.AppendFormat(" and loanee.employee_code = '{0}'", employeeCodes[0]);
+                    }
+                    else
+                    {
+                        string delimiter = ",";
+                        var listEmployeeCode = "";
+                        foreach (var item in employeeCodes)
+                        {
+                            listEmployeeCode += "'" + item + "'" + delimiter;
+                        }
+                        listEmployeeCode = listEmployeeCode.Remove(listEmployeeCode.Length - 1);
+                        sb.AppendFormat(" and loanee.employee_code in ({0})", listEmployeeCode);
+                    }
+
                 }
                 sb.Append(" Limit @skip,@take");
                 var dictionary = new Dictionary<string, object>
@@ -200,14 +479,18 @@ namespace CourtJustice.Infrastructure.Repositories
                 {
                     dictionary.Add("@filter", string.Format("%{0}%", filter));
                 }
-                if (bucketId > 0)
+                if (loanTaskStatusId > 0)
                 {
-                    dictionary.Add("@bucketId", bucketId);
+                    dictionary.Add("@loanTaskStatusId", loanTaskStatusId);
                 }
                 if (!string.IsNullOrEmpty(employerCode))
                 {
                     dictionary.Add("@employerCode", employerCode);
                 }
+                //if (!string.IsNullOrEmpty(employeeCode))
+                //{
+                //    dictionary.Add("@employeeCode", employeeCode);
+                //}
                 var parameters = new DynamicParameters(dictionary);
                 var result = await conn.QueryAsync<LoaneeViewModel>(sb.ToString(), parameters);
                 return result;
@@ -220,7 +503,7 @@ namespace CourtJustice.Infrastructure.Repositories
             }
         }
 
-        public async Task<int> GetRecordCount(int bucketId, string employerCode, string filter)
+        public async Task<int> GetRecordCount(int loanTaskStatusId, string employerCode, List<string> employeeCodes, string filter)
         {
             try
             {
@@ -228,39 +511,69 @@ namespace CourtJustice.Infrastructure.Repositories
                 conn.Open();
                 var sb = new StringBuilder();
 
-                sb.Append("select count(1) from loanee where 1=1");
+                sb.Append("select count(1) from loanee,employer where loanee.employer_code=employer.employer_code  and loanee.is_active=1");
                 if (!string.IsNullOrEmpty(filter))
                 {
                     sb.Append(" and (cus_id LIKE @filter");
                     sb.Append(" or name LIKE @filter");
                     sb.Append(" or contract_no LIKE @filter");
+                    sb.Append(" or telephone_home LIKE @filter");
+                    sb.Append(" or mobile_home LIKE @filter");
+                    sb.Append(" or mobile_office LIKE @filter");
+                    sb.Append(" or telephone_office LIKE @filter");
+                    sb.Append(" or follow_contract_no LIKE @filter");
                     sb.Append(" or nationality_id LIKE @filter");
+                    sb.Append(" or product_code LIKE @filter");
+                    sb.Append(" or employer_work_group LIKE @filter");
+                    sb.Append(" or employee_code LIKE @filter");
                     sb.Append(" )");
                 }
-                if (bucketId > 0)
+                if (loanTaskStatusId > 0)
                 {
-                    sb.Append(" and bucket_id=@bucketId");
+                    sb.Append(" and loan_task_status_id=@loanTaskStatusId");
                 }
                 if (!string.IsNullOrEmpty(employerCode))
                 {
-                    sb.Append(" and employer_code=@employerCode");
+                    sb.Append(" and loanee.employer_code=@employerCode");
                 }
-                var dictionary = new Dictionary<string, object>();
+                if (employeeCodes.Count > 0)
+                {
+                    if (employeeCodes.Count == 1)
+                    {
+                        sb.AppendFormat(" and loanee.employee_code = '{0}'", employeeCodes[0]);
+                    }
+                    else
+                    {
+                        string delimiter = ",";
+                        var listEmployeeCode = "";
+                        foreach (var item in employeeCodes)
+                        {
+                            listEmployeeCode += "'" + item + "'" + delimiter;
+                        }
+                        listEmployeeCode = listEmployeeCode.Remove(listEmployeeCode.Length - 1);
+                        sb.AppendFormat(" and loanee.employee_code in ({0})", listEmployeeCode);
+                    }
 
+                }
+
+                var dictionary = new Dictionary<string, object>();
                 if (!string.IsNullOrEmpty(filter))
                 {
                     dictionary.Add("@filter", string.Format("%{0}%", filter));
                 }
-                if (bucketId > 0)
+                if (loanTaskStatusId > 0)
                 {
-                    dictionary.Add("@bucketId", bucketId);
+                    dictionary.Add("@loanTaskStatusId", loanTaskStatusId);
                 }
                 if (!string.IsNullOrEmpty(employerCode))
                 {
                     dictionary.Add("@employerCode", employerCode);
                 }
+                //if (employeeCode.Count > 0)
+                //{
+                //    dictionary.Add("@employeeCode", employeeCode);
+                //}
                 var parameters = new DynamicParameters(dictionary);
-
                 var rowCount = await conn.ExecuteScalarAsync<int>(sb.ToString(), parameters);
                 return rowCount;
             }
@@ -278,6 +591,66 @@ namespace CourtJustice.Infrastructure.Repositories
         public async Task Update(int id, Loanee model)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task UpdateContractNo(string id, string followContractNo)
+        {
+            try
+            {
+                var loanee = await Context.Loanees.FindAsync(id);
+                if (loanee != null)
+                {
+                    loanee.FollowContractNo = followContractNo;
+                    await Context.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task UpdateOrAssign(LoaneeViewModel model)
+        {
+            try
+            {
+                var loanee = await Context.Loanees.FindAsync(model.CusId);
+                if (loanee != null)
+                {
+                    loanee.Name = model.Name;
+                    loanee.HomeAddress1 = model.HomeAddress1;
+                    loanee.HomeAddress2 = model.HomeAddress2;
+                    loanee.HomeAddress3 = model.HomeAddress3;
+                    loanee.HomeAddress4 = model.HomeAddress4;
+                    loanee.TelephoneHome = model.TelephoneHome;
+                    loanee.MobileHome = model.MobileHome;
+
+                    loanee.IdenAddress1 = model.IdenAddress1;
+                    loanee.IdenAddress2 = model.IdenAddress2;
+                    loanee.IdenAddress3 = model.IdenAddress3;
+                    loanee.IdenAddress4 = model.IdenAddress4;
+                    loanee.MobileEmg = model.MobileEmg;
+
+                    loanee.CompanyName = model.CompanyName;
+                    loanee.OccupationName = model.OccupationName;
+                    loanee.OfficeAddress1 = model.OfficeAddress1;
+                    loanee.OfficeAddress2 = model.OfficeAddress2;
+                    loanee.OfficeAddress3 = model.OfficeAddress3;
+                    loanee.OfficeAddress4 = model.OfficeAddress4;
+                    loanee.TelephoneOffice = model.TelephoneOffice;
+                    loanee.MobileOffice = model.MobileOffice;
+                    loanee.LoanTypeCode = model.LoanTypeCode;
+                    loanee.LoanTaskStatusId = model.LoanTaskStatusId;
+                    loanee.BucketId = model.BucketId;
+                    await Context.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

@@ -4,8 +4,8 @@ using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface IAssetSalaryRepository
-	{
+    public interface IAssetSalaryRepository
+    {
         Task<List<AssetSalary>> GetAll();
         Task Create(AssetSalary model);
         Task Update(int id, AssetSalary model);

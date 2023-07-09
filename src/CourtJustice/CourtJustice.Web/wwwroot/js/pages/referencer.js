@@ -19,7 +19,7 @@ function showReferencerTab(url) {
             text: "กรุณาเลือกลูกหนี้!",
             icon: "error"
         });
-        activaTab('loanee-1');
+        activaTab('remark-1');
         return false;
     }
     $.ajax({

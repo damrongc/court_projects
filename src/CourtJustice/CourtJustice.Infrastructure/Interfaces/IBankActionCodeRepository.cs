@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface IBankActionCodeRepository
-	{
+    public interface IBankActionCodeRepository
+    {
         Task<List<BankActionCode>> GetAll();
+        Task<List<BankActionCode>> GetByEmployer(string employerCode);
         Task Create(BankActionCode model);
         Task Update(string id, BankActionCode model);
         Task Delete(string id);

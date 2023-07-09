@@ -26,7 +26,6 @@
                                 </div>
                             </div>
                             <div class="row">
-
                                 <div class="form-group col-md-6">
                                     <label asp-for="EmployerName" class="control-label"></label>
                                     <input asp-for="EmployerName" class="form-control" />
@@ -34,11 +33,21 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                                    </label>
+                                <div class="form-group col-md-3">
+                                    <label asp-for="StartDay" class="control-label"></label>
+                                    <input asp-for="StartDay" class="form-control"  type="number"/>
+                                    <span asp-validation-for="StartDay" class="text-danger"></span>
                                 </div>
+                                <div class="form-group col-md-3">
+                                    <label asp-for="TotalDay" class="control-label"></label>
+                                    <input asp-for="TotalDay" class="form-control" type="number"/>
+                                    <span asp-validation-for="TotalDay" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                                </label>
                             </div>
                             <div class="form-group">
                                 <a asp-action="Index" class="btn btn-light">Back</a>

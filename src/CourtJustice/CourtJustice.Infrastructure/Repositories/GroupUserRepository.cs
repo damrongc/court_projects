@@ -1,7 +1,7 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 
@@ -42,9 +42,20 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async Task<List<GroupUser>> GetAll()
+        public async Task<List<GroupUserViewModel>> GetAll()
         {
-            return await Context.GroupUsers.ToListAsync();
+            try
+            {
+                using IDbConnection conn = Connection;
+                conn.Open();
+                var sql = @"select group_id, group_name,group_level,is_active,user_created,created_date_time,user_updated,updated_date_time from group_user order by group_id asc";
+                var groupUsers = await conn.QueryAsync<GroupUserViewModel>(sql);
+                return groupUsers.ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<GroupUser> GetByKey(int id)
@@ -57,6 +68,7 @@ namespace CourtJustice.Infrastructure.Repositories
         {
             var result = await Context.GroupUsers.FindAsync(model.GroupId);
             result.GroupName = model.GroupName;
+            //result.EmployerCode = model.EmployerCode;
             await Context.SaveChangesAsync();
         }
     }

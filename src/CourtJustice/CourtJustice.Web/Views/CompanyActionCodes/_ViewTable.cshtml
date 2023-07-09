@@ -10,7 +10,7 @@
                     @Html.DisplayNameFor(model => model.CompanyActionCodeId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CompanyActionName)
+                    @Html.DisplayNameFor(model => model.CompanyActionCodeName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.CompanyId)
@@ -34,19 +34,19 @@
                         @Html.DisplayFor(modelItem => item.CompanyActionCodeId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CompanyActionName)
+                        @Html.DisplayFor(modelItem => item.CompanyActionCodeName)
                     </td>
-                    <th>
-                        @Html.DisplayFor(modelItem => item.CompanyId)
-                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                    </td>
 
-                    <th>
+                    <td>
                         @Html.DisplayFor(modelItem => item.UserCreated)
-                    </th>
+                    </td>
 
-                    <th>
+                    <td>
                         @Html.DisplayFor(modelItem => item.CreatedDateTime)
-                    </th>
+                    </td>
 
                     <td class="w100">
                         <div class="d-inline">

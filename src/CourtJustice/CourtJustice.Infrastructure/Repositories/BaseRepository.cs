@@ -1,7 +1,6 @@
 ﻿using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
-using Npgsql;
 using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories

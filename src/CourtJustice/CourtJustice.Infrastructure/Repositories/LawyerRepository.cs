@@ -2,11 +2,6 @@
 using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
@@ -16,7 +11,7 @@ namespace CourtJustice.Infrastructure.Repositories
         {
         }
 
-        public Task<int> CheckExistingAtUser(int id)
+        public Task<int> CheckExistingAtUser(string id)
         {
             throw new NotImplementedException();
         }
@@ -28,7 +23,7 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(string id)
         {
             var model = await Context.Lawyers.FindAsync(id);
             Context.Lawyers.Remove(model);
@@ -40,19 +35,18 @@ namespace CourtJustice.Infrastructure.Repositories
             return await Context.Lawyers.ToListAsync();
         }
 
-        public async Task<Lawyer> GetByKey(int id)
+        public async Task<Lawyer> GetByKey(string id)
         {
             var model = await Context.Lawyers.FindAsync(id);
             return model;
         }
 
-        public async Task Update(int id, Lawyer model)
+        public async Task Update(string id, Lawyer model)
         {
-            var result = await Context.Lawyers.FindAsync(model.LawyerId);
+            var result = await Context.Lawyers.FindAsync(model.LawyerCode);
             result.LawyerName = model.LawyerName;
             result.PhoneNumber = model.PhoneNumber;
             result.Address = model.Address;
-
             result.Email = model.Email;
             result.AddressDetail = model.AddressDetail;
             result.IsActive = model.IsActive;

@@ -1,16 +1,12 @@
 ﻿using CourtJustice.Domain.Models;
-using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class CompanyActionCodeRepository :BaseRepository , ICompanyActionCodeRepository
-	{
+    public class CompanyActionCodeRepository : BaseRepository, ICompanyActionCodeRepository
+    {
         public CompanyActionCodeRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
         }
@@ -30,7 +26,7 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public async Task<List<CompanyActionCode>> GetAll()
         {
-            return await Context.CompanyActionCodes.ToListAsync();
+            return await Context.CompanyActionCodes.Include(p => p.Company).ToListAsync();
         }
 
         public async Task<CompanyActionCode> GetByKey(string id)
@@ -42,9 +38,9 @@ namespace CourtJustice.Infrastructure.Repositories
         public async Task Update(string id, CompanyActionCode model)
         {
             var result = await Context.CompanyActionCodes.FindAsync(model.CompanyActionCodeId);
-            result.CompanyActionName = model.CompanyActionName;
+            result.CompanyActionCodeName = model.CompanyActionCodeName;
             result.CompanyId = model.CompanyId;
-           
+
             await Context.SaveChangesAsync();
         }
     }

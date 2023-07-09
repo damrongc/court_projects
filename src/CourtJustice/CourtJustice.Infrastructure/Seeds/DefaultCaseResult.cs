@@ -11,7 +11,7 @@ namespace CourtJustice.Infrastructure.Seeds
             {
                 context.CaseResults.Add(new CaseResult
                 {
-                  CaseResultName= "เลื่อน",
+                    CaseResultName = "เลื่อน",
                 });
 
                 context.CaseResults.Add(new CaseResult

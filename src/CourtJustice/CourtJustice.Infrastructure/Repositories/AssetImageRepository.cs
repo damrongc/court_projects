@@ -1,16 +1,13 @@
 ﻿using CourtJustice.Domain.Models;
-using CourtJustice.Domain.ViewModels;
-using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class AssetImageRepository : BaseRepository, IAssetImageRepository
-	{
+    public class AssetImageRepository : BaseRepository, IAssetImageRepository
+    {
         public AssetImageRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
         }
@@ -33,9 +30,9 @@ namespace CourtJustice.Infrastructure.Repositories
             return await Context.AssetImages.ToListAsync();
         }
 
-        public  List<AssetImage> GetByAssetId(string id)
+        public List<AssetImage> GetByAssetId(string id)
         {
-           return Context.AssetImages.Where(x=>x.AssetId==id).ToList(); 
+            return Context.AssetImages.Where(x => x.AssetId == id).ToList();
         }
 
         public async Task<AssetImage> GetByKey(int id)

@@ -3,17 +3,16 @@ using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Data;
 using System.Text;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
-	public class CourtRepository : BaseRepository, ICourtRepository
-	{
-		public CourtRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
+    public class CourtRepository : BaseRepository, ICourtRepository
+    {
+        public CourtRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
-		}
+        }
 
         public async Task Create(Court model)
         {

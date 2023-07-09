@@ -1,11 +1,10 @@
-﻿using System;
-using CourtJustice.Domain.Models;
+﻿using CourtJustice.Domain.Models;
 using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
-	public interface IPaymentRepository
-	{
+    public interface IPaymentRepository
+    {
         Task<List<Payment>> GetAll();
         Task Create(Payment model);
         Task Update(int id, Payment model);
@@ -18,6 +17,8 @@ namespace CourtJustice.Infrastructure.Interfaces
         bool IsExisting(int id);
 
         Task<int> GetPaymentSeq(string cusId);
+
+        Task BulkInsertOrUpdate(List<PaymentExcelViewModel> payments);
     }
 }
 

@@ -2,9 +2,7 @@
 using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Data;
 using System.Globalization;
 using System.Text;
@@ -94,7 +92,7 @@ on jus.case_result_id = c.case_result_id ";
                 throw;
             }
         }
-        public async Task<IEnumerable<JusticeCaseViewModel>> GetPaging(string courtId, int caseResultId,int skip, int take, string filter)
+        public async Task<IEnumerable<JusticeCaseViewModel>> GetPaging(string courtId, int caseResultId, int skip, int take, string filter)
         {
             try
             {

@@ -1,13 +1,7 @@
 ﻿using CourtJustice.Domain.Models;
-using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
@@ -45,7 +39,7 @@ namespace CourtJustice.Infrastructure.Repositories
 
         public bool IsExisting(string id)
         {
-            return  Context.Titles.Any(p => p.TitleCode == id);
+            return Context.Titles.Any(p => p.TitleCode == id);
         }
 
         public async Task Update(string id, Title model)

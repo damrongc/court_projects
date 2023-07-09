@@ -11,8 +11,8 @@ namespace CourtJustice.Infrastructure.Seeds
             {
                 context.Courts.Add(new Court
                 {
-                    CourtId= "100345",
-                    CourtName= "ศาลแพ่ง",
+                    CourtId = "100345",
+                    CourtName = "ศาลแพ่ง",
                 });
                 context.Courts.Add(new Court
                 {
