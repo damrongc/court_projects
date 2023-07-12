@@ -115,6 +115,7 @@ getLoanee = () => {
                     return "<a href='#' id='btnLoaneeSelected' data-id='" + row.cusId + "' data-name='" + data + "'>" + data + "</a>";
                 }
             },
+            { data: "loanTaskStatusName", name: "loanTaskStatusName", class: "text-nowrap", },
             { data: "gender", name: "gender", class: "text-nowrap", },
             { data: "maritalStatus", name: "maritalStatus", class: "text-nowrap", },
             { data: "assignDate", name: "assignDate", class: "text-nowrap", },
@@ -314,6 +315,93 @@ updateLoanee = () => {
     updateLoaneeRequest.MobileOffice = mobileOffice;
     updateLoaneeRequest.LoanTypeCode = loanTypeCode;
     //updateLoaneeRequest.OccupationId = occupationId;
+    updateLoaneeRequest.LoanTaskStatusId = loanTaskStatusId;
+
+    $("#loaderbody").show();
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: JSON.stringify(updateLoaneeRequest),
+        contentType: "application/json; charset=utf-8",
+        success: function (res) {
+            if (res.isValid) {
+                swal({
+                    title: "Success",
+                    text: "Update is successfully",
+                    icon: "success"
+                });
+            } else {
+                swal({
+                    title: "Error",
+                    text: res.message,
+                    icon: "error"
+                });
+            }
+            $("#loaderbody").hide();
+        },
+        error: function (err) {
+            $("#loaderbody").hide();
+            console.log(err);
+        }
+    });
+}
+
+
+updateLoaneeByCollector = () => {
+    var url = $('#hdUpdateLoaneeByCollector').val();
+    var cusId = $('#txtCusId').val();
+
+    var loanTypeCode = $('#ddlLoanTypes').val();
+    var loanTaskStatusId = $('#ddlLoanTaskStatus').val();
+
+    var name = $('#txtName').val();
+    var homeAddress1 = $('#txtHomeAddress1').val();
+    var homeAddress2 = $('#txtHomeAddress2').val();
+    var homeAddress3 = $('#txtHomeAddress3').val();
+    var homeAddress4 = $('#txtHomeAddress4').val();
+    var telephoneHome = $('#txtTelephoneHome').val();
+    var mobileHome = $('#txtMobileHome').val();
+
+    var idenAddress1 = $('#txtIdenAddress1').val();
+    var idenAddress2 = $('#txtIdenAddress2').val();
+    var idenAddress3 = $('#txtIdenAddress3').val();
+    var idenAddress4 = $('#txtIdenAddress4').val();
+    var mobileEmg = $('#txtMobileEmg').val();
+
+    var companyName = $('#txtCompanyName').val();
+    var occupationName = $('#txtOccupationName').val();
+    var officeAddress1 = $('#txtOfficeAddress1').val();
+    var officeAddress2 = $('#txtOfficeAddress2').val();
+    var officeAddress3 = $('#txtOfficeAddress3').val();
+    var officeAddress4 = $('#txtOfficeAddress4').val();
+    var telephoneOffice = $('#txtTelephoneOffice').val();
+    var mobileOffice = $('#txtMobileOffice').val();
+
+
+    var updateLoaneeRequest = {};
+    updateLoaneeRequest.CusId = cusId;
+    updateLoaneeRequest.Name = name;
+    updateLoaneeRequest.HomeAddress1 = homeAddress1;
+    updateLoaneeRequest.HomeAddress2 = homeAddress2;
+    updateLoaneeRequest.HomeAddress3 = homeAddress3;
+    updateLoaneeRequest.HomeAddress4 = homeAddress4;
+    updateLoaneeRequest.TelephoneHome = telephoneHome;
+    updateLoaneeRequest.MobileHome = mobileHome;
+
+    updateLoaneeRequest.IdenAddress1 = idenAddress1;
+    updateLoaneeRequest.IdenAddress2 = idenAddress2;
+    updateLoaneeRequest.IdenAddress3 = idenAddress3;
+    updateLoaneeRequest.IdenAddress4 = idenAddress4;
+    updateLoaneeRequest.MobileEmg = mobileEmg;
+
+    updateLoaneeRequest.CompanyName = companyName;
+    updateLoaneeRequest.OccupationName = occupationName;
+    updateLoaneeRequest.OfficeAddress1 = officeAddress1;
+    updateLoaneeRequest.OfficeAddress2 = officeAddress2;
+    updateLoaneeRequest.OfficeAddress3 = officeAddress3;
+    updateLoaneeRequest.OfficeAddress4 = officeAddress4;
+    updateLoaneeRequest.TelephoneOffice = telephoneOffice;
+    updateLoaneeRequest.MobileOffice = mobileOffice;
     updateLoaneeRequest.LoanTaskStatusId = loanTaskStatusId;
 
     $("#loaderbody").show();

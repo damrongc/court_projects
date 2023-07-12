@@ -4,7 +4,6 @@ using CourtJustice.Infrastructure.Interfaces;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using System.Data;
-using System.Text;
 
 namespace CourtJustice.Infrastructure.Repositories
 {
@@ -12,6 +11,61 @@ namespace CourtJustice.Infrastructure.Repositories
     {
         public LoaneeRemarkRepository(IConfiguration config, ApplicationDbContext context) : base(config, context)
         {
+        }
+
+        public bool BankActionCodeIsExist(int id)
+        {
+            try
+            {
+                using IDbConnection conn = Connection;
+                conn.Open();
+                var sql = @"select count(1) from loanee_remark where bank_action_id=@bank_action_id";
+                var rowCount = conn.ExecuteScalar<int>(sql, new
+                {
+                    bank_action_id = id,
+                });
+                return rowCount == 0 ? false : true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool BankPersonCodeIsExist(int id)
+        {
+            try
+            {
+                using IDbConnection conn = Connection;
+                conn.Open();
+                var sql = @"select count(1) from loanee_remark 
+where bank_person_id=@bank_person_id";
+                var rowCount = conn.ExecuteScalar<int>(sql, new { bank_person_id =id});
+                return rowCount == 0 ? false : true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool BankResultCodeIsExist(int id)
+        {
+            try
+            {
+                using IDbConnection conn = Connection;
+                conn.Open();
+                var sql = @"select count(1) from loanee_remark where bank_result_id=@bank_result_id";
+                var rowCount = conn.ExecuteScalar<int>(sql, new
+                {
+                    bank_result_id = id,
+                });
+                return rowCount == 0 ? false : true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task BulkInsertOrUpdate(List<LoaneeRemarkExcelViewModel> loaneeRemarks)
@@ -24,17 +78,24 @@ namespace CourtJustice.Infrastructure.Repositories
                     {
                         CusId = item.CusId,
                         EmployerCode = item.EmployerCode,
-                        TransactionDatetime= item.TransactionDatetime,
-                        BankActionCodeId= item.BankActionCodeId,
-                        BankResultCodeId  =item.BankResultCodeId, 
-                        CompanyActionCodeId= item.CompanyActionCodeId,
-                        CompanyResultCodeId= item.CompanyResultCodeId,
-                        FollowContractNo= item.FollowContractNo,
-                        AppointmentDate =DateOnly.FromDateTime( item.AppointmentDate),
+                        TransactionDatetime = item.TransactionDatetime,
+                        
+                        FollowContractNo = item.FollowContractNo,
+                        AppointmentDate = DateOnly.FromDateTime(item.AppointmentDate),
                         AppointmentContract = item.AppointmentContract,
-                        Amount=item.Amount,
-                        Remark=item.Remark,
-                        IsActive=true,
+                        Amount = item.Amount,
+                        Remark = item.Remark,
+
+                        BankActionCodeId = item.BankActionCodeId,
+                        BankResultCodeId = item.BankResultCodeId,
+                        BankPersonCodeId = item.BankPersonCodeId,
+                        CompanyActionCodeId = item.CompanyActionCodeId,
+                        CompanyResultCodeId = item.CompanyResultCodeId,
+
+                        BankActionId = item.BankActionId,
+                        BankResultId = item.BankResultId,
+                        BankPersonId = item.BankPersonId,
+                        IsActive = true,
                     };
                     await Context.LoaneeRemarks.AddAsync(loaneeRemark);
                 }
@@ -46,6 +107,22 @@ namespace CourtJustice.Infrastructure.Repositories
                 throw;
             }
         }
+
+        //public async Task<int> CountByPersonCode(string personCode)
+        //{
+        //    try
+        //    {
+        //        using IDbConnection conn = Connection;
+        //        conn.Open();
+        //        var sql = @"select count(1) from loanee_remark where person_code_id=@person_code_id";
+        //        var rowCount = await conn.ExecuteScalarAsync<int>(sql, new { person_code_id  =personCode});
+        //        return rowCount;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
         public async Task Create(LoaneeRemark model)
         {
@@ -67,57 +144,38 @@ namespace CourtJustice.Infrastructure.Repositories
             await Context.SaveChangesAsync();
         }
 
-        //public async Task<List<LoaneeRemarkViewModel>> GetAll()
-        //{
-        //    try
-        //    {
-        //        using IDbConnection conn = Connection;
-        //        conn.Open();
-        //        var sb = new StringBuilder();
-        //        sb.Append("select loanee_remark.*, " +
-        //            " bank_action_code.bank_action_code_name," +
-        //            " bank_result_code.bank_result_code_name, " +
-        //            " company_action_code.company_action_name as company_action_code_name," +
-        //            " company_result_code.company_result_code_name " +
-        //            " from loanee_remark " +
-        //            " left outer JOIN bank_result_code ON loanee_remark.bank_result_code_id = bank_result_code.bank_result_code_id " +
-        //            " left OUTER JOIN bank_action_code ON loanee_remark.bank_action_code_id = bank_action_code.bank_action_code_id " +
-        //            " left OUTER JOIN company_action_code ON loanee_remark.company_action_code_id = company_action_code.company_action_code_id " +
-        //            " left OUTER JOIN company_result_code ON loanee_remark.company_result_code_id = company_result_code.company_result_code_id " +
-        //            " where cus_id=@cus_id");
-
-        //        var result = await conn.QueryAsync<LoaneeRemarkViewModel>(sb.ToString(), new { cus_id = id });
-        //        return result.ToList();
-
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
-
-        
         public async Task<List<LoaneeRemarkViewModel>> GetByCusId(string id)
         {
             try
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
-                var sb = new StringBuilder();
-                sb.Append("select loanee_remark.*, " +
-                    " bank_action_code.bank_action_code_name," +
-                    " bank_result_code.bank_result_code_name, " +
-                    " company_action_code.company_action_code_name," +
-                    " company_result_code.company_result_code_name " +
-                    " from loanee_remark " +
-                    " left outer JOIN bank_result_code ON loanee_remark.bank_result_code_id = bank_result_code.bank_result_code_id " +
-                    " left OUTER JOIN bank_action_code ON loanee_remark.bank_action_code_id = bank_action_code.bank_action_code_id " +
-                    " left OUTER JOIN company_action_code ON loanee_remark.company_action_code_id = company_action_code.company_action_code_id " +
-                    " left OUTER JOIN company_result_code ON loanee_remark.company_result_code_id = company_result_code.company_result_code_id " +
-                    " where cus_id=@cus_id");
-
-                var result = await conn.QueryAsync<LoaneeRemarkViewModel>(sb.ToString(), new { cus_id = id });
+                var sql = @"SELECT 
+    lr.loanee_remark_id,
+    lr.cus_id,
+    lr.transaction_datetime,
+    -- lr.bank_action_code_id,
+    -- lr.bank_result_code_id,
+    -- lr.company_action_code_id,
+    -- lr.company_result_code_id,
+    lr.follow_contract_no,
+    lr.appointment_date,
+    lr.amount,
+    lr.appointment_contract,
+    lr.remark,
+    lr.employer_code,
+    -- lr.bank_person_code_id,
+    lr.bank_action_id,
+    lr.bank_result_id,
+    lr.bank_person_id,
+    (select concat( ba.bank_action_code_id,':',bank_action_code_name ) from bank_action_code ba where lr.bank_action_id = ba.bank_action_id and lr.employer_code =ba.employer_code) as bank_action_code_name,
+    (select concat( br.bank_result_code_id,':',bank_result_code_name) from bank_result_code br where lr.bank_result_id = br.bank_result_id and lr.employer_code =br.employer_code) as bank_result_code_name,
+    (select concat( ca.company_action_code_id,':',company_action_code_name) from company_action_code ca where lr.company_action_code_id = ca.company_action_code_id ) as company_action_code_name,
+    (select concat( cr.company_result_code_id,':',company_result_code_name) from company_result_code cr where lr.company_result_code_id = cr.company_result_code_id ) as company_result_code_name,
+    (select concat( bp.bank_person_code_id,':',bank_person_code_name) from bank_person_code bp where lr.bank_person_id = bp.bank_person_id) as bank_person_code_name
+FROM loanee_remark lr
+WHERE cus_id = @cus_id";
+                var result = await conn.QueryAsync<LoaneeRemarkViewModel>(sql, new { cus_id = id });
                 return result.ToList();
 
             }
@@ -127,27 +185,39 @@ namespace CourtJustice.Infrastructure.Repositories
                 throw;
             }
         }
-        
+
         public async Task<LoaneeRemarkViewModel> GetByKey(int id)
         {
             try
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
-                var sb = new StringBuilder();
-                sb.Append("select loanee_remark.*, " +
-                    " bank_action_code.bank_action_code_name," +
-                    " bank_result_code.bank_result_code_name, " +
-                    " company_action_code.company_action_code_name," +
-                    " company_result_code.company_result_code_name " +
-                    " from loanee_remark " +
-                    " left outer JOIN bank_result_code ON loanee_remark.bank_result_code_id = bank_result_code.bank_result_code_id " +
-                    " left OUTER JOIN bank_action_code ON loanee_remark.bank_action_code_id = bank_action_code.bank_action_code_id " +
-                    " left OUTER JOIN company_action_code ON loanee_remark.company_action_code_id = company_action_code.company_action_code_id " +
-                    " left OUTER JOIN company_result_code ON loanee_remark.company_result_code_id = company_result_code.company_result_code_id " +
-                    " where loanee_remark_id=@loanee_remark_id");
-
-                var result = await conn.QueryAsync<LoaneeRemarkViewModel>(sb.ToString(), new { loanee_remark_id = id });
+                var sql = @"SELECT 
+    lr.loanee_remark_id,
+    lr.cus_id,
+    lr.transaction_datetime,
+    -- lr.bank_action_code_id,
+    -- lr.bank_result_code_id,
+    -- lr.company_action_code_id,
+    -- lr.company_result_code_id,
+    lr.follow_contract_no,
+    lr.appointment_date,
+    lr.amount,
+    lr.appointment_contract,
+    lr.remark,
+    lr.employer_code,
+    -- lr.bank_person_code_id,
+    lr.bank_action_id,
+    lr.bank_result_id,
+    lr.bank_person_id,
+    (select concat( ba.bank_action_code_id,':',bank_action_code_name ) from bank_action_code ba where lr.bank_action_id = ba.bank_action_id and lr.employer_code =ba.employer_code) as bank_action_code_name,
+    (select concat( br.bank_result_code_id,':',bank_result_code_name) from bank_result_code br where lr.bank_result_id = br.bank_result_id and lr.employer_code =br.employer_code) as bank_result_code_name,
+    (select concat( ca.company_action_code_id,':',company_action_code_name) from company_action_code ca where lr.company_action_code_id = ca.company_action_code_id ) as company_action_code_name,
+    (select concat( cr.company_result_code_id,':',company_result_code_name) from company_result_code cr where lr.company_result_code_id = cr.company_result_code_id ) as company_result_code_name,
+    (select concat( bp.bank_person_code_id,':',bank_person_code_name) from bank_person_code bp where lr.bank_person_id = bp.bank_person_id) as bank_person_code_name
+FROM loanee_remark lr
+WHERE loanee_remark_id = @loanee_remark_id";
+                var result = await conn.QueryAsync<LoaneeRemarkViewModel>(sql, new { loanee_remark_id = id });
                 return result.SingleOrDefault();
 
             }
@@ -157,12 +227,12 @@ namespace CourtJustice.Infrastructure.Repositories
                 throw;
             }
         }
-        
+
         public bool IsExisting(int id)
         {
             return Context.LoaneeRemarks.Any(p => p.LoaneeRemarkId == id);
         }
-        
+
         public async Task Update(int id, LoaneeRemark model)
         {
             var result = await Context.LoaneeRemarks.FindAsync(id);
@@ -172,17 +242,17 @@ namespace CourtJustice.Infrastructure.Repositories
             result.AppointmentDate = model.AppointmentDate;
             result.BankActionCodeId = model.BankActionCodeId;
             result.BankResultCodeId = model.BankResultCodeId;
+            result.BankPersonCodeId = model.BankPersonCodeId;
             result.CompanyActionCodeId = model.CompanyActionCodeId;
             result.CompanyResultCodeId = model.CompanyResultCodeId;
             result.TransactionDatetime = model.TransactionDatetime;
             result.CusId = model.CusId;
             result.FollowContractNo = model.FollowContractNo;
+            result.BankActionId = model.BankActionId;
+            result.BankResultId = model.BankResultId;
 
             await Context.SaveChangesAsync();
         }
-
-
-
     }
 }
 

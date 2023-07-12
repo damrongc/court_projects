@@ -1,0 +1,49 @@
+﻿@model CourtJustice.Domain.ViewModels.BankPersonCodeViewModel;
+
+@{
+    Layout = null;
+    var editUrl = Url.Action("EditPersonCode", "BankActionCodes");
+    var deleteUrl = Url.Action("DeletePersonCode", "BankActionCodes");
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input asp-for="BankPersonId" class="form-control" id="txtBankPersonId" type="hidden" />
+                            <input asp-for="BankActionId" class="form-control" id="txtBankActionId" type="hidden" />
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="control-label" asp-for="BankActionCodeName"></label>
+                                    <input asp-for="BankActionCodeName" class="form-control" readonly />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label asp-for="BankPersonCodeId" class="control-label"></label>
+                                    <input asp-for="BankPersonCodeId" class="form-control" id="txtBankPersonCodeId" readonly />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label asp-for="BankPersonCodeName" class="control-label"></label>
+                                    <input asp-for="BankPersonCodeName" class="form-control" id="txtBankPersonCodeName" />
+                                    <span asp-validation-for="BankPersonCodeName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-wrap justify-content-between">
+                                <input type="button" value="Delete" class="btn btn-danger" onclick="deletePersonCode('@deleteUrl')" />
+                                <input type="button" value="Save" class="btn btn-primary" onclick="savePersonCode('@editUrl')" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

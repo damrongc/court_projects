@@ -13,7 +13,7 @@ namespace CourtJustice.Web.Utils
                 string[] Split = new string[] { "-", "/", @"\", "." };
                 string[] Patternvalue = CurrentPattern.Split(Split, StringSplitOptions.None);
                 string[] DateSplit = Date.Split(Split, StringSplitOptions.None);
-                string NewDate = "";
+                //string NewDate = "";
                 //if (Patternvalue[0].ToLower().Contains("d") == true && Patternvalue[1].ToLower().Contains("m") == true && Patternvalue[2].ToLower().Contains("y") == true)
                 //{
                 //    NewDate = DateSplit[1] + "/" + DateSplit[0] + "/" + DateSplit[2];
@@ -32,7 +32,7 @@ namespace CourtJustice.Web.Utils
                 //}
                 date = new DateTime(DateSplit[2].ToInt16(), DateSplit[1].ToInt16(), DateSplit[0].ToInt16()); ;
             }
-            catch (Exception ex)
+            catch
             {
 
             }

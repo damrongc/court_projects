@@ -7,13 +7,14 @@ namespace CourtJustice.Domain.Models
     public class BankResultCode : BaseEntity
     {
         [Key]
+        public int BankResultId { get; set; }
         [Display(Name = "Result Code[ธนาคาร]")]
         public string BankResultCodeId { get; set; }
         [Display(Name = "คำอธิบาย")]
         public string BankResultCodeName { get; set; }
         public string EmployerCode { get; set; }
-        [ForeignKey(nameof(EmployerCode))]
-        public virtual Employer? Employer { set; get; }
+        //[ForeignKey(nameof(EmployerCode))]
+        //public virtual Employer? Employer { set; get; }
 
     }
 }

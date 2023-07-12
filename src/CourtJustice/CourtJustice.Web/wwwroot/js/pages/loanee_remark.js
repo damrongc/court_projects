@@ -1,7 +1,5 @@
 ﻿
 $(function () {
-
-
     $('#form-modal-xl').on('shown.bs.modal', function () {
         $(".dateonly").datetimepicker({
             timepicker: false,
@@ -9,8 +7,24 @@ $(function () {
             closeOnDateSelect: true
         });
     });
-
 });
+
+function getBankPersonCode() {
+   
+    var url = $('#hdGetBankPersonCodesUrl').val();
+    //var employerCode = $('#txtEmployerCode').val();
+    var bankActionId = $('#ddlBankActionCode').val();
+
+    $.getJSON(url, { id: bankActionId }, function (response) {
+        var items = '';
+        $('#ddlBankPersonCode').empty();
+        $.each(response, function (i, data) {
+            items += "<option value='" + data.value + "'>" + data.text + "</option>"
+        });
+        $('#ddlBankPersonCode').html(items);
+    });
+
+}
 
 function showRemarkTab(url) {
     if (url == '' || url == undefined) {
@@ -47,18 +61,17 @@ AddOrEditLoaneeRamark = (form) => {
     try {
         var loaneeRemark = {};
         var txtLoaneeRemarkId = $("#txtLoaneeRemarkId")
+        var txtEmployerCode = $("#txtEmployerCode")
         var txtRemark = $("#txtRemark");
         var txtCusId = $("#txtCusId");
-        //var txtTransactionDatetime = $("#txtTransactionDatetime");
         var txtAppointmentDate = $("#txtAppointmentDate");
-        //var txtAppointmentContract = $("#AppointmentContract");
         var txtFollowContractNo = $("#txtFollowContractNo");
         var txtAmount = $("#txtAmount");
         var ddlBankActionCode = $("#ddlBankActionCode");
         var ddlBankResultCode = $("#ddlBankResultCode");
         var ddlCompanyActionCode = $("#ddlCompanyActionCode");
         var ddlCompanyResultCode = $("#ddlCompanyResultCode");
-
+        var ddlBankPersonCode = $("#ddlBankPersonCode");
         var errorMessage = "";
         var isValid = true;
 
@@ -72,19 +85,11 @@ AddOrEditLoaneeRamark = (form) => {
             }
         }
 
-        //if (txtTransactionDatetime.val() == '' || txtTransactionDatetime.val() == undefined) {
-        //    isValid = false;
-        //    errorMessage += txtTransactionDatetime.attr('data-val-required') + '\n\r';
-        //}
-
         if (txtAppointmentDate.val() == '' || txtAppointmentDate.val() == undefined) {
             isValid = false;
             errorMessage += txtAppointmentDate.attr('data-val-required') + '\n\r';
         }
-        //if (txtAppointmentContract.val() == '' || txtAppointmentContract.val() == undefined) {
-        //    isValid = false;
-        //    errorMessage += txtAppointmentContract.attr('data-val-required') + '\n\r';
-        //}
+
         if (txtFollowContractNo.val() == '' || txtFollowContractNo.val() == undefined) {
             isValid = false;
             errorMessage += txtFollowContractNo.attr('data-val-required') + '\n\r';
@@ -97,19 +102,23 @@ AddOrEditLoaneeRamark = (form) => {
 
         if (ddlBankActionCode.val() == '' || ddlBankActionCode.val() == undefined) {
             isValid = false;
-            errorMessage += ddlBankActionCode.attr('data-val-required') + '\n\r';
+            errorMessage += 'กรุณาระบุ Action Code[ธนาคาร] \n\r';
         }
         if (ddlBankResultCode.val() == '' || ddlBankResultCode.val() == undefined) {
             isValid = false;
-            errorMessage += ddlBankResultCode.attr('data-val-required') + '\n\r';
+            errorMessage += 'กรุณาระบุ Result Code[ธนาคาร] \n\r';
+        }
+        if (ddlBankPersonCode.val() == '' || ddlBankPersonCode.val() == undefined) {
+            isValid = false;
+            errorMessage += 'กรุณาระบุ Person Code[ธนาคาร] \n\r';
         }
         if (ddlCompanyActionCode.val() == '' || ddlCompanyActionCode.val() == undefined) {
             isValid = false;
-            errorMessage += ddlCompanyActionCode.attr('data-val-required') + '\n\r';
+            errorMessage += 'กรุณาระบุ Action Code[บริษัท] \n\r';
         }
         if (ddlCompanyResultCode.val() == '' || ddlCompanyResultCode.val() == undefined) {
             isValid = false;
-            errorMessage += ddlCompanyResultCode.attr('data-val-required') + '\n\r';
+            errorMessage += 'กรุณาระบุ Result Code[บริษัท] \n\r';
         }
 
         if (!isValid) {
@@ -124,15 +133,15 @@ AddOrEditLoaneeRamark = (form) => {
         loaneeRemark.LoaneeRemarkId = txtLoaneeRemarkId.val();
         loaneeRemark.Remark = txtRemark.val();
         loaneeRemark.CusId = txtCusId.val();
-        //loaneeRemark.AppointmentContract = txtAppointmentContract.val();
-        //loaneeRemark.TransactionDatetime = moment(txtTransactionDatetime.val(), "DD-MM-YYYY h:mm").format()
         loaneeRemark.AppointmentDate = moment(txtAppointmentDate.val(), "DD-MM-YYYY").format()
         loaneeRemark.FollowContractNo = txtFollowContractNo.val();
         loaneeRemark.Amount = txtAmount.val();
-        loaneeRemark.BankActionCodeId = ddlBankActionCode.val();
-        loaneeRemark.BankResultCodeId = ddlBankResultCode.val();
+        loaneeRemark.BankActionId =parseInt( ddlBankActionCode.val());
+        loaneeRemark.BankResultId =parseInt( ddlBankResultCode.val());
         loaneeRemark.CompanyActionCodeId = ddlCompanyActionCode.val();
         loaneeRemark.CompanyResultCodeId = ddlCompanyResultCode.val();
+        loaneeRemark.BankPersonId = parseInt(ddlBankPersonCode.val());
+        loaneeRemark.EmployerCode = txtEmployerCode.val();
 
         $.ajax({
             type: 'POST',
@@ -145,11 +154,16 @@ AddOrEditLoaneeRamark = (form) => {
                         title: "สำเร็จ",
                         text: "ข้อมูล รายงายผลการติดตาม บันทึกเรียบร้อยแล้ว.",
                         icon: "success",
-                    })
-                        .then(() => {
+                    }).then(() => {
                             $("#view-remark").html(res.html);
                             closePopupXL();
                         });
+                } else {
+                    swal({
+                        title: "พบข้อผิดพลาด",
+                        text: res.message,
+                        icon: "error"
+                    });
                 }
             },
             error: function (err) {

@@ -1,47 +1,15 @@
-﻿
-
-
-
-$(function () {
-
-
-
+﻿$(function () {
+    //$("#ddlBankAction").select2({
+    //    maximumSelectionLength: 1,
+    //    placeholder: "กรุณาเลือก..."
+    //});
+    //$('#ddlMeterEnergyValue').multiselect({
+    //    columns: 6,
+    //    placeholder: 'Select Energy value',
+    //    search: true,
+    //    selectAll: true
+    //});
 });
-getBankResults = () => {
-    var url = $("#hdGetBankResultRoute").val();
-    var employerCode = $("#ddlEmployer").val();
-    try {
-        $("#loaderbody").show();
-        $.ajax({
-            type: "GET",
-            url: url + "/" + employerCode,
-            //data: JSON.stringify(request),
-            contentType: "application/json; charset=utf-8",
-            success: function (res) {
-                $("#loaderbody").hide();
-                if (res.isValid) {
-                    $("#view-table").html(res.html);
-                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
-                        activatejQueryTable();
-
-                } else {
-                    alert(res.message);
-                }
-            },
-            error: function (xhr, status, error) {
-                $("#loaderbody").hide();
-                var errorMessage = xhr.status + ': ' + xhr.statusText + ' ' + xhr.responseText;
-                alert('Error - ' + errorMessage);
-            }
-        })
-
-    } catch (e) {
-        console.log(e);
-    }
-    finally {
-        $("#loaderbody").hide();
-    }
-}
 
 
 confirmDelete = (id) => {
@@ -84,9 +52,4 @@ confirmDelete = (id) => {
         });
     return false;
 }
-
-
-
-
-
 

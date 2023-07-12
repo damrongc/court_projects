@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CourtJustice.Web.Controllers
 {
   
-    public class CompanysController : BaseController<ICompanyRepository>
+    public class CompanysController : BaseController<CompanysController>
     {
         private readonly ICompanyRepository _companyRepository;
 

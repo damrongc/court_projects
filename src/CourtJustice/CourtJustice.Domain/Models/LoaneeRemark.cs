@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Net.NetworkInformation;
 
 namespace CourtJustice.Domain.Models
 {
@@ -18,23 +17,23 @@ namespace CourtJustice.Domain.Models
 
         [Display(Name = "Action Code[ธนาคาร]")]
         public string BankActionCodeId { get; set; }
-        [ForeignKey(nameof(BankActionCodeId))]
-        public virtual BankActionCode? BankActionCode { set; get; }
+        //[ForeignKey(nameof(BankActionCodeId))]
+        //public virtual BankActionCode? BankActionCode { set; get; }
 
         [Display(Name = "Result Code[ธนาคาร]")]
         public string BankResultCodeId { get; set; }
-        [ForeignKey(nameof(BankResultCodeId))]
-        public virtual BankResultCode? BankResultCode { set; get; }
+        //[ForeignKey(nameof(BankResultCodeId))]
+        //public virtual BankResultCode? BankResultCode { set; get; }
 
         [Display(Name = "Action Code[บริษัท]")]
         public string CompanyActionCodeId { get; set; }
-        [ForeignKey(nameof(CompanyActionCodeId))]
-        public virtual CompanyActionCode? CompanyActionCode { set; get; }
+        //[ForeignKey(nameof(CompanyActionCodeId))]
+        //public virtual CompanyActionCode? CompanyActionCode { set; get; }
 
         [Display(Name = "Result Code[บริษัท]")]
         public string CompanyResultCodeId { get; set; }
-        [ForeignKey(nameof(CompanyResultCodeId))]
-        public virtual CompanyResultCode? CompanyResultCode { set; get; }
+        //[ForeignKey(nameof(CompanyResultCodeId))]
+        //public virtual CompanyResultCode? CompanyResultCode { set; get; }
 
         [Display(Name = "เบอร์ติดต่อ")]
         public string? FollowContractNo { get; set; }
@@ -52,8 +51,14 @@ namespace CourtJustice.Domain.Models
         public string Remark { get; set; }
         public bool IsActive { get; set; }
         public DateTime? UpdateDatetime { get; set; }
-
+        
         [Required]
         public string EmployerCode { get; set; }
+        //public string PersonCodeId { get; set; }
+        public string BankPersonCodeId { get; set; }
+
+        public int BankActionId { get; set; }
+        public int BankResultId { get; set; }
+        public int BankPersonId { get; set; }
     }
 }

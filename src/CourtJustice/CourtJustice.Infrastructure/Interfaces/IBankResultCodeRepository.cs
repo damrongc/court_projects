@@ -1,15 +1,18 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
     public interface IBankResultCodeRepository
     {
-        Task<List<BankResultCode>> GetAll();
-        Task<List<BankResultCode>> GetByEmployer(string employerCode);
+        Task<List<BankResultCodeViewModel>> GetAll();
+        Task<List<BankResultCodeViewModel>> GetByEmployer(string employerCode);
+        Task<int> CountByEmployerAndCode(string employerCode, string resultCodeId);
+        Task<BankResultCodeViewModel> GetByEmployerAndCode(string employerCode, string resultCodeId);
         Task Create(BankResultCode model);
-        Task Update(string id, BankResultCode model);
-        Task Delete(string id);
-        Task<BankResultCode> GetByKey(string id);
+        Task Update(BankResultCode model);
+        Task Delete(int id);
+        Task<BankResultCode> GetByKey(int id);
     }
 }
 

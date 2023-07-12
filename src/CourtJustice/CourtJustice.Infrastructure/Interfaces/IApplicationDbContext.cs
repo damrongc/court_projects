@@ -55,9 +55,10 @@ namespace CourtJustice.Infrastructure.Interfaces
         public DbSet<CompanyResultCode> CompanyResultCodes { get; set; }
         public DbSet<RemainTask> RemainTasks { get; set; }
         public DbSet<UserEmployerMapping> UserEmployerMappings { get; set; }
-
         public DbSet<MonthModel> MonthModels { get; set; }
         public DbSet<ReceiptSummary> ReceiptSummaries { get; set; }
+        //public DbSet<PersonCode> PersonCodes { get; set; }
+        public DbSet<BankPersonCode> BankPersonCodes { get; set; }
 
 
 

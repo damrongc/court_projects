@@ -23,12 +23,14 @@
                 @Html.DisplayNameFor(model => model.BankResultCodeName)
             </th>
             <th class="text-nowrap">
+                @Html.DisplayNameFor(model => model.BankPersonCodeName)
+            </th>
+            <th class="text-nowrap">
                 @Html.DisplayNameFor(model => model.CompanyActionCodeName)
             </th>
             <th class="text-nowrap">
                 @Html.DisplayNameFor(model => model.CompanyResultCodeName)
             </th>
-
             <th class="text-nowrap">
                 @Html.DisplayNameFor(model => model.AppointmentDate)
             </th>
@@ -62,12 +64,14 @@
                     @Html.DisplayFor(modelItem => item.BankResultCodeName)
                 </td>
                 <td class="text-nowrap">
+                    @Html.DisplayFor(modelItem => item.BankPersonCodeName)
+                </td>
+                <td class="text-nowrap">
                     @Html.DisplayFor(modelItem => item.CompanyActionCodeName)
                 </td>
                 <td class="text-nowrap">
                     @Html.DisplayFor(modelItem => item.CompanyResultCodeName)
                 </td>
-
                 <td class="text-nowrap">
                     @item.AppointmentDate.ToString("dd-MM-yyyy",cultureInfor)
                 </td>

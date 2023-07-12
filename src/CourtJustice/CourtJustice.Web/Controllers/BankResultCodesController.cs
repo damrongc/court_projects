@@ -1,38 +1,66 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
 using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace CourtJustice.Web.Controllers
 {
    
-    public class BankResultCodesController : BaseController<IBankResultCodeRepository>
+    public class BankResultCodesController : BaseController<BankResultCodesController>
     {
         private readonly IEmployerRepository _employerRepository;
         private readonly IBankResultCodeRepository _bankResultCodeRepository;
+        private readonly ILoaneeRemarkRepository _loaneeRemarkRepository;
 
-        public BankResultCodesController(IBankResultCodeRepository bankResultCodeRepository, IEmployerRepository employerRepository)
+        public BankResultCodesController(IBankResultCodeRepository bankResultCodeRepository, IEmployerRepository employerRepository, ILoaneeRemarkRepository loaneeRemarkRepository)
         {
             _bankResultCodeRepository = bankResultCodeRepository;
             _employerRepository = employerRepository;
+            _loaneeRemarkRepository = loaneeRemarkRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await GetAll());
+            var employers = await _employerRepository.GetAll();
+            employers.Insert(0, new Employer { EmployerCode = "", EmployerName = "แสดงทั้งหมด" });
+            List<SelectListItem> SelectEmployers = new();
+            foreach (var item in employers)
+            {
+                SelectEmployers.Add(new SelectListItem
+                {
+                    Text = item.EmployerName.ToString(),
+                    Value = item.EmployerCode.ToString(),
+                });
+            }
+            ViewBag.Employers = SelectEmployers;
+            var defaultEmployerCode = employers.FirstOrDefault().EmployerCode;
+            return View(await GetAll(defaultEmployerCode));
         }
 
 
-
-        private async Task<List<BankResultCode>> GetAll()
+        [HttpGet]
+        public async Task<IActionResult> GetBankResult(string id)
         {
-            var results = await _bankResultCodeRepository.GetAll();
-            return results.ToList();
+
+            var bankActions = await GetAll(id);
+            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", bankActions);
+            return new JsonResult(new { isValid = true, message = "", html });
+        }
+
+        //private async Task<List<BankResultCodeViewModel>> GetAll()
+        //{
+        //    var results = await _bankResultCodeRepository.GetAll();
+        //    return results.ToList();
+        //}
+
+        private async Task<List<BankResultCodeViewModel>> GetAll(string id)
+        {
+            var bankResults = await _bankResultCodeRepository.GetByEmployer(id);
+ 
+            return bankResults;
         }
 
         public async Task<IActionResult> Create()
@@ -64,27 +92,29 @@ namespace CourtJustice.Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int id)
         {
+            var model = await _bankResultCodeRepository.GetByKey(id);
+
             var employers = await _employerRepository.GetAll();
             List<SelectListItem> selects = new();
             foreach (var item in employers)
             {
                 selects.Add(new SelectListItem
                 {
+                    Selected = item.EmployerCode == model.EmployerCode,
                     Text = item.EmployerName.ToString(),
                     Value = item.EmployerCode.ToString(),
                 });
             }
             ViewBag.Employers = selects;
 
-            var model = await _bankResultCodeRepository.GetByKey(id);
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, BankResultCode model)
+        public async Task<IActionResult> Edit(int id, BankResultCode model)
         {
             var oldEntity = await _bankResultCodeRepository.GetByKey(id);
 
@@ -95,24 +125,39 @@ namespace CourtJustice.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                await _bankResultCodeRepository.Update(id, model);
+                await _bankResultCodeRepository.Update( model);
                 _notify.Success($"{model.BankResultCodeName} is Updated");
 
                 return RedirectToAction(nameof(Index));
             }
+            var employers = await _employerRepository.GetAll();
+            List<SelectListItem> selects = new();
+            foreach (var item in employers)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Selected = item.EmployerCode == oldEntity.EmployerCode,
+                    Text = item.EmployerName.ToString(),
+                    Value = item.EmployerCode.ToString(),
+                });
+            }
+            ViewBag.Employers = selects;
             return View(model);
         }
 
         [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
             {
-
+                //var isHaveRelation = _loaneeRemarkRepository.BankResultCodeIsExist(id);
+                //if (isHaveRelation)
+                //{
+                //    throw new Exception("ไม่สามารถลบข้อมูล เนื่องจากมีการใช้ใน รายงานการติดตาม");
+                //}
 
                 await _bankResultCodeRepository.Delete(id);
-                //_notify.Success($"Delete is Success.");
-                var results = await GetAll();
+                var results = await GetAll("");
                 var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
                 return new JsonResult(new { isValid = true, message = "", html });
             }

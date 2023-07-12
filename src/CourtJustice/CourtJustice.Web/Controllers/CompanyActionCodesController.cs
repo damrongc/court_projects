@@ -10,13 +10,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace CourtJustice.Web.Controllers
 {
 
-    public class CompanyActionCodesController : BaseController<ICompanyActionCodeRepository>
+    public class CompanyActionCodesController : BaseController<CompanyActionCodesController>
     {
         private readonly ICompanyActionCodeRepository _companyActionCodeRepository;
         private readonly ICompanyRepository _companyRepository;
 
 
-        public CompanyActionCodesController(ICompanyActionCodeRepository companyActionCodeRepository, ICompanyRepository companyRepository)
+        public CompanyActionCodesController(ICompanyActionCodeRepository companyActionCodeRepository, 
+            ICompanyRepository companyRepository)
         {
             _companyRepository = companyRepository;
             _companyActionCodeRepository = companyActionCodeRepository;
@@ -62,11 +63,6 @@ namespace CourtJustice.Web.Controllers
                 _notify.Success($"{model.CompanyActionCodeName} is Created.");
                 return RedirectToAction(nameof(Index));
             }
-            return View(model);
-        }
-
-        public async Task<IActionResult> Edit(string id)
-        {
             var companies = await _companyRepository.GetAll();
             List<SelectListItem> selects = new();
             foreach (var item in companies)
@@ -78,8 +74,26 @@ namespace CourtJustice.Web.Controllers
                 });
             }
             ViewBag.Companies = selects;
+            return View(model);
+        }
 
+        public async Task<IActionResult> Edit(string id)
+        {
             var model = await _companyActionCodeRepository.GetByKey(id);
+
+            var companies = await _companyRepository.GetAll();
+            List<SelectListItem> selects = new();
+            foreach (var item in companies)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Selected =item.CompanyId==model.CompanyId,
+                    Text = item.CompanyName.ToString(),
+                    Value = item.CompanyId.ToString(),
+                });
+            }
+            ViewBag.Companies = selects;
+
             return View(model);
         }
 
@@ -101,6 +115,18 @@ namespace CourtJustice.Web.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+            var companies = await _companyRepository.GetAll();
+            List<SelectListItem> selects = new();
+            foreach (var item in companies)
+            {
+                selects.Add(new SelectListItem
+                {
+                    Selected = item.CompanyId == oldEntity.CompanyId,
+                    Text = item.CompanyName.ToString(),
+                    Value = item.CompanyId.ToString(),
+                });
+            }
+            ViewBag.Companies = selects;
             return View(model);
         }
 

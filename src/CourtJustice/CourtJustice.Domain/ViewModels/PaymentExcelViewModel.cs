@@ -6,6 +6,7 @@
         public DateTime AssignDate { get; set; }
         public DateTime ExpireDate { get; set; }
         public string CusId { get; set; }
+        public string NationalityId { get; set; }
         public string CusName { get; set; }
         public string ContractNo { get; set; }
         public DateTime ReceiptDate { get; set; }

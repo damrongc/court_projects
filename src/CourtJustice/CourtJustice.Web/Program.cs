@@ -81,6 +81,7 @@ namespace CourtJustice.Web
             builder.Services.AddTransient<IUserEmployerMappingRepository, UserEmployerMappingRepository>();
             builder.Services.AddTransient<IReceiptSummaryRepository, ReceiptSummaryRepository>();
             builder.Services.AddTransient<IReportRepository, ReportRepository>();
+            builder.Services.AddTransient<IBankPersonCodeRepository, BankPersonCodeRepository>();
 
 
             builder.Services.AddScoped<RequestAuthenticationFilter>();

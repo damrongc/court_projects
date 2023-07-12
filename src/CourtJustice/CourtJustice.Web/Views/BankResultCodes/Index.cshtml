@@ -1,5 +1,5 @@
-﻿@using CourtJustice.Domain.Models
-@model IEnumerable<BankResultCode>
+﻿@using CourtJustice.Domain.ViewModels
+@model IEnumerable<BankResultCodeViewModel>
 
 @{
     ViewData["Title"] = "Result Code[ธนาคาร]";
@@ -11,7 +11,23 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-3">
                     <h3 class="mb-3">@ViewData["Title"]</h3>
-                    <a asp-action="Create" class="btn btn-success text-white"><i class="fa fa-plus"></i> Create New</a>
+                    @*<a asp-action="Create" class="btn btn-success text-white"><i class="fa fa-plus"></i> Create New</a>*@
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-flex flex-wrap justify-content-between">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <label class="control-label">ผู้ว่าจ้าง/ธนาคาร</label>
+                                    <select id="ddlEmployer" class="form-control dropdown ml-2" asp-items="ViewBag.Employers"></select>
+                                </div>
+                                <a onclick="getBankResults();" class="btn btn-primary text-white ml-2"><i class="fa fa-refresh"></i> Show Data</a>
+                            </div>
+                            <div class="form-inline">
+                                <a asp-action="Create" class="btn btn-success text-white"><i class="fa fa-plus"></i> Create New</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -25,7 +41,7 @@
         </div>
     </div>
 </div>
-
+@Html.Hidden("hdGetBankResultRoute", Url.Action("GetBankResult", "BankResultCodes"))
 @Html.Hidden("hdDeleteRoute", Url.Action("Delete", "BankResultCodes"))
 @section scripts{
     <script src="~/js/pages/bank_result_code.js" asp-append-version="true"></script>

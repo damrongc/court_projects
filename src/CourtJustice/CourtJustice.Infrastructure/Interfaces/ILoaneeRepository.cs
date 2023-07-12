@@ -14,6 +14,7 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task BulkInsertOrUpdate(List<LoaneeViewModel> loanees);
         bool IsExisting(string id);
         Task UpdateOrAssign(LoaneeViewModel model);
+        Task UpdateLoaneeByCollector(LoaneeViewModel model);
         Task UpdateContractNo(string id ,string followContractNo);
 
         Task DeActivate(List<LoaneeViewModel> loanees);

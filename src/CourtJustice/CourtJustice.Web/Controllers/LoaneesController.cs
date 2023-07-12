@@ -11,7 +11,6 @@ using FastReport.Export.PdfSimple;
 using CourtJustice.Web.Utils;
 using CourtJustice.Infrastructure.Utils;
 using CourtJustice.Web.Requests;
-using Microsoft.AspNetCore.Hosting;
 
 namespace CourtJustice.Web.Controllers
 {
@@ -247,12 +246,37 @@ namespace CourtJustice.Web.Controllers
                     OfficeAddress3 = request.OfficeAddress3,
                     OfficeAddress4 = request.OfficeAddress4,
                     TelephoneOffice = request.TelephoneHome,
-                    MobileOffice = request.MobileHome,
+                    MobileOffice = request.MobileOffice,
                     LoanTypeCode = request.LoanTypeCode,
                     LoanTaskStatusId = request.LoanTaskStatusId,
                 };
 
                 await _loaneeRepository.UpdateOrAssign(viewModel);
+                return new JsonResult(new { isValid = true, message = "" });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { isValid = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateLoaneeByCollector([FromBody] UpdateLoaneeRequest request)
+        {
+            try
+            {
+                var viewModel = new LoaneeViewModel
+                {
+                    CusId = request.CusId,
+                    TelephoneHome = request.TelephoneHome,
+                    MobileHome = request.MobileHome,
+                    MobileEmg = request.MobileEmg,
+                    TelephoneOffice = request.TelephoneHome,
+                    MobileOffice = request.MobileOffice,
+                    LoanTaskStatusId = request.LoanTaskStatusId,
+                };
+
+                await _loaneeRepository.UpdateLoaneeByCollector(viewModel);
                 return new JsonResult(new { isValid = true, message = "" });
             }
             catch (Exception ex)
@@ -363,23 +387,26 @@ namespace CourtJustice.Web.Controllers
 
             var employees = new List<EmployeeViewModel>();
             List<SelectListItem> SelectEmployees = new();
+            ViewBag.GroupId = appUser.GroupId;
             switch (appUser.GroupId)
             {
                 case 1:
                     employees = await _employeeRepository.GetAll();
                     employees.Insert(0, new EmployeeViewModel { EmployeeCode = "0", EmployeeName = "ไม่ระบุ" });
-                    ViewBag.IsEditable = true;
+                    //ViewBag.IsEditable = true;
                     break;
                 case 2:
                     employees = await _employeeRepository.GetEmployeeByManager(appUser.UserId);
-                    ViewBag.IsEditable = true;
+                    //ViewBag.IsEditable = true;
                     break;
                 case 3:
                 case 4:
                     employees = await _employeeRepository.GetEmployeeByCode(appUser.UserId);
-                    ViewBag.IsEditable = false;
+                    //ViewBag.IsEditable = false;
                     break;
-                default: ViewBag.IsEditable = false; break;
+                default: 
+                    //ViewBag.IsEditable = false; 
+                    break;
             }
 
             foreach (var item in employees)
@@ -587,7 +614,7 @@ namespace CourtJustice.Web.Controllers
                         //if (expireDate.Year > 2500) expireDate = expireDate.AddYears(-543);
                         if (!string.IsNullOrEmpty(dt.Rows[i][2].ToString()))
                         {
-                            loanee.ExpireDate = dt.Rows[i][2].ToString().Substring(0, 10).Trim();
+                            loanee.ExpireDate = dt.Rows[i][2].ToString();
 
                         }
                         loanee.NationalityId = dt.Rows[i][3].ToString().Trim();
@@ -596,7 +623,7 @@ namespace CourtJustice.Web.Controllers
 
                         if (!string.IsNullOrEmpty(dt.Rows[i][4].ToString()))
                         {
-                            loanee.BirthDate = dt.Rows[i][4].ToString().Substring(0, 10).Trim();
+                            loanee.BirthDate = dt.Rows[i][4].ToString();
 
                         }
                         loanee.CusId = cusId;
@@ -608,11 +635,11 @@ namespace CourtJustice.Web.Controllers
 
                         if (!string.IsNullOrEmpty(dt.Rows[i][8].ToString()))
                         {
-                            loanee.ContractDate = dt.Rows[i][8].ToString().Substring(0, 10).Trim();
+                            loanee.ContractDate = dt.Rows[i][8].ToString();
                         }
                         if (!string.IsNullOrEmpty(dt.Rows[i][9].ToString()))
                         {
-                            loanee.WODate = dt.Rows[i][9].ToString().Substring(0, 10).Trim();
+                            loanee.WODate = dt.Rows[i][9].ToString();
                         }
                         //var woDate = DateTime.ParseExact(dt.Rows[i][9].ToString().Trim(), DATE_FORMAT, culture);
                         //if (woDate.Year > 2500) woDate = woDate.AddYears(-543);
@@ -675,7 +702,7 @@ namespace CourtJustice.Web.Controllers
 
                         if (!string.IsNullOrEmpty(dt.Rows[i][60].ToString()))
                         {
-                            loanee.CPDate = dt.Rows[i][60].ToString().Substring(0, 10).Trim();
+                            loanee.CPDate = dt.Rows[i][60].ToString();
                         }
 
                         loanee.OAFee = dt.Rows[i][61].ToString().Trim() == "" ? 0 : dt.Rows[i][61].ToString().Trim().ToDecimal();
@@ -691,6 +718,7 @@ namespace CourtJustice.Web.Controllers
                         loanee.TotalPayment = dt.Rows[i][71].ToString().Trim() == "" ? 0 : dt.Rows[i][71].ToString().Trim().ToDecimal();
                         loanee.EmployerWorkGroup = dt.Rows[i][72].ToString().Trim();
                         loanee.Salary = dt.Rows[i][73].ToString().Trim() == "" ? 0 : dt.Rows[i][73].ToString().Trim().ToDecimal();
+                        loanee.LoanTaskStatusId = dt.Rows[i][74].ToString().Trim() == "" ? 99 : dt.Rows[i][74].ToString().Trim().ToInt16();
                         loanee.BucketId = 1;
                         loanee.EmployerCode = employerCode;
                         loanees.Add(loanee);

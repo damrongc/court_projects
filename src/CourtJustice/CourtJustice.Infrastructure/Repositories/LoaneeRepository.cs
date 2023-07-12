@@ -23,81 +23,84 @@ namespace CourtJustice.Infrastructure.Repositories
                 foreach (var item in loanees)
                 {
 
-                    var existingLoanee = await Context.Loanees.FindAsync(item.CusId);
-                    if (existingLoanee != null)
+                    var existing = await Context.Loanees.FindAsync(item.CusId);
+                    if (existing != null)
                     {
+                        existing.AssignDate = item.AssignDate;
+                        existing.ExpireDate = item.ExpireDate;
+                        existing.ContractDate = item.ContractDate;
+                        existing.BirthDate = item.BirthDate;
+                        existing.WODate = item.WODate;
 
-                        existingLoanee.AssignDate = item.AssignDate;
-                        existingLoanee.ExpireDate = item.ExpireDate;
-                        existingLoanee.ContractDate = item.ContractDate;
-                        existingLoanee.BirthDate = item.BirthDate;
-                        existingLoanee.WODate = item.WODate;
+                        existing.Term = item.Term;
+                        existing.InstallmentsByContract = item.InstallmentsByContract;
+                        existing.LoanAmount = item.LoanAmount;
+                        existing.WOBalance = item.WOBalance;
+                        existing.OverdueAmount = item.OverdueAmount;
+                        existing.TotalPenalty = item.TotalPenalty;
+                        existing.ClosingAmount = item.ClosingAmount;
+                        existing.RcvAmtBeforeWO = item.RcvAmtBeforeWO;
+                        existing.RcvAmtAfterWO = item.RcvAmtAfterWO;
+                        existing.LastPaidAmount = item.LastPaidAmount;
+                        existing.NoOfAssignment = item.NoOfAssignment;
+                        existing.Description = item.Description;
+                        existing.HomeAddress1 = item.HomeAddress1;
+                        existing.HomeAddress2 = item.HomeAddress2;
+                        existing.HomeAddress3 = item.HomeAddress3;
+                        existing.HomeAddress4 = item.HomeAddress4;
+                        existing.TelephoneHome = item.TelephoneHome;
+                        existing.CompanyName = item.CompanyName;
+                        existing.OccupationName = item.OccupationName;
+                        existing.OfficeAddress1 = item.OfficeAddress1;
+                        existing.OfficeAddress2 = item.OfficeAddress2;
+                        existing.OfficeAddress3 = item.OfficeAddress3;
+                        existing.OfficeAddress4 = item.OfficeAddress4;
+                        existing.TelephoneOffice = item.TelephoneOffice;
+                        existing.IdenAddress1 = item.IdenAddress1;
+                        existing.IdenAddress2 = item.IdenAddress2;
+                        existing.IdenAddress3 = item.IdenAddress3;
+                        existing.IdenAddress4 = item.IdenAddress4;
 
-                        existingLoanee.Term = item.Term;
-                        existingLoanee.InstallmentsByContract = item.InstallmentsByContract;
-                        existingLoanee.LoanAmount = item.LoanAmount;
-                        existingLoanee.WOBalance = item.WOBalance;
-                        existingLoanee.OverdueAmount = item.OverdueAmount;
-                        existingLoanee.TotalPenalty = item.TotalPenalty;
-                        existingLoanee.ClosingAmount = item.ClosingAmount;
-                        existingLoanee.RcvAmtBeforeWO = item.RcvAmtBeforeWO;
-                        existingLoanee.RcvAmtAfterWO = item.RcvAmtAfterWO;
-                        existingLoanee.LastPaidAmount = item.LastPaidAmount;
-                        existingLoanee.NoOfAssignment = item.NoOfAssignment;
-                        existingLoanee.Description = item.Description;
-                        existingLoanee.HomeAddress1 = item.HomeAddress1;
-                        existingLoanee.HomeAddress2 = item.HomeAddress2;
-                        existingLoanee.HomeAddress3 = item.HomeAddress3;
-                        existingLoanee.HomeAddress4 = item.HomeAddress4;
-                        existingLoanee.TelephoneHome = item.TelephoneHome;
-                        existingLoanee.CompanyName = item.CompanyName;
-                        existingLoanee.OccupationName = item.OccupationName;
-                        existingLoanee.OfficeAddress1 = item.OfficeAddress1;
-                        existingLoanee.OfficeAddress2 = item.OfficeAddress2;
-                        existingLoanee.OfficeAddress3 = item.OfficeAddress3;
-                        existingLoanee.OfficeAddress4 = item.OfficeAddress4;
-                        existingLoanee.TelephoneOffice = item.TelephoneOffice;
-                        existingLoanee.IdenAddress1 = item.IdenAddress1;
-                        existingLoanee.IdenAddress2 = item.IdenAddress2;
-                        existingLoanee.IdenAddress3 = item.IdenAddress3;
-                        existingLoanee.IdenAddress4 = item.IdenAddress4;
+                        existing.EmergencyContract1 = item.EmergencyContract1;
+                        existing.EmergencyPhone1 = item.IdenAddress1;
+                        existing.EmergencyExt1 = item.EmergencyExt1;
 
-                        existingLoanee.EmergencyContract1 = item.EmergencyContract1;
-                        existingLoanee.EmergencyPhone1 = item.IdenAddress1;
-                        existingLoanee.EmergencyExt1 = item.EmergencyExt1;
+                        existing.EmergencyContract2 = item.EmergencyContract2;
+                        existing.EmergencyPhone2 = item.IdenAddress2;
+                        existing.EmergencyExt2 = item.EmergencyExt2;
 
-                        existingLoanee.EmergencyContract2 = item.EmergencyContract2;
-                        existingLoanee.EmergencyPhone2 = item.IdenAddress2;
-                        existingLoanee.EmergencyExt2 = item.EmergencyExt2;
+                        existing.EmergencyContract3 = item.EmergencyContract3;
+                        existing.EmergencyPhone3 = item.IdenAddress3;
+                        existing.EmergencyExt3 = item.EmergencyExt3;
 
-                        existingLoanee.EmergencyContract3 = item.EmergencyContract3;
-                        existingLoanee.EmergencyPhone3 = item.IdenAddress3;
-                        existingLoanee.EmergencyExt3 = item.EmergencyExt3;
-
-                        existingLoanee.EmergencyContract4 = item.EmergencyContract4;
-                        existingLoanee.EmergencyPhone4 = item.IdenAddress4;
-                        existingLoanee.EmergencyExt4 = item.EmergencyExt4;
+                        existing.EmergencyContract4 = item.EmergencyContract4;
+                        existing.EmergencyPhone4 = item.IdenAddress4;
+                        existing.EmergencyExt4 = item.EmergencyExt4;
 
 
-                        existingLoanee.MobileHome = item.MobileHome;
-                        existingLoanee.MobileOffice = item.MobileOffice;
-                        existingLoanee.MobileCont = item.MobileCont;
-                        existingLoanee.MobileEmg = item.MobileEmg;
-                        existingLoanee.SpecialNote = item.SpecialNote;
-                        existingLoanee.CPCase = item.CPCase;
-                        existingLoanee.NoOfCP = item.NoOfCP;
-                        existingLoanee.CPDate = item.CPDate;
-                        existingLoanee.OAFee = item.OAFee;
-                        existingLoanee.MaxOAFeeAmount = item.MaxOAFeeAmount;
-                        existingLoanee.MaxOAFeeBalance = item.MaxOAFeeBalance;
+                        existing.MobileHome = item.MobileHome;
+                        existing.MobileOffice = item.MobileOffice;
+                        existing.MobileCont = item.MobileCont;
+                        existing.MobileEmg = item.MobileEmg;
+                        existing.SpecialNote = item.SpecialNote;
+                        existing.CPCase = item.CPCase;
+                        existing.NoOfCP = item.NoOfCP;
+                        existing.CPDate = item.CPDate;
+                        existing.OAFee = item.OAFee;
+                        existing.MaxOAFeeAmount = item.MaxOAFeeAmount;
+                        existing.MaxOAFeeBalance = item.MaxOAFeeBalance;
 
-                        existingLoanee.Gender = item.Gender;
-                        existingLoanee.MaritalStatus = item.MaritalStatus;
-                        existingLoanee.ProductCode = item.ProductCode;
-                        existingLoanee.DebtAge = item.DebtAge;
-                        existingLoanee.TotalPayment = item.TotalPayment;
-                        existingLoanee.EmployerWorkGroup = item.EmployerWorkGroup;
-                        existingLoanee.Salary = item.Salary;
+                        existing.Gender = item.Gender;
+                        existing.MaritalStatus = item.MaritalStatus;
+                        existing.ProductCode = item.ProductCode;
+                        existing.DebtAge = item.DebtAge;
+                        existing.TotalPayment = item.TotalPayment;
+                        existing.EmployerWorkGroup = item.EmployerWorkGroup;
+                        existing.Salary = item.Salary;
+                        existing.LoanTaskStatusId= item.LoanTaskStatusId;
+                        existing.EmployeeCode= item.EmployeeCode;
+
+                        existing.IsActive = true;
 
                     }
                     else
@@ -173,7 +176,6 @@ namespace CourtJustice.Infrastructure.Repositories
                             //OccupationId = item.OccupationId,
                             EmployerCode = item.EmployerCode,
                             LoanTypeCode = item.LoanTypeCode,
-
                             Gender = item.Gender,
                             MaritalStatus = item.MaritalStatus,
                             ProductCode = item.ProductCode,
@@ -181,6 +183,8 @@ namespace CourtJustice.Infrastructure.Repositories
                             TotalPayment = item.TotalPayment,
                             EmployerWorkGroup = item.EmployerWorkGroup,
                             Salary = item.Salary,
+                            LoanTaskStatusId= item.LoanTaskStatusId,
+                            IsActive = true,
                         };
                         await Context.Loanees.AddAsync(loanee);
                     }
@@ -318,9 +322,11 @@ namespace CourtJustice.Infrastructure.Repositories
     loanee.created_date_time,
     loanee.user_updated,
     loanee.updated_date_time,
-    employer.employer_name
-from loanee,employer 
+    employer.employer_name,
+    loan_task_status.loan_task_status_name
+from loanee,employer,loan_task_status
 where loanee.employer_code=employer.employer_code 
+and loanee.loan_task_status_id=loan_task_status.loan_task_status_id 
 and cus_id=@cus_id";
                 var result = await conn.QueryAsync<LoaneeViewModel>(sql, new { cus_id = id });
                 return result.FirstOrDefault();
@@ -421,9 +427,12 @@ and cus_id=@cus_id";
     loanee.created_date_time,
     loanee.user_updated,
     loanee.updated_date_time,
-    employer.employer_name
-from loanee,employer 
-where loanee.employer_code=employer.employer_code and loanee.is_active=1";
+    employer.employer_name,
+    loan_task_status.loan_task_status_name
+from loanee,employer,loan_task_status
+where loanee.employer_code=employer.employer_code
+and loanee.loan_task_status_id=loan_task_status.loan_task_status_id 
+and loanee.is_active=1";
                 var sb = new StringBuilder();
                 sb.Append(sql);
                 if (!string.IsNullOrEmpty(filter))
@@ -444,7 +453,7 @@ where loanee.employer_code=employer.employer_code and loanee.is_active=1";
                 }
                 if (loanTaskStatusId > 0)
                 {
-                    sb.Append(" and loan_task_status_id=@loanTaskStatusId");
+                    sb.Append(" and loan_task_status.loan_task_status_id=@loanTaskStatusId");
                 }
                 if (!string.IsNullOrEmpty(employerCode))
                 {
@@ -511,7 +520,10 @@ where loanee.employer_code=employer.employer_code and loanee.is_active=1";
                 conn.Open();
                 var sb = new StringBuilder();
 
-                sb.Append("select count(1) from loanee,employer where loanee.employer_code=employer.employer_code  and loanee.is_active=1");
+                sb.Append("select count(1) from loanee,employer,loan_task_status");
+                sb.Append(" where loanee.employer_code=employer.employer_code");
+                sb.Append(" and loanee.loan_task_status_id=loan_task_status.loan_task_status_id ");
+                sb.Append(" and loanee.is_active=1");
                 if (!string.IsNullOrEmpty(filter))
                 {
                     sb.Append(" and (cus_id LIKE @filter");
@@ -530,7 +542,7 @@ where loanee.employer_code=employer.employer_code and loanee.is_active=1";
                 }
                 if (loanTaskStatusId > 0)
                 {
-                    sb.Append(" and loan_task_status_id=@loanTaskStatusId");
+                    sb.Append(" and loan_task_status.loan_task_status_id=@loanTaskStatusId");
                 }
                 if (!string.IsNullOrEmpty(employerCode))
                 {
@@ -587,12 +599,10 @@ where loanee.employer_code=employer.employer_code and loanee.is_active=1";
         {
             return Context.Loanees.Any(p => p.CusId == id);
         }
-
         public async Task Update(int id, Loanee model)
         {
             throw new NotImplementedException();
         }
-
         public async Task UpdateContractNo(string id, string followContractNo)
         {
             try
@@ -610,7 +620,6 @@ where loanee.employer_code=employer.employer_code and loanee.is_active=1";
                 throw;
             }
         }
-
         public async Task UpdateOrAssign(LoaneeViewModel model)
         {
             try
@@ -643,6 +652,28 @@ where loanee.employer_code=employer.employer_code and loanee.is_active=1";
                     loanee.LoanTypeCode = model.LoanTypeCode;
                     loanee.LoanTaskStatusId = model.LoanTaskStatusId;
                     loanee.BucketId = model.BucketId;
+                    await Context.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public async Task UpdateLoaneeByCollector(LoaneeViewModel model)
+        {
+            try
+            {
+                var loanee = await Context.Loanees.FindAsync(model.CusId);
+                if (loanee != null)
+                {
+                    loanee.TelephoneHome = model.TelephoneHome;
+                    loanee.MobileHome = model.MobileHome;
+                    loanee.MobileEmg = model.MobileEmg;
+                    loanee.TelephoneOffice = model.TelephoneOffice;
+                    loanee.MobileOffice = model.MobileOffice;
+                    loanee.LoanTaskStatusId = model.LoanTaskStatusId;
                     await Context.SaveChangesAsync();
                 }
             }

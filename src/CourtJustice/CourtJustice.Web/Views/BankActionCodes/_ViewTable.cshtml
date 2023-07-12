@@ -1,5 +1,5 @@
-﻿@using CourtJustice.Domain.Models
-@model IEnumerable<BankActionCode>
+﻿@using CourtJustice.Domain.ViewModels
+@model IEnumerable<BankActionCodeViewModel>
 
 
 <div class="table-responsive">
@@ -7,19 +7,16 @@
         <thead>
             <tr class="bg-primary text-white" role="row">
                 <th>
+                    @Html.DisplayNameFor(model => model.EmployerName)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.BankActionCodeId)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.BankActionCodeName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EmployerCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserCreated)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedDateTime)
+                    @Html.DisplayNameFor(model => model.BankPersonCodes)
                 </th>
                 <th>
 
@@ -31,25 +28,32 @@
             {
                 <tr>
                     <td>
+                        @Html.DisplayFor(modelItem => item.EmployerName)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.BankActionCodeId)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.BankActionCodeName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Employer.EmployerName)
+                        @foreach (var personCode in item.BankPersonCodes)
+                        {
+                            var personName = string.Format("{0}", personCode.BankPersonCodeName);
+                            <a class="btn btn-sm btn-light ml-2 mr-2" onclick="showInPopup('@Url.Action("EditPersonCode","BankActionCodes"
+                            ,new {id=personCode.BankPersonId}
+                                ,Context.Request.Scheme)'
+                                ,'แก้ไข Person Code')">@personName</a>
+                        }
                     </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserCreated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedDateTime)
-                    </td>
-                    <td class="w100">
+                    <td class="w150">
                         <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.BankActionCodeId"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.BankActionCodeId');"><i class='fa fa-trash'></i></a>
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.BankActionId"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.BankActionId');"><i class='fa fa-trash'></i></a>
+                            <a onclick="showInPopup('@Url.Action("CreatePersonCode","BankActionCodes"
+                            ,new {id= item.BankActionId},Context.Request.Scheme)','เพิ่ม Person Code')"
+                           class="btn btn-info text-white btn-sm mt-2 mb-2"><i class="fa fa-plus"></i> </a>
                         </div>
                     </td>
                 </tr>

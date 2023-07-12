@@ -2,8 +2,7 @@
 @model IEnumerable<CompanyActionCode>
 
 @{
-    //ViewData["Title"] = "Action Code[บริษัท]";
-    ViewData["Title"] = "Person Code[ธนาคาร]";
+    ViewData["Title"] = "Action Code[บริษัท]";
 }
 
 <div>
@@ -15,6 +14,23 @@
                     <a asp-action="Create" class="btn btn-success text-white"><i class="fa fa-plus"></i> Create New</a>
                 </div>
             </div>
+@*            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex flex-wrap justify-content-between">
+                        <div class="form-inline">
+                            <div class="form-group ml-2">
+                                <label class="control-label">ประเภท</label>
+                                <select id="ddlEmployer" class="form-control dropdown ml-2" asp-items="ViewBag.Employers"></select>
+                            </div>
+                            
+                            <a onclick="getBankAction();" class="btn btn-primary text-white ml-2"><i class="fa fa-refresh"></i> Show Data</a>
+                        </div>
+                        <div class="form-inline">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>*@
         </div>
 
         <div class="card">

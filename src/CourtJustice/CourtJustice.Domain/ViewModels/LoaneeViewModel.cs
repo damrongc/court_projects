@@ -177,6 +177,9 @@ namespace CourtJustice.Domain.ViewModels
         public decimal TotalPayment { get; set; }
         [Display(Name = "เงินเดือน")]
         public decimal Salary { get; set; }
+        [Display(Name = "กลุ่มงาน")]
+
+        public string LoanTaskStatusName { get; set; }
         public string FullHomeAddress() => $"{HomeAddress1} {HomeAddress2} {HomeAddress3} {HomeAddress4}";
         public string FullOfficeAddress() => $"{OfficeAddress1} {OfficeAddress2} {OfficeAddress3} {OfficeAddress4}";
         public string FullIdenAddress() => $"{IdenAddress1} {IdenAddress2} {IdenAddress3} {IdenAddress4}";

@@ -1,7 +1,6 @@
 ﻿using CourtJustice.Domain.Models;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

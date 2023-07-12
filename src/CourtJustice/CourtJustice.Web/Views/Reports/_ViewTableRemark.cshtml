@@ -10,15 +10,17 @@
     <table class="table table-bordered table-hover data-table">
         <thead>
             <tr class="bg-primary text-white" role="row">
-                <th class="text-nowrap">ASSIGN DATE</th>
-                <th class="text-nowrap">EXPIRE DATE</th>
+
                 <th class="text-nowrap">CUSTOMER CODE</th>
+                <th class="text-nowrap">ID</th>
                 <th class="text-nowrap">CUSTOMER NAME</th>
                 <th class="text-nowrap">CONTRACT NO</th>
                 <th class="text-nowrap">BANK ACTION CODE</th>
                 <th class="text-nowrap">BANK ACTION NAME</th>
                 <th class="text-nowrap">BANK RESULT CODE </th>
                 <th class="text-nowrap">BANK RESULT NAME</th>
+                <th class="text-nowrap">PERSON CODE</th>
+                <th class="text-nowrap">PERSON CODE NAME</th>
                 <th class="text-nowrap">COMPANY ACTION CODE</th>
                 <th class="text-nowrap">COMPANY ACTION NAME</th>
                 <th class="text-nowrap">COMPANY RESULT CODE</th>
@@ -36,21 +38,23 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td class="text-nowrap"> @item.AssignDate.ToString("dd-MM-yyyy",cultureInfor)</td>
-                    <td class="text-nowrap">@item.ExpireDate.ToString("dd-MM-yyyy",cultureInfor)</td>
+ 
                     <td class="text-nowrap">@item.CusId</td>
+                    <td class="text-nowrap">@item.NationalityId</td>
                     <td class="text-nowrap">@item.CusName</td>
                     <td class="text-nowrap">@item.ContractNo</td>
                     <td class="text-nowrap">@item.BankActionCodeId</td>
                     <td class="text-nowrap">@item.BankActionCodeName</td>
                     <td class="text-nowrap">@item.BankResultCodeId</td>
                     <td class="text-nowrap">@item.BankResultCodeName</td>
+                    <td class="text-nowrap">@item.BankPersonCodeId</td>
+                    <td class="text-nowrap">@item.BankPersonCodeName</td>
                     <td class="text-nowrap">@item.CompanyActionCodeId</td>
                     <td class="text-nowrap">@item.CompanyActionCodeName</td>
                     <td class="text-nowrap">@item.CompanyResultCodeId</td>
                     <td class="text-nowrap">@item.CompanyResultCodeName</td>
                     <td class="text-nowrap">@item.FollowContractNo</td>
-                    <td class="text-nowrap">@item.AppointmentDate.ToString("dd-MM-yyyy",cultureInfor)</td>
+                    <td class="text-nowrap">@item.AppointmentDate</td>
                     <td class="text-nowrap text-right">@item.Amount.ToFormat2Decimal()</td>
                     <td class="text-nowrap">@item.AppointmentContract</td>
                     <td class="text-nowrap">@item.Remark</td>

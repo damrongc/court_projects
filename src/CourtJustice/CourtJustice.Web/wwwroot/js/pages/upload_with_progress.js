@@ -19,12 +19,20 @@ function importLoanee(inputId) {
             processData: false,
             contentType: false,
             type: "POST",
-            success: function (data) {
-                if (data.isvalid) {
-                    alert(data.message);
+            success: function (res) {
+                if (res.isvalid) {
+                    swal({
+                        title: "Success",
+                        text: res.message,
+                        icon: "success"
+                    });
                     stopUpdatingProgressIndicator();
                 } else {
-                    alert(data.message);
+                    swal({
+                        title: "Error",
+                        text: res.message,
+                        icon: "error"
+                    });
                     stopUpdatingProgressIndicator();
                 }
                 $('#btnImport').removeAttr("disabled");
@@ -52,12 +60,20 @@ function importCancelLoanee(inputId) {
             processData: false,
             contentType: false,
             type: "POST",
-            success: function (data) {
-                if (data.isvalid) {
-                    alert(data.message);
+            success: function (res) {
+                if (res.isvalid) {
+                    swal({
+                        title: "Success",
+                        text: res.message,
+                        icon: "success"
+                    });
                     stopUpdatingProgressIndicator();
                 } else {
-                    alert(data.message);
+                    swal({
+                        title: "Error",
+                        text: res.message,
+                        icon: "error"
+                    });
                     stopUpdatingProgressIndicator();
                 }
                 $('#btnImport').removeAttr("disabled");
@@ -87,12 +103,20 @@ function importPayment(inputId) {
             contentType: false,
             type: "POST",
 
-            success: function (data) {
-                if (data.isvalid) {
-                    alert(data.message);
+            success: function (res) {
+                if (res.isvalid) {
+                    swal({
+                        title: "Success",
+                        text: res.message,
+                        icon: "success"
+                    });
                     stopUpdatingProgressIndicator();
                 } else {
-                    alert(data.message);
+                    swal({
+                        title: "Error",
+                        text: res.message,
+                        icon: "error"
+                    });
                     stopUpdatingProgressIndicator();
                 }
                 $('#btnImport').removeAttr("disabled");
@@ -122,12 +146,20 @@ function importLoaneeRemark(inputId) {
             contentType: false,
             type: "POST",
 
-            success: function (data) {
-                if (data.isvalid) {
-                    alert(data.message);
+            success: function (res) {
+                if (res.isvalid) {
+                    swal({
+                        title: "Success",
+                        text: res.message,
+                        icon: "success"
+                    });
                     stopUpdatingProgressIndicator();
                 } else {
-                    alert(data.message);
+                    swal({
+                        title: "Error",
+                        text: res.message,
+                        icon: "error"
+                    });
                     stopUpdatingProgressIndicator();
                 }
                 $('#btnImport').removeAttr("disabled");

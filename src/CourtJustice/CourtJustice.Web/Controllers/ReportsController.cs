@@ -109,31 +109,33 @@ namespace CourtJustice.Web.Controllers
                     IXLWorksheet worksheetProductTypeY = workbook.Worksheets.Add("Receipt");
                     worksheetProductTypeY.Cell(1, 1).Value = "ASSIGN DATE";
                     worksheetProductTypeY.Cell(1, 2).Value = "EXPIRE DATE";
-                    worksheetProductTypeY.Cell(1, 3).Value = "CUSTOMER CODE";
-                    worksheetProductTypeY.Cell(1, 4).Value = "CUSTOMER NAME";
-                    worksheetProductTypeY.Cell(1, 5).Value = "CONTRACT NO";
-                    worksheetProductTypeY.Cell(1, 6).Value = "RECEIPT DATE";
-                    worksheetProductTypeY.Cell(1, 7).Value = "BOOKING DATE";
-                    worksheetProductTypeY.Cell(1, 8).Value = "TOTAL RECEIVED";
-                    worksheetProductTypeY.Cell(1, 9).Value = "W/O BALANCE";
-                    worksheetProductTypeY.Cell(1, 10).Value = "START OD STATUS";
-                    worksheetProductTypeY.Cell(1, 11).Value = "END OD STATUS";
-                    worksheetProductTypeY.Cell(1, 12).Value = "COLLECTOR";
+                    worksheetProductTypeY.Cell(1, 3).Value = "ID";
+                    worksheetProductTypeY.Cell(1, 4).Value = "CUSTOMER CODE";
+                    worksheetProductTypeY.Cell(1, 5).Value = "CUSTOMER NAME";
+                    worksheetProductTypeY.Cell(1, 6).Value = "CONTRACT NO";
+                    worksheetProductTypeY.Cell(1, 7).Value = "RECEIPT DATE";
+                    worksheetProductTypeY.Cell(1, 8).Value = "BOOKING DATE";
+                    worksheetProductTypeY.Cell(1, 9).Value = "TOTAL RECEIVED";
+                    worksheetProductTypeY.Cell(1, 10).Value = "W/O BALANCE";
+                    worksheetProductTypeY.Cell(1, 11).Value = "START OD STATUS";
+                    worksheetProductTypeY.Cell(1, 12).Value = "END OD STATUS";
+                    worksheetProductTypeY.Cell(1, 13).Value = "COLLECTOR";
 
                     for (int index = 0; index < data.Count; index++)
                     {
                         worksheetProductTypeY.Cell(index + 2, 1).Value = data[index].AssignDate.ToString("dd-MM-yyyy", cultureInfor);
                         worksheetProductTypeY.Cell(index + 2, 2).Value = data[index].ExpireDate.ToString("dd-MM-yyyy", cultureInfor);
                         worksheetProductTypeY.Cell(index + 2, 3).Value = data[index].CusId;
-                        worksheetProductTypeY.Cell(index + 2, 4).Value = data[index].CusName;
-                        worksheetProductTypeY.Cell(index + 2, 5).Value = data[index].ContractNo;
-                        worksheetProductTypeY.Cell(index + 2, 6).Value = data[index].ReceiptDate.ToString("dd-MM-yyyy", cultureInfor);
-                        worksheetProductTypeY.Cell(index + 2, 7).Value = data[index].BookingDate.ToString("dd-MM-yyyy", cultureInfor);
-                        worksheetProductTypeY.Cell(index + 2, 8).Value = data[index].TotalReceived.ToFormat2Decimal();
-                        worksheetProductTypeY.Cell(index + 2, 9).Value = data[index].WOBalance.ToFormat2Decimal();
-                        worksheetProductTypeY.Cell(index + 2, 10).Value = data[index].StartOverdueStatus;
-                        worksheetProductTypeY.Cell(index + 2, 11).Value = data[index].EndOverdueStatus;
-                        worksheetProductTypeY.Cell(index + 2, 12).Value = data[index].UserCreated;
+                        worksheetProductTypeY.Cell(index + 2, 4).Value = data[index].NationalityId;
+                        worksheetProductTypeY.Cell(index + 2, 5).Value = data[index].CusName;
+                        worksheetProductTypeY.Cell(index + 2, 6).Value = data[index].ContractNo;
+                        worksheetProductTypeY.Cell(index + 2, 7).Value = data[index].ReceiptDate.ToString("dd-MM-yyyy", cultureInfor);
+                        worksheetProductTypeY.Cell(index + 2, 8).Value = data[index].BookingDate.ToString("dd-MM-yyyy", cultureInfor);
+                        worksheetProductTypeY.Cell(index + 2, 9).Value = data[index].TotalReceived.ToFormat2Decimal();
+                        worksheetProductTypeY.Cell(index + 2, 10).Value = data[index].WOBalance.ToFormat2Decimal();
+                        worksheetProductTypeY.Cell(index + 2, 11).Value = data[index].StartOverdueStatus;
+                        worksheetProductTypeY.Cell(index + 2, 12).Value = data[index].EndOverdueStatus;
+                        worksheetProductTypeY.Cell(index + 2, 13).Value = data[index].UserCreated;
 
                     }
 
@@ -239,48 +241,57 @@ namespace CourtJustice.Web.Controllers
                 using (var workbook = new XLWorkbook())
                 {
                     IXLWorksheet worksheetProductTypeY = workbook.Worksheets.Add("Remark");
-                    worksheetProductTypeY.Cell(1, 1).Value = "ASSIGN DATE";
-                    worksheetProductTypeY.Cell(1, 2).Value = "EXPIRE DATE";
-                    worksheetProductTypeY.Cell(1, 3).Value = "CUSTOMER CODE";
-                    worksheetProductTypeY.Cell(1, 4).Value = "CUSTOMER NAME";
-                    worksheetProductTypeY.Cell(1, 5).Value = "CONTRACT NO";
-                    worksheetProductTypeY.Cell(1, 6).Value = "BANK ACTION CODE";
-                    worksheetProductTypeY.Cell(1, 7).Value = "BANK ACTION NAME";
-                    worksheetProductTypeY.Cell(1, 8).Value = "BANK RESULT CODE ";
-                    worksheetProductTypeY.Cell(1, 9).Value = "BANK RESULT NAME";
-                    worksheetProductTypeY.Cell(1, 10).Value = "COMPANY ACTION CODE";
-                    worksheetProductTypeY.Cell(1, 11).Value = "COMPANY ACTION NAME";
-                    worksheetProductTypeY.Cell(1, 12).Value = "COMPANY RESULT CODE";
-                    worksheetProductTypeY.Cell(1, 13).Value = "COMPANY RESULT NAME";
-                    worksheetProductTypeY.Cell(1, 14).Value = "FOLLOW CONTRACT NO";
-                    worksheetProductTypeY.Cell(1, 15).Value = "APPOINTMENT DATE";
-                    worksheetProductTypeY.Cell(1, 16).Value = "AMOUNT";
-                    worksheetProductTypeY.Cell(1, 17).Value = "APPOINTMENT CONTRACT";
-                    worksheetProductTypeY.Cell(1, 18).Value = "REMARK";
-                    worksheetProductTypeY.Cell(1, 19).Value = "COLLECTOR";
+                    //worksheetProductTypeY.Cell(1, 1).Value = "ASSIGN DATE";
+                    //worksheetProductTypeY.Cell(1, 2).Value = "EXPIRE DATE";
+                    worksheetProductTypeY.Cell(1, 1).Value = "CUSTOMER CODE";
+                    worksheetProductTypeY.Cell(1, 2).Value = "ID";
+                    worksheetProductTypeY.Cell(1, 3).Value = "CUSTOMER NAME";
+                    worksheetProductTypeY.Cell(1, 4).Value = "CONTRACT NO";
+                    worksheetProductTypeY.Cell(1, 5).Value = "BANK ACTION CODE";
+                    worksheetProductTypeY.Cell(1, 6).Value = "BANK ACTION NAME";
+                    worksheetProductTypeY.Cell(1, 7).Value = "BANK RESULT CODE ";
+                    worksheetProductTypeY.Cell(1, 8).Value = "BANK RESULT NAME";
+
+                    worksheetProductTypeY.Cell(1, 9).Value = "PERSON CODE ";
+                    worksheetProductTypeY.Cell(1, 10).Value = "PERSON CODE NAME";
+
+                    worksheetProductTypeY.Cell(1, 11).Value = "COMPANY ACTION CODE";
+                    worksheetProductTypeY.Cell(1, 12).Value = "COMPANY ACTION NAME";
+                    worksheetProductTypeY.Cell(1, 13).Value = "COMPANY RESULT CODE";
+                    worksheetProductTypeY.Cell(1, 14).Value = "COMPANY RESULT NAME";
+                    worksheetProductTypeY.Cell(1, 15).Value = "FOLLOW CONTRACT NO";
+                    worksheetProductTypeY.Cell(1, 16).Value = "APPOINTMENT DATE";
+                    worksheetProductTypeY.Cell(1, 17).Value = "AMOUNT";
+                    worksheetProductTypeY.Cell(1, 18).Value = "APPOINTMENT CONTRACT";
+                    worksheetProductTypeY.Cell(1, 19).Value = "REMARK";
+                    worksheetProductTypeY.Cell(1, 20).Value = "COLLECTOR";
 
                     for (int index = 0; index < data.Count; index++)
                     {
-                        worksheetProductTypeY.Cell(index + 2, 1).Value = data[index].AssignDate.ToString("dd-MM-yyyy", cultureInfor);
-                        worksheetProductTypeY.Cell(index + 2, 2).Value = data[index].ExpireDate.ToString("dd-MM-yyyy", cultureInfor);
-                        worksheetProductTypeY.Cell(index + 2, 3).Value = data[index].CusId;
-                        worksheetProductTypeY.Cell(index + 2, 4).Value = data[index].CusName;
-                        worksheetProductTypeY.Cell(index + 2, 5).Value = data[index].ContractNo;
-                        worksheetProductTypeY.Cell(index + 2, 6).Value = data[index].BankActionCodeId;
-                        worksheetProductTypeY.Cell(index + 2, 7).Value = data[index].BankActionCodeName;
-                        worksheetProductTypeY.Cell(index + 2, 8).Value = data[index].BankResultCodeId;
-                        worksheetProductTypeY.Cell(index + 2, 9).Value = data[index].BankResultCodeName;
+                        //worksheetProductTypeY.Cell(index + 2, 1).Value = data[index].AssignDate;
+                        //worksheetProductTypeY.Cell(index + 2, 2).Value = data[index].ExpireDate;
+                        worksheetProductTypeY.Cell(index + 2, 1).Value = data[index].CusId;
+                        worksheetProductTypeY.Cell(index + 2, 2).Value = data[index].NationalityId;
+                        worksheetProductTypeY.Cell(index + 2, 3).Value = data[index].CusName;
+                        worksheetProductTypeY.Cell(index + 2, 4).Value = data[index].ContractNo;
+                        worksheetProductTypeY.Cell(index + 2, 5).Value = data[index].BankActionCodeId;
+                        worksheetProductTypeY.Cell(index + 2, 6).Value = data[index].BankActionCodeName;
+                        worksheetProductTypeY.Cell(index + 2, 7).Value = data[index].BankResultCodeId;
+                        worksheetProductTypeY.Cell(index + 2, 8).Value = data[index].BankResultCodeName;
 
-                        worksheetProductTypeY.Cell(index + 2, 10).Value = data[index].CompanyActionCodeId;
-                        worksheetProductTypeY.Cell(index + 2, 11).Value = data[index].CompanyActionCodeName;
-                        worksheetProductTypeY.Cell(index + 2, 12).Value = data[index].CompanyResultCodeId;
-                        worksheetProductTypeY.Cell(index + 2, 13).Value = data[index].CompanyResultCodeName;
-                        worksheetProductTypeY.Cell(index + 2, 14).Value = data[index].FollowContractNo;
-                        worksheetProductTypeY.Cell(index + 2, 15).Value = data[index].AppointmentDate.ToString("dd-MM-yyyy", cultureInfor);
-                        worksheetProductTypeY.Cell(index + 2, 16).Value = data[index].Amount.ToFormat2Decimal();
-                        worksheetProductTypeY.Cell(index + 2, 17).Value = "'" + data[index].AppointmentContract;
-                        worksheetProductTypeY.Cell(index + 2, 18).Value = data[index].Remark;
-                        worksheetProductTypeY.Cell(index + 2, 19).Value = data[index].Collector;
+                        worksheetProductTypeY.Cell(index + 2, 9).Value = data[index].BankPersonCodeId;
+                        worksheetProductTypeY.Cell(index + 2, 10).Value = data[index].BankPersonCodeName;
+
+                        worksheetProductTypeY.Cell(index + 2, 11).Value = data[index].CompanyActionCodeId;
+                        worksheetProductTypeY.Cell(index + 2, 12).Value = data[index].CompanyActionCodeName;
+                        worksheetProductTypeY.Cell(index + 2, 13).Value = data[index].CompanyResultCodeId;
+                        worksheetProductTypeY.Cell(index + 2, 14).Value = data[index].CompanyResultCodeName;
+                        worksheetProductTypeY.Cell(index + 2, 15).Value = data[index].FollowContractNo;
+                        worksheetProductTypeY.Cell(index + 2, 16).Value = data[index].AppointmentDate.ToString("dd-MM-yyyy", cultureInfor);
+                        worksheetProductTypeY.Cell(index + 2, 17).Value = data[index].Amount.ToFormat2Decimal();
+                        worksheetProductTypeY.Cell(index + 2, 18).Value = "'" + data[index].AppointmentContract;
+                        worksheetProductTypeY.Cell(index + 2, 19).Value = data[index].Remark;
+                        worksheetProductTypeY.Cell(index + 2, 20).Value = data[index].Collector;
 
                     }
 

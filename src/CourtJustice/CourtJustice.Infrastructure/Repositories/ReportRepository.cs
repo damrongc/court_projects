@@ -21,7 +21,7 @@ namespace CourtJustice.Infrastructure.Repositories
                 conn.Open();
                 var sb = new StringBuilder();
                 sb.Append("select pm.payment_date  as receipt_date,pm.booking_date,pm.amount as total_received,pm.wo_balance,pm.start_overdue_status,pm.end_overdue_status");
-                sb.Append(" ,ln.assign_date,ln.expire_date,ln.cus_id,ln.name as cus_name,ln.contract_no");
+                sb.Append(" ,ln.assign_date,ln.expire_date,ln.nationality_id,ln.cus_id,ln.name as cus_name,ln.contract_no");
                 sb.Append(" ,user_name as user_created");
                 sb.Append(" from payment pm, loanee ln,app_user");
                 sb.Append(" where pm.cus_id = ln.cus_id");
@@ -60,40 +60,47 @@ namespace CourtJustice.Infrastructure.Repositories
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
+                var sql = @"SELECT 
+    lr.loanee_remark_id,
+    lr.cus_id,
+    lr.transaction_datetime,
+    -- lr.bank_action_code_id,
+    -- lr.bank_result_code_id,
+    -- lr.company_action_code_id,
+    -- lr.company_result_code_id,
+    -- lr.bank_person_code_id,
+    lr.follow_contract_no,
+    lr.appointment_date,
+    lr.amount,
+    lr.appointment_contract,
+    lr.remark,
+    lr.employer_code,
+    
+    (SELECT user_name FROM app_user WHERE app_user.user_id = ln.employee_code) AS collector,
+    ln.assign_date,
+    ln.expire_date,
+    ln.nationality_id,
+    ln.name AS cus_name,
+    ln.contract_no,
+	(select bank_action_code_id  from bank_action_code ba where lr.bank_action_id = ba.bank_action_id and lr.employer_code =ba.employer_code) as bank_action_code_id,
+    (select bank_result_code_id from bank_result_code br where lr.bank_result_id = br.bank_result_id and lr.employer_code =br.employer_code) as bank_result_code_id,
+    (select company_action_code_id from company_action_code ca where lr.company_action_code_id = ca.company_action_code_id ) as company_action_code_id,
+    (select company_result_code_id from company_result_code cr where lr.company_result_code_id = cr.company_result_code_id ) as company_result_code_id,
+    (select bank_person_code_id from bank_person_code bp where lr.bank_person_id = bp.bank_person_id) as bank_person_code_id,
+    (select bank_action_code_name  from bank_action_code ba where lr.bank_action_id = ba.bank_action_id and lr.employer_code =ba.employer_code) as bank_action_code_name,
+    (select bank_result_code_name from bank_result_code br where lr.bank_result_id = br.bank_result_id and lr.employer_code =br.employer_code) as bank_result_code_name,
+    (select company_action_code_name from company_action_code ca where lr.company_action_code_id = ca.company_action_code_id ) as company_action_code_name,
+    (select company_result_code_name from company_result_code cr where lr.company_result_code_id = cr.company_result_code_id ) as company_result_code_name,
+    (select bank_person_code_name from bank_person_code bp where lr.bank_person_id = bp.bank_person_id) as bank_person_code_name
+FROM loanee_remark lr,loanee ln
+WHERE lr.cus_id = ln.cus_id
+AND ln.is_active=1
+        AND DATE(lr.transaction_datetime) BETWEEN @start_date AND @end_date";
                 var sb = new StringBuilder();
-                sb.Append("select pm.cus_id,transaction_datetime");
-                sb.Append(" ,pm.bank_action_code_id");
-                sb.Append(" ,bank_action_code_name");
-                sb.Append(" ,pm.bank_result_code_id");
-                sb.Append(" ,bank_result_code_name");
-                sb.Append(" ,pm.company_action_code_id");
-                sb.Append(" ,company_action_code_name");
-                sb.Append(" ,pm.company_result_code_id");
-                sb.Append(" ,company_result_code_name");
-                sb.Append(" ,pm.follow_contract_no");
-                sb.Append(" ,pm.appointment_date");
-                sb.Append(" ,pm.amount");
-                sb.Append(" ,pm.appointment_contract");
-                sb.Append(" ,pm.remark");
-                sb.Append(" ,ln.assign_date,ln.expire_date,ln.name as cus_name,ln.contract_no");
-                sb.Append(" ,user_name as collector");
-                sb.Append(" from loanee_remark pm");
-                sb.Append(" ,loanee ln");
-                sb.Append(" ,app_user");
-                sb.Append(" ,bank_result_code bankr");
-                sb.Append(" ,bank_action_code banka");
-                sb.Append(" ,company_action_code coma");
-                sb.Append(" ,company_result_code comr");
-                sb.Append(" where pm.cus_id = ln.cus_id");
-                sb.Append(" and app_user.user_id = ln.employee_code");
-                sb.Append(" and pm.bank_result_code_id =bankr.bank_result_code_id");
-                sb.Append(" and pm.bank_action_code_id =banka.bank_action_code_id");
-                sb.Append(" and pm.company_result_code_id =comr.company_result_code_id");
-                sb.Append(" and pm.company_action_code_id =coma.company_action_code_id");
-                sb.Append(" and date(pm.transaction_datetime) between @start_date and @end_date");
+                sb.Append(sql);
                 if (!string.IsNullOrEmpty(employerCode))
                 {
-                    sb.Append(" and pm.employer_code =@employer_code");
+                    sb.Append(" AND lr.employer_code =@employer_code");
                 }
                 var dictionary = new Dictionary<string, object>
                 {

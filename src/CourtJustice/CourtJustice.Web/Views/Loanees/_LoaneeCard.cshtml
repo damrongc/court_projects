@@ -11,13 +11,13 @@
     //var woDate = Model.WODate == DateTime.MinValue ? "" : Model.WODate.ToString("dd-MM-yyyy");
 
     var firstPaidDate = Model.FirstPaidDate;
-    var lastPaidDate =Model.LastPaidDate;
-    var dueDate =Model.DueDate;
+    var lastPaidDate = Model.LastPaidDate;
+    var dueDate = Model.DueDate;
     var followUpDate = Model.FollowUpDate;
-    var cpDate =  Model.CPDate;
-    var woDate =  Model.WODate;
+    var cpDate = Model.CPDate;
+    var woDate = Model.WODate;
 
-    bool isEditable = ViewBag.IsEditable;
+    int groupId = ViewBag.GroupId;
 }
 <style>
     .form-group {
@@ -31,19 +31,26 @@
         select.form-control, select.asColorPicker-input, .dataTables_wrapper select, .jsgrid .jsgrid-table .jsgrid-filter-row select, .select2-container--default select.select2-selection--single, .select2-container--default .select2-selection--single select.select2-search__field, select.typeahead, select.tt-query, select.tt-hint {
             padding: .0rem .75rem !important;
         }
-        .tab-content {
+
+    .tab-content {
         padding: 1rem 1rem !important;
-}
+    }
 </style>
 
 <div class="row">
     <div class="col-md-12 mb-3 d-flex flex-wrap justify-content-end">
         @{
-            @if (@isEditable)
+            @switch (groupId)
             {
-
-                <input type="button" value="บันทึกข้อมูล" class="btn btn-primary btn-sm mr-2" onclick="return updateLoanee();" />
+                case 1:
+                    <input type="button" value="บันทึกข้อมูล" class="btn btn-primary btn-sm mr-2" onclick="return updateLoanee();" />
+                    break;
+                case 2:
+                case 4:
+                    <input type="button" value="บันทึกข้อมูล" class="btn btn-primary btn-sm mr-2" onclick="return updateLoaneeByCollector();" />
+                    break;
             }
+
         }
         <a href="#" class="btn btn-warning btn-sm mr-2" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ออก Notice</a>
         <a href="#" class="btn btn-info btn-sm mr-2" onclick="return showNotice('@Url.Action("ShowNotice","Loanees",new {id=Model.CusId})')" target="_blank">ขออนุมัติฟ้อง-เอกสาร</a>
@@ -77,10 +84,10 @@
                     <select class="form-control dropdown" id="ddlLoanTypes" asp-for="LoanTypeCode" asp-items="@ViewBag.LoanTypes">
                     </select>
                 </div>
-        @*        <div class="form-group col-md-2">
-                    <label class="control-label">อาชีพ</label>
-                    <select class="form-control dropdown" id="ddlOccupations" asp-for="OccupationId" asp-items="@ViewBag.Occupations">
-                    </select>
+                @*        <div class="form-group col-md-2">
+                <label class="control-label">อาชีพ</label>
+                <select class="form-control dropdown" id="ddlOccupations" asp-for="OccupationId" asp-items="@ViewBag.Occupations">
+                </select>
                 </div>*@
             </div>
 
@@ -135,17 +142,17 @@
             <div class="row">
                 <div class="form-group col-md-2">
                     <label asp-for="CompanyName" class="control-label"></label>
-                    <input asp-for="CompanyName" class="form-control" id="txtCompanyName" />
+                    <input asp-for="CompanyName" class="form-control" id="txtCompanyName"  readonly/>
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="Salary" class="control-label"></label>
-                    <input asp-for="Salary" class="form-control" id="txtSalary" />
+                    <input asp-for="Salary" class="form-control" id="txtSalary" readonly />
                 </div>
                 <div class="form-group col-md-2">
                     <label asp-for="OccupationName" class="control-label"></label>
-                    <input asp-for="OccupationName" class="form-control" id="txtOccupationName" />
+                    <input asp-for="OccupationName" class="form-control" id="txtOccupationName" readonly/>
                 </div>
-  
+
             </div>
 
             <div class="row">
@@ -185,7 +192,7 @@
                 <div class="form-group col-md-2">
                     <label class="control-label" asp-for="EmployeeCode"></label>
                     <input asp-for="EmployeeCode" class="form-control" readonly />
-         @*           <select class="form-control dropdown" id="ddlEmployees" asp-for="EmployeeCode" asp-items="@ViewBag.Employees">
+                    @*           <select class="form-control dropdown" id="ddlEmployees" asp-for="EmployeeCode" asp-items="@ViewBag.Employees">
                     </select>*@
                 </div>
                 <div class="form-group col-md-2">
@@ -415,17 +422,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-<script>
-
-    //$(function () {
-    //    $('.dateonly').datetimepicker({
-    //        timepicker: false,
-    //        format: 'd-m-Y',
-    //        closeOnDateSelect: true
-    //    });
-    //});
-</script>

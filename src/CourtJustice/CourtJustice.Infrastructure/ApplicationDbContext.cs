@@ -66,7 +66,6 @@ namespace CourtJustice.Infrastructure
         public DbSet<JusticeAppointment> JusticeAppointments { get; set; }
         public DbSet<JusticeCaseDocument> JusticeCaseDocuments { get; set; }
         public DbSet<JusticeCaseLawyer> JusticeCaseLawyers { get; set; }
-
         public DbSet<BankActionCode> BankActionCodes { get; set; }
         public DbSet<BankResultCode> BankResultCodes { get; set; }
         public DbSet<CompanyActionCode> CompanyActionCodes { get; set; }
@@ -75,6 +74,9 @@ namespace CourtJustice.Infrastructure
         public DbSet<UserEmployerMapping> UserEmployerMappings { get; set; }
         public DbSet<MonthModel> MonthModels { get; set; }
         public DbSet<ReceiptSummary> ReceiptSummaries { get; set; }
+        //public DbSet<PersonCode> PersonCodes { get; set; }
+        public DbSet<BankPersonCode> BankPersonCodes { get; set; }
+
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             //var auditEntries = HandleAuditingBeforeSaveChanges("System");
@@ -131,6 +133,11 @@ namespace CourtJustice.Infrastructure
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+            //builder.Entity<BankActionCode>().HasKey(sc => new { sc.EmployerCode, sc.BankActionCodeId });
+            //builder.Entity<BankResultCode>().HasKey(sc => new { sc.EmployerCode, sc.BankResultCodeId });
+
+            //builder.Entity<BankPersonCode>().HasKey(sc => new { sc.EmployerCode, sc.BankActionCodeId ,sc.BankPersonCodeId});
+
             builder.Entity<MonthModel>()
               .HasData(new List<MonthModel>() {
                          new() {MonthId = 1, MonthName = "มกราคม"},
