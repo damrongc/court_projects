@@ -15,16 +15,19 @@ namespace CourtJustice.Web.Controllers
         private readonly IEmployerRepository _employerRepository;
         private readonly ILoaneeRemarkRepository _loaneeRemarkRepository;
         private readonly IBankPersonCodeRepository _bankPersonCodeRepository;
+        private readonly IBankResultCodeRepository _bankResultCodeRepository;
 
         public BankActionCodesController(IBankActionCodeRepository bankActionCodeRepository,
             IEmployerRepository employerRepository,
             ILoaneeRemarkRepository loaneeRemarkRepository,
-            IBankPersonCodeRepository bankPersonCodeRepository)
+            IBankPersonCodeRepository bankPersonCodeRepository,
+            IBankResultCodeRepository bankResultCodeRepository)
         {
             _bankActionCodeRepository = bankActionCodeRepository;
             _employerRepository = employerRepository;
             _loaneeRemarkRepository = loaneeRemarkRepository;
             _bankPersonCodeRepository = bankPersonCodeRepository;
+            _bankResultCodeRepository = bankResultCodeRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -83,8 +86,21 @@ namespace CourtJustice.Web.Controllers
                     BankActionId = request.BankActionId,
                     BankPersonCodeId = request.BankPersonCodeId,
                     BankPersonCodeName = request.BankPersonCodeName,
+                    IsActive=true,
                 };
                 await _bankPersonCodeRepository.Create(bankPersonCode);
+
+                foreach (var item in request.BankResultCodes)
+                {
+                    var bankResultCode = new BankResultCode
+                    {
+                        BankPersonId = bankPersonCode.BankPersonId,
+                        BankResultCodeId = item.BankResultCodeId,
+                        BankResultCodeName = item.BankResultCodeName,
+                        IsActive = true,
+                    };
+                    await _bankResultCodeRepository.Create(bankResultCode);
+                }
 
                 var results = await GetAll(request.EmployerCodeFilter);
                 var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
@@ -110,8 +126,17 @@ namespace CourtJustice.Web.Controllers
                 BankPersonCodeName = bankPersonCode.BankPersonCodeName,
                 BankActionId = bankPersonCode.BankActionId,
                 BankActionCodeId = bankActionCode.BankActionCodeId,
-                BankActionCodeName = $"{bankActionCode.BankActionCodeId}:{bankActionCode.BankActionCodeName}"
+                BankActionCodeName = $"{bankActionCode.BankActionCodeId}:{bankActionCode.BankActionCodeName}",
+                IsActive = bankActionCode.IsActive,
+                BankResultCodes= await _bankResultCodeRepository.GetByBankPersonId(bankPersonCode.BankPersonId),
             };
+            //List<SelectListItem> selects = new()
+            //{
+            //    new SelectListItem { Selected = bankActionCode.IsActive, Text = "ใช้งาน", Value = "1" },
+            //    new SelectListItem { Selected = !bankActionCode.IsActive, Text = "ไม่ใช้งาน", Value = "2" }
+            //};
+            //ViewBag.IsActive = selects;
+
             return View(viewModel);
         }
 
@@ -120,7 +145,7 @@ namespace CourtJustice.Web.Controllers
         {
             try
             {
-                var bankPersonCode = new BankPersonCode
+                var model = new BankPersonCode
                 {
                     BankActionId = request.BankActionId,
                     BankPersonId = request.BankPersonId,
@@ -128,7 +153,36 @@ namespace CourtJustice.Web.Controllers
                     BankPersonCodeName = request.BankPersonCodeName
                 };
 
-                await _bankPersonCodeRepository.Update(bankPersonCode);
+                await _bankPersonCodeRepository.Update(request.BankPersonId,model);
+
+
+                foreach (var item in request.BankResultCodes)
+                {
+                    var bankResultCode = new BankResultCode
+                    {
+                        BankPersonId = request.BankPersonId,
+                        BankResultCodeId = item.BankResultCodeId,
+                        BankResultCodeName = item.BankResultCodeName,
+                        IsActive = true,
+                    };
+                    if (item.BankResultId == 0)
+                    {
+                        
+                        await _bankResultCodeRepository.Create(bankResultCode);
+                    }
+                    else
+                    {
+                        //var updateBankResultCode = new BankResultCode
+                        //{
+                        //    BankPersonId = request.BankPersonId,
+                        //    BankResultCodeId = bankResultCode.BankResultCodeId,
+                        //    BankResultCodeName = bankResultCode.BankResultCodeName,
+                        //    IsActive = true,
+                        //};
+                        await _bankResultCodeRepository.Update(item.BankResultId, bankResultCode);
+
+                    }
+                }
 
                 var results = await GetAll(request.EmployerCodeFilter);
                 var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
@@ -146,7 +200,7 @@ namespace CourtJustice.Web.Controllers
             var bankActions = await _bankActionCodeRepository.GetByEmployer(employerCode);
             foreach (var bankAction in bankActions)
             {
-                var bankPersonCodes = await _bankPersonCodeRepository.GetAll( bankAction.BankActionId);
+                var bankPersonCodes = await _bankPersonCodeRepository.GetByBankActionId( bankAction.BankActionId);
                 bankAction.BankPersonCodes = bankPersonCodes;
             }
             return bankActions;
@@ -213,10 +267,9 @@ namespace CourtJustice.Web.Controllers
                 return NotFound();
             }
 
-
             if (ModelState.IsValid)
             {
-                await _bankActionCodeRepository.Update(model);
+                await _bankActionCodeRepository.Update(id,model);
                 _notify.Success($"{model.BankActionCodeName} is Updated");
 
                 return RedirectToAction(nameof(Index));
@@ -236,16 +289,21 @@ namespace CourtJustice.Web.Controllers
             return View(model);
         }
 
+        //public  IActionResult AddOrEditResultCode()
+        //{
+        //    return View(new BankResultCode());
+        //}
+
         [HttpDelete, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
             {
-                //var isHaveRelation = _loaneeRemarkRepository.BankActionCodeIsExist(id);
-                //if (isHaveRelation)
-                //{
-                //    throw new Exception("ไม่สามารถลบข้อมูล เนื่องจากมีการใช้ใน รายงานการติดตาม");
-                //}
+                var isHaveRelation = _loaneeRemarkRepository.BankActionCodeIsExist(id);
+                if (isHaveRelation)
+                {
+                    throw new Exception("ไม่สามารถลบข้อมูล เนื่องจากมีการใช้ใน รายงานการติดตาม");
+                }
                 await _bankActionCodeRepository.Delete(id);
                 var results = await GetAll("");
                 var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
@@ -268,6 +326,7 @@ namespace CourtJustice.Web.Controllers
                     throw new Exception("ไม่สามารถลบข้อมูลได้ เนื่องจากมีการใช้งาน ที่รายงานการติดตาม");
                 };
                 await _bankPersonCodeRepository.Delete(request.BankPersonId);
+                await _bankResultCodeRepository.Delete(request.BankPersonId);
 
                 var results = await GetAll(request.EmployerCodeFilter);
                 var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);

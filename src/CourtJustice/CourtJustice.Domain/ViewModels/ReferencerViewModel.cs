@@ -1,14 +1,9 @@
-﻿using System;
-using CourtJustice.Domain.Models;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CourtJustice.Domain.ViewModels
 {
-	public class ReferencerViewModel
+    public class ReferencerViewModel
 	{
-
         [Display(Name = "รหัสบุคคลอ้างอิง")]
         public int ReferencerCode { get; set; }
         [Display(Name = "บุคคลอ้างอิง")]
@@ -19,7 +14,6 @@ namespace CourtJustice.Domain.ViewModels
         public string Address { get; set; } = string.Empty;
         [Display(Name = "รายละเอียด(ตำบล,อำเภอ,จังหวัด,รหัสไปรษณีย์)")]
         public string AddressDetail { get; set; } = string.Empty;
-
         public string CusId { get; set; }
      
     }

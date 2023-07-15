@@ -7,6 +7,7 @@ namespace CourtJustice.Domain.Models
     public class CompanyResultCode : BaseEntity
     {
         [Key]
+        public int CompanyResultId { get; set; }
         [Display(Name = "Result Code[∫√‘…—∑]")]
         public string CompanyResultCodeId { get; set; }
         [Display(Name = "§”Õ∏‘∫“¬")]
@@ -15,8 +16,9 @@ namespace CourtJustice.Domain.Models
         public bool ShowHideFlag { get; set; }
         [Display(Name = "∫√‘…—∑")]
         public int CompanyId { get; set; }
-        [ForeignKey(nameof(CompanyId))]
-        public virtual Company? Company { set; get; }
+        public int CompanyActionId { get; set; }
+        //[ForeignKey(nameof(CompanyId))]
+        //public virtual Company? Company { set; get; }
 
     }
 }

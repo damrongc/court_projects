@@ -54,7 +54,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td class="text-nowrap">
+                <td class="text-nowrap" data-id="@item.LoaneeRemarkId">
                     @item.TransactionDatetime.ToString("dd-MM-yyyy HH:mm",cultureInfor)
                 </td>
                 <td class="text-nowrap">

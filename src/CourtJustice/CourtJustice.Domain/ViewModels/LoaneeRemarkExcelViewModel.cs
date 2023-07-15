@@ -29,6 +29,7 @@
         public int BankActionId { get; set; }
         public int BankResultId { get; set; }
         public int BankPersonId { get; set; }
+        public string EmployerWorkGroup { get; set; }
 
     }
 }

@@ -718,7 +718,9 @@ namespace CourtJustice.Web.Controllers
                         loanee.TotalPayment = dt.Rows[i][71].ToString().Trim() == "" ? 0 : dt.Rows[i][71].ToString().Trim().ToDecimal();
                         loanee.EmployerWorkGroup = dt.Rows[i][72].ToString().Trim();
                         loanee.Salary = dt.Rows[i][73].ToString().Trim() == "" ? 0 : dt.Rows[i][73].ToString().Trim().ToDecimal();
-                        loanee.LoanTaskStatusId = dt.Rows[i][74].ToString().Trim() == "" ? 99 : dt.Rows[i][74].ToString().Trim().ToInt16();
+
+                        
+                        loanee.LoanTaskStatusId = dt.Rows[i][74].ToString().Trim() == "" ? 0 : dt.Rows[i][74].ToString().Trim().ToInt16();
                         loanee.BucketId = 1;
                         loanee.EmployerCode = employerCode;
                         loanees.Add(loanee);

@@ -11,5 +11,6 @@ namespace CourtJustice.Domain.Models
         public string BankPersonCodeId { get; set; }
         public string BankPersonCodeName { get; set; }
         public int BankActionId { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

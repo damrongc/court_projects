@@ -11,36 +11,35 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-3">
                     <h3 class="mb-3">@ViewData["Title"]</h3>
-                    <div class="d-flex flex-wrap justify-content-between">
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <label class="control-label">ผู้ว่าจ้าง</label>
-                                <select id="ddlEmployerFilter" class="form-control" asp-items="ViewBag.Employers"></select>
-                            </div>
-                            <div class="form-group ml-4">
-                                <label class="control-label">กลุ่มงาน</label>
-                                <select id="ddlLoanTaskStatusFilter" class="form-control" asp-items="ViewBag.LoanTaskStatus"></select>
-                            </div>
-                            <div class="form-group ml-4">
-                                <a onclick="getLoanee();" class="btn btn-primary btn-sm text-white"><i class="fa fa-refresh"></i> Show Data</a>
-                            </div>
-                            @{
-                                @if (@isEditable)
-                                {
-                                    <div class="form-group ml-4">
-                                        <a asp-action="IndexImport" class="btn btn-info btn-sm text-white ml-2"><i class="fa fa-file-excel-o"></i> Import</a>
-                                    </div>
-                                    <div class="form-group ml-4">
-                                        <a asp-action="IndexCancelImport" class="btn btn-warning btn-sm text-white ml-2"><i class="fa fa-file-excel-o"></i> ยกเลิก Import</a>
-                                    </div>
-                                }
+                    <div class="form-inline d-flex flex-wrap justify-content-end">
+                        <div class="form-group">
+                            <label class="control-label">ผู้ว่าจ้าง</label>
+                            <select id="ddlEmployerFilter" class="form-control" asp-items="ViewBag.Employers"></select>
+                        </div>
+                        <div class="form-group ml-2">
+                            <label class="control-label">กลุ่มงาน</label>
+                            <select id="ddlLoanTaskStatusFilter" class="form-control" asp-items="ViewBag.LoanTaskStatus"></select>
+                        </div>
+                        <div class="form-group ml-2">
+                            <a onclick="getLoanee();" class="btn btn-primary btn-sm text-white"><i class="fa fa-refresh"></i> Show Data</a>
+                        </div>
+                        @{
+                            @if (@isEditable)
+                            {
+                                <div class="form-group ml-2">
+                                    <a asp-action="IndexImport" class="btn btn-info btn-sm text-white ml-2"><i class="fa fa-file-excel-o"></i> Import</a>
+                                </div>
+                                <div class="form-group ml-2">
+                                    <a asp-action="IndexCancelImport" class="btn btn-warning btn-sm text-white ml-2"><i class="fa fa-file-excel-o"></i> ยกเลิก Import</a>
+                                </div>
                             }
-                            <div class="form-group ml-4">
-                                <a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("IndexImport","LoaneeRemarks",null,Context.Request.Scheme)','import รายงายผลการติดตาม')"><i class="fa fa-file-excel-o"></i> import รายงายผลการติดตาม</a>
-                            </div>
-                            <div class="form-group ml-4">
-                                <a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("IndexImport","Payments",null,Context.Request.Scheme)','import การชำระ')"><i class="fa fa-file-excel-o"></i> import การชำระ</a>
-                            </div>
+                        }
+                        <div class="form-group ml-2">
+                            <a class="btn btn-success btn-sm text-white" onclick="alert('กำลังดำเนินการแก้ไข...');"><i class="fa fa-file-excel-o"></i> import รายงายผลการติดตาม</a>
+                            @*<a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("IndexImport","LoaneeRemarks",null,Context.Request.Scheme)','import รายงายผลการติดตาม')"><i class="fa fa-file-excel-o"></i> import รายงายผลการติดตาม</a>*@
+                        </div>
+                        <div class="form-group ml-2">
+                            <a class="btn btn-success btn-sm text-white" onclick="showInPopupXL('@Url.Action("IndexImport","Payments",null,Context.Request.Scheme)','import การชำระ')"><i class="fa fa-file-excel-o"></i> import การชำระ</a>
                         </div>
                     </div>
                 </div>

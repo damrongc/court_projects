@@ -22,33 +22,33 @@ namespace CourtJustice.Web.Controllers
             _loaneeRemarkRepository = loaneeRemarkRepository;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var employers = await _employerRepository.GetAll();
-            employers.Insert(0, new Employer { EmployerCode = "", EmployerName = "แสดงทั้งหมด" });
-            List<SelectListItem> SelectEmployers = new();
-            foreach (var item in employers)
-            {
-                SelectEmployers.Add(new SelectListItem
-                {
-                    Text = item.EmployerName.ToString(),
-                    Value = item.EmployerCode.ToString(),
-                });
-            }
-            ViewBag.Employers = SelectEmployers;
-            var defaultEmployerCode = employers.FirstOrDefault().EmployerCode;
-            return View(await GetAll(defaultEmployerCode));
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    var employers = await _employerRepository.GetAll();
+        //    employers.Insert(0, new Employer { EmployerCode = "", EmployerName = "แสดงทั้งหมด" });
+        //    List<SelectListItem> SelectEmployers = new();
+        //    foreach (var item in employers)
+        //    {
+        //        SelectEmployers.Add(new SelectListItem
+        //        {
+        //            Text = item.EmployerName.ToString(),
+        //            Value = item.EmployerCode.ToString(),
+        //        });
+        //    }
+        //    ViewBag.Employers = SelectEmployers;
+        //    var defaultEmployerCode = employers.FirstOrDefault().EmployerCode;
+        //    return View(await GetAll(defaultEmployerCode));
+        //}
 
 
-        [HttpGet]
-        public async Task<IActionResult> GetBankResult(string id)
-        {
+        //[HttpGet]
+        //public async Task<IActionResult> GetBankResult(string id)
+        //{
 
-            var bankActions = await GetAll(id);
-            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", bankActions);
-            return new JsonResult(new { isValid = true, message = "", html });
-        }
+        //    var bankActions = await GetAll(id);
+        //    var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", bankActions);
+        //    return new JsonResult(new { isValid = true, message = "", html });
+        //}
 
         //private async Task<List<BankResultCodeViewModel>> GetAll()
         //{
@@ -56,110 +56,146 @@ namespace CourtJustice.Web.Controllers
         //    return results.ToList();
         //}
 
-        private async Task<List<BankResultCodeViewModel>> GetAll(string id)
-        {
-            var bankResults = await _bankResultCodeRepository.GetByEmployer(id);
- 
-            return bankResults;
-        }
+        //private async Task<List<BankResultCodeViewModel>> GetAll(string id)
+        //{
+        //    var bankResults = await _bankResultCodeRepository.GetByEmployer(id);
 
-        public async Task<IActionResult> Create()
+        //    return bankResults;
+        //}
+
+        [HttpGet]
+        public async Task<JsonResult> GetBankResultCodes(int id)
         {
-            var employers = await _employerRepository.GetAll();
+            var bankResultCodes = await _bankResultCodeRepository.GetByBankPersonId(id);
+            bankResultCodes.Insert(0, new BankResultCodeViewModel { BankResultId = 0, BankResultCodeName = "==กรุณาเเลือก==" });
             List<SelectListItem> selects = new();
-            foreach (var item in employers)
+
+            foreach (var item in bankResultCodes)
             {
                 selects.Add(new SelectListItem
                 {
-                    Text = item.EmployerName.ToString(),
-                    Value = item.EmployerCode.ToString(),
+                    Text = $"{item.BankResultCodeId}:{item.BankResultCodeName}",
+                    Value = item.BankResultId.ToString(),
                 });
             }
-            ViewBag.Employers = selects;
+            return Json(selects);
+        }
+
+
+        public IActionResult Create()
+        {
+            //var employers = await _employerRepository.GetAll();
+            //List<SelectListItem> selects = new();
+            //foreach (var item in employers)
+            //{
+            //    selects.Add(new SelectListItem
+            //    {
+            //        Text = item.EmployerName.ToString(),
+            //        Value = item.EmployerCode.ToString(),
+            //    });
+            //}
+            //ViewBag.Employers = selects;
             return View(new BankResultCode());
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BankResultCode model)
+        public IActionResult Edit([FromBody] BankResultCode model)
         {
-            if (ModelState.IsValid)
-            {
-                await _bankResultCodeRepository.Create(model);
-                _notify.Success($"{model.BankResultCodeName} is Created.");
-                return RedirectToAction(nameof(Index));
-            }
+            //var employers = await _employerRepository.GetAll();
+            //List<SelectListItem> selects = new();
+            //foreach (var item in employers)
+            //{
+            //    selects.Add(new SelectListItem
+            //    {
+            //        Text = item.EmployerName.ToString(),
+            //        Value = item.EmployerCode.ToString(),
+            //    });
+            //}
+            //ViewBag.Employers = selects;
             return View(model);
         }
 
-        public async Task<IActionResult> Edit(int id)
-        {
-            var model = await _bankResultCodeRepository.GetByKey(id);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(BankResultCode model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _bankResultCodeRepository.Create(model);
+        //        _notify.Success($"{model.BankResultCodeName} is Created.");
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(model);
+        //}
 
-            var employers = await _employerRepository.GetAll();
-            List<SelectListItem> selects = new();
-            foreach (var item in employers)
-            {
-                selects.Add(new SelectListItem
-                {
-                    Selected = item.EmployerCode == model.EmployerCode,
-                    Text = item.EmployerName.ToString(),
-                    Value = item.EmployerCode.ToString(),
-                });
-            }
-            ViewBag.Employers = selects;
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    var model = await _bankResultCodeRepository.GetByKey(id);
 
-            return View(model);
-        }
+        //    //var employers = await _employerRepository.GetAll();
+        //    //List<SelectListItem> selects = new();
+        //    //foreach (var item in employers)
+        //    //{
+        //    //    selects.Add(new SelectListItem
+        //    //    {
+        //    //        Selected = item.EmployerCode == model.EmployerCode,
+        //    //        Text = item.EmployerName.ToString(),
+        //    //        Value = item.EmployerCode.ToString(),
+        //    //    });
+        //    //}
+        //    //ViewBag.Employers = selects;
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, BankResultCode model)
-        {
-            var oldEntity = await _bankResultCodeRepository.GetByKey(id);
+        //    return View(model);
+        //}
 
-            if (oldEntity == null)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, BankResultCode model)
+        //{
+        //    var oldEntity = await _bankResultCodeRepository.GetByKey(id);
 
-            if (ModelState.IsValid)
-            {
-                await _bankResultCodeRepository.Update( model);
-                _notify.Success($"{model.BankResultCodeName} is Updated");
+        //    if (oldEntity == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-                return RedirectToAction(nameof(Index));
-            }
-            var employers = await _employerRepository.GetAll();
-            List<SelectListItem> selects = new();
-            foreach (var item in employers)
-            {
-                selects.Add(new SelectListItem
-                {
-                    Selected = item.EmployerCode == oldEntity.EmployerCode,
-                    Text = item.EmployerName.ToString(),
-                    Value = item.EmployerCode.ToString(),
-                });
-            }
-            ViewBag.Employers = selects;
-            return View(model);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _bankResultCodeRepository.Update(id, model);
+        //        _notify.Success($"{model.BankResultCodeName} is Updated");
 
-        [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    //var employers = await _employerRepository.GetAll();
+        //    //List<SelectListItem> selects = new();
+        //    //foreach (var item in employers)
+        //    //{
+        //    //    selects.Add(new SelectListItem
+        //    //    {
+        //    //        Selected = item.EmployerCode == oldEntity.EmployerCode,
+        //    //        Text = item.EmployerName.ToString(),
+        //    //        Value = item.EmployerCode.ToString(),
+        //    //    });
+        //    //}
+        //    //ViewBag.Employers = selects;
+        //    return View(model);
+        //}
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                //var isHaveRelation = _loaneeRemarkRepository.BankResultCodeIsExist(id);
-                //if (isHaveRelation)
-                //{
-                //    throw new Exception("ไม่สามารถลบข้อมูล เนื่องจากมีการใช้ใน รายงานการติดตาม");
-                //}
+                var isHaveRelation = _loaneeRemarkRepository.BankResultCodeIsExist(id);
+                if (isHaveRelation)
+                {
+                    throw new Exception("ไม่สามารถลบข้อมูล เนื่องจากมีการใช้ใน รายงานการติดตาม");
+                }
 
                 await _bankResultCodeRepository.Delete(id);
-                var results = await GetAll("");
-                var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
-                return new JsonResult(new { isValid = true, message = "", html });
+                //var results = await GetAll("");
+                //var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
+                return new JsonResult(new { isValid = true });
             }
             catch (Exception ex)
             {

@@ -51,14 +51,14 @@ namespace CourtJustice.Domain.Models
         public string Remark { get; set; }
         public bool IsActive { get; set; }
         public DateTime? UpdateDatetime { get; set; }
-        
         [Required]
         public string EmployerCode { get; set; }
         //public string PersonCodeId { get; set; }
         public string BankPersonCodeId { get; set; }
-
         public int BankActionId { get; set; }
         public int BankResultId { get; set; }
         public int BankPersonId { get; set; }
+        public bool EmployeeChecked { get; set; }
+        public bool ManagerChecked { get; set; }
     }
 }

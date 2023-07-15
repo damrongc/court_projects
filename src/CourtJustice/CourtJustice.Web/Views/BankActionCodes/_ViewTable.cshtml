@@ -37,27 +37,56 @@
                         @Html.DisplayFor(modelItem => item.BankActionCodeName)
                     </td>
                     <td>
-                        @foreach (var personCode in item.BankPersonCodes)
-                        {
-                            var personName = string.Format("{0}", personCode.BankPersonCodeName);
-                            <a class="btn btn-sm btn-light ml-2 mr-2" onclick="showInPopup('@Url.Action("EditPersonCode","BankActionCodes"
+                        <div class="d-inline">
+                            <a onclick="showInPopup('@Url.Action("CreatePersonCode","BankActionCodes"
+                            ,new {id= item.BankActionId},Context.Request.Scheme)','เพิ่ม Person Code')"
+                           class="btn btn-info text-white btn-sm"><i class="fa fa-plus"></i> </a>
+                            @foreach (var personCode in item.BankPersonCodes)
+                            {
+                                var personName = string.Format("{0}", personCode.BankPersonCodeName);
+
+                                var count = personCode.BankResultCodeCount;
+                                @if (count == 0)
+                                {
+                                    <a class="btn btn-sm btn-light" onclick="showInPopup('@Url.Action("EditPersonCode","BankActionCodes"
                             ,new {id=personCode.BankPersonId}
                                 ,Context.Request.Scheme)'
                                 ,'แก้ไข Person Code')">@personName</a>
-                        }
+                                }
+                                else
+                                {
+                                    <a class="btn btn-sm btn-success text-white" onclick="showInPopup('@Url.Action("EditPersonCode","BankActionCodes"
+                            ,new {id=personCode.BankPersonId}
+                                ,Context.Request.Scheme)'
+                                ,'แก้ไข Person Code')">@personName</a>
+
+                                }
+                            }
+                        </div>
                     </td>
 
                     <td class="w150">
                         <div class="d-inline">
                             <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.BankActionId"><i class='fa fa-edit'></i></a>
                             <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.BankActionId');"><i class='fa fa-trash'></i></a>
-                            <a onclick="showInPopup('@Url.Action("CreatePersonCode","BankActionCodes"
-                            ,new {id= item.BankActionId},Context.Request.Scheme)','เพิ่ม Person Code')"
-                           class="btn btn-info text-white btn-sm mt-2 mb-2"><i class="fa fa-plus"></i> </a>
                         </div>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="form-modal-result" style="z-index: 1200;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"></h3>
+                @*   <button type="button" class="btn btn-dark text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>*@
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
 </div>

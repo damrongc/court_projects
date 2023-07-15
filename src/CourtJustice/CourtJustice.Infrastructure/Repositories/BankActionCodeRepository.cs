@@ -128,9 +128,10 @@ and employer_code=@employer_code";
             return model;
         }
 
-        public async Task Update(BankActionCode model)
+        public async Task Update(int id,BankActionCode model)
         {
-            var result = await Context.BankActionCodes.FindAsync(model.BankActionId);
+            var result = await Context.BankActionCodes.FindAsync(id);
+            result.BankActionCodeId = model.BankActionCodeId;
             result.BankActionCodeName = model.BankActionCodeName;
             await Context.SaveChangesAsync();
         }

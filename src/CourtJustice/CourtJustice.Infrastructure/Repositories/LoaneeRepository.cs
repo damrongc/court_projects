@@ -97,7 +97,10 @@ namespace CourtJustice.Infrastructure.Repositories
                         existing.TotalPayment = item.TotalPayment;
                         existing.EmployerWorkGroup = item.EmployerWorkGroup;
                         existing.Salary = item.Salary;
-                        existing.LoanTaskStatusId= item.LoanTaskStatusId;
+                        if (existing.LoanTaskStatusId > 0)
+                        {
+                            existing.LoanTaskStatusId = item.LoanTaskStatusId;
+                        }
                         existing.EmployeeCode= item.EmployeeCode;
 
                         existing.IsActive = true;
@@ -173,7 +176,6 @@ namespace CourtJustice.Infrastructure.Repositories
                             MaxOAFeeBalance = item.MaxOAFeeBalance,
                             BucketId = item.BucketId,
                             EmployeeCode = item.EmployeeCode,
-                            //OccupationId = item.OccupationId,
                             EmployerCode = item.EmployerCode,
                             LoanTypeCode = item.LoanTypeCode,
                             Gender = item.Gender,

@@ -6,9 +6,9 @@
     <table class="table table-bordered table-hover data-table">
         <thead>
             <tr class="bg-primary text-white" role="row">
-                <th>
+          @*      <th>
                     @Html.DisplayNameFor(model => model.EmployerName)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.BankResultCodeId)
                 </th>
@@ -25,9 +25,9 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+           @*         <td>
                         @Html.DisplayFor(modelItem => item.EmployerName)
-                    </td>
+                    </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.BankResultCodeId)
                     </td>

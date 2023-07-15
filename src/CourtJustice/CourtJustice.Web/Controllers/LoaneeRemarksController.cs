@@ -109,13 +109,13 @@ namespace CourtJustice.Web.Controllers
                 };
                 if (id == 0)
                 {
-                    await GetViewBag(cusId, loaneeRemark);
+                    await GetViewBagForAdd(loanee.EmployerCode);
                     return View(loaneeRemark);
                 }
                 else
                 {
                     loaneeRemark = await _loaneeRemarkRepository.GetByKey(id);
-                    await GetViewBag(cusId, loaneeRemark);
+                    await GetViewBag(loaneeRemark);
                     return View(loaneeRemark);
                 }
             }
@@ -185,7 +185,7 @@ namespace CourtJustice.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetByCusId(string id = "")
+        public async Task<JsonResult> GetByCusId(string id)
         {
             var loaneeRemark = await _loaneeRemarkRepository.GetByCusId(id);
             ViewBag.CusId = id;
@@ -193,36 +193,122 @@ namespace CourtJustice.Web.Controllers
             return new JsonResult(new { isValid = true, message = "", html });
         }
 
-        private async Task GetViewBag(string cusId, LoaneeRemarkViewModel loaneeRemark)
+        private async Task GetViewBagForAdd(string employerCode)
         {
             try
             {
-                var backActions = await _bankActionCodeRepository.GetByEmployer(loaneeRemark.EmployerCode);
+                var backActions = await _bankActionCodeRepository.GetByEmployer(employerCode);
+                backActions.Insert(0, new BankActionCodeViewModel { BankActionId = 0, BankActionCodeName= "==กรุณาเลือก==" });
                 List<SelectListItem> selects = new();
                 foreach (var item in backActions)
                 {
                     selects.Add(new SelectListItem
                     {
-                        Selected = item.BankActionId == loaneeRemark.BankActionId ? true : false,
                         Text = $"{item.BankActionCodeId}:{item.BankActionCodeName}",
                         Value = item.BankActionId.ToString(),
                     });
                 }
                 ViewBag.BankActionCodes = selects;
 
+                selects = new()
+                {
+                    new SelectListItem { Value = "0", Text = "==กรุณาเลือก==" }
+                };
+                ViewBag.BankPersonCodes = selects;
+                ViewBag.BankResultCodes = selects;
 
-                var bankResults = await _bankResultCodeRepository.GetByEmployer(loaneeRemark.EmployerCode);
+
+                var companyActions = await _companyActionCodeRepository.GetAll();
+                companyActions.Insert(0, new CompanyActionCode { CompanyActionCodeId = "", CompanyActionCodeName = "==กรุณาเลือก==" });
                 selects = new();
-                foreach (var item in bankResults)
+                foreach (var item in companyActions)
                 {
                     selects.Add(new SelectListItem
                     {
-                        Selected = item.BankResultId == loaneeRemark.BankResultId ? true : false,
+                        Text = $"{item.CompanyActionCodeId}:{item.CompanyActionCodeName}",
+                        Value = item.CompanyActionCodeId.ToString(),
+                    });
+                }
+                ViewBag.CompanyActionCodes = selects;
+
+                var companyResults = await _companyResultCodeRepository.GetAll();
+                companyResults.Insert(0, new CompanyResultCode { CompanyResultCodeId = "",CompanyResultCodeName= "==กรุณาเลือก==" });
+                selects = new();
+                foreach (var item in companyResults)
+                {
+                    selects.Add(new SelectListItem
+                    {
+                        Text = $"{item.CompanyResultCodeId}:{item.CompanyResultCodeName}",
+                        Value = item.CompanyResultCodeId.ToString(),
+                    });
+                }
+                ViewBag.CompanyResultCodes = selects;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private async Task GetViewBag(LoaneeRemarkViewModel loaneeRemark)
+        {
+            try
+            {
+                var backActions = await _bankActionCodeRepository.GetByEmployer(loaneeRemark.EmployerCode);
+                backActions.Insert(0, new BankActionCodeViewModel { BankActionId = 0, BankActionCodeName = "==กรุณาเลือก==" });
+                List<SelectListItem> selects = new();
+                foreach (var item in backActions)
+                {
+                    selects.Add(new SelectListItem
+                    {
+                        Selected = item.BankActionId == loaneeRemark.BankActionId,
+                        Text = $"{item.BankActionCodeId}:{item.BankActionCodeName}",
+                        Value = item.BankActionId.ToString(),
+                    });
+                }
+                ViewBag.BankActionCodes = selects;
+
+                var bankPersonCodes = await _bankPersonCodeRepository.GetByBankActionId(loaneeRemark.BankActionId);
+                bankPersonCodes.Insert(0, new BankPersonCodeViewModel { BankPersonId = 0, BankPersonCodeName = "==กรุณาเลือก==" });
+                selects = new();
+                foreach (var item in bankPersonCodes)
+                {
+                    selects.Add(new SelectListItem
+                    {
+                        Selected = item.BankPersonId == loaneeRemark.BankPersonId,
+                        Text = $"{item.BankPersonCodeId}:{item.BankPersonCodeName}",
+                        Value = item.BankPersonId.ToString(),
+                    });
+                }
+                ViewBag.BankPersonCodes = selects;
+
+                var bankResultCodes = await _bankResultCodeRepository.GetByBankPersonId(loaneeRemark.BankPersonId);
+                bankResultCodes.Insert(0, new BankResultCodeViewModel { BankResultId = 0, BankResultCodeName = "==กรุณาเลือก==" });
+                selects = new();
+                foreach (var item in bankResultCodes)
+                {
+                    selects.Add(new SelectListItem
+                    {
+                        Selected = item.BankResultId == loaneeRemark.BankResultId,
                         Text = $"{item.BankResultCodeId}:{item.BankResultCodeName}",
                         Value = item.BankResultId.ToString(),
                     });
                 }
                 ViewBag.BankResultCodes = selects;
+
+                //var bankResults = await _bankResultCodeRepository.GetByEmployer(loaneeRemark.EmployerCode);
+                //selects = new();
+                //foreach (var item in bankResults)
+                //{
+                //    selects.Add(new SelectListItem
+                //    {
+                //        Selected = item.BankResultId == loaneeRemark.BankResultId ? true : false,
+                //        Text = $"{item.BankResultCodeId}:{item.BankResultCodeName}",
+                //        Value = item.BankResultId.ToString(),
+                //    });
+                //}
+                //ViewBag.BankResultCodes = selects;
 
                 //var bankPersonCodes = await _bankPersonCodeRepository.GetAll( loaneeRemark.BankActionId);
                 //selects = new();
@@ -237,45 +323,45 @@ namespace CourtJustice.Web.Controllers
                 //}
                 //ViewBag.BankPersonCodes = selects;
 
-                if (loaneeRemark.BankActionId > 0)
-                {
-                    var bankPersonCodes = await _bankPersonCodeRepository.GetAll(loaneeRemark.BankActionId);
-                    selects = new();
-                    foreach (var item in bankPersonCodes)
-                    {
-                        selects.Add(new SelectListItem
-                        {
-                            Selected = item.BankPersonId == loaneeRemark.BankPersonId,
-                            Text = $"{item.BankPersonCodeId}:{item.BankPersonCodeName}",
-                            Value = item.BankPersonId.ToString(),
-                        });
-                    }
-                    ViewBag.BankPersonCodes = selects;
-                }
-                else
-                {
-                    if (backActions.Count > 0)
-                    {
-                        var bankActionId = backActions.FirstOrDefault().BankActionId;
-                        var bankPersonCodes = await _bankPersonCodeRepository.GetAll( bankActionId);
-                        selects = new();
-                        foreach (var item in bankPersonCodes)
-                        {
-                            selects.Add(new SelectListItem
-                            {
-                                Selected = item.BankPersonId == loaneeRemark.BankPersonId,
-                                Text = $"{item.BankPersonCodeId}:{item.BankPersonCodeName}",
-                                Value = item.BankPersonId.ToString(),
-                            });
-                        }
-                        ViewBag.BankPersonCodes = selects;
-                    }
-                    else
-                    {
-                        selects = new();
-                        ViewBag.BankPersonCodes = selects;
-                    }
-                }
+                //if (loaneeRemark.BankActionId > 0)
+                //{
+                //    var bankPersonCodes = await _bankPersonCodeRepository.GetByBankActionId(loaneeRemark.BankActionId);
+                //    selects = new();
+                //    foreach (var item in bankPersonCodes)
+                //    {
+                //        selects.Add(new SelectListItem
+                //        {
+                //            Selected = item.BankPersonId == loaneeRemark.BankPersonId,
+                //            Text = $"{item.BankPersonCodeId}:{item.BankPersonCodeName}",
+                //            Value = item.BankPersonId.ToString(),
+                //        });
+                //    }
+                //    ViewBag.BankPersonCodes = selects;
+                //}
+                //else
+                //{
+                //    if (backActions.Count > 0)
+                //    {
+                //        var bankActionId = backActions.FirstOrDefault().BankActionId;
+                //        var bankPersonCodes = await _bankPersonCodeRepository.GetByBankActionId( bankActionId);
+                //        selects = new();
+                //        foreach (var item in bankPersonCodes)
+                //        {
+                //            selects.Add(new SelectListItem
+                //            {
+                //                Selected = item.BankPersonId == loaneeRemark.BankPersonId,
+                //                Text = $"{item.BankPersonCodeId}:{item.BankPersonCodeName}",
+                //                Value = item.BankPersonId.ToString(),
+                //            });
+                //        }
+                //        ViewBag.BankPersonCodes = selects;
+                //    }
+                //    else
+                //    {
+                //        selects = new();
+                //        ViewBag.BankPersonCodes = selects;
+                //    }
+                //}
 
 
                 var companyActions = await _companyActionCodeRepository.GetAll();
@@ -422,16 +508,18 @@ namespace CourtJustice.Web.Controllers
                                 //        message += $"ไม่พบข้อมูล Person Code[ธนาคาร] {employerCode},{bankActionCodeId},{bankPersonCode}{Environment.NewLine}";
                                 //    }
                                 //}
+                                //foreach (var bankResultCodeId in gBankResults)
+                                //{
+                                //    var count = await _bankResultCodeRepository.CountByEmployerAndCode(employerCode, bankResultCodeId);
+                                //    if (count == 0)
+                                //    {
+                                //        message += $"ไม่พบข้อมูล Result Code[ธนาคาร] {employerCode} {bankResultCodeId}{Environment.NewLine}";
+                                //    }
+                                //}
+
                             }
                         }
-                        foreach (var bankResultCodeId in gBankResults)
-                        {
-                            var count = await _bankResultCodeRepository.CountByEmployerAndCode(employerCode, bankResultCodeId);
-                            if (count == 0)
-                            {
-                                message += $"ไม่พบข้อมูล Result Code[ธนาคาร] {employerCode} {bankResultCodeId}{Environment.NewLine}";
-                            }
-                        }
+                   
                     }
 
                     foreach (var item in gCompanyActions)
@@ -460,9 +548,10 @@ namespace CourtJustice.Web.Controllers
                             , loaneeRemarkExcel.BankActionCodeId);
                         loaneeRemarkExcel.BankActionId = bankActionCode.BankActionId;
 
-                        var bankResultCode = await _bankResultCodeRepository.GetByEmployerAndCode(loaneeRemarkExcel.EmployerCode
-                            , loaneeRemarkExcel.BankResultCodeId);
-                        loaneeRemarkExcel.BankResultId = bankResultCode.BankResultId;
+                        //var bankResultCode = await _bankResultCodeRepository.GetByEmployerAndCode(loaneeRemarkExcel.EmployerCode
+                        //    , loaneeRemarkExcel.BankResultCodeId);
+
+                        //loaneeRemarkExcel.BankResultId = bankResultCode.BankResultId;
 
                         //var bankPersonCode = await _bankPersonCodeRepository.GetByKey(loaneeRemarkExcel.EmployerCode
                         //    , loaneeRemarkExcel.BankActionCodeId

@@ -24,7 +24,7 @@ namespace CourtJustice.Infrastructure.Repositories
                 {
                     bank_action_id = id,
                 });
-                return rowCount == 0 ? false : true;
+                return rowCount != 0;
             }
             catch (Exception)
             {
@@ -38,10 +38,9 @@ namespace CourtJustice.Infrastructure.Repositories
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
-                var sql = @"select count(1) from loanee_remark 
-where bank_person_id=@bank_person_id";
+                var sql = @"select count(1) from loanee_remark where bank_person_id=@bank_person_id";
                 var rowCount = conn.ExecuteScalar<int>(sql, new { bank_person_id =id});
-                return rowCount == 0 ? false : true;
+                return rowCount != 0;
             }
             catch (Exception)
             {
@@ -60,7 +59,7 @@ where bank_person_id=@bank_person_id";
                 {
                     bank_result_id = id,
                 });
-                return rowCount == 0 ? false : true;
+                return rowCount != 0;
             }
             catch (Exception)
             {
@@ -169,12 +168,13 @@ where bank_person_id=@bank_person_id";
     lr.bank_result_id,
     lr.bank_person_id,
     (select concat( ba.bank_action_code_id,':',bank_action_code_name ) from bank_action_code ba where lr.bank_action_id = ba.bank_action_id and lr.employer_code =ba.employer_code) as bank_action_code_name,
-    (select concat( br.bank_result_code_id,':',bank_result_code_name) from bank_result_code br where lr.bank_result_id = br.bank_result_id and lr.employer_code =br.employer_code) as bank_result_code_name,
+    (select concat( br.bank_result_code_id,':',bank_result_code_name) from bank_result_code br where lr.bank_result_id = br.bank_result_id and lr.bank_person_id =br.bank_person_id) as bank_result_code_name,
     (select concat( ca.company_action_code_id,':',company_action_code_name) from company_action_code ca where lr.company_action_code_id = ca.company_action_code_id ) as company_action_code_name,
     (select concat( cr.company_result_code_id,':',company_result_code_name) from company_result_code cr where lr.company_result_code_id = cr.company_result_code_id ) as company_result_code_name,
     (select concat( bp.bank_person_code_id,':',bank_person_code_name) from bank_person_code bp where lr.bank_person_id = bp.bank_person_id) as bank_person_code_name
 FROM loanee_remark lr
-WHERE cus_id = @cus_id";
+WHERE cus_id = @cus_id
+ORDER BY transaction_datetime DESC";
                 var result = await conn.QueryAsync<LoaneeRemarkViewModel>(sql, new { cus_id = id });
                 return result.ToList();
 
@@ -211,7 +211,7 @@ WHERE cus_id = @cus_id";
     lr.bank_result_id,
     lr.bank_person_id,
     (select concat( ba.bank_action_code_id,':',bank_action_code_name ) from bank_action_code ba where lr.bank_action_id = ba.bank_action_id and lr.employer_code =ba.employer_code) as bank_action_code_name,
-    (select concat( br.bank_result_code_id,':',bank_result_code_name) from bank_result_code br where lr.bank_result_id = br.bank_result_id and lr.employer_code =br.employer_code) as bank_result_code_name,
+    (select concat( br.bank_result_code_id,':',bank_result_code_name) from bank_result_code br where lr.bank_result_id = br.bank_result_id and lr.bank_person_id =br.bank_person_id) as bank_result_code_name,
     (select concat( ca.company_action_code_id,':',company_action_code_name) from company_action_code ca where lr.company_action_code_id = ca.company_action_code_id ) as company_action_code_name,
     (select concat( cr.company_result_code_id,':',company_result_code_name) from company_result_code cr where lr.company_result_code_id = cr.company_result_code_id ) as company_result_code_name,
     (select concat( bp.bank_person_code_id,':',bank_person_code_name) from bank_person_code bp where lr.bank_person_id = bp.bank_person_id) as bank_person_code_name
@@ -245,12 +245,12 @@ WHERE loanee_remark_id = @loanee_remark_id";
             result.BankPersonCodeId = model.BankPersonCodeId;
             result.CompanyActionCodeId = model.CompanyActionCodeId;
             result.CompanyResultCodeId = model.CompanyResultCodeId;
-            result.TransactionDatetime = model.TransactionDatetime;
+            //result.TransactionDatetime = model.TransactionDatetime;
             result.CusId = model.CusId;
             result.FollowContractNo = model.FollowContractNo;
             result.BankActionId = model.BankActionId;
+            result.BankPersonId = model.BankPersonId;
             result.BankResultId = model.BankResultId;
-
             await Context.SaveChangesAsync();
         }
     }

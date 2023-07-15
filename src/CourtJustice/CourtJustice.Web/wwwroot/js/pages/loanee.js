@@ -39,6 +39,7 @@ function onSelectCusId() {
             contentType: "application/json; charset=utf-8",
             success: function (res) {
                 $("#view-loanee").html(res.html);
+                $("#remark-tab").click();
                 activaTab('remark-1');
             }
         });

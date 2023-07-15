@@ -1,4 +1,5 @@
-﻿using CourtJustice.Infrastructure.Interfaces;
+﻿using CourtJustice.Domain.ViewModels;
+using CourtJustice.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -7,19 +8,19 @@ namespace CourtJustice.Web.Controllers
     public class BankPersonCodesController : BaseController<BankPersonCodesController>
     {
         private readonly IBankPersonCodeRepository _bankPersonCodeRepository;
-        private readonly IBankActionCodeRepository _bankActionCodeRepository;
+        
 
-        public BankPersonCodesController(IBankPersonCodeRepository bankPersonCodeRepository, IBankActionCodeRepository bankActionCodeRepository)
+        public BankPersonCodesController(IBankPersonCodeRepository bankPersonCodeRepository)
         {
             _bankPersonCodeRepository = bankPersonCodeRepository;
-            _bankActionCodeRepository = bankActionCodeRepository;
         }
 
         [HttpGet]
         public async Task<JsonResult> GetBankPersonCodes(int id)
         {
             //var bankAction = await _bankActionCodeRepository.GetByKey(id);
-            var bankPersonCodes = await _bankPersonCodeRepository.GetAll(id);
+            var bankPersonCodes = await _bankPersonCodeRepository.GetByBankActionId(id);
+            bankPersonCodes.Insert(0, new BankPersonCodeViewModel { BankPersonId = 0, BankPersonCodeName = "==กรุณาเเลือก=="});
             List<SelectListItem> selects = new();
 
             foreach (var item in bankPersonCodes)

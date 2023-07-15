@@ -10,7 +10,7 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task<int> CountByEmployerAndCode(string employerCode, string actionCodeId);
         Task<BankActionCodeViewModel> GetByEmployerAndCode(string employerCode, string actionCodeId);
         Task Create(BankActionCode model);
-        Task Update(BankActionCode model);
+        Task Update(int id,BankActionCode model);
         Task Delete(int id);
         Task<BankActionCode> GetByKey(int id);
     }

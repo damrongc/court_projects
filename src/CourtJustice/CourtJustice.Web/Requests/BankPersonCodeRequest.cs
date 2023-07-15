@@ -1,4 +1,5 @@
-﻿namespace CourtJustice.Web.Requests
+﻿
+namespace CourtJustice.Web.Requests
 {
     public class BankPersonCodeRequest
     {
@@ -7,5 +8,6 @@
         public int BankPersonId { get; set; }
         public string BankPersonCodeId { get; set; }
         public string BankPersonCodeName { get; set; }
+        public List<BankResultCodeRequest> BankResultCodes { get; set; } = new();
     }
 }

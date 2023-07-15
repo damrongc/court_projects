@@ -44,6 +44,21 @@ and employer_code=@employer_code";
             await Context.SaveChangesAsync();
         }
 
+        public async Task DeleteByBankPersonId(int bankPersonId)
+        {
+            try
+            {
+                using IDbConnection conn = Connection;
+                conn.Open();
+                var sql = @"delete from bank_result_code where bank_person_id =@bank_person_id";
+                await conn.ExecuteAsync(sql, new { bank_person_id = bankPersonId });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public async Task<List<BankResultCodeViewModel>> GetAll()
         {
             try
@@ -53,8 +68,31 @@ and employer_code=@employer_code";
                 var sql = @"select bank_result_id,bank_result_code_id,bank_result_code_name,a.employer_code,b.employer_name
 from bank_result_code a,employer b
 where a.employer_code =b.employer_code";
-
                 var result = await conn.QueryAsync<BankResultCodeViewModel>(sql);
+                return result.ToList();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<BankResultCodeViewModel>> GetByBankPersonId(int bankPersonId)
+        {
+            try
+            {
+                using IDbConnection conn = Connection;
+                conn.Open();
+                var sql = @"select bank_result_id
+,bank_result_code_id
+,bank_result_code_name
+,bank_person_id
+,is_active
+from bank_result_code
+where bank_person_id =@bank_person_id";
+
+                var result = await conn.QueryAsync<BankResultCodeViewModel>(sql,new { bank_person_id  =bankPersonId});
                 return result.ToList();
 
             }
@@ -124,9 +162,10 @@ and employer_code=@employer_code";
             return model;
         }
 
-        public async Task Update(BankResultCode model)
+        public async Task Update(int id, BankResultCode model)
         {
-            var result = await Context.BankResultCodes.FindAsync(model.BankResultId);
+            var result = await Context.BankResultCodes.FindAsync(id);
+            result.BankResultCodeId = model.BankResultCodeId;
             result.BankResultCodeName = model.BankResultCodeName;
             await Context.SaveChangesAsync();
         }

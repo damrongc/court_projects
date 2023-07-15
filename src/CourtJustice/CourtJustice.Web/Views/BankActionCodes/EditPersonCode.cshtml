@@ -4,46 +4,82 @@
     Layout = null;
     var editUrl = Url.Action("EditPersonCode", "BankActionCodes");
     var deleteUrl = Url.Action("DeletePersonCode", "BankActionCodes");
+
 }
 
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form asp-action="Create">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input asp-for="BankPersonId" class="form-control" id="txtBankPersonId" type="hidden" />
-                            <input asp-for="BankActionId" class="form-control" id="txtBankActionId" type="hidden" />
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label class="control-label" asp-for="BankActionCodeName"></label>
-                                    <input asp-for="BankActionCodeName" class="form-control" readonly />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label asp-for="BankPersonCodeId" class="control-label"></label>
-                                    <input asp-for="BankPersonCodeId" class="form-control" id="txtBankPersonCodeId" readonly />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label asp-for="BankPersonCodeName" class="control-label"></label>
-                                    <input asp-for="BankPersonCodeName" class="form-control" id="txtBankPersonCodeName" />
-                                    <span asp-validation-for="BankPersonCodeName" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-wrap justify-content-between">
-                                <input type="button" value="Delete" class="btn btn-danger" onclick="deletePersonCode('@deleteUrl')" />
-                                <input type="button" value="Save" class="btn btn-primary" onclick="savePersonCode('@editUrl')" />
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    <div class="col-md-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="BankPersonId" class="form-control" id="txtBankPersonId" type="hidden" />
+        <input asp-for="BankActionId" class="form-control" id="txtBankActionId" type="hidden" />
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="control-label" asp-for="BankActionCodeName"></label>
+                <input asp-for="BankActionCodeName" class="form-control" readonly />
             </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label asp-for="BankPersonCodeId" class="control-label"></label>
+                <input asp-for="BankPersonCodeId" class="form-control" id="txtBankPersonCodeId" />
+            </div>
+            <div class="form-group col-md-8">
+                <label asp-for="BankPersonCodeName" class="control-label"></label>
+                <input asp-for="BankPersonCodeName" class="form-control" id="txtBankPersonCodeName" />
+                <span asp-validation-for="BankPersonCodeName" class="text-danger"></span>
+            </div>
+
+        </div>
+@*        <div class="row">
+      
+        </div>*@
+
+        @*            <div class="row">
+        <div class="form-group col-md-4">
+        <label class="control-label" asp-for="IsActive"></label>
+        <select class="form-control dropdown" id="ddlIsActive"  asp-items="@ViewBag.IsActive">
+        </select>
+        </div>
+        </div>*@
+
+        <div class="d-flex flex-wrap justify-content-end">
+            <a onclick="showBankResultPopup('@Url.Action("Create","BankResultCodes",new {id= Model.BankPersonId},Context.Request.Scheme)','เพิ่ม Result Code: ' + @Model.BankPersonCodeId)"
+               class="btn btn-light btn-sm mt-2 mb-2"><i class="fa fa-plus"></i> เพิ่ม Result Code</a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table id="tblBankResultCode" class="table table-condensed">
+                    <thead>
+                        <tr class="bg-light" role="row">
+                            <th>Result Code</th>
+                            <th>คำอธิบาย</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.BankResultCodes)
+                        {
+                            <tr>
+                                <td class="BankResultCodeIdCell" data-id="@item.BankResultId">@item.BankResultCodeId</td>
+                                <td class="BankResultCodeNameCell">@item.BankResultCodeName</td>
+                                <td class="w150">
+                                    <div class="d-inline pull-right">
+                                        <button class='btn btn-primary btn-sm' onclick='edit_row($(this))'><i class='fa fa-edit'></i></button>
+                                        <button class='btn btn-danger btn-sm' onclick='delete_row($(this))'><i class='fa fa-trash'></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between mt-2">
+            <input type="button" value="Delete" class="btn btn-danger" onclick="deletePersonCode('@deleteUrl')" />
+            <input type="button" value="Save" class="btn btn-primary" onclick="savePersonCode('@editUrl')" />
         </div>
     </div>
 </div>

@@ -41,6 +41,9 @@
 
 @Html.Hidden("hdGetBankActionRoute", Url.Action("GetBankAction", "BankActionCodes"))
 @Html.Hidden("hdDeleteRoute", Url.Action("Delete", "BankActionCodes"))
+@Html.Hidden("hdEditBankResultRoute", Url.Action("Edit", "BankResultCodes"))
+@Html.Hidden("hdDeleteBankResultRoute", Url.Action("Delete", "BankResultCodes"))
+
 @section scripts{
     <script src="~/js/pages/bank_action_code.js" asp-append-version="true"></script>
 }

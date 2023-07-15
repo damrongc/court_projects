@@ -37,13 +37,15 @@ namespace CourtJustice.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<BankPersonCodeViewModel>> GetAll(int bankActionId)
+        public async Task<List<BankPersonCodeViewModel>> GetByBankActionId(int bankActionId)
         {
             try
             {
                 using IDbConnection conn = Connection;
                 conn.Open();
-                var sql = @"select * from bank_person_code 
+                var sql = @"select bank_person_id,bank_person_code_id,bank_person_code_name,bank_action_id,is_active
+,(select count(1) from bank_result_code where bank_result_code.bank_person_id=bank_person_code.bank_person_id) as bank_result_code_count
+from bank_person_code 
 where bank_action_id =@bank_action_id";
 
                 var result = await conn.QueryAsync<BankPersonCodeViewModel>(sql, new { bank_action_id = bankActionId});
@@ -107,11 +109,12 @@ and bank_person_code_id =@bank_person_code_id";
             }
         }
 
-        public async Task Update(BankPersonCode model)
+        public async Task Update(int id, BankPersonCode model)
         {
-            var bankPersonCode = await Context.BankPersonCodes.FindAsync(model.BankPersonId);
+            var bankPersonCode = await Context.BankPersonCodes.FindAsync(id);
             if (bankPersonCode is not null)
             {
+                bankPersonCode.BankPersonCodeId = model.BankPersonCodeId;
                 bankPersonCode.BankPersonCodeName = model.BankPersonCodeName;
                 await Context.SaveChangesAsync();
             }

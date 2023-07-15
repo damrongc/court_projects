@@ -10,9 +10,11 @@ namespace CourtJustice.Domain.ViewModels
         public string BankResultCodeId { get; set; }
         [Display(Name = "Result Name[ธนาคาร]")]
         public string BankResultCodeName { get; set; }
-        public string EmployerCode { get; set; }
-        [Display(Name = "ผู้ว่าจ้าง/ธนาคาร")]
-        public string EmployerName { get; set; }
+        //public string EmployerCode { get; set; }
+        //[Display(Name = "ผู้ว่าจ้าง/ธนาคาร")]
+        //public string EmployerName { get; set; }
+        public int BankPersonId { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }
 

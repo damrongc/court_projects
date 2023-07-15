@@ -22,8 +22,25 @@ function getBankPersonCode() {
             items += "<option value='" + data.value + "'>" + data.text + "</option>"
         });
         $('#ddlBankPersonCode').html(items);
+        $('#ddlBankResultCode').empty();
+        $('#ddlBankResultCode').html("<option value='0'>==กรุณาเลือก==</option>");
     });
+}
 
+function getBankResultCode() {
+
+    var url = $('#hdGetBankResultCodesUrl').val();
+    //var employerCode = $('#txtEmployerCode').val();
+    var bankPersonId = $('#ddlBankPersonCode').val();
+
+    $.getJSON(url, { id: bankPersonId }, function (response) {
+        var items = '';
+        $('#ddlBankResultCode').empty();
+        $.each(response, function (i, data) {
+            items += "<option value='" + data.value + "'>" + data.text + "</option>"
+        });
+        $('#ddlBankResultCode').html(items);
+    });
 }
 
 function showRemarkTab(url) {
@@ -50,8 +67,6 @@ function showRemarkTab(url) {
             if (res.isValid) {
                 $("#view-remark").html(res.html);
             }
-
-
         }
     })
 }
