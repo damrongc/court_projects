@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
 namespace CourtJustice.Domain.ViewModels
 {
@@ -12,9 +11,12 @@ namespace CourtJustice.Domain.ViewModels
         public string CompanyResultCodeName { get; set; }
         public bool NotCallFlag { get; set; }
         public bool ShowHideFlag { get; set; }
-        [Display(Name = "บริษัท")]
-        public int CompanyId { get; set; }
+        //[Display(Name = "บริษัท")]
+        //public int CompanyId { get; set; }
         public int CompanyActionId { get; set; }
+        public string CompanyActionCodeId { get; set; }
+        [Display(Name = "Action Code[บริษัท]")]
+        public string CompanyActionCodeName { get; set; }
     }
 }
 

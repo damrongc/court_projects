@@ -12,5 +12,8 @@ namespace CourtJustice.Infrastructure.Interfaces
         Task<List<LoaneeSummaryViewModel>> GetLoaneeSummary(int groupId,string employeeCode);
 
         Task<List<LoaneeSummaryViewModel>> GetPaymentSummary(string employeeCode,string employerCode, string startDate,string endDate);
+
+        Task<IEnumerable<LoaneeRemarkExcelViewModel>> GetLoaneeReamrkPaging(int groupId, string employeeCode, int skip, int take, string filter);
+        Task<int> GetLoaneeReamrkRecordCount(int groupId, string employeeCode, string filter);
     }
 }

@@ -264,7 +264,7 @@ namespace CourtJustice.Web.Controllers
                     worksheetProductTypeY.Cell(1, 17).Value = "AMOUNT";
                     worksheetProductTypeY.Cell(1, 18).Value = "APPOINTMENT CONTRACT";
                     worksheetProductTypeY.Cell(1, 19).Value = "REMARK";
-                    worksheetProductTypeY.Cell(1, 20).Value = "REMARK";
+                    worksheetProductTypeY.Cell(1, 20).Value = "EMPLOYER WORK GROUP";
                     worksheetProductTypeY.Cell(1, 21).Value = "COLLECTOR";
 
                     for (int index = 0; index < data.Count; index++)
@@ -293,7 +293,7 @@ namespace CourtJustice.Web.Controllers
                         worksheetProductTypeY.Cell(index + 2, 18).Value = "'" + data[index].AppointmentContract;
                         worksheetProductTypeY.Cell(index + 2, 19).Value = data[index].Remark;
                         worksheetProductTypeY.Cell(index + 2, 20).Value = data[index].EmployerWorkGroup;
-                        worksheetProductTypeY.Cell(index + 2, 20).Value = data[index].Collector;
+                        worksheetProductTypeY.Cell(index + 2, 21).Value = data[index].Collector;
 
                     }
 

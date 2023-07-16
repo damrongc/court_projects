@@ -14,8 +14,8 @@ namespace CourtJustice.Domain.Models
         public string CompanyResultCodeName { get; set; }
         public bool NotCallFlag { get; set; }
         public bool ShowHideFlag { get; set; }
-        [Display(Name = "∫√‘…—∑")]
-        public int CompanyId { get; set; }
+        //[Display(Name = "∫√‘…—∑")]
+        //public int CompanyId { get; set; }
         public int CompanyActionId { get; set; }
         //[ForeignKey(nameof(CompanyId))]
         //public virtual Company? Company { set; get; }

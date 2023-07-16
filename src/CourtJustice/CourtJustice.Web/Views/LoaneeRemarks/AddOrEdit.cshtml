@@ -58,7 +58,7 @@
             <div class="row">
                 <div class="form-group col-md-4">
                     <label class="control-label" asp-for="CompanyActionCodeName"></label>
-                    <select class="form-control dropdown" id="ddlCompanyActionCode" asp-for="CompanyActionCodeId" asp-items="@ViewBag.CompanyActionCodes">
+                    <select class="form-control dropdown" id="ddlCompanyActionCode" onchange="getCompanyResultCode();" asp-for="CompanyActionCodeId" asp-items="@ViewBag.CompanyActionCodes">
                     </select>
                 </div>
                 <div class="form-group col-md-4">
@@ -84,3 +84,4 @@
 
 @Html.Hidden("hdGetBankPersonCodesUrl",Url.Action("GetBankPersonCodes","BankPersonCodes"))
 @Html.Hidden("hdGetBankResultCodesUrl",Url.Action("GetBankResultCodes","BankResultCodes"))
+@Html.Hidden("hdGetCompanyResultCodesUrl",Url.Action("GetCompanyResultCodes","CompanyResultCodes"))

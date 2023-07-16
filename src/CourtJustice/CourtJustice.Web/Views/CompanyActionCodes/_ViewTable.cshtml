@@ -1,26 +1,21 @@
-﻿@using CourtJustice.Domain.Models
-@model IEnumerable<CompanyActionCode>
+﻿@using CourtJustice.Domain.ViewModels
+@model IEnumerable<CompanyActionCodeViewModel>
 
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover data-table">
         <thead>
             <tr class="bg-primary text-white" role="row">
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.CompanyActionCodeId)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.CompanyActionCodeName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CompanyId)
+
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserCreated)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedDateTime)
-                </th>
+
                 <th>
 
                 </th>
@@ -30,28 +25,30 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td class="w150" data-id="@item.CompanyActionId">
                         @Html.DisplayFor(modelItem => item.CompanyActionCodeId)
                     </td>
-                    <td>
+                    <td class="w300">
                         @Html.DisplayFor(modelItem => item.CompanyActionCodeName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                        <a class="btn btn-info text-white btn-sm" onclick="showInPopup('@Url.Action("AddOrEdit","CompanyResultCodes"
+                            ,new {id= 0,companyActionId =item.CompanyActionId}
+                            ,Context.Request.Scheme)'
+                            ,'เพิ่ม Result Code[บริษัท]')"><i class="fa fa-plus"></i></a>
+                        @foreach (var companyResultCode in item.CompanyResultCodes)
+                        {
+                            var name = string.Format("{0}", companyResultCode.CompanyResultCodeName);
+                            <a class="btn btn-sm btn-light" onclick="showInPopup('@Url.Action("AddOrEdit","CompanyResultCodes"
+                            ,new {id=companyResultCode.CompanyResultId,companyActionId =item.CompanyActionId}
+                                ,Context.Request.Scheme)'
+                                ,'แก้ไข Result Code[บริษัท]')">@name</a>
+                        }
                     </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserCreated)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedDateTime)
-                    </td>
-
                     <td class="w100">
                         <div class="d-inline">
-                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.CompanyActionCodeId"><i class='fa fa-edit'></i></a>
-                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.CompanyActionCodeId');"><i class='fa fa-trash'></i></a>
+                            <a class="btn btn-sm btn-primary text-white" asp-action="Edit" asp-route-id="@item.CompanyActionId"><i class='fa fa-edit'></i></a>
+                            <a class="btn btn-sm btn-danger text-white" onclick="confirmDelete('@item.CompanyActionId');"><i class='fa fa-trash'></i></a>
                         </div>
                     </td>
                 </tr>

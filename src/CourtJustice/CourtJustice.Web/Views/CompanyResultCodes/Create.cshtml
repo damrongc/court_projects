@@ -1,63 +1,39 @@
-﻿@using CourtJustice.Domain.Models;
-@model CompanyResultCode
+﻿@using CourtJustice.Domain.ViewModels;
+@model CompanyResultCodeViewModel
 
 @{
-    ViewData["Title"] = "Result Code[บริษัท]";
+    Layout = null;
+    var url = Url.Action("CreateCompanyResultCode", "CompanyResultCodes");
 }
 <div class="row">
-    <div class="col-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between mb-3">
-                    <h3 class="mb-3">เพิ่ม @ViewData["Title"]</h3>
-                </div>
+    <div class="col-md-12">
+        <input asp-for="CompanyActionId" class="form-control" type="hidden" id="txtCompanyActionId" />
+        <input asp-for="CompanyResultId" class="form-control" type="hidden" id="txtCompanyResultId" />
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <form asp-action="Create">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-
-                                    <label class="control-label" asp-for="CompanyId"></label>
-                                    <select class="form-control dropdown" id="ddlCompanys" asp-for="CompanyId" asp-items="@ViewBag.Companies">
-                                    </select>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label asp-for="CompanyResultCodeId" class="control-label"></label>
-                                    <input asp-for="CompanyResultCodeId" class="form-control" />
-                                    <span asp-validation-for="CompanyResultCodeId" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="form-group col-md-6">
-                                    <label asp-for="CompanyResultCodeName" class="control-label"></label>
-                                    <input asp-for="CompanyResultCodeName" class="form-control" />
-                                    <span asp-validation-for="CompanyResultCodeName" class="text-danger"></span>
-                                </div>
-                            </div>
-
-             
-                            <div class="form-group">
-                                <a asp-action="Index" class="btn btn-light">Back</a>
-                                <input type="submit" value="Create" class="btn btn-primary" />
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label asp-for="CompanyActionCodeName" class="control-label"></label>
+                <input asp-for="CompanyActionCodeName" class="form-control" readonly/>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label asp-for="CompanyResultCodeId" class="control-label"></label>
+                <input asp-for="CompanyResultCodeId" class="form-control" id="txtCompanyResultCodeId" />
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="form-group col-md-12">
+                <label asp-for="CompanyResultCodeName" class="control-label"></label>
+                <input asp-for="CompanyResultCodeName" class="form-control" id="txtCompanyResultCodeName" />
+            </div>
+        </div>
+
+
+        <div class="d-flex flex-wrap justify-content-end mt-2">
+            <input type="button" value="Save" class="btn btn-primary" onclick="saveCompanyResultCode('@url')" />
+        </div>
+
     </div>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

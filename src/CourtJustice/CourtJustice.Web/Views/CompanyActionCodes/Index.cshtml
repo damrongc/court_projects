@@ -1,5 +1,5 @@
-﻿@using CourtJustice.Domain.Models
-@model IEnumerable<CompanyActionCode>
+﻿@using CourtJustice.Domain.ViewModels
+@model IEnumerable<CompanyActionCodeViewModel>
 
 @{
     ViewData["Title"] = "Action Code[บริษัท]";
@@ -43,7 +43,9 @@
     </div>
 </div>
 
+@Html.Hidden("hdGetAllCompanyActionRoute", Url.Action("GetAllCompanyAction", "CompanyActionCodes"))
 @Html.Hidden("hdDeleteRoute", Url.Action("Delete", "CompanyActionCodes"))
 @section scripts{
     <script src="~/js/pages/company_action_code.js" asp-append-version="true"></script>
+    <script src="~/js/pages/company_result_code.js" asp-append-version="true"></script>
 }

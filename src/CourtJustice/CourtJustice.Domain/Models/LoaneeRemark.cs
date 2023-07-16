@@ -58,6 +58,8 @@ namespace CourtJustice.Domain.Models
         public int BankActionId { get; set; }
         public int BankResultId { get; set; }
         public int BankPersonId { get; set; }
+        public int CompanyActionId { get; set; }
+        public int CompanyResultId { get; set; }
         public bool EmployeeChecked { get; set; }
         public bool ManagerChecked { get; set; }
     }

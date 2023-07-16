@@ -80,7 +80,6 @@
     <Folder Include="Views\LawOffices\" />
     <Folder Include="Views\BankResultCodes\" />
     <Folder Include="Views\CompanyActionCodes\" />
-    <Folder Include="Views\CompanyResultCodes\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Views\AssetCars\_AssetCarsCardcshtml">

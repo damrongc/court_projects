@@ -182,12 +182,13 @@
                     <table class="table center-aligned-table" id="tbl_todo">
                         <thead>
                             <tr class="bg-light" role="row">
-                                <th>วันที่นัด</th>
-                                <th>รายละเอียดงาน</th>
-                                <th>ชื่อลูกหนี้</th>
-                                <th>เลขที่สัญญา</th>
-                                <th>เบอร์ติดต่อ</th>
-                                <th>จำนวนเงิน</th>
+                                <th class="text-nowrap">Collector</th>
+                                <th class="text-nowrap">วันที่นัด</th>
+                                <th class="text-nowrap">รายละเอียดงาน</th>
+                                <th class="text-nowrap">ชื่อลูกหนี้</th>
+                                <th class="text-nowrap">เลขที่สัญญา</th>
+                                <th class="text-nowrap">เบอร์ติดต่อ</th>
+                                <th class="text-nowrap">จำนวนเงิน</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -224,9 +225,10 @@
 
 
 @Html.Hidden("hdGetRemainTaskPaging", Url.Action("GetRemainTaskPaging", "Dashboards"))
-@Html.Hidden("hdGetEmployeeTodoPaging", Url.Action("GetEmployeeTodoPaging", "Dashboards"))
+@Html.Hidden("hdGetLoaneeReamrkPaging", Url.Action("GetLoaneeReamrkPaging", "Dashboards"))
 @Html.Hidden("hdGetLoaneeSummary", Url.Action("GetLoaneeSummary", "Dashboards"))
 @Html.Hidden("hdGetPaymentSummary", Url.Action("GetPaymentSummary", "Dashboards"))
+
 @section scripts{
     <script src="~/js/pages/dashboard.js" asp-append-version="true"></script>
 }

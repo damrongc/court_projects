@@ -16,6 +16,8 @@ namespace CourtJustice.Infrastructure.Interfaces
         bool BankPersonCodeIsExist(int id);
         bool BankActionCodeIsExist(int id);
         bool BankResultCodeIsExist(int id);
+        bool CompanyActionCodeIsExist(int id);
+        bool CompanyResultCodeIsExist(int id);
 
     }
 }

@@ -6,13 +6,13 @@
     <table class="table table-bordered table-hover data-table">
         <thead>
             <tr class="bg-primary text-white" role="row">
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.EmployerName)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.BankActionCodeId)
                 </th>
-                <th>
+                <th class="text-nowrap">
                     @Html.DisplayNameFor(model => model.BankActionCodeName)
                 </th>
                 <th>
@@ -27,7 +27,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td class="w150">
                         @Html.DisplayFor(modelItem => item.EmployerName)
                     </td>
                     <td>
@@ -37,32 +37,31 @@
                         @Html.DisplayFor(modelItem => item.BankActionCodeName)
                     </td>
                     <td>
-                        <div class="d-inline">
-                            <a onclick="showInPopup('@Url.Action("CreatePersonCode","BankActionCodes"
-                            ,new {id= item.BankActionId},Context.Request.Scheme)','เพิ่ม Person Code')"
-                           class="btn btn-info text-white btn-sm"><i class="fa fa-plus"></i> </a>
-                            @foreach (var personCode in item.BankPersonCodes)
+                        <a class="btn btn-info text-white btn-sm" onclick="showInPopup('@Url.Action("CreatePersonCode","BankActionCodes"
+                            ,new {id= item.BankActionId}
+                            ,Context.Request.Scheme)'
+                            ,'เพิ่ม Person Code')"><i class="fa fa-plus"></i> </a>
+                        @foreach (var personCode in item.BankPersonCodes)
+                        {
+                            var personName = string.Format("{0}", personCode.BankPersonCodeName);
+
+                            var count = personCode.BankResultCodeCount;
+                            @if (count == 0)
                             {
-                                var personName = string.Format("{0}", personCode.BankPersonCodeName);
-
-                                var count = personCode.BankResultCodeCount;
-                                @if (count == 0)
-                                {
-                                    <a class="btn btn-sm btn-light" onclick="showInPopup('@Url.Action("EditPersonCode","BankActionCodes"
+                                <a class="btn btn-sm btn-light" onclick="showInPopup('@Url.Action("EditPersonCode","BankActionCodes"
                             ,new {id=personCode.BankPersonId}
                                 ,Context.Request.Scheme)'
                                 ,'แก้ไข Person Code')">@personName</a>
-                                }
-                                else
-                                {
-                                    <a class="btn btn-sm btn-success text-white" onclick="showInPopup('@Url.Action("EditPersonCode","BankActionCodes"
-                            ,new {id=personCode.BankPersonId}
-                                ,Context.Request.Scheme)'
-                                ,'แก้ไข Person Code')">@personName</a>
-
-                                }
                             }
-                        </div>
+                            else
+                            {
+                                <a class="btn btn-sm btn-success text-white" onclick="showInPopup('@Url.Action("EditPersonCode","BankActionCodes"
+                            ,new {id=personCode.BankPersonId}
+                                ,Context.Request.Scheme)'
+                                ,'แก้ไข Person Code')">@personName</a>
+
+                            }
+                        }
                     </td>
 
                     <td class="w150">

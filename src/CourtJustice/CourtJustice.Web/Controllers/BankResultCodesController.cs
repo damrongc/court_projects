@@ -186,16 +186,20 @@ namespace CourtJustice.Web.Controllers
         {
             try
             {
+                if (id == 0)
+                {
+                    return new JsonResult(new { isValid = true });
+                }
                 var isHaveRelation = _loaneeRemarkRepository.BankResultCodeIsExist(id);
                 if (isHaveRelation)
                 {
                     throw new Exception("ไม่สามารถลบข้อมูล เนื่องจากมีการใช้ใน รายงานการติดตาม");
                 }
-
                 await _bankResultCodeRepository.Delete(id);
                 //var results = await GetAll("");
                 //var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
                 return new JsonResult(new { isValid = true });
+
             }
             catch (Exception ex)
             {

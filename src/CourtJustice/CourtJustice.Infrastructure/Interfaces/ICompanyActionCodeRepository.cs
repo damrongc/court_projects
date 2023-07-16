@@ -1,14 +1,15 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 
 namespace CourtJustice.Infrastructure.Interfaces
 {
     public interface ICompanyActionCodeRepository
     {
-        Task<List<CompanyActionCode>> GetAll();
+        Task<List<CompanyActionCodeViewModel>> GetAll();
         Task Create(CompanyActionCode model);
-        Task Update(string id, CompanyActionCode model);
-        Task Delete(string id);
-        Task<CompanyActionCode> GetByKey(string id);
+        Task Update(int id, CompanyActionCode model);
+        Task Delete(int id);
+        Task<CompanyActionCode> GetByKey(int id);
     }
 }
 

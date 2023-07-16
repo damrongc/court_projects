@@ -11,9 +11,8 @@ $(function () {
 
 function getBankPersonCode() {
    
-    var url = $('#hdGetBankPersonCodesUrl').val();
-    //var employerCode = $('#txtEmployerCode').val();
-    var bankActionId = $('#ddlBankActionCode').val();
+    const url = $('#hdGetBankPersonCodesUrl').val();
+    const bankActionId = $('#ddlBankActionCode').val();
 
     $.getJSON(url, { id: bankActionId }, function (response) {
         var items = '';
@@ -29,9 +28,8 @@ function getBankPersonCode() {
 
 function getBankResultCode() {
 
-    var url = $('#hdGetBankResultCodesUrl').val();
-    //var employerCode = $('#txtEmployerCode').val();
-    var bankPersonId = $('#ddlBankPersonCode').val();
+    const url = $('#hdGetBankResultCodesUrl').val();
+    const bankPersonId = $('#ddlBankPersonCode').val();
 
     $.getJSON(url, { id: bankPersonId }, function (response) {
         var items = '';
@@ -43,14 +41,31 @@ function getBankResultCode() {
     });
 }
 
+
+function getCompanyResultCode() {
+
+    const url = $('#hdGetCompanyResultCodesUrl').val();
+    const companyActionId = $('#ddlCompanyActionCode').val();
+
+    $.getJSON(url, { id: companyActionId }, function (response) {
+        var items = '';
+        $('#ddlCompanyResultCode').empty();
+        $.each(response, function (i, data) {
+            items += "<option value='" + data.value + "'>" + data.text + "</option>"
+        });
+        $('#ddlCompanyResultCode').html(items);
+    });
+}
+
+
 function showRemarkTab(url) {
     if (url == '' || url == undefined) {
         alert('something wrong at showRemarkTab!');
         return false;
     }
 
-    var id = $('#txtCusId').val();
-    if (id == '' || id == undefined) {
+    const cusId = $('#txtCusId').val();
+    if (cusId == '' || cusId == undefined) {
         swal({
             title: "Error",
             text: "กรุณาเลือกลูกหนี้!",
@@ -61,7 +76,7 @@ function showRemarkTab(url) {
     }
     $.ajax({
         type: "GET",
-        url: url + "/" + id,
+        url: url + "/" + cusId,
         contentType: "application/json; charset=utf-8",
         success: function (res) {
             if (res.isValid) {
@@ -83,10 +98,11 @@ AddOrEditLoaneeRamark = (form) => {
         var txtFollowContractNo = $("#txtFollowContractNo");
         var txtAmount = $("#txtAmount");
         var ddlBankActionCode = $("#ddlBankActionCode");
+        var ddlBankPersonCode = $("#ddlBankPersonCode");
         var ddlBankResultCode = $("#ddlBankResultCode");
         var ddlCompanyActionCode = $("#ddlCompanyActionCode");
         var ddlCompanyResultCode = $("#ddlCompanyResultCode");
-        var ddlBankPersonCode = $("#ddlBankPersonCode");
+        
         var errorMessage = "";
         var isValid = true;
 
@@ -150,12 +166,12 @@ AddOrEditLoaneeRamark = (form) => {
         loaneeRemark.CusId = txtCusId.val();
         loaneeRemark.AppointmentDate = moment(txtAppointmentDate.val(), "DD-MM-YYYY").format()
         loaneeRemark.FollowContractNo = txtFollowContractNo.val();
-        loaneeRemark.Amount = txtAmount.val();
-        loaneeRemark.BankActionId =parseInt( ddlBankActionCode.val());
-        loaneeRemark.BankResultId =parseInt( ddlBankResultCode.val());
-        loaneeRemark.CompanyActionCodeId = ddlCompanyActionCode.val();
-        loaneeRemark.CompanyResultCodeId = ddlCompanyResultCode.val();
+        loaneeRemark.Amount =parseFloat(txtAmount.val());
+        loaneeRemark.BankActionId = parseInt(ddlBankActionCode.val());
         loaneeRemark.BankPersonId = parseInt(ddlBankPersonCode.val());
+        loaneeRemark.BankResultId =parseInt( ddlBankResultCode.val());
+        loaneeRemark.CompanyActionId = parseInt(ddlCompanyActionCode.val());
+        loaneeRemark.CompanyResultId = parseInt(ddlCompanyResultCode.val());
         loaneeRemark.EmployerCode = txtEmployerCode.val();
 
         $.ajax({
@@ -195,7 +211,7 @@ AddOrEditLoaneeRamark = (form) => {
 
 
 confirmDeleteLoaneeRemark = (url) => {
-    var cusId = $('#txtCusId').val();
+    const cusId = $('#txtCusId').val();
     swal({
         title: "ต้องการลบ ข้อมูล?",
         text: "ถ้าลบข้อมูลแล้ว จะไม่สามารถนำกลับมาใช้งานได้",

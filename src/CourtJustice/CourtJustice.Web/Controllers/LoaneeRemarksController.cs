@@ -109,7 +109,7 @@ namespace CourtJustice.Web.Controllers
                 };
                 if (id == 0)
                 {
-                    await GetViewBagForAdd(loanee.EmployerCode);
+                    await GetViewBagForNew(loanee.EmployerCode);
                     return View(loaneeRemark);
                 }
                 else
@@ -136,15 +136,15 @@ namespace CourtJustice.Web.Controllers
                 var bankAction = await _bankActionCodeRepository.GetByKey(model.BankActionId);
                 var bankResult = await _bankResultCodeRepository.GetByKey(model.BankResultId);
                 var bankPerson = await _bankPersonCodeRepository.GetByKey(model.BankPersonId);
+                var companyAction = await _companyActionCodeRepository.GetByKey(model.CompanyActionId);
+                var companyResult = await _companyResultCodeRepository.GetByKey(model.CompanyResultId);
 
                 var isExisting = _loaneeRemarkRepository.IsExisting(model.LoaneeRemarkId);
                 var newloaneeRemark = new LoaneeRemark
                 {
                     Amount = model.Amount,
                     TransactionDatetime = DateTime.Now,
-               
-                    CompanyActionCodeId = model.CompanyActionCodeId,
-                    CompanyResultCodeId = model.CompanyResultCodeId,
+  
                     FollowContractNo = model.FollowContractNo,
                     CusId = model.CusId,
                     AppointmentDate = DateOnly.FromDateTime(model.AppointmentDate),
@@ -153,13 +153,17 @@ namespace CourtJustice.Web.Controllers
                     EmployerCode = model.EmployerCode,
 
                     BankActionCodeId = bankAction.BankActionCodeId,
-                    BankResultCodeId = bankResult.BankResultCodeId,
                     BankPersonCodeId = bankPerson.BankPersonCodeId,
+                    BankResultCodeId = bankResult.BankResultCodeId,
+                    CompanyActionCodeId = companyAction.CompanyActionCodeId,
+                    CompanyResultCodeId = companyResult.CompanyResultCodeId,
 
                     BankActionId = model.BankActionId,
-                    BankResultId= model.BankResultId,
-                    BankPersonId= model.BankPersonId,
-                    IsActive=true,
+                    BankPersonId = model.BankPersonId,
+                    BankResultId = model.BankResultId,
+                    CompanyActionId = model.CompanyActionId,
+                    CompanyResultId = model.CompanyResultId,
+                    IsActive = true,
                 };
 
                 if (isExisting)
@@ -179,9 +183,7 @@ namespace CourtJustice.Web.Controllers
             catch (Exception ex)
             {
                 return new JsonResult(new { isValid = true, message = ex.Message });
-
             }
-
         }
 
         [HttpGet]
@@ -193,7 +195,7 @@ namespace CourtJustice.Web.Controllers
             return new JsonResult(new { isValid = true, message = "", html });
         }
 
-        private async Task GetViewBagForAdd(string employerCode)
+        private async Task GetViewBagForNew(string employerCode)
         {
             try
             {
@@ -210,39 +212,40 @@ namespace CourtJustice.Web.Controllers
                 }
                 ViewBag.BankActionCodes = selects;
 
-                selects = new()
-                {
-                    new SelectListItem { Value = "0", Text = "==กรุณาเลือก==" }
-                };
-                ViewBag.BankPersonCodes = selects;
-                ViewBag.BankResultCodes = selects;
-
+  
 
                 var companyActions = await _companyActionCodeRepository.GetAll();
-                companyActions.Insert(0, new CompanyActionCode { CompanyActionCodeId = "", CompanyActionCodeName = "==กรุณาเลือก==" });
+                companyActions.Insert(0, new CompanyActionCodeViewModel { CompanyActionId = 0, CompanyActionCodeName = "==กรุณาเลือก==" });
                 selects = new();
                 foreach (var item in companyActions)
                 {
                     selects.Add(new SelectListItem
                     {
                         Text = $"{item.CompanyActionCodeId}:{item.CompanyActionCodeName}",
-                        Value = item.CompanyActionCodeId.ToString(),
+                        Value = item.CompanyActionId.ToString(),
                     });
                 }
                 ViewBag.CompanyActionCodes = selects;
-
-                var companyResults = await _companyResultCodeRepository.GetAll();
-                companyResults.Insert(0, new CompanyResultCode { CompanyResultCodeId = "",CompanyResultCodeName= "==กรุณาเลือก==" });
-                selects = new();
-                foreach (var item in companyResults)
+                selects = new()
                 {
-                    selects.Add(new SelectListItem
-                    {
-                        Text = $"{item.CompanyResultCodeId}:{item.CompanyResultCodeName}",
-                        Value = item.CompanyResultCodeId.ToString(),
-                    });
-                }
+                    new SelectListItem { Value = "0", Text = "==กรุณาเลือก==" }
+                };
+                ViewBag.BankPersonCodes = selects;
+                ViewBag.BankResultCodes = selects;
                 ViewBag.CompanyResultCodes = selects;
+
+                //var companyResults = await _companyResultCodeRepository.GetAll();
+                //companyResults.Insert(0, new CompanyResultCode { CompanyResultCodeId = "",CompanyResultCodeName= "==กรุณาเลือก==" });
+                //selects = new();
+                //foreach (var item in companyResults)
+                //{
+                //    selects.Add(new SelectListItem
+                //    {
+                //        Text = $"{item.CompanyResultCodeId}:{item.CompanyResultCodeName}",
+                //        Value = item.CompanyResultCodeId.ToString(),
+                //    });
+                //}
+                //ViewBag.CompanyResultCodes = selects;
             }
             catch (Exception)
             {
@@ -297,118 +300,38 @@ namespace CourtJustice.Web.Controllers
                 }
                 ViewBag.BankResultCodes = selects;
 
-                //var bankResults = await _bankResultCodeRepository.GetByEmployer(loaneeRemark.EmployerCode);
-                //selects = new();
-                //foreach (var item in bankResults)
-                //{
-                //    selects.Add(new SelectListItem
-                //    {
-                //        Selected = item.BankResultId == loaneeRemark.BankResultId ? true : false,
-                //        Text = $"{item.BankResultCodeId}:{item.BankResultCodeName}",
-                //        Value = item.BankResultId.ToString(),
-                //    });
-                //}
-                //ViewBag.BankResultCodes = selects;
-
-                //var bankPersonCodes = await _bankPersonCodeRepository.GetAll( loaneeRemark.BankActionId);
-                //selects = new();
-                //foreach (var item in bankPersonCodes)
-                //{
-                //    selects.Add(new SelectListItem
-                //    {
-                //        Selected = item.BankPersonId == loaneeRemark.BankPersonId,
-                //        Text = $"{item.BankPersonCodeId}:{item.BankPersonCodeName}",
-                //        Value = item.BankPersonId.ToString(),
-                //    });
-                //}
-                //ViewBag.BankPersonCodes = selects;
-
-                //if (loaneeRemark.BankActionId > 0)
-                //{
-                //    var bankPersonCodes = await _bankPersonCodeRepository.GetByBankActionId(loaneeRemark.BankActionId);
-                //    selects = new();
-                //    foreach (var item in bankPersonCodes)
-                //    {
-                //        selects.Add(new SelectListItem
-                //        {
-                //            Selected = item.BankPersonId == loaneeRemark.BankPersonId,
-                //            Text = $"{item.BankPersonCodeId}:{item.BankPersonCodeName}",
-                //            Value = item.BankPersonId.ToString(),
-                //        });
-                //    }
-                //    ViewBag.BankPersonCodes = selects;
-                //}
-                //else
-                //{
-                //    if (backActions.Count > 0)
-                //    {
-                //        var bankActionId = backActions.FirstOrDefault().BankActionId;
-                //        var bankPersonCodes = await _bankPersonCodeRepository.GetByBankActionId( bankActionId);
-                //        selects = new();
-                //        foreach (var item in bankPersonCodes)
-                //        {
-                //            selects.Add(new SelectListItem
-                //            {
-                //                Selected = item.BankPersonId == loaneeRemark.BankPersonId,
-                //                Text = $"{item.BankPersonCodeId}:{item.BankPersonCodeName}",
-                //                Value = item.BankPersonId.ToString(),
-                //            });
-                //        }
-                //        ViewBag.BankPersonCodes = selects;
-                //    }
-                //    else
-                //    {
-                //        selects = new();
-                //        ViewBag.BankPersonCodes = selects;
-                //    }
-                //}
-
-
                 var companyActions = await _companyActionCodeRepository.GetAll();
+                companyActions.Insert(0, new CompanyActionCodeViewModel { CompanyActionId = 0, CompanyActionCodeName = "==กรุณาเลือก==" });
                 selects = new();
                 foreach (var item in companyActions)
                 {
                     selects.Add(new SelectListItem
                     {
-                        Selected = item.CompanyActionCodeId == loaneeRemark.CompanyActionCodeId ? true : false,
+                        Selected = item.CompanyActionId == loaneeRemark.CompanyActionId,
                         Text = $"{item.CompanyActionCodeId}:{item.CompanyActionCodeName}",
-                        Value = item.CompanyActionCodeId.ToString(),
+                        Value = item.CompanyActionId.ToString(),
                     });
                 }
                 ViewBag.CompanyActionCodes = selects;
 
-                var companyResults = await _companyResultCodeRepository.GetAll();
+                var companyResults = await _companyResultCodeRepository.GetByCompanyActionId(loaneeRemark.CompanyActionId);
+                companyResults.Insert(0, new CompanyResultCodeViewModel { CompanyResultId = 0, CompanyResultCodeName = "==กรุณาเลือก==" });
                 selects = new();
                 foreach (var item in companyResults)
                 {
                     selects.Add(new SelectListItem
                     {
-                        Selected = item.CompanyResultCodeId == loaneeRemark.CompanyResultCodeId ? true : false,
+                        Selected = item.CompanyResultId == loaneeRemark.CompanyResultId,
                         Text = $"{item.CompanyResultCodeId}:{item.CompanyResultCodeName}",
-                        Value = item.CompanyResultCodeId.ToString(),
+                        Value = item.CompanyResultId.ToString(),
                     });
                 }
                 ViewBag.CompanyResultCodes = selects;
             }
             catch (Exception)
             {
-
                 throw;
             }
-
-
-
-            //var employees = await _employeeRepository.GetAll();
-            //selects = new();
-            //foreach (var item in employees)
-            //{
-            //    selects.Add(new SelectListItem
-            //    {
-            //        Text = $"{item.EmployeeName}",
-            //        Value = item.EmployeeCode.ToString(),
-            //    });
-            //}
-            //ViewBag.Employees = selects;
         }
 
         [HttpGet]
@@ -522,22 +445,23 @@ namespace CourtJustice.Web.Controllers
                    
                     }
 
-                    foreach (var item in gCompanyActions)
-                    {
-                        var companyAction = await _companyActionCodeRepository.GetByKey(item);
-                        if (companyAction == null)
-                        {
-                            message += $"ไม่พบข้อมูล Action Code[บริษัท] {item}{Environment.NewLine}";
-                        }
-                    }
-                    foreach (var item in gCompanyResults)
-                    {
-                        var companyResult = await _companyResultCodeRepository.GetByKey(item);
-                        if (companyResult == null)
-                        {
-                            message += $"ไม่พบข้อมูล Result Code[บริษัท] {item}{Environment.NewLine}";
-                        }
-                    }
+                    //foreach (var item in gCompanyActions)
+                    //{
+                    //    var companyAction = await _companyActionCodeRepository.GetByKey(item);
+                    //    if (companyAction == null)
+                    //    {
+                    //        message += $"ไม่พบข้อมูล Action Code[บริษัท] {item}{Environment.NewLine}";
+                    //    }
+                    //}
+                    //foreach (var item in gCompanyResults)
+                    //{
+                    //    var companyResult = await _companyResultCodeRepository.GetByKey(item);
+                    //    if (companyResult == null)
+                    //    {
+                    //        message += $"ไม่พบข้อมูล Result Code[บริษัท] {item}{Environment.NewLine}";
+                    //    }
+                    //}
+
                     if (!string.IsNullOrEmpty(message))
                     {
                         return Json(new { isvalid = false, message });

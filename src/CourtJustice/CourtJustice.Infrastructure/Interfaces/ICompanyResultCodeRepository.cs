@@ -1,13 +1,18 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
+
 namespace CourtJustice.Infrastructure.Interfaces
 {
     public interface ICompanyResultCodeRepository
     {
-        Task<List<CompanyResultCode>> GetAll();
+        Task<List<CompanyResultCodeViewModel>> GetAll();
+        Task<List<CompanyResultCodeViewModel>> GetByCompanyActionId(int companyActionId);
         Task Create(CompanyResultCode model);
-        Task Update(string id, CompanyResultCode model);
-        Task Delete(string id);
-        Task<CompanyResultCode> GetByKey(string id);
+        Task Update(int id, CompanyResultCode model);
+        Task Delete(int id);
+        Task<CompanyResultCodeViewModel> GetByKey(int id);
+        bool IsExisting(int companyActionId, string companyResultCodeId);
+        bool IsHaveActionCode(int id);
     }
 }
 

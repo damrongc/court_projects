@@ -1,26 +1,26 @@
 ﻿using CourtJustice.Domain.Models;
+using CourtJustice.Domain.ViewModels;
 using CourtJustice.Infrastructure.Helpers;
 using CourtJustice.Infrastructure.Interfaces;
-using CourtJustice.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace CourtJustice.Web.Controllers
 {
-
     public class CompanyActionCodesController : BaseController<CompanyActionCodesController>
     {
         private readonly ICompanyActionCodeRepository _companyActionCodeRepository;
+        private readonly ICompanyResultCodeRepository _companyResultCodeRepository;
         private readonly ICompanyRepository _companyRepository;
 
 
-        public CompanyActionCodesController(ICompanyActionCodeRepository companyActionCodeRepository, 
-            ICompanyRepository companyRepository)
+        public CompanyActionCodesController(ICompanyActionCodeRepository companyActionCodeRepository,
+            ICompanyRepository companyRepository,
+            ICompanyResultCodeRepository companyResultCodeRepository)
         {
             _companyRepository = companyRepository;
             _companyActionCodeRepository = companyActionCodeRepository;
+            _companyResultCodeRepository = companyResultCodeRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -28,12 +28,24 @@ namespace CourtJustice.Web.Controllers
             return View(await GetAll());
         }
 
-
-
-        private async Task<List<CompanyActionCode>> GetAll()
+        [HttpGet]
+        public async Task<JsonResult> GetAllCompanyAction()
         {
-            var results = await _companyActionCodeRepository.GetAll();
-            return results.ToList();
+            var results = await GetAll();
+            var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
+            return new JsonResult(new { isValid = true ,html});
+        }
+
+        private async Task<List<CompanyActionCodeViewModel>> GetAll()
+        {
+            var companyActionCodes = await _companyActionCodeRepository.GetAll();
+
+            foreach (var companyAction in companyActionCodes)
+            {
+                var companyResultCodes = await _companyResultCodeRepository.GetByCompanyActionId(companyAction.CompanyActionId);
+                companyAction.CompanyResultCodes = companyResultCodes;
+            }
+            return companyActionCodes.ToList();
         }
 
         public async Task<IActionResult> Create()
@@ -77,7 +89,7 @@ namespace CourtJustice.Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int id)
         {
             var model = await _companyActionCodeRepository.GetByKey(id);
 
@@ -99,7 +111,7 @@ namespace CourtJustice.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, CompanyActionCode model)
+        public async Task<IActionResult> Edit(int id, CompanyActionCode model)
         {
             var oldEntity = await _companyActionCodeRepository.GetByKey(id);
 
@@ -131,14 +143,17 @@ namespace CourtJustice.Web.Controllers
         }
 
         [HttpDelete, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
             {
-
+                var isHaveActionCode = _companyResultCodeRepository.IsHaveActionCode(id);
+                if (isHaveActionCode)
+                {
+                    throw new Exception("ไม่สามารถลบข้อมูลได้ เนื่องจากมี Result Code!");
+                }
 
                 await _companyActionCodeRepository.Delete(id);
-                //_notify.Success($"Delete is Success.");
                 var results = await GetAll();
                 var html = RenderRazorViewHelper.RenderRazorViewToString(this, "_ViewTable", results);
                 return new JsonResult(new { isValid = true, message = "", html });

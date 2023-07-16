@@ -40,8 +40,11 @@ and employer_code=@employer_code";
         public async Task Delete(int id)
         {
             var model = await Context.BankResultCodes.FindAsync(id);
-            Context.BankResultCodes.Remove(model);
-            await Context.SaveChangesAsync();
+            if(model is not null)
+            {
+                Context.BankResultCodes.Remove(model);
+                await Context.SaveChangesAsync();
+            }
         }
 
         public async Task DeleteByBankPersonId(int bankPersonId)

@@ -3,17 +3,23 @@
 
 @{
     Layout = null;
-    var url = Url.Action("EditCompanyResultCode", "CompanyResultCodes");
+    string? url = Url.Action("AddOrEdit", "CompanyResultCodes");
+    string companyActionName = $"{Model.CompanyActionCodeId}:{Model.CompanyActionCodeName}";
 }
 <div class="row">
     <div class="col-md-12">
         <input asp-for="CompanyActionId" class="form-control" type="hidden" id="txtCompanyActionId" />
         <input asp-for="CompanyResultId" class="form-control" type="hidden" id="txtCompanyResultId" />
-
+@*        <div class="row">
+            <div class="form-group col-md-12">
+                <label asp-for="CompanyActionCodeId" class="control-label"></label>
+                <input asp-for="CompanyActionCodeId" class="form-control" readonly />
+            </div>
+        </div>*@
         <div class="row">
             <div class="form-group col-md-12">
                 <label asp-for="CompanyActionCodeName" class="control-label"></label>
-                <input asp-for="CompanyActionCodeName" class="form-control" readonly />
+                <input asp-for="CompanyActionCodeName" class="form-control" readonly value="@companyActionName" />
             </div>
         </div>
         <div class="row">
@@ -31,9 +37,16 @@
         </div>
 
 
-        <div class="d-flex flex-wrap justify-content-end mt-2">
-            <input type="button" value="Save" class="btn btn-primary" onclick="saveCompanyResultCode('@url')" />
+        <div class="d-flex flex-wrap justify-content-between mt-2">
+            @if (Model.CompanyResultId > 0)
+            {
+                <input type="button" value="Delete" class="btn btn-danger" onclick="deleteCompanyResultCode()" />
+            }
+            
+            <input type="button" value="Save" class="btn btn-primary" onclick="saveCompanyResultCode();" />
         </div>
 
     </div>
 </div>
+@Html.Hidden("hdAddOrEditRoute", Url.Action("AddOrEdit", "CompanyResultCodes"))
+@Html.Hidden("hdDeleteCompanyResultCodeRoute", Url.Action("Delete", "CompanyResultCodes"))

@@ -17,7 +17,7 @@ Highcharts.setOptions({
 
 $(function () {
     getRemianTask();
-    getEmployeeTodo();
+    getLoaneeRemark();
     getLoaneeSummary();
     getPaymentSummary();
 });
@@ -82,9 +82,9 @@ async function getRemianTask() {
 }
 
 
-async function getEmployeeTodo() {
+async function getLoaneeRemark() {
 
-    var url = $("#hdGetEmployeeTodoPaging").val();
+    var url = $("#hdGetLoaneeReamrkPaging").val();
     tbl_todo = $('#tbl_todo').DataTable({
         "destroy": true,
         "processing": false,
@@ -110,14 +110,14 @@ async function getEmployeeTodo() {
             searchPlaceholder: "ค้นหา..."
         },
         "columns": [
-
+            { data: "collector", name: "collector", class: "text-nowrap", },
             {
                 data: "appointmentDate", name: "appointmentDate", class: "text-nowrap", render: function (data, type, row) {
                     return formatDate(data);
                 }
             },
             { data: "remark", name: "remark", class: "text-nowrap", },
-            { data: "name", name: "name", class: "text-nowrap", },
+            { data: "cusName", name: "cusName", class: "text-nowrap", },
             { data: "contractNo", name: "contractNo", class: "text-nowrap", },
             { data: "followContractNo", name: "followContractNo", class: "text-nowrap", },
             {
